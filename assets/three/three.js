@@ -8,7 +8,7 @@ let isStarted = false;
 
 // --- 1. 初期設定 ---
 
-function initThree() {
+window.initThree = function() {
   scene = new THREE.Scene();
   // 霧（Fog）を追加して奥行きと雰囲気を出す
   scene.fog = new THREE.Fog(0x000000, 100, 1000);
@@ -36,7 +36,7 @@ function initThree() {
 }
 
 // --- 2. モデル読み込みと色味補正 ---
-function loadCourtroom() {
+window.loadCourtroom = function() {
   const loader = new MMDLoader();
   const pmxPath = 'assets/three/trialPlace/trial.pmx'; // あなたのファイル名
   loader.load(pmxPath, (mesh) => {
@@ -74,7 +74,7 @@ function loadCourtroom() {
 }
 
 // --- 3. ループ ---
-function animate() {
+window.animate = function() {
   requestAnimationFrame(animate);
   controls.update(); // Dampingを有効にするため
   renderer.render(scene, camera);
@@ -93,7 +93,7 @@ window.addEventListener('resize', () => {
 
 */
 
-function spawnStandIn(imagePath, position = { x: 0, y: 22, z: 45 }, rotationY = 0) {
+window.spawnStandIn = function(imagePath, position = { x: 0, y: 22, z: 45 }, rotationY = 0) {
     const loader = new THREE.TextureLoader();
     
     loader.load(imagePath, (texture) => {

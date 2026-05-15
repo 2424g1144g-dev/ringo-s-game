@@ -60,7 +60,7 @@ function executeFirstMenu() {
       initThree();
       loadCourtroom();
       animate();
-    },3000)
+    },4000)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
     document.getElementById("descScreen").style.opacity = 1;
