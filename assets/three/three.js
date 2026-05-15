@@ -80,15 +80,6 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !isStarted) {
-  isStarted = true;
-  initThree();
-  loadCourtroom();
-  animate();
-}
-});
-
 window.addEventListener('resize', () => {
   if (!renderer) return;
   camera.aspect = window.innerWidth / window.innerHeight;
