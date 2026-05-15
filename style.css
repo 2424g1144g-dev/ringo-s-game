@@ -1,0 +1,174 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  touch-action: none;
+  color: white;
+}
+/*フォント---------------------------------------------------*/
+@font-face {
+  font-family: "makinasFont";
+  src: url("assets/fonts/makinasSquare.otf") format("truetype");
+}
+@font-face {
+  font-family: "mouhitsu";
+  src: url("assets/fonts/mouhitsu.ttf") format("truetype");
+}
+
+/*最初の画面-------------------------------------------------*/
+#firstScreen {
+  pointer-events: none;
+  transition: opacity 0.5s linear;
+}
+#firstText {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max-content;
+  height: max-content;
+  padding: 10px;
+  font-family: makinasFont;
+  font-size: 60px;
+  transform-origin: center;
+  transform: translate(25%, 50%);
+  border: 5px solid white;
+}
+#firstSelectingContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(1.3);
+  transform: translate(200%, 350%);
+}
+.choice-item {
+  font-family: makinasFont;
+  font-size: 24px;
+  padding: 5px 20px;
+  margin: 10px 0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.choice-item.active {
+  background: rgba(255, 69, 0, 1);
+  color: white;
+  transform: translateX(-10px);
+  animation: opa 1s infinite;
+}
+@keyframes opa {
+  0% {background: rgba(255, 69, 0, 1); }
+  50% { background: rgba(255, 69, 0, 0.5);}
+  100% {background: rgba(255, 69, 0, 1);}
+}
+
+#descScreen {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+#descText {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  font-family: makinasFont;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: left;
+}
+#descBG {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.5;
+  transition: opacity 1s linear;
+  margin: 0;
+  padding: 0;
+}
+#descBGText {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: max-content;
+  height: max-content;
+  padding: 10px;
+  font-family: makinasFont;
+  font-size: 60px;
+}
+
+
+#trialStart {
+  pointer-events: none;
+  transition: opacity 0.5s linear
+}
+#classTrial {
+  position: absolute; /* 画面中央などに固定するため */
+  top: 50%;
+  left: 45%;
+  width: max-content;
+  transform: translate(-50%, -50%);
+  font-family: "mouhitsu";
+  font-size: 450px;
+  z-index: 10000;
+  color: rgb(189, 52, 52);
+  letter-spacing: -150px;
+  pointer-events: none; /* クリックをすり抜けさせる */
+}
+#classTrial span {
+  display: inline-block;
+  opacity: 0;
+  position: relative;
+}
+/* ★親要素に .active がついたらアニメーション開始 */
+#classTrial.active span {
+  animation: souldShake 0.3s ease-out forwards;
+}
+/* 遅延設定（ここは変更なし） */
+#classTrial span:nth-child(1) { animation-delay: 0.2s; top: -10px;}
+#classTrial span:nth-child(2) { animation-delay: 0.4s; top: 50px;}
+#classTrial span:nth-child(3) { animation-delay: 0.6s; top: 20px;}
+#classTrial span:nth-child(4) { animation-delay: 0.8s; top: -10px;}
+@keyframes souldShake {
+  0% { opacity: 0; transform: scale(2); } /* 少し大きく出現させると迫力が出ます */
+  1% { opacity: 1; }
+  20% { transform: translate(-5px, 3px) rotate(-5deg); }
+  40% { transform: translate(5px, -3px) rotate(5deg); }
+  60% { transform: translate(-3px, -2px) rotate(-3deg); }
+  80% { transform: translate(3px, 2px) rotate(3deg); }
+  100% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+}
+#start {
+  position: absolute;
+  left: 12.5%;
+  top: 25%;
+  width: max-content;
+  height: max-content;
+  letter-spacing: -50px;
+  border-radius: 10px;
+  font-family: mouhitsu;
+  font-size: 370px;
+  color: rgb(255,255,255);
+  z-index: 12000;
+  opacity: 0;
+  transform: rotate(40deg);
+}
+@keyframes starting {
+  0% {opacity: 0; transform: scale(3.0) rotate(360deg);}
+  1% {opacity: 1; transform: scale(3.0) rotate(360deg);}
+  20% {opacity: 1; transform: scale(2.6) rotate(296deg);}
+  40% {opacity: 1; transform: scale(2.2) rotate(232deg);}
+  60% {opacity: 1; transform: scale(1.8) rotate(168deg);}
+  80% {opacity: 1; transform: scale(1.4) rotate(104deg);}
+  100% {opacity: 1; transform: scale(1.0)rotate(40deg);}
+}
+.starting {
+  animation: starting 0.4s linear forwards;
+}
