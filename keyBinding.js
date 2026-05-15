@@ -56,6 +56,11 @@ function executeFirstMenu() {
     setTimeout(() => {
       document.getElementById("trialStart").style.opacity = 0;
     },2700)
+    setTimeout(() => {
+      initThree();
+      loadCourtroom();
+      animate();
+    },3000)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
     document.getElementById("descScreen").style.opacity = 1;
