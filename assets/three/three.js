@@ -64,11 +64,7 @@ function loadCourtroom() {
     }
   });
   scene.add(mmdMesh);
-  spawnStandIn(); // ここで呼び出す！
-  // 演出：オーバーレイを消す
-  const overlay = document.getElementById('overlay');
-  overlay.style.opacity = '0';
-  setTimeout(() => overlay.style.display = 'none', 1000);
+  spawnStandIn("assets/three/characters/SHIGE/shige_Normal.png"); // ここで呼び出す！
   }, (xhr) => {
     const percent = Math.round(xhr.loaded / xhr.total * 100);
     console.log(`Loading: ${percent}%`);
