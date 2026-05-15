@@ -38,7 +38,7 @@ function initThree() {
 // --- 2. モデル読み込みと色味補正 ---
 function loadCourtroom() {
   const loader = new MMDLoader();
-  const pmxPath = 'thr/circleTrial/trial.pmx'; // あなたのファイル名
+  const pmxPath = 'assets/three/trialPlace/trial.pmx'; // あなたのファイル名
   loader.load(pmxPath, (mesh) => {
     mmdMesh = mesh;
     mesh.traverse((child) => {
