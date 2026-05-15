@@ -1,6 +1,6 @@
 
 import * as THREE from 'three';
-import { MMDLoader } from "three/addon/loaders/MMDLoader.js";
+import { MMDLoader } from "three/addons/loaders/MMDLoader.js";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 let scene, camera, renderer, controls, mmdMesh;
