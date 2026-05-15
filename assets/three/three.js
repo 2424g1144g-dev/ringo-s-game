@@ -64,7 +64,7 @@ function loadCourtroom() {
     }
   });
   scene.add(mmdMesh);
-  spawnStandIn("assets/three/characters/SHIGE/shige_Normal.png"); // ここで呼び出す！
+  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png"); // ここで呼び出す！
   }, (xhr) => {
     const percent = Math.round(xhr.loaded / xhr.total * 100);
     console.log(`Loading: ${percent}%`);
