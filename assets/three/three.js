@@ -1,5 +1,5 @@
 
-import * as THREE from "three";
+import * as THREE from 'three';
 import { MMDLoader } from "three/addon/loaders/MMDLoader.js";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
