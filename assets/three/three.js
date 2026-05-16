@@ -73,7 +73,7 @@ window.loadCourtroom = function() {
   const blackScreen = document.getElementById("blackScreen");
   if (blackScreen) {
     void blackScreen.offsetWidth; // 念のためブラウザに強制描画させる
-    blackScreen.style.opacity = 0; // じわーっと消す
+    blackScreen.style.opacity = 1; // じわーっと消す
     // 完全に消え去った後（2秒後）に、クリックの邪魔にならないよう display: none にする
     setTimeout(() => {
       blackScreen.style.display = "none";
