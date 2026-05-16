@@ -21,7 +21,12 @@ window.initThree = function() {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   // バッテリー対策：解像度を制限
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  document.body.appendChild(renderer.domElement);
+  const canvas = renderer.domElement;
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.zIndex = "1";
+  document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
   scene.add(ambientLight);
