@@ -61,7 +61,7 @@ function executeFirstMenu() {
       document.getElementById("trialStart").style.opacity = 0;
     },2700)
     setTimeout(() => {
-      document.getElementById("blackScreen").style.opaccity = 0;
+      document.getElementById("blackScreen").style.opacity = 0;
     }, 3500)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
