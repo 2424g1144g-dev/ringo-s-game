@@ -104,7 +104,17 @@ body {
   font-size: 60px;
 }
 
-
+/*職員会議開始画面--------------------------*/
+#blackScreen {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  transition: opacity 2s ease-out;
+  opacity: 1;
+  display: none;
+}
 #trialStart {
   pointer-events: none;
   transition: opacity 0.5s linear

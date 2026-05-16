@@ -41,6 +41,7 @@ function executeFirstMenu() {
     console.log("職員会議開幕");
     document.getElementById("firstScreen").style.display = "none";
     document.getElementById("descScreen").style.display = "none";
+    document.ATTRIBUTE_NODE("blackScreen").style.dispplay = "block";
     firstStopping = true;
     const trialEl = document.getElementById("classTrial");
     const startEl = document.getElementById("start");
@@ -54,13 +55,14 @@ function executeFirstMenu() {
       startEl.classList.add("starting");
     }, 1200)
     setTimeout(() => {
-      document.getElementById("trialStart").style.opacity = 0;
-    },2700)
-    setTimeout(() => {
       initThree();
       loadCourtroom();
       animate();
-    },4000)
+      document.getElementById("trialStart").style.opacity = 0;
+    },2700)
+    setTimeout(() => {
+      document.getElementById("blackScreen").style.opaccity = 0;
+    }, 3500)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
     document.getElementById("descScreen").style.opacity = 1;
