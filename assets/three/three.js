@@ -74,7 +74,9 @@ window.loadCourtroom = function() {
   if (blackScreen) {
     void blackScreen.offsetWidth; // 念のためブラウザに強制描画させる
     blackScreen.style.opacity = 0; // じわーっと消す
-    // 完全に消え去った後（2秒後）に、クリックの邪魔にならないよう display: none にする
+    setTimeout(() => {
+      blackScreen.style.display = "none";
+    }, 2000)
   }
   }, (xhr) => {
     const percent = Math.round(xhr.loaded / xhr.total * 100);

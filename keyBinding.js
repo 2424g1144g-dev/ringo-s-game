@@ -42,6 +42,7 @@ function executeFirstMenu() {
     document.getElementById("firstScreen").style.display = "none";
     document.getElementById("descScreen").style.display = "none";
     document.getElementById("blackScreen").style.display = "block";
+    document.getElementById("blackScreen").style.opacity = 1;
     firstStopping = true;
     const trialEl = document.getElementById("classTrial");
     const startEl = document.getElementById("start");
