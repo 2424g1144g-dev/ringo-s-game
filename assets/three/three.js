@@ -71,7 +71,7 @@ window.loadCourtroom = function() {
     }
   });
   scene.add(mmdMesh);
-  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png"); // ここで呼び出す！
+  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png",); // ここで呼び出す！
   const canvas = renderer.domElement;
   void canvas.offsetWidth;
   canvas.style.opacity = "1";
@@ -111,7 +111,7 @@ window.addEventListener('resize', () => {
 
 */
 
-window.spawnStandIn = function(imagePath, position = { x: 0, y: 22, z: 45 }, rotationY = 0) {
+window.spawnStandIn = function(imagePath, position = { x: 0, y: 12, z: 45 }, rotationY = 0) {
     const loader = new THREE.TextureLoader();
     
     loader.load(imagePath, (texture) => {
