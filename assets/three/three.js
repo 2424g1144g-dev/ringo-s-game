@@ -26,6 +26,8 @@ window.initThree = function() {
   canvas.style.top = "0";
   canvas.style.left = "0";
   canvas.style.zIndex = "1";
+  canvas.style.opacity = "0";
+  canvas.style.transition = "opacity 2s ease-out";
   document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -70,6 +72,8 @@ window.loadCourtroom = function() {
   });
   scene.add(mmdMesh);
   spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png"); // ここで呼び出す！
+  void canvas.offsetWidth;
+  canvas.style.opacity = "1";
   const blackScreen = document.getElementById("blackScreen");
   if (blackScreen) {
     void blackScreen.offsetWidth; // 念のためブラウザに強制描画させる
