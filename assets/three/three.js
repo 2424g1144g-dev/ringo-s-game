@@ -111,7 +111,7 @@ window.addEventListener('resize', () => {
 
 */
 
-window.spawnStandIn = function(imagePath, position = { x: 0, y: 0, z: 45 }, rotationY = 0) {
+window.spawnStandIn = function(imagePath, position = { x: 0, y: 12, z: 45 }, rotationY = 0, scale = {x: 1, y: 1, z: 1}) {
     const loader = new THREE.TextureLoader();
     
     loader.load(imagePath, (texture) => {
@@ -130,7 +130,7 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 0, z: 45 }, rota
         // --- 位置と角度を設定 ---
         standIn.position.set(position.x, position.y, position.z);
         standIn.rotation.y = rotationY; // ここで角度を適用！
-
+        standIn.scale.set(scale.x, scale.y, scale.z)
         // 背面（裏側）
         const backMaterial = new THREE.MeshBasicMaterial({ 
             map: texture,
