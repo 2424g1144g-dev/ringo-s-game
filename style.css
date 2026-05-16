@@ -182,3 +182,12 @@ body {
 .starting {
   animation: starting 0.4s linear forwards;
 }
+#otamesi {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30vw;
+  height: 30vh;
+  background-color: white;
+  z-index: 999999; 
+}
