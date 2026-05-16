@@ -60,9 +60,6 @@ function executeFirstMenu() {
       animate();
       document.getElementById("trialStart").style.opacity = 0;
     },2700)
-    setTimeout(() => {
-      document.getElementById("blackScreen").style.opacity = 0;
-    }, 4000)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
     document.getElementById("descScreen").style.opacity = 1;
