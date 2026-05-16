@@ -41,7 +41,7 @@ function executeFirstMenu() {
     console.log("職員会議開幕");
     document.getElementById("firstScreen").style.display = "none";
     document.getElementById("descScreen").style.display = "none";
-    document.ATTRIBUTE_NODE("blackScreen").style.dispplay = "block";
+    document.getElementById("blackScreen").style.dispplay = "block";
     firstStopping = true;
     const trialEl = document.getElementById("classTrial");
     const startEl = document.getElementById("start");
