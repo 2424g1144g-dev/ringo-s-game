@@ -111,7 +111,7 @@ window.addEventListener('resize', () => {
 
 */
 
-window.spawnStandIn = function(imagePath, position = { x: 0, y: 12, z: 45 }, rotationY = 0, scale = {x: 1, y: 1, z: 1}) {
+window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rotationY = 0, scale = {x: 1, y: 1, z: 1}) {
     const loader = new THREE.TextureLoader();
     
     loader.load(imagePath, (texture) => {
