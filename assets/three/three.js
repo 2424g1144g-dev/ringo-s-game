@@ -71,7 +71,7 @@ window.loadCourtroom = function() {
     }
   });
   scene.add(mmdMesh);
-  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png",{x: 0, y: 16, z: 27}, 180, {x: 0.9, y: 0.9, z: 0.9}); // ここで呼び出す！
+  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png",{x: 0, y: 16, z: 27}, 180, {x: 0.8, y: 0.8, z: 0.8}); // ここで呼び出す！
   const canvas = renderer.domElement;
   void canvas.offsetWidth;
   canvas.style.opacity = "1";
