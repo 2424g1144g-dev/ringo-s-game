@@ -71,7 +71,7 @@ window.loadCourtroom = function() {
     }
   });
   scene.add(mmdMesh);
-  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png",rotationY = Math.PI/2); // ここで呼び出す！
+  spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png",{x: 0, y: 16, z:45}, 45, {x: 1, y: 1, z: 1}); // ここで呼び出す！
   const canvas = renderer.domElement;
   void canvas.offsetWidth;
   canvas.style.opacity = "1";
@@ -129,7 +129,7 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
         
         // --- 位置と角度を設定 ---
         standIn.position.set(position.x, position.y, position.z);
-        standIn.rotation.y = rotationY; // ここで角度を適用！
+        standIn.rotation.y = rotationY * (Math.PI / 180);
         standIn.scale.set(scale.x, scale.y, scale.z)
         // 背面（裏側）
         const backMaterial = new THREE.MeshBasicMaterial({ 
