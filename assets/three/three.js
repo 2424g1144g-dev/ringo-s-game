@@ -71,7 +71,7 @@ window.loadCourtroom = function() {
     }
   });
   scene.add(mmdMesh);
-  spawnStandIn("assets/three/characters/KENTO/Kento_Normal.png",{x: -20, y: 17, z: 20}, 135, {x: 1.0, y: 1.0, z: 1.0});
+  spawnStandIn("assets/three/characters/KENTO/Kento_Normal.png",{x: -20, y: 16, z: 18}, 135, {x: 1.0, y: 1.0, z: 1.0});
   spawnStandIn("assets/three/characters/SHIGE/Shige_Normal.png",{x: 0, y: 17, z: 27}, 180, {x: 1.0, y: 1.0, z: 1.0}); // ここで呼び出す！
   const canvas = renderer.domElement;
   void canvas.offsetWidth;
