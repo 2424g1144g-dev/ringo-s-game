@@ -180,13 +180,13 @@ let cameraAnimation = {
 window.cameraMove = function(
   from, 
   { toX, toY, toZ }, 
-  speed, 
+  speed,
+  toFov = 45,
+  fovSpeed = null, 
   yaw = 0, 
   pitch = 0, 
   roll = 0, 
   rotSpeed = 0.05,
-  toFov = 45,
-  fovSpeed = null,
   onComplete = null
 ) {
   // 1. 開始位置（from）が指定されていれば、カメラをそこにワープさせる
@@ -205,8 +205,8 @@ window.cameraMove = function(
   );
   if (fovSpeed === null) {
     camera.fov = toFov;
-    camera.upDateProjectionMatrix();
-    camera.animation.fovSpeed = 1;
+    camera.updateProjectionMatrix();
+    cameraAnimation.fovSpeed = 1;
   } else {
     cameraAnimation.fovSpeed = fovSpeed;
   }
