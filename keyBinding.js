@@ -60,9 +60,9 @@ function executeFirstMenu() {
       loadCourtroom();
       animate();
       document.getElementById("trialStart").style.opacity = 0;
+      cameraMove({x: 0, y: 25, z: -20},{toX: 0, toY: 25, z: -0}, 0.05)
     },2700)
   } else if (firstSelectedIndex === 1) {
-    cameraMove({x: 0, y: 25, z: -20},{toX: 0, toY: 25, z: -0}, 0.05)
     document.getElementById("firstScreen").style.opacity = 0;
     document.getElementById("descScreen").style.opacity = 1;
     firstStopping = true;
