@@ -152,3 +152,92 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
         scene.add(standIn);
     });
 }
+
+
+
+//camera関数
+// --- カメラ移動の状態を管理するオブジェクト ---
+let cameraAnimation = {
+  active: false,
+  toPos: new THREE.Vector3(),
+  speed: 0,
+  toRotation: new THREE.Euler(),
+  rotSpeed: 0,
+  onComplete: null // イベント発火用のコールバック関数
+};
+
+/**
+ * カメラを指定した位置・角度へ移動させる関数
+ * @param {Object} from - 開始位置 {x, y, z} (null の場合は現在位置からスタート)
+ * @param {Object} to - 目標位置 {toX, toY, toZ}
+ * @param {number} speed - 移動速度（毎フレーム近づく割合 0.0〜1.0。基本は 0.05 など）
+ * @param {number} yaw - 左右回転（度数法：deg）
+ * @param {number} pitch - 上下回転（度数法：deg）
+ * @param {number} roll - 画面回転（度数法：deg）
+ * @param {number} rotSpeed - 回転速度（毎フレーム近づく割合 0.0〜1.0）
+ * @param {Function} onComplete - 目標位置に到達したときに発火するイベント（コールバック）
+ */
+window.cameraMove = function(
+  from, 
+  { toX, toY, toZ }, 
+  speed, 
+  yaw = 0, 
+  pitch = 0, 
+  roll = 0, 
+  rotSpeed = 0.05,
+  onComplete = null
+) {
+  // 1. 開始位置（from）が指定されていれば、カメラをそこにワープさせる
+  if (from) {
+    camera.position.set(from.x, from.y, from.z);
+  }
+  // 2. 目標の位置と速度を設定
+  cameraAnimation.toPos.set(toX, toY, toZ);
+  cameraAnimation.speed = speed;
+  // 3. 目標の回転を設定（度数法からラジアンに変換。カメラに適した'YXZ'順）
+  cameraAnimation.toRotation.set(
+    pitch * (Math.PI / 180), // X軸（上下）
+    yaw * (Math.PI / 180),   // Y軸（左右）
+    roll * (Math.PI / 180),  // Z軸（画面回転）
+    'YXZ'
+  );
+  cameraAnimation.rotSpeed = rotSpeed;
+  // 4. 到着時のイベントを登録
+  cameraAnimation.onComplete = onComplete;
+  // 移動中は手動操作（OrbitControls）を無効化して衝突を防ぐ
+  if (controls) controls.enabled = false;
+  // アニメーションフラグをON
+  cameraAnimation.active = true;
+};
+
+// --- 3. ループ（既存の関数を書き換え） ---
+window.animate = function() {
+  requestAnimationFrame(animate);
+  // カメラのアニメーションがアクティブな場合
+  if (cameraAnimation.active) {
+    // ① 位置の補間 (Lerpによる自動ease-out)
+    camera.position.lerp(cameraAnimation.toPos, cameraAnimation.speed);
+    // ② 回転の補間 (Slerpによる滑らかな回転補間)
+    const targetQuaternion = new THREE.Quaternion().setFromEuler(cameraAnimation.toRotation);
+    camera.quaternion.slerp(targetQuaternion, cameraAnimation.rotSpeed);
+    // ③ 到着判定 (目標座標との距離が極めて小さくなったら到着とみなす)
+    const distance = camera.position.distanceTo(cameraAnimation.toPos);
+    if (distance < 0.01) {
+      // 完全に目標値に固定
+      camera.position.copy(cameraAnimation.toPos);
+      camera.quaternion.setFromEuler(cameraAnimation.toRotation);
+      // アニメーションを終了
+      cameraAnimation.active = false;
+      // 💡イベント発火！(設定された関数を実行)
+      if (typeof cameraAnimation.onComplete === 'function') {
+        cameraAnimation.onComplete();
+      }
+    }
+  } else {
+    // アニメーション中でない場合のみ、手動操作のアップデートを行う
+    if (controls && controls.enabled) {
+      controls.update();
+    }
+  }
+  renderer.render(scene, camera);
+}
