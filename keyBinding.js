@@ -60,7 +60,7 @@ function executeFirstMenu() {
       loadCourtroom();
       animate();
       document.getElementById("trialStart").style.opacity = 0;
-      cameraMove({x: 0, y: 21, z: -26},{toX: 0, toY: 21, z: -5}, 0.01)
+      cameraMove({x: 0, y: 21, z: -27},{toX: 0, toY: 21, z: -5}, 0.01)
     },2700)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
