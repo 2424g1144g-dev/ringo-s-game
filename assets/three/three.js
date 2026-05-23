@@ -185,6 +185,8 @@ window.cameraMove = function(
   pitch = 0, 
   roll = 0, 
   rotSpeed = 0.05,
+  toFov = 45,
+  fovSpeed = null,
   onComplete = null
 ) {
   // 1. 開始位置（from）が指定されていれば、カメラをそこにワープさせる
@@ -201,6 +203,16 @@ window.cameraMove = function(
     roll * (Math.PI / 180),  // Z軸（画面回転）
     'YXZ'
   );
+  if (fovSpeed === null) {
+    camera.fov = toFov;
+    camera.upDateProjectionMatrix();
+    camera.animation.fovSpeed = 1;
+  } else {
+    cameraAnimation.fovSpeed = fovSpeed;
+  }
+  cameraAnimation.onComplete = onComplete;
+  if (controls) controls.enabled = false;
+  cameraAnimation.active = true;
   cameraAnimation.rotSpeed = rotSpeed;
   // 4. 到着時のイベントを登録
   cameraAnimation.onComplete = onComplete;
