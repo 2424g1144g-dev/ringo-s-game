@@ -173,13 +173,13 @@ let cameraAnimation = {
 window.cameraMove = function({
   from = null,
   to = {},
-  speed = 0.8,
+  speed = null,
   toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
   fovSpeed = null,
   yaw = 0,
   pitch = 0,
   roll = 0,
-  rotSpeed = 0.05
+  rotSpeed = null,
 } = {}) {
   // async/await で待機できるように Promise を返す
   return new Promise((resolve) => {
