@@ -60,7 +60,8 @@ function executeFirstMenu() {
       loadCourtroom();
       animate();
       document.getElementById("trialStart").style.opacity = 0;
-      cameraMove({x: 0, y: 23, z: -23},{toX: 0, toY: 23, toZ: -5}, 0.2, 45);
+      cameraMove({x: 0, y: 23, z: -23},{toX: 0, toY: 23, toZ: -5}, 0.2, 45, null, 0, 0, 0, 0.05, () => {
+        cameraMove({x: 0, y: 23, z: -18},{toX: 0, toY: 23, toZ: -5}, 0.2, 45, null, 720, -45, 0, 0.02)});
     },2700)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
