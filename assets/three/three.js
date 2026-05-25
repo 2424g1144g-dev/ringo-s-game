@@ -214,6 +214,7 @@ window.cameraMove = function(
   if (controls) controls.enabled = false;
   cameraAnimation.active = true;
   cameraAnimation.rotSpeed = rotSpeed;
+  cameraAnimation.toFov = toFov;
   // 4. 到着時のイベントを登録
   cameraAnimation.onComplete = onComplete;
   // 移動中は手動操作（OrbitControls）を無効化して衝突を防ぐ
