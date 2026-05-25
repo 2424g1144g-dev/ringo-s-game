@@ -61,8 +61,8 @@ function executeFirstMenu() {
       animate();
       document.getElementById("trialStart").style.opacity = 0;
       cameraMove({x: 0, y: 23, z: -23},{toX: 0, toY: 23, toZ: -5}, 0.2, 45, null, 0, 0, 0, 0.05, () => {
-        cameraMove({x: 0, y: 50, z: 0},{toX: 0, toY: 30, toZ: -13}, null, 20, null, 0, -30, 0, null, () => {
-          cameraMove(null, {toX: 0, toY: 50, toZ: 0}, null, 0, null, 720, -30, 0, 0.03)
+        cameraMove({x: 0, y: 50, z: 0},{toX: 0, toY: 30, toZ: -30}, null, 20, null, 0, -30, 0, null, () => {
+          cameraMove(null, {toX: 0, toY: 50, toZ: -30}, null, 0, null, 720, -30, 0, 0.03)
         })});
     },2700)
   } else if (firstSelectedIndex === 1) {
