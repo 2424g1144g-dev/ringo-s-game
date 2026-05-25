@@ -63,7 +63,7 @@ function executeFirstMenu() {
       await cameraMove({
         from: { x: 0, y: 23, z: -23 },
         to: { x: 0, y: 23, z: -5 },
-        speed: 0.2,
+        speed: 0.1,
         toFov: 45,
         rotSpeed: 0.05
       });
