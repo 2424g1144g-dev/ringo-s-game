@@ -61,9 +61,9 @@ function executeFirstMenu() {
       animate();
       document.getElementById("trialStart").style.opacity = 0;
       await cameraMove({from: { x: 0, y: 23, z: -23 }, to: { x: 0, y: 23, z: -5 },
-        toFov: 45, rotSpeed: 0.05});
+        speed: 0.1, toFov: 45, rotSpeed: 0.05});
       await cameraMove({ to: { x: 0, y: 40, z: -30 },
-        yaw: 720, pitch: -30});
+        speed: 999, yaw: 720, pitch: -30, rotSpeed: 0.3});
     },2700)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
