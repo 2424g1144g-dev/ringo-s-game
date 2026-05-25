@@ -63,6 +63,7 @@ function executeFirstMenu() {
       await cameraMove({from: { x: 0, y: 23, z: -23 }, to: { x: 0, y: 23, z: -5 },
         speed: 0.1, toFov: 45, rotSpeed: 0.05});
       await cameraMove({ to: { x: 0, y: 40, z: -30 },
+        toFov: 1, fovSpeed: 9999, speed: 9999, pitch: -30, rotSpeed: 9999,
         speed: 999, yaw: 720, pitch: -30, rotSpeed: 0.3});
     },2700)
   } else if (firstSelectedIndex === 1) {
