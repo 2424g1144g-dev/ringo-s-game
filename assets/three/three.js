@@ -203,6 +203,14 @@ window.cameraMove = function(
     roll * (Math.PI / 180),  // Z軸（画面回転）
     'YXZ'
   );
+  if (rotSpeed === null) {
+    const targetQuaternion = new THREE.Quaternion().setFromEuler(cameraAnimation.toRotation);
+    camera.quaternion.copy(targetQuaternion);
+    cameraAnimation.rotSpeed = 999; // ループを即時通過させるため大きな値を設定
+  } else {
+    cameraAnimation.rotSpeed = rotSpeed;
+  }
+}
   if (fovSpeed === null) {
     camera.fov = toFov;
     camera.updateProjectionMatrix();
