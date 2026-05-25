@@ -156,124 +156,117 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
 
 
 //camera関数
-// --- カメラ移動の状態を管理するオブジェクト ---
 let cameraAnimation = {
   active: false,
   toPos: new THREE.Vector3(),
   speed: 0,
   toRotation: new THREE.Euler(),
   rotSpeed: 0,
-  onComplete: null // イベント発火用のコールバック関数
+  toFov: 45,
+  fovSpeed: 1,
+  onComplete: null 
 };
 
 /**
- * カメラを指定した位置・角度へ移動させる関数
- * @param {Object} from - 開始位置 {x, y, z} (null の場合は現在位置からスタート)
- * @param {Object} to - 目標位置 {toX, toY, toZ}
- * @param {number} speed - 移動速度（毎フレーム近づく割合 0.0〜1.0。基本は 0.05 など）
- * @param {number} yaw - 左右回転（度数法：deg）
- * @param {number} pitch - 上下回転（度数法：deg）
- * @param {number} roll - 画面回転（度数法：deg）
- * @param {number} rotSpeed - 回転速度（毎フレーム近づく割合 0.0〜1.0）
- * @param {Function} onComplete - 目標位置に到達したときに発火するイベント（コールバック）
+ * カメラを指定した位置・角度へ移動させる関数（Promise ＆ オブジェクト引数版）
  */
-window.cameraMove = function(
-  from, 
-  { toX, toY, toZ }, 
-  speed,
-  toFov = 45,
-  fovSpeed = null, 
-  yaw = 0, 
-  pitch = 0, 
-  roll = 0, 
-  rotSpeed = 0.05,
-  onComplete = null
-) {
-  // 1. 開始位置（from）が指定されていれば、カメラをそこにワープさせる
-  if (from) {
-    camera.position.set(from.x, from.y, from.z);
-  }
-  // 2. 目標の位置と速度を設定
-  cameraAnimation.toPos.set(toX, toY, toZ);
-  cameraAnimation.speed = speed;
-  // 3. 目標の回転を設定（度数法からラジアンに変換。カメラに適した'YXZ'順）
-  cameraAnimation.toRotation.set(
-    pitch * (Math.PI / 180), // X軸（上下）
-    yaw * (Math.PI / 180),   // Y軸（左右）
-    roll * (Math.PI / 180),  // Z軸（画面回転）
-    'YXZ'
-  );
-  if (rotSpeed === null) {
-    const targetQuaternion = new THREE.Quaternion().setFromEuler(cameraAnimation.toRotation);
-    camera.quaternion.copy(targetQuaternion);
-    cameraAnimation.rotSpeed = 999; // ループを即時通過させるため大きな値を設定
-  } else {
-    cameraAnimation.rotSpeed = rotSpeed;
-  }
-  if (fovSpeed === null) {
-    camera.fov = toFov;
-    camera.updateProjectionMatrix();
-    cameraAnimation.fovSpeed = 999;
-  } else {
-    cameraAnimation.fovSpeed = fovSpeed;
-  }
-  cameraAnimation.onComplete = onComplete;
-  if (controls) controls.enabled = false;
-  cameraAnimation.active = true;
-  cameraAnimation.rotSpeed = rotSpeed;
-  cameraAnimation.toFov = toFov;
-  // 4. 到着時のイベントを登録
-  cameraAnimation.onComplete = onComplete;
-  // 移動中は手動操作（OrbitControls）を無効化して衝突を防ぐ
-  if (controls) controls.enabled = false;
-  // アニメーションフラグをON
-  cameraAnimation.active = true;
+window.cameraMove = function({
+  from = null,
+  to = {},
+  speed = 0.8,
+  toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
+  fovSpeed = null,
+  yaw = 0,
+  pitch = 0,
+  roll = 0,
+  rotSpeed = 0.05
+} = {}) {
+  // async/await で待機できるように Promise を返す
+  return new Promise((resolve) => {
+    
+    // 1. 開始位置（from）のワープ処理
+    if (from) {
+      camera.position.set(from.x, from.y, from.z);
+    }
+
+    // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
+    const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
+    const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
+    const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
+    cameraAnimation.toPos.set(targetX, targetY, targetZ);
+    
+    // nullが混入したときのセーフティガード
+    cameraAnimation.speed = (speed !== null) ? speed : 0.8;
+
+    // 3. 目標の回転を設定
+    cameraAnimation.toRotation.set(
+      pitch * (Math.PI / 180),
+      yaw * (Math.PI / 180),
+      roll * (Math.PI / 180),
+      'YXZ'
+    );
+    cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
+
+    // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
+    const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
+    cameraAnimation.toFov = targetFov;
+
+    if (fovSpeed === null || fovSpeed === undefined) {
+      camera.fov = targetFov;
+      camera.updateProjectionMatrix();
+      cameraAnimation.fovSpeed = 999; // 一瞬
+    } else {
+      cameraAnimation.fovSpeed = fovSpeed;
+    }
+
+    // 5. 終了時に Promise の完了（resolve）を呼ぶように仕込む
+    cameraAnimation.onComplete = () => {
+      resolve(); 
+    };
+
+    if (controls) controls.enabled = false;
+    cameraAnimation.active = true;
+  });
 };
 
-// --- 3. ループ（パキッと止まる等速アルゴリズムに変更） ---
+// --- ループ関数（判定処理をさらに厳密化） ---
 window.animate = function() {
   requestAnimationFrame(animate);
+
   if (cameraAnimation.active) {
-    // ------------------------------------------------い
-    // ① 位置の等速移動（ターゲットに向かって毎フレーム speed ずつ進む）
-    // ------------------------------------------------
+    // ① 位置の等速移動
     const dir = new THREE.Vector3().subVectors(cameraAnimation.toPos, camera.position);
-    const dist = dir.length(); // 目的地までの残り距離
+    const dist = dir.length();
+
     if (dist <= cameraAnimation.speed) {
-      // 残り距離がスピード以下なら、目的地にピタッと吸着
       camera.position.copy(cameraAnimation.toPos);
     } else {
-      // それ以外は、スピードの分だけ真っ直グ進む
       dir.normalize().multiplyScalar(cameraAnimation.speed);
       camera.position.add(dir);
     }
-    // ------------------------------------------------
-    // ② 回転の等速補間（rotateTowards を使用してカチッと回す）
-    // ------------------------------------------------
+
+    // ② 回転の等速補間
     const targetQuaternion = new THREE.Quaternion().setFromEuler(cameraAnimation.toRotation);
     camera.quaternion.rotateTowards(targetQuaternion, cameraAnimation.rotSpeed);
-    // ------------------------------------------------
+
     // ③ ズーム（FOV）の等速変化
-    // ------------------------------------------------
     const fovDiff = cameraAnimation.toFov - camera.fov;
     if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
       camera.fov = cameraAnimation.toFov;
     } else {
       camera.fov += Math.sign(fovDiff) * cameraAnimation.fovSpeed;
     }
-    camera.updateProjectionMatrix(); // 画面に反映
+    camera.updateProjectionMatrix();
 
-    // ------------------------------------------------
-    // ④ 到着判定（位置・角度・ズームがすべて完全に一致したか）
-    // ------------------------------------------------
+    // ④ 到着判定（完全にピタッと一致したか）
     const isPosEnd = camera.position.equals(cameraAnimation.toPos);
     const isRotEnd = camera.quaternion.equals(targetQuaternion);
-    const isFovEnd = (camera.fov === cameraAnimation.toFov);
+    const isFovEnd = (Math.abs(camera.fov - cameraAnimation.toFov) < 0.01);
+
     if (isPosEnd && isRotEnd && isFovEnd) {
-      cameraAnimation.active = false; // アニメーション終了
-      // イベント発火！
+      cameraAnimation.active = false;
       if (typeof cameraAnimation.onComplete === 'function') {
-        cameraAnimation.onComplete();
+        cameraAnimation.onComplete(); // ここで resolve() が実行され次の await へ進む
       }
     }
   } else {
@@ -282,4 +275,4 @@ window.animate = function() {
     }
   }
   renderer.render(scene, camera);
-}
+};
