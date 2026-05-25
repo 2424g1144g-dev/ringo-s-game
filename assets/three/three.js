@@ -210,7 +210,6 @@ window.cameraMove = function(
   } else {
     cameraAnimation.rotSpeed = rotSpeed;
   }
-}
   if (fovSpeed === null) {
     camera.fov = toFov;
     camera.updateProjectionMatrix();
