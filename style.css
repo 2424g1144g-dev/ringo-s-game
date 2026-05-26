@@ -217,7 +217,7 @@ body {
   background: rgba(158, 151, 148, 1.0);
   z-index: 10100;
   font-family: "solid";
-  font-size: "40px";
+  font-size: 40px;
   border: 2px solid white;
   border-top: none;
   border-left: none;
