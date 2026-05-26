@@ -190,6 +190,7 @@ body {
   display: block;
 }
 #trialUILeftBar {
+  position: absolute;
   left: 0;
   top: 0;
   width: 20vw;
@@ -198,6 +199,16 @@ body {
   z-index: 10000;
   background: rgba(255, 69, 0, 1);
   border: 2px solid white;
-  opacity: 1;
-  
+  opacity: 0;
+  border-top: none;
+  border-left: none;
+}
+#caseUI {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20vw;
+  height: 10vh;
+  pointer-events: none;
+
 }
