@@ -62,8 +62,8 @@ function executeFirstMenu() {
       document.getElementById("trialStart").style.opacity = 0;
       await cameraMove({from: { x: 0, y: 23, z: -23 }, to: { x: 0, y: 23, z: -5 },
         speed: 0.1, toFov: 45, rotSpeed: 0.05});
-      await cameraMove({ to: { x: 0, y: 40, z: -30 },
-        toFov: 80, fovSpeed: 999, speed: 999, pitch: -30, rotSpeed: 999});
+      await cameraMove({ to: { x: 0, y: 30, z: -40 },
+        toFov: 80, fovSpeed: 999, speed: 999, pitch: -15, rotSpeed: 999});
     },2700)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
