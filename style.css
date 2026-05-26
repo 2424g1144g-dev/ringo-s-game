@@ -197,7 +197,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 20vw;
+  width: 17vw;
   height: 60vh;
   pointer-events: none;
   z-index: 10000;
@@ -211,7 +211,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 20vw;
+  width: 17vw;
   height: 7vh;
   pointer-events: none;
   background: rgba(158, 151, 148, 1.0);
