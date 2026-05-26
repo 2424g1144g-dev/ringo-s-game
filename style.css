@@ -217,15 +217,18 @@ body {
   background: rgba(158, 151, 148, 1.0);
   z-index: 10100;
   font-family: "solid";
-  font-size: 40px;
+  font-size: 50px;
   border: 2px solid white;
   border-top: none;
   border-left: none;
   border-right: none;
+  padding-left: 5px;
 }
 #case {
   color: white;
 }
 #caseNumber { 
   color:rgb(189, 52, 52);
+  background-color: black;
+  
 }
