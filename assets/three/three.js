@@ -273,15 +273,22 @@ window.animate = function() {
     }
     camera.updateProjectionMatrix();
 
-    // ④ 到着判定（完全にピタッと一致したか）
+    // ④ 到着判定（★回転の判定もオイラー角の誤差チェックに変更）
     const isPosEnd = camera.position.equals(cameraAnimation.toPos);
-    const isRotEnd = camera.quaternion.equals(targetQuaternion);
+    const isRotEnd = (Math.abs(camera.rotation.x - cameraAnimation.toRotation.x) < 0.01) &&
+                     (Math.abs(camera.rotation.y - cameraAnimation.toRotation.y) < 0.01) &&
+                     (Math.abs(camera.rotation.z - cameraAnimation.toRotation.z) < 0.01);
     const isFovEnd = (Math.abs(camera.fov - cameraAnimation.toFov) < 0.01);
 
     if (isPosEnd && isRotEnd && isFovEnd) {
       cameraAnimation.active = false;
+      // 最後に値を完全に同期
+      camera.position.copy(cameraAnimation.toPos);
+      camera.rotation.copy(cameraAnimation.toRotation);
+      camera.fov = cameraAnimation.toFov;
+      
       if (typeof cameraAnimation.onComplete === 'function') {
-        cameraAnimation.onComplete(); // ここで resolve() が実行され次の await へ進む
+        cameraAnimation.onComplete(); // 次の await へ
       }
     }
   } else {
