@@ -64,7 +64,7 @@ function executeFirstMenu() {
         speed: 0.1, toFov: 45, rotSpeed: 0.05});
       await cameraMove({ to: { x: 0, y: 30, z: 0 },
         toFov: 80, fovSpeed: 999, speed: 999, pitch: -15, rotSpeed: 999});
-      await cameraMove({yaw: 720, pitch: -15, rotSpeed: 0.1})
+      await cameraMove({yaw: 720, pitch: -15, rotSpeed: 0.01})
     },2700)
   } else if (firstSelectedIndex === 1) {
     document.getElementById("firstScreen").style.opacity = 0;
