@@ -182,3 +182,20 @@ body {
 .starting {
   animation: starting 0.4s linear forwards;
 }
+
+
+
+#trialUIContainer {
+  inset: 0;
+  display: block;
+}
+#trialUILeftBar {
+  left: 0;
+  top: 0;
+  width: 20vw;
+  height: 60vh;
+  pointer-events: none;
+  z-index: 10000;
+  background: rgba(255, 69, 0, 1);
+  border: 2px solid white;
+}
