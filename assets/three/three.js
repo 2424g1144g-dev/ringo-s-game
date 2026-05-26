@@ -245,11 +245,26 @@ window.animate = function() {
       camera.position.add(dir);
     }
 
-    // ② 回転の等速補間
-    const targetQuaternion = new THREE.Quaternion().setFromEuler(cameraAnimation.toRotation);
-    camera.quaternion.rotateTowards(targetQuaternion, cameraAnimation.rotSpeed);
+    // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
+    camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
+    
+    const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
+    const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
+    const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
 
-    // ③ ズーム（FOV）の等速変化
+    // X軸（ピッチ）
+    if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
+    else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
+
+    // Y軸（ヨー / 横回転）
+    if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
+    else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
+
+    // Z軸（ロール）
+    if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
+    else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+
+    // ③ ズーム（FOV）の等速変化（ここはそのまま）
     const fovDiff = cameraAnimation.toFov - camera.fov;
     if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
       camera.fov = cameraAnimation.toFov;
