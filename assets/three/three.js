@@ -38,7 +38,6 @@ window.initThree = function() {
   // 操作設定
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true; // 滑らかな動き
-  controls.enabled = true;
   // バッテリー対策：変化がある時だけ描画（アニメーションさせない場合）
   // controls.addEventListener('change', () => renderer.render(scene, camera));
 }
