@@ -17,6 +17,10 @@ body {
   font-family: "mouhitsu";
   src: url("assets/fonts/mouhitsu.ttf") format("truetype");
 }
+@font-face {
+  font-family: "solid";
+  src: url("assets/fonts/solid.otf") format("truetype");
+}
 
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
@@ -208,11 +212,12 @@ body {
   left: 0;
   top: 0;
   width: 20vw;
-  height: 10vh;
+  height: 7vh;
   pointer-events: none;
   background: rgba(158, 151, 148, 1.0);
   z-index: 10100;
-  font-family: "makinasFont";
+  font-family: "solid";
+  font-size: "40px";
   border: 2px solid white;
   border-top: none;
   border-left: none;
@@ -220,7 +225,6 @@ body {
 }
 #case {
   color: white;
-  right: 40px;
 }
 #caseNumber { 
   color:rgb(189, 52, 52);
