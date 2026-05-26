@@ -220,6 +220,7 @@ body {
 }
 #case {
   color: white;
+  right: 40px;
 }
 #caseNumber {
   color:rgb(189, 52, 52);
