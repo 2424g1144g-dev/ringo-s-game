@@ -199,7 +199,7 @@ body {
   z-index: 10000;
   background: rgba(255, 69, 0, 1);
   border: 2px solid white;
-  opacity: 0;
+  opacity: 1;
   border-top: none;
   border-left: none;
 }
@@ -210,5 +210,17 @@ body {
   width: 20vw;
   height: 10vh;
   pointer-events: none;
-
+  background: rgba(158, 151, 148, 1.0);
+  z-index: 10100;
+  font-family: "makinasFont";
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+#case {
+  color: white;
+}
+#caseNumber {
+  color:rgb(189, 52, 52);
 }
