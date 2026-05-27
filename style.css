@@ -209,11 +209,13 @@ body {
   overflow: hidden;
 }
 #leftBarImg {
-  width: 60vw;
-  height: 60vh;
-  position: relative;
-  top: 200px;
-  transform: scale(1.5);
+  width: 100%;
+  height: auto;
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  transform: scale(1.2);
+  transform-origin: bottom center;
 }
 #caseUI {
   position: absolute;
