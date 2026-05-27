@@ -206,8 +206,11 @@ body {
   opacity: 1;
   border-top: none;
   border-left: none;
+  overflow: hidden;
 }
 #leftBarImg {
+  width: 60vw;
+  height: 60vh;
   position: relative;
   top: 200px;
   transform: scale(1.5);
