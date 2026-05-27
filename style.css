@@ -223,26 +223,19 @@ body {
   border-left: none;
   border-right: none;
   padding-left: 5px;
-
-  /* --- ここから追加・変更 --- */
   display: flex;            /* 子要素を横並びにしてコントロールする */
   align-items: center;      /* 上下の中央揃えをベースにする */
   overflow: hidden;         /* 万が一、黒背景がはみ出してもここで強制カット */
 }
-
 #case {
   color: white;
-  /* 文字を少し上に上げたい場合は、margin-topをマイナスに調整します */  
   margin-bottom: 6px;     
 }
-
 #caseNumber { 
   color: rgb(189, 52, 52);
   background-color: black;
-  margin-bottom: 12px;
-  
-  /* --- ここから追加・変更 --- */
-  height: 130%;             /* 親要素（#caseUI）の高さ（7vh）にピッタリ合わせる */
+  margin-bottom: 80px;
+  height: 300%;             /* 親要素（#caseUI）の高さ（7vh）にピッタリ合わせる */
   display: flex;            /* 黒背景の中の文字も上下中央揃えにする */
   align-items: center;      
   padding: 0 40px;          /* 左右に少し余白を作って見栄えを良くする */
