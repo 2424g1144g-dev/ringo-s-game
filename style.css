@@ -232,8 +232,7 @@ body {
 
 #case {
   color: white;
-  /* 文字を少し上に上げたい場合は、margin-topをマイナスに調整します */
-  margin-top: -6px;         
+  /* 文字を少し上に上げたい場合は、margin-topをマイナスに調整します */         
 }
 
 #caseNumber { 
@@ -245,6 +244,5 @@ body {
   display: flex;            /* 黒背景の中の文字も上下中央揃えにする */
   align-items: center;      
   padding: 0 15px;          /* 左右に少し余白を作って見栄えを良くする */
-  margin-left: auto;        /* これを入れると、右端にピッタリ吸い付きます（お好みで） */
-  margin-top: -6px;         /* CASEの文字と高さを合わせるために同じ分だけ上げる */
+  margin-left: auto;        /* これを入れると、右端にピッタリ吸い付きます（お好みで） */         /* CASEの文字と高さを合わせるために同じ分だけ上げる */
 }
