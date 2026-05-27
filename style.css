@@ -234,7 +234,7 @@ body {
 #caseNumber { 
   color: rgb(189, 52, 52);
   background-color: black;
-  clip-path: polygon(0 0 0 30%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
   margin-bottom: 80px;
   height: 300%;             /* 親要素（#caseUI）の高さ（7vh）にピッタリ合わせる */
   display: flex;            /* 黒背景の中の文字も上下中央揃えにする */
