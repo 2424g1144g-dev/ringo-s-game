@@ -207,6 +207,11 @@ body {
   border-top: none;
   border-left: none;
 }
+#leftBarImg {
+  position: relative;
+  top: 200px;
+  transform: scale(1.5);
+}
 #caseUI {
   position: absolute;
   left: 0;
