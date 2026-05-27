@@ -233,16 +233,16 @@ body {
 #case {
   color: white;
   /* 文字を少し上に上げたい場合は、margin-topをマイナスに調整します */  
-  line-height: 0.8;      
+  margin-bottom: 6px;     
 }
 
 #caseNumber { 
   color: rgb(189, 52, 52);
   background-color: black;
-  line-height: 0.8;
+  margin-bottom: 12px;
   
   /* --- ここから追加・変更 --- */
-  height: 100%;             /* 親要素（#caseUI）の高さ（7vh）にピッタリ合わせる */
+  height: 130%;             /* 親要素（#caseUI）の高さ（7vh）にピッタリ合わせる */
   display: flex;            /* 黒背景の中の文字も上下中央揃えにする */
   align-items: center;      
   padding: 0 40px;          /* 左右に少し余白を作って見栄えを良くする */
