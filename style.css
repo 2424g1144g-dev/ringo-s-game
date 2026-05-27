@@ -214,10 +214,10 @@ body {
   position: absolute; 
   bottom: 0;
   left: 0;
-  transform: scale(9);
+  transform: scale(1.8);
   transform-origin: bottom center;
   left: 15px;
-  top: 1800px;
+  top: 250px;
   object-fit: cover;
   object-position: top center;
 }
