@@ -214,8 +214,10 @@ body {
   position: absolute; 
   bottom: 0;
   left: 0;
-  transform: scale(1.2);
+  transform: scale(9);
   transform-origin: bottom center;
+  left: 30px;
+  top: 1800px;
 }
 #caseUI {
   position: absolute;
