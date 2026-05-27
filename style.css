@@ -216,8 +216,8 @@ body {
   left: 0;
   transform: scale(9);
   transform-origin: bottom center;
-  left: 30px;
-  top: 1700px;
+  left: 15px;
+  top: 1750px;
   object-fit: cover;
   object-position: top center;
 }
