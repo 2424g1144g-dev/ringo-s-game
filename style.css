@@ -239,6 +239,7 @@ body {
   height: 300%;             /* 親要素（#caseUI）の高さ（7vh）にピッタリ合わせる */
   display: flex;            /* 黒背景の中の文字も上下中央揃えにする */
   align-items: center;      
-  padding: 0 60px;          /* 左右に少し余白を作って見栄えを良くする */
-  margin-left: auto;        /* これを入れると、右端にピッタリ吸い付きます（お好みで） */         /* CASEの文字と高さを合わせるために同じ分だけ上げる */
+  padding: 0 40px;          /* 左右に少し余白を作って見栄えを良くする */
+  margin-left: auto;        /* これを入れると、右端にピッタリ吸い付きます（お好みで） */
+  text-align: right;
 }
