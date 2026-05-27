@@ -217,7 +217,9 @@ body {
   transform: scale(9);
   transform-origin: bottom center;
   left: 30px;
-  top: 1800px;
+  top: 1700px;
+  object-fit: cover;
+  object-position: top center;
 }
 #caseUI {
   position: absolute;
