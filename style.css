@@ -339,16 +339,11 @@ align-content: center;
   z-index: 10000;
   padding: 20px;
   background-color: rgba(30, 30, 30, 0.6);
-  /* CSSで「灰色の市松模様（チェック柄）」を作り出す */
-  background-image: 
-    linear-gradient(45deg, rgba(60, 60, 60, 0.3) 25%, transparent 25%), 
-    linear-gradient(-45deg, rgba(60, 60, 60, 0.3) 25%, transparent 25%), 
-    linear-gradient(45deg, transparent 75%, rgba(60, 60, 60, 0.3) 75%), 
-    linear-gradient(-45deg, transparent 75%, rgba(60, 60, 60, 0.3) 75%);
-
-  /* 四角形1個のサイズ（縦横 40px の格子模様にする） */
-  background-size: 40px 40px;
-
-  /* 4つのグラデーションを少しずつズラして重ねることで、きれいな格子にする */
-  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+  /* ベースとなる一番暗い半透明の背景 */
+  background-color: rgba(18, 18, 18, 0.85);
+  /* ななめに傾いた（ダイヤ型）灰色の四角形をランダムっぽく配置したデータ */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g transform='rotate(15 100 100)'><rect x='10' y='20' width='80' height='70' fill='rgba(100,100,100,0.15)'/><rect x='100' y='10' width='60' height='80' fill='rgba(70,70,70,0.2)'/><rect x='30' y='110' width='90' height='60' fill='rgba(50,50,50,0.25)'/><rect x='130' y='100' width='60' height='70' fill='rgba(90,90,90,0.15)'/></g></svg>");
+  /* 40pxから「200px」に大幅サイズアップ！これで大きな四角形になります */
+  background-size: 200px 200px;
+  background-repeat: repeat;
 }
