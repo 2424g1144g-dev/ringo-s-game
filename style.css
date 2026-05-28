@@ -339,6 +339,15 @@ align-content: center;
   background: rgb(225,225,186);
   z-index: 12100;
 }
+#underRedLine {
+  position: absolute;
+  left: 0;
+  top: 74.3vh;
+  width: 100vw;
+  height: 5px;
+  background: rgb(253,58,54);
+  z-index: 12200;
+}
 #log {
   width: 100vw;
   height: 20vh;
