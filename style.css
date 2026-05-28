@@ -19,6 +19,10 @@ body {
 }
 @font-face {
   font-family: "solid";
+  src: url("assets/fonts/solid.otf") format("truetype");
+}
+@font-face {
+  font-family: "name";
   src: url("assets/fonts/name.otf") format("truetype");
 }
 
@@ -316,7 +320,7 @@ body {
   background: linear-gradient(
     to right,
     rgba(253,58,54,1.0) 70%,
-    rgba(253,58,54,1.0) 80%
+    rgba(253,58,54,0) 80%
   );
   font-family: "name";
   font-size: 40px;
