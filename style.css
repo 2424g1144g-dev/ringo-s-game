@@ -19,8 +19,9 @@ body {
 }
 @font-face {
   font-family: "solid";
-  src: url("assets/fonts/solid.otf") format("truetype");
+  src: url("assets/fonts/name.otf") format("truetype");
 }
+
 
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
@@ -312,7 +313,12 @@ body {
   top: 61vh;
   width: 100vh;
   height: 8vh;
-  background: rgb(253,58,54);
+  background: linear-gradient(
+    to right,
+    rgba(253,58,54,1.0) 70%,
+    rgba(253,58,54,1.0) 80%
+  );
+  font-family: "name";
   font-size: 40px;
   z-index: 12000;
 }
