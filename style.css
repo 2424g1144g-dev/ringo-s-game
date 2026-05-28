@@ -324,8 +324,7 @@ body {
     rgba(253,58,54,0) 80%
   );
   font-family: "name";
-  font-size: 40px;
-  font-weight: lighter;
+  font-size: 30px;
   z-index: 12000;
   padding-left: 10px;
 }
