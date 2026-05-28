@@ -338,7 +338,8 @@ align-content: center;
   bottom: 0;
   z-index: 10000;
   font-family: "游ゴシック体", "Yu Gothic", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", sans-serif;
-  font-size: 30px;
+  font-size: 50px;
+  padding-top: 20px;
   padding: 20px;
   /* ベースとなる一番暗い半透明の背景色（全体に敷く） */
   background-color: rgba(18, 18, 18, 0.85);
