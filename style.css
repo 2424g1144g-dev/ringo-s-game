@@ -207,6 +207,19 @@ body {
   border-top: none;
   border-left: none;
   overflow: hidden;
+  /* 1. 斜線（ストライプ）を作る */
+  background-image: repeating-linear-gradient(
+    45deg,                      /* 斜線の角度（45度） */
+    rgba(255, 69, 0, 1.0) 0px,  /* ベースのオレンジ */
+    rgba(255, 69, 0, 1.0) 10px, 
+    rgba(200, 50, 0, 1.0) 10px, /* 少し濃いオレンジ（または黒）の斜線 */
+    rgba(200, 50, 0, 1.0) 20px
+  );
+
+  /* 2. 内側を発光（グロー効果）させる */
+  box-shadow: 
+    inset 0 0 30px rgba(255, 140, 0, 0.8),  /* 内側全体への明るいオレンジの光 */
+    inset 0 0 60px rgba(255, 255, 255, 0.4); /* 枠線付近を白っぽく強く光らせる */
 }
 #leftBarImg {
   width: 100%;
