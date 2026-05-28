@@ -27,6 +27,7 @@ body {
 }
 
 
+
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
   pointer-events: none;
@@ -324,5 +325,7 @@ body {
   );
   font-family: "name";
   font-size: 40px;
+  font-weight: lighter;
   z-index: 12000;
+  padding-left: 10px;
 }
