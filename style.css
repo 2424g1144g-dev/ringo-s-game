@@ -303,7 +303,7 @@ body {
 
 #trialUIBottom {
   inset: 0;
-  display: none;
+  display: block;
   pointer-events: none;
 }
 #name {
