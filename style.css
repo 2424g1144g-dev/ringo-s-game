@@ -330,3 +330,30 @@ body {
 letter-spacing: 10px;
 align-content: center;
 }
+#log {
+  width: 100vw;
+  height: 35vh;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  left: 10vw;
+  z-index: 10000;
+  padding: 20px;
+  background-color: rgba(30, 30, 30, 0.6);
+  /* CSSで「灰色の市松模様（チェック柄）」を作り出す */
+  background-image: 
+    linear-gradient(45deg, rgba(60, 60, 60, 0.3) 25%, transparent 25%), 
+    linear-gradient(-45deg, rgba(60, 60, 60, 0.3) 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, rgba(60, 60, 60, 0.3) 75%), 
+    linear-gradient(-45deg, transparent 75%, rgba(60, 60, 60, 0.3) 75%);
+
+  /* 四角形1個のサイズ（縦横 40px の格子模様にする） */
+  background-size: 40px 40px;
+
+  /* 4つのグラデーションを少しずつズラして重ねることで、きれいな格子にする */
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+
+  /* 枠線（お好みで白フチなどをつけると引き締まります） */
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
