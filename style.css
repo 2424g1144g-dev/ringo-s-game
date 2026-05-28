@@ -192,6 +192,7 @@ body {
 #trialUIContainer {
   inset: 0;
   display: block;
+  pointer-events: none;
 }
 #trialUILeftBar {
   position: absolute;
@@ -298,4 +299,19 @@ body {
   padding: 0 40px;          /* 左右に少し余白を作って見栄えを良くする */
   margin-left: auto;        /* これを入れると、右端にピッタリ吸い付きます（お好みで） */
   text-align: right;
+}
+
+#trialUIBottom {
+  inset: 0;
+  display: none;
+  pointer-events: none;
+}
+#name {
+  position: absolute;
+  left: 0;
+  top: 61vh;
+  width: 100vh;
+  height: 10vh;
+  background: rgb(253,58,54);
+  z-index: 12000;
 }
