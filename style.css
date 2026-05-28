@@ -333,9 +333,9 @@ align-content: center;
 #whiteLine {
   position: absolute;
   left: 0;
-  top: 65.9vh;
+  top: 74vh;
   width: 100vw;
-  height: 30px;
+  height: 10px;
   background: rgb(225,225,186);
   z-index: 12100;
 }
