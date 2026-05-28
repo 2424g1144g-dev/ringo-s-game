@@ -311,7 +311,8 @@ body {
   left: 0;
   top: 61vh;
   width: 100vh;
-  height: 10vh;
+  height: 8vh;
   background: rgb(253,58,54);
+  font-size: 40px;
   z-index: 12000;
 }
