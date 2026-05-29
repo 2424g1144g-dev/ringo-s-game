@@ -378,11 +378,11 @@ body {
 #wordBar {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -20px;
   width: 100vw;              /* 画面の横幅いっぱいに広げる（vhからvwに修正） */
   height: 15vh;             /* 文字サイズ40pxが収まる高さに調整 */
   font-family: "solid";
-  font-size: 80px;
+  font-size: 100px;
   background: transparent;
   z-index: 9000;
   
