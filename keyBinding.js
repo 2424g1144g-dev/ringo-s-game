@@ -50,6 +50,18 @@ function executeFirstMenu() {
     trialEl.classList.remove("active"); 
     setTimeout(() => {
         trialEl.classList.add("active");
+        setTimeout(() => {
+          playSE("hammer");
+        },200)
+        setTimeout(() => {
+          playSE("hammer");
+        },400)
+        setTimeout(() => {
+          playSE("hammer");
+        },600)
+        setTimeout(() => {
+          playSE("hammer");
+        },800)
     }, 100);
     setTimeout(() => {
       void startEl.offsetWidth; 
