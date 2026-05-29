@@ -30,7 +30,7 @@ function fadeOutBGM(duration = 1000) {
 
 // 効果音再生
 const playingSE = new Map();
-function playSE(name, volume = 1.0) {
+function playSE(name, volume = 0.4) {
   console.log("Now playing: ", name)
   const audio = new Audio(SE[name]);
   audio.volume = volume;
