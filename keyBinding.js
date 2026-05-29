@@ -67,6 +67,9 @@ function executeFirstMenu() {
       void startEl.offsetWidth; 
       startEl.classList.add("starting");
     }, 1200)
+    setTimeout(() => {
+      playSE("stamp");
+    })
     setTimeout(async () => {
       initThree();
       loadCourtroom();
