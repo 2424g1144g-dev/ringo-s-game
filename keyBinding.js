@@ -69,7 +69,7 @@ function executeFirstMenu() {
     }, 1200)
     setTimeout(() => {
       playSE("stamp");
-    },1300)
+    },1600)
     setTimeout(async () => {
       initThree();
       loadCourtroom();
