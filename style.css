@@ -380,7 +380,7 @@ body {
   left: 0;
   top: -40px;
   width: 100vw;              /* 画面の横幅いっぱいに広げる（vhからvwに修正） */
-  height: 15vh;             /* 文字サイズ40pxが収まる高さに調整 */
+  height: 20vh;             /* 文字サイズ40pxが収まる高さに調整 */
   letter-spacing: -10px;
   font-family: "solid";
   font-size: 100px;
