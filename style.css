@@ -375,3 +375,39 @@ body {
   /* 表示する位置：ウィンドウの「左端（left）」に配置 */
   background-position: left center;
 }
+#wordBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;              /* 画面の横幅いっぱいに広げる（vhからvwに修正） */
+  height: 50px;             /* 文字サイズ40pxが収まる高さに調整 */
+  font-family: "solid";
+  font-size: 40px;
+  background: transparent;
+  z-index: 9000;
+  
+  overflow: hidden;         /* 画面外にはみ出た文字を非表示にする */
+  display: flex;            /* 中の<span>を強制的に真横に並べる */
+  white-space: nowrap;      /* 絶対に文字を途中で改行させない */
+}
+
+/* 中の文字パーツへの設定 */
+#wordBar span {
+  display: inline-block;
+  color: transparent;       /* 文字の中身は透明にする */
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5); /* 白いフチ線だけ残す */
+  padding-right: 50px;      /* 文字と文字の間の「隙間」をお好みで調整 */
+  
+  /* アニメーション：10秒かけて等速（linear）で無限に（infinite）左へ動かす */
+  animation: marqueeLoop 10s linear infinite;
+}
+
+/* --- ★無限ループさせるためのアニメーション定義 --- */
+@keyframes marqueeLoop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%); /* 1つ目のパーツが完全に左に消えた瞬間、0%に一瞬で戻る */
+  }
+}
