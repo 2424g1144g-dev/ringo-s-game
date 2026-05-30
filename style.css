@@ -362,7 +362,7 @@ body {
   width: 100vw;
   height: 20vh;
   left: 0;
-  top: 100vh;
+  bottom: 0;
   z-index: 10000;
   font-family: "游ゴシック体", "Yu Gothic", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 40px;
