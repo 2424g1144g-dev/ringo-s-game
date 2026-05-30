@@ -75,10 +75,11 @@ window.DIALOGUE = {
     this.els.enter.style.opacity = 0;
     const d = this.data[this.dialogueIndex];
     this.els.name.innerText = d.name;
+    document.ATTRIBUTE_NODE("zappingLayer").classList.add("zappingAnim");
     if (d.name === "ニシモト　タツロウ") {
       document.getElementById("dialogueLeftLine").classList.add("taturo");
     } else {
-      document.getElementById("dialogueLeftLine").classList.remove("taturo");
+      return;
     };
     if (!d) return;
     const line = d.lines[this.lineIndex];

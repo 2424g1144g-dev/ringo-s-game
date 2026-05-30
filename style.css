@@ -283,9 +283,18 @@ body {
   transform: scale(1.4);
   transform-origin: bottom center;
   top: 150px;
+  opacity: 0;
   object-fit: cover;
   object-position: top center;
   z-index: 11500;
+}
+@keyframes zappingAnim {
+  0% {opacity: 0;}
+  50% {opacity: 1};
+  100% {opacity: 0};
+}
+.zappingAnim {
+  animation: zappingAnim 0.3s linear;
 }
 #caseUI {
   position: absolute;
