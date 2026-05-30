@@ -202,7 +202,7 @@ body {
 }
 #trialUILeftBar {
   position: absolute;
-  left: 0;
+  left: -300px;
   top: 0;
   width: 17vw;
   height: 65vh;
@@ -244,11 +244,10 @@ body {
 
   /* アニメーション：3秒かけて下から上へループ（なめらかに動かすため linear） */
   animation: redShineUp 3s linear infinite;
-  transform: translateX(-300px);
-  transition: transform 0.3s linear;
+  transition: left 0.3s linear;
 }
 #trialUILeftBar.show {
-  transform: translateX(0);
+  left: 0;
 }
 /* --- ★赤く光るビームが下から上に移動するアニメーションの定義 --- */
 @keyframes redShineUp {
@@ -315,12 +314,12 @@ body {
   inset: 0;
   display: block;
   pointer-events: none;
-  transform: translateY(300px);
-  transition: transform 0.3s linear;
+  bottom: -300px;
+  transition: bottom 0.3s linear;
   z-index: 13000;
 }
 #trialUIBottom.show {
-  transform: translateY(0);
+  bottom: 0;
 }
 #name {
   position: absolute;
@@ -363,7 +362,7 @@ body {
   width: 100vw;
   height: 20vh;
   left: 0;
-  bottom: -780px;
+  bottom: 0;
   z-index: 10000;
   font-family: "游ゴシック体", "Yu Gothic", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 40px;
