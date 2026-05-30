@@ -312,11 +312,10 @@ body {
 
 #trialUIBottom {
   position: absolute;
-  inset: 0;
   display: block;
   pointer-events: none;
   top: 300px;
-  transition: bottom 0.3s linear;
+  transition: top 0.3s linear;
   z-index: 13000;
 }
 #trialUIBottom.show {
@@ -363,7 +362,7 @@ body {
   width: 100vw;
   height: 20vh;
   left: 0;
-  top: 80vh;
+  top: 75vh;
   z-index: 10000;
   font-family: "游ゴシック体", "Yu Gothic", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 40px;
