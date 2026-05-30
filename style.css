@@ -358,9 +358,9 @@ body {
   z-index: 12200;
 }
 #log {
+  position: absolute;
   width: 100vw;
   height: 20vh;
-  position: absolute;
   left: 0;
   bottom: 0;
   z-index: 10000;
