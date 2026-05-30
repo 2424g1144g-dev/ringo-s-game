@@ -272,6 +272,7 @@ body {
   top: 250px;
   object-fit: cover;
   object-position: top center;
+  z-index: 11000;
 }
 #zappingLayer {
   width: 100%;
@@ -279,11 +280,12 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  transform: scale(1.8);
+  transform: scale(1.4);
   transform-origin: bottom center;
   top: 150px;
   object-fit: cover;
   object-position: top center;
+  z-index: 12000;
 }
 #caseUI {
   position: absolute;
