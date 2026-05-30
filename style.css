@@ -244,8 +244,12 @@ body {
 
   /* アニメーション：3秒かけて下から上へループ（なめらかに動かすため linear） */
   animation: redShineUp 3s linear infinite;
+  transform: translateX(-300px);
+  transition: transform 0.3s;
 }
-
+#trialUILeftBar.show {
+  transform: translateX(0);
+}
 /* --- ★赤く光るビームが下から上に移動するアニメーションの定義 --- */
 @keyframes redShineUp {
   0% {
