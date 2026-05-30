@@ -285,7 +285,7 @@ body {
   top: 150px;
   object-fit: cover;
   object-position: top center;
-  z-index: 12000;
+  z-index: 11500;
 }
 #caseUI {
   position: absolute;
@@ -295,7 +295,7 @@ body {
   height: 7vh;
   pointer-events: none;
   background: rgba(158, 151, 148, 1.0);
-  z-index: 10100;
+  z-index: 12000;
   font-family: "solid";
   font-size: 50px;
   border: 2px solid white;
