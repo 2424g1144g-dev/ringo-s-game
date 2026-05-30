@@ -245,7 +245,7 @@ body {
   /* アニメーション：3秒かけて下から上へループ（なめらかに動かすため linear） */
   animation: redShineUp 3s linear infinite;
   transform: translateX(-300px);
-  transition: transform 0.3s;
+  transition: transform 0.3s linear;
 }
 #trialUILeftBar.show {
   transform: translateX(0);
@@ -315,6 +315,11 @@ body {
   inset: 0;
   display: block;
   pointer-events: none;
+  transform: translateY(300px);
+  transition: transform 0.3s linear;
+}
+#trialUIBottom.show {
+  transform: translateY(0);
 }
 #name {
   position: absolute;
