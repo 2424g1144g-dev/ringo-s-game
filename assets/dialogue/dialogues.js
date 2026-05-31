@@ -73,14 +73,32 @@ window.DIALOGUE = {
 
   typeLine() {
     this.els.enter.style.opacity = 0;
+    let previousName = d.name;
     const d = this.data[this.dialogueIndex];
     this.els.name.innerText = d.name;
-    document.ATTRIBUTE_NODE("zappingLayer").classList.add("zappingAnim");
-    if (d.name === "ニシモト　タツロウ") {
-      document.getElementById("dialogueLeftLine").classList.add("taturo");
-    } else {
-      return;
-    };
+    if (previousName !== d.name) {
+      document.getElementById("zappingLayer").classList.add("zappingAnim");
+      icon = document.getElementById("leftBarImg");
+      setTimeout(() => {
+        if (d.name === "ニシモト　タツロウ") {
+          icon.src = "assets/icon/iconTaturo.png";
+        } else if (d.name === "フルイチ　ヒデハル") {
+          icon.src = "assets/icon/iconFakeFuruichi.png";
+        } else if (d.name === "ヤマモト　ケイゾウ") {
+          icon.src = "assets/icon/iconKeizo.png";
+        } else if (d.name === "ササノ　ケント") {
+          icon.src = "assets/icon/iconKento.png";
+        } else if (d.name === "ツカゴエ　ミツヒロ") {
+          icon.src = "assets/icon/iconMitsuhiro.png";
+        } else if (d.name === "コウチョウ"){
+          icon.src = "assets/icon/iconPrincipal.png";
+        } else if (d.name === "シノハラ　リュウジ") {
+          icon.src = "assets/icon/iconRyuji.png";
+        } else if (d.name === "ヤマモト　シゲオ") {
+          icon.src = "assets/icon/iconShige.png";
+        }
+      },150)
+    }
     if (!d) return;
     const line = d.lines[this.lineIndex];
     if (!line) {
