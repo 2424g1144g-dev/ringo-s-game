@@ -75,11 +75,12 @@ window.DIALOGUE = {
   typeLine() {
     this.els.enter.style.opacity = 0;
     const d = this.data[this.dialogueIndex];
-    let previousName = this.els.name.innerText;
+    const previous = this.dialogueIndex > 0 ? this.data[this.dialogueIndex - 1] : null;
+    const previousName = previous ? previous.name : "";
     this.els.name.innerText = d.name;
     if (previousName !== d.name) {
       document.getElementById("zappingLayer").classList.remove("zappingAnim");
-      void document.getElementById("zappingLayer").offsetWith;
+      void document.getElementById("zappingLayer").offsetWidth;
       document.getElementById("zappingLayer").classList.add("zappingAnim");
       icon = document.getElementById("leftBarImg");
       setTimeout(() => {
