@@ -73,10 +73,10 @@ window.DIALOGUE = {
 
   typeLine() {
     this.els.enter.style.opacity = 0;
+    const previous = this.data[this.dialogueIndex - 1];
     const d = this.data[this.dialogueIndex];
-    let previousName = d.name;
     this.els.name.innerText = d.name;
-    if (previousName !== d.name) {
+    if (previous.name !== d.name) {
       document.getElementById("zappingLayer").classList.add("zappingAnim");
       icon = document.getElementById("leftBarImg");
       setTimeout(() => {
