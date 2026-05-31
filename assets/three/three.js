@@ -167,18 +167,15 @@ let cameraAnimation = {
   onComplete: null 
 };
 
-/**
- * カメラを指定した位置・角度へ移動させる関数（Promise ＆ オブジェクト引数版）
- */
 window.cameraMove = function({
   from = null,
   to = {},
   speed = null,
   toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
   fovSpeed = null,
-  yaw = null,         // 💡 初期値を 0 から null に変更
-  pitch = null,       // 💡 初期値を 0 から null に変更
-  roll = null,        // 💡 初期値を 0 から null に変更
+  yaw = 0,
+  pitch = 0,
+  roll = 0,
   rotSpeed = null,
 } = {}) {
   // async/await で待機できるように Promise を返す
@@ -189,7 +186,7 @@ window.cameraMove = function({
       camera.position.set(from.x, from.y, from.z);
     }
 
-    // 2. 目的地の安全な読み込み（未指定なら現在地を維持）
+    // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
     const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
     const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
     const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
@@ -198,18 +195,16 @@ window.cameraMove = function({
     // nullが混入したときのセーフティガード
     cameraAnimation.speed = (speed !== null) ? speed : 0.8;
 
-    // 3. 💡 目標の回転を安全に設定（未指定なら現在のカメラの角度をキープ）
-    // Three.jsの角度はラジアン、イベントデータの入力は度(度数法)なので、現在地を拾う時はラジアンのまま使います。
-    camera.rotation.order = 'YXZ'; // 軸の順序を統一
-    
-    const targetPitch = (pitch !== null && pitch !== undefined) ? pitch * (Math.PI / 180) : camera.rotation.x;
-    const targetYaw   = (yaw !== null && yaw !== undefined)     ? yaw * (Math.PI / 180)   : camera.rotation.y;
-    const targetRoll  = (roll !== null && roll !== undefined)   ? roll * (Math.PI / 180)  : camera.rotation.z;
-
-    cameraAnimation.toRotation.set(targetPitch, targetYaw, targetRoll, 'YXZ');
+    // 3. 目標の回転を設定
+    cameraAnimation.toRotation.set(
+      pitch * (Math.PI / 180),
+      yaw * (Math.PI / 180),
+      roll * (Math.PI / 180),
+      'YXZ'
+    );
     cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
 
-    // 4. ズーム（FOV）の安全処理
+    // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
     const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
     cameraAnimation.toFov = targetFov;
 
@@ -227,21 +222,6 @@ window.cameraMove = function({
     };
 
     if (controls) controls.enabled = false;
-
-    // --- 爆速移動（一瞬で切り替え）のときのショートカット処理 ---
-    if (cameraAnimation.speed >= 999 || cameraAnimation.rotSpeed >= 999 || cameraAnimation.fovSpeed >= 999) {
-      camera.position.copy(cameraAnimation.toPos);
-      camera.rotation.copy(cameraAnimation.toRotation);
-      camera.fov = cameraAnimation.toFov;
-      camera.updateProjectionMatrix();
-      
-      cameraAnimation.active = false;
-      if (typeof cameraAnimation.onComplete === 'function') {
-        cameraAnimation.onComplete();
-      }
-      return;
-    }
-
     cameraAnimation.active = true;
   });
 };
