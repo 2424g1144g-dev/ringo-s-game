@@ -176,9 +176,9 @@ window.cameraMove = function({
   speed = null,
   toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
   fovSpeed = null,
-  yaw = null,         // 💡 初期値を 0 から null に変更
-  pitch = null,       // 💡 初期値を 0 から null に変更
-  roll = null,        // 💡 初期値を 0 から null に変更
+  yaw = null,         // ⭕ 初期値 null
+  pitch = null,       // ⭕ 初期値 null
+  roll = null,        // ⭕ 初期値 null
   rotSpeed = null,
 } = {}) {
   // async/await で待機できるように Promise を返す
@@ -189,33 +189,35 @@ window.cameraMove = function({
       camera.position.set(from.x, from.y, from.z);
     }
 
-    // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
+    // 2. 目的地の安全な読み込み
     const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
     const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
     const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
     cameraAnimation.toPos.set(targetX, targetY, targetZ);
     
-    // nullが混入したときのセーフティガード
-    cameraAnimation.speed = (speed !== null) ? speed : 0.8;
+    // speed の判定用変数を事前に作っておく
+    const finalSpeed = (speed !== null) ? speed : 0.8;
+    cameraAnimation.speed = finalSpeed;
 
-    // 3. 💡 目標の回転を設定（未指定なら現在のカメラの角度をキープする）
-    camera.rotation.order = 'YXZ'; // 軸の順序を統一
-    
+    // 3. ⭕ 目標の回転を設定（未指定なら現在のカメラの角度をキープ）
+    camera.rotation.order = 'YXZ';
     const targetPitch = (pitch !== null && pitch !== undefined) ? pitch * (Math.PI / 180) : camera.rotation.x;
     const targetYaw   = (yaw !== null && yaw !== undefined)     ? yaw * (Math.PI / 180)   : camera.rotation.y;
     const targetRoll  = (roll !== null && roll !== undefined)   ? roll * (Math.PI / 180)  : camera.rotation.z;
 
     cameraAnimation.toRotation.set(targetPitch, targetYaw, targetRoll, 'YXZ');
-    cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
+    
+    const finalRotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
+    cameraAnimation.rotSpeed = finalRotSpeed;
 
-    // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
+    // 4. ズーム（FOV）の安全処理
     const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
     cameraAnimation.toFov = targetFov;
 
     if (fovSpeed === null || fovSpeed === undefined) {
       camera.fov = targetFov;
       camera.updateProjectionMatrix();
-      cameraAnimation.fovSpeed = 999; // 一瞬
+      cameraAnimation.fovSpeed = 999;
     } else {
       cameraAnimation.fovSpeed = fovSpeed;
     }
@@ -227,19 +229,19 @@ window.cameraMove = function({
 
     if (controls) controls.enabled = false;
 
-    // 💡【安全な爆速移動ショートカット】
-    // スピードが999の時はループを待たずにその場で同期し、確実に resolve() を呼んで終了する
-    if (cameraAnimation.speed >= 999 || cameraAnimation.rotSpeed >= 999 || cameraAnimation.fovSpeed >= 999) {
+    // 💡【ここが本当の解決策】
+    // スピードが999（一瞬で移動）の場合、変なフライング関数を呼ばず、
+    // 「ただちに値を同期して、速攻で resolve() を直接実行して終了」させます。
+    // これなら Promise の仕組みを1ミリも壊さず、await が確実に機能します！！
+    if (finalSpeed >= 999 || finalRotSpeed >= 999 || cameraAnimation.fovSpeed >= 999) {
       camera.position.copy(cameraAnimation.toPos);
       camera.rotation.copy(cameraAnimation.toRotation);
       camera.fov = cameraAnimation.toFov;
       camera.updateProjectionMatrix();
       
       cameraAnimation.active = false;
-      if (typeof cameraAnimation.onComplete === 'function') {
-        cameraAnimation.onComplete(); // これで次の await へ進む
-      }
-      return; 
+      resolve(); // ⭕ 迷子にさせず、その場で直接 await を解除する！
+      return;
     }
 
     cameraAnimation.active = true;
