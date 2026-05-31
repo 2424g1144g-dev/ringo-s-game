@@ -444,3 +444,12 @@ body {
     transform: translateX(-100%); /* 1つ目のパーツが完全に左に消えた瞬間、0%に一瞬で戻る */
   }
 }
+#trialUIBottom #enterKey {
+  position: absolute;
+  right: 0;
+  top: 95vh;
+  width: 150px;
+  height: 5vh;
+  z-index: 10500;
+  background: rgb(254,55,5);
+}
