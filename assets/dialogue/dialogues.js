@@ -1,3 +1,4 @@
+let textEnter = false;
 
 const VOICE = {
   audio: new Audio(),
