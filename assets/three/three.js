@@ -189,7 +189,7 @@ window.cameraMove = function({
       camera.position.set(from.x, from.y, from.z);
     }
 
-    // 2. 目的地の安全な読み込み（未指定なら現在地を維持）
+    // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
     const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
     const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
     const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
@@ -198,8 +198,7 @@ window.cameraMove = function({
     // nullが混入したときのセーフティガード
     cameraAnimation.speed = (speed !== null) ? speed : 0.8;
 
-    // 3. 💡 目標の回転を安全に設定（未指定なら現在のカメラの角度をキープ）
-    // Three.jsの角度はラジアン、イベントデータの入力は度(度数法)なので、現在地を拾う時はラジアンのまま使います。
+    // 3. 💡 目標の回転を設定（未指定なら現在のカメラの角度をキープする）
     camera.rotation.order = 'YXZ'; // 軸の順序を統一
     
     const targetPitch = (pitch !== null && pitch !== undefined) ? pitch * (Math.PI / 180) : camera.rotation.x;
@@ -209,7 +208,7 @@ window.cameraMove = function({
     cameraAnimation.toRotation.set(targetPitch, targetYaw, targetRoll, 'YXZ');
     cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
 
-    // 4. ズーム（FOV）の安全処理
+    // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
     const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
     cameraAnimation.toFov = targetFov;
 
@@ -228,7 +227,8 @@ window.cameraMove = function({
 
     if (controls) controls.enabled = false;
 
-    // --- 爆速移動（一瞬で切り替え）のときのショートカット処理 ---
+    // 💡【安全な爆速移動ショートカット】
+    // スピードが999の時はループを待たずにその場で同期し、確実に resolve() を呼んで終了する
     if (cameraAnimation.speed >= 999 || cameraAnimation.rotSpeed >= 999 || cameraAnimation.fovSpeed >= 999) {
       camera.position.copy(cameraAnimation.toPos);
       camera.rotation.copy(cameraAnimation.toRotation);
@@ -237,16 +237,16 @@ window.cameraMove = function({
       
       cameraAnimation.active = false;
       if (typeof cameraAnimation.onComplete === 'function') {
-        cameraAnimation.onComplete();
+        cameraAnimation.onComplete(); // これで次の await へ進む
       }
-      return;
+      return; 
     }
 
     cameraAnimation.active = true;
   });
 };
 
-// --- ループ関数（判定処理をさらに厳密化） ---
+// --- ループ関数 ---
 window.animate = function() {
   requestAnimationFrame(animate);
 
@@ -262,26 +262,23 @@ window.animate = function() {
       camera.position.add(dir);
     }
 
-    // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
-    camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
+    // ② 回転の等速補間
+    camera.rotation.order = 'YXZ';
     
     const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
     const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
     const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
 
-    // X軸（ピッチ）
     if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
     else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
 
-    // Y軸（ヨー / 横回転）
     if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
     else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
 
-    // Z軸（ロール）
     if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
     else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
 
-    // ③ ズーム（FOV）の等速変化（ここはそのまま）
+    // ③ ズーム（FOV）の等速変化
     const fovDiff = cameraAnimation.toFov - camera.fov;
     if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
       camera.fov = cameraAnimation.toFov;
@@ -290,8 +287,8 @@ window.animate = function() {
     }
     camera.updateProjectionMatrix();
 
-    // ④ 到着判定（★回転の判定もオイラー角の誤差チェックに変更）
-    const isPosEnd = camera.position.equals(cameraAnimation.toPos);
+    // ④ 到着判定（位置の完全一致のバグを回避するため、距離チェックに変更）
+    const isPosEnd = camera.position.distanceTo(cameraAnimation.toPos) < 0.01;
     const isRotEnd = (Math.abs(camera.rotation.x - cameraAnimation.toRotation.x) < 0.01) &&
                      (Math.abs(camera.rotation.y - cameraAnimation.toRotation.y) < 0.01) &&
                      (Math.abs(camera.rotation.z - cameraAnimation.toRotation.z) < 0.01);
