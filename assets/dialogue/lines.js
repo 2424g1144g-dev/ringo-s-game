@@ -8,7 +8,7 @@ DIALOGUE_LINES.dialogueStart = [
                           {segments: [{text: "ですが...もし間違った人物をクロとした場合は..."}]}]},
   { name: "コウチョウ", lines: [{segments: [{text: "クロ以外の全員が懲戒解雇となり、"}]},
                           {segments: [{text: "クロだけが１０億円を手にし、一生安泰な人生を得られます！"}]}]},
-  { name: "シノハラ　リュウジ", lines: [{segments: [{text: "おい...本当にこの中に犯人がおるんよな？"}], event: [{type: "cameraMove", to: {x: 0, y: 0, z: 0}}]}]},
+  { name: "シノハラ　リュウジ", lines: [{segments: [{text: "おい...本当にこの中に犯人がおるんよな？"}], event: [{type: "cameraMove", to: {x: -10, y: 0, z: 0},toFov: 45, fovSpeed: 999, speed: 999, pitch: 90, rotSpeed: 999}]}]},
   { name: "コウチョウ", lines: [{segments: [{text: "はい。犯人は確実にこの中にいますよ。"}]}]},
   { name: "ツカゴエ　ミツヒロ", lines: [{segments: [{text: "誰や！岡本先生を退職させたんは！！！"}]}]},
   { name: "ツカゴエ　ミツヒロ", lines: [{segments: [{text: "お前らの誰かのせいで"}]},

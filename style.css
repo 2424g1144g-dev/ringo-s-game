@@ -274,6 +274,17 @@ body {
   object-position: top center;
   z-index: 11000;
 }
+@keyframes iconBeat {
+  0% {transform: scale(1.9);}
+  20% {transform: scale(2.1);}
+  40% {transform: scale(1.8);}
+  60% {transform: scale(2.2);}
+  80% {transform: scale(1.9);}
+  100% {transform: scale(2.1);}
+}
+.iconBeat {
+  animation: iconBeat 0.5s infinite;
+}
 #zappingLayer {
   width: 100%;
   height: auto;
