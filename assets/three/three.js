@@ -167,18 +167,15 @@ let cameraAnimation = {
   onComplete: null 
 };
 
-/**
- * カメラを指定した位置・角度へ移動させる関数（Promise ＆ オブジェクト引数版）
- */
 window.cameraMove = function({
   from = null,
   to = {},
   speed = null,
   toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
   fovSpeed = null,
-  yaw = null,         // ⭕ 初期値 null
-  pitch = null,       // ⭕ 初期値 null
-  roll = null,        // ⭕ 初期値 null
+  yaw = 0,
+  pitch = 0,
+  roll = 0,
   rotSpeed = null,
 } = {}) {
   // async/await で待機できるように Promise を返す
@@ -189,35 +186,32 @@ window.cameraMove = function({
       camera.position.set(from.x, from.y, from.z);
     }
 
-    // 2. 目的地の安全な読み込み
+    // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
     const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
     const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
     const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
     cameraAnimation.toPos.set(targetX, targetY, targetZ);
     
-    // speed の判定用変数を事前に作っておく
-    const finalSpeed = (speed !== null) ? speed : 0.8;
-    cameraAnimation.speed = finalSpeed;
+    // nullが混入したときのセーフティガード
+    cameraAnimation.speed = (speed !== null) ? speed : 0.8;
 
-    // 3. ⭕ 目標の回転を設定（未指定なら現在のカメラの角度をキープ）
-    camera.rotation.order = 'YXZ';
-    const targetPitch = (pitch !== null && pitch !== undefined) ? pitch * (Math.PI / 180) : camera.rotation.x;
-    const targetYaw   = (yaw !== null && yaw !== undefined)     ? yaw * (Math.PI / 180)   : camera.rotation.y;
-    const targetRoll  = (roll !== null && roll !== undefined)   ? roll * (Math.PI / 180)  : camera.rotation.z;
+    // 3. 目標の回転を設定
+    cameraAnimation.toRotation.set(
+      pitch * (Math.PI / 180),
+      yaw * (Math.PI / 180),
+      roll * (Math.PI / 180),
+      'YXZ'
+    );
+    cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
 
-    cameraAnimation.toRotation.set(targetPitch, targetYaw, targetRoll, 'YXZ');
-    
-    const finalRotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
-    cameraAnimation.rotSpeed = finalRotSpeed;
-
-    // 4. ズーム（FOV）の安全処理
+    // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
     const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
     cameraAnimation.toFov = targetFov;
 
     if (fovSpeed === null || fovSpeed === undefined) {
       camera.fov = targetFov;
       camera.updateProjectionMatrix();
-      cameraAnimation.fovSpeed = 999;
+      cameraAnimation.fovSpeed = 999; // 一瞬
     } else {
       cameraAnimation.fovSpeed = fovSpeed;
     }
@@ -228,27 +222,11 @@ window.cameraMove = function({
     };
 
     if (controls) controls.enabled = false;
-
-    // 💡【ここが本当の解決策】
-    // スピードが999（一瞬で移動）の場合、変なフライング関数を呼ばず、
-    // 「ただちに値を同期して、速攻で resolve() を直接実行して終了」させます。
-    // これなら Promise の仕組みを1ミリも壊さず、await が確実に機能します！！
-    if (finalSpeed >= 999 || finalRotSpeed >= 999 || cameraAnimation.fovSpeed >= 999) {
-      camera.position.copy(cameraAnimation.toPos);
-      camera.rotation.copy(cameraAnimation.toRotation);
-      camera.fov = cameraAnimation.toFov;
-      camera.updateProjectionMatrix();
-      
-      cameraAnimation.active = false;
-      resolve(); // ⭕ 迷子にさせず、その場で直接 await を解除する！
-      return;
-    }
-
     cameraAnimation.active = true;
   });
 };
 
-// --- ループ関数 ---
+// --- ループ関数（判定処理をさらに厳密化） ---
 window.animate = function() {
   requestAnimationFrame(animate);
 
@@ -264,23 +242,26 @@ window.animate = function() {
       camera.position.add(dir);
     }
 
-    // ② 回転の等速補間
-    camera.rotation.order = 'YXZ';
+    // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
+    camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
     
     const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
     const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
     const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
 
+    // X軸（ピッチ）
     if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
     else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
 
+    // Y軸（ヨー / 横回転）
     if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
     else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
 
+    // Z軸（ロール）
     if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
     else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
 
-    // ③ ズーム（FOV）の等速変化
+    // ③ ズーム（FOV）の等速変化（ここはそのまま）
     const fovDiff = cameraAnimation.toFov - camera.fov;
     if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
       camera.fov = cameraAnimation.toFov;
@@ -289,8 +270,8 @@ window.animate = function() {
     }
     camera.updateProjectionMatrix();
 
-    // ④ 到着判定（位置の完全一致のバグを回避するため、距離チェックに変更）
-    const isPosEnd = camera.position.distanceTo(cameraAnimation.toPos) < 0.01;
+    // ④ 到着判定（★回転の判定もオイラー角の誤差チェックに変更）
+    const isPosEnd = camera.position.equals(cameraAnimation.toPos);
     const isRotEnd = (Math.abs(camera.rotation.x - cameraAnimation.toRotation.x) < 0.01) &&
                      (Math.abs(camera.rotation.y - cameraAnimation.toRotation.y) < 0.01) &&
                      (Math.abs(camera.rotation.z - cameraAnimation.toRotation.z) < 0.01);
@@ -313,4 +294,4 @@ window.animate = function() {
     }
   }
   renderer.render(scene, camera);
-};
+}; //やり直し...もう一回yaw、pitch、rollをnullのままでも使えるようにして
