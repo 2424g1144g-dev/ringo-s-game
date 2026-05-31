@@ -318,3 +318,12 @@ function spriteChange(src, d=100) {
     el.style.opacity = 1;
   },d);
 }
+
+document.addEventListener("keydown", e => {
+  if (!textEnter) return;
+  if (e.key !== "Enter" || e.repeat) return;
+  if (!textEnter) return;
+
+  playSE("dialoguePass");
+  DIALOGUE.next();
+});

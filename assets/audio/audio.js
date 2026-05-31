@@ -54,7 +54,7 @@ function stopSE(name) {
 const SE = {
   select: "assets/audio/SE/select.wav",
   resume: "assets/audio/SE/resume.wav",
-  diaPass: "assets/audio/SE/diaPass.wav",
+  dialoguePass: "assets/audio/SE/diaPass.wav",
   confirm: "assets/audio/SE/confirm.wav",
   shotConfirm: "assets/audio/SE/shotConfirm.wav",
   comeUpWith: "assets/audio/SE/comeUpWith.wav",
