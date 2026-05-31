@@ -77,13 +77,13 @@ function executeFirstMenu() {
       document.getElementById("trialStart").style.opacity = 0;
       const leftUI = document.getElementById("trialUILeftBar");
       const bottomUI = document.getElementById("trialUIBottom");
-      DIALOGUE.start(DIALOGUE_LINES.dialogueStart);
-      textEnter = true;
       await cameraMove({from: { x: 0, y: 23, z: -23 }, to: { x: 0, y: 23, z: -5 },
         speed: 0.1, toFov: 45, rotSpeed: 0.05});
       leftUI.classList.add("show");
       bottomUI.classList.add("show");
-
+      DIALOGUE_EVENTS.useDialog("trialUIBottom");
+      DIALOGUE.start(DIALOGUE_LINES.dialogueStart);
+      textEnter = true;
       await cameraMove({ to: { x: 0, y: 30, z: 0 },
         toFov: 80, fovSpeed: 999, speed: 999, pitch: -15, rotSpeed: 999});
       await cameraMove({yaw: 720, pitch: -15, rotSpeed: 0.001})
