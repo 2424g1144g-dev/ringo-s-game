@@ -253,5 +253,9 @@ window.DIALOGUE_EVENTS = {
   operateDisable: () => {
     setTimeout (() => {
     },300)
+  },
+
+  cameraMove: (event) => {
+    cameraMove(event.from, event.to, event.speed, event.toFov, event.fovSpeed, event.yaw, event.pitch, event.roll, event.rotSpeed);
   }
 };
