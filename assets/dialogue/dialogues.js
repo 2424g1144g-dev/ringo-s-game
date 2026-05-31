@@ -51,30 +51,8 @@ window.DIALOGUE = {
     if (!d) {
       console.error("dialogue not found", this.dialogueIndex);
       return;
-    }
-
+    };
     if (!d) return;
-    this.els.name.innerText = d.name;
-    this.els.text.innerHTML = "";
-    this.lineIndex = 0;
-    this.typeLine();
-  },
-
-  next() {
-    if (this.isTyping) {
-      this.showAll();
-      return;
-    }
-    VOICE.stop();
-    this.dialogueIndex++;
-    if (this.data[this.dialogueIndex]) {
-      this.play();
-    }
-  },
-
-  typeLine() {
-    this.els.enter.style.opacity = 0;
-    const d = this.data[this.dialogueIndex];
     const previous = this.dialogueIndex > 0 ? this.data[this.dialogueIndex - 1] : null;
     const previousName = previous ? previous.name : "";
     this.els.name.innerText = d.name;
@@ -103,6 +81,28 @@ window.DIALOGUE = {
         }
       },150)
     }
+    this.els.name.innerText = d.name;
+    this.els.text.innerHTML = "";
+    this.lineIndex = 0;
+    this.typeLine();
+  },
+
+  next() {
+    if (this.isTyping) {
+      this.showAll();
+      return;
+    }
+    VOICE.stop();
+    this.dialogueIndex++;
+    if (this.data[this.dialogueIndex]) {
+      this.play();
+    }
+  },
+
+  typeLine() {
+    this.els.enter.style.opacity = 0;
+    const d = this.data[this.dialogueIndex];
+    
     if (!d) return;
     const line = d.lines[this.lineIndex];
     if (!line) {
