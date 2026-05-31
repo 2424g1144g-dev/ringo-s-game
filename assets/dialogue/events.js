@@ -255,7 +255,12 @@ window.DIALOGUE_EVENTS = {
     },300)
   },
 
-  cameraMove: (event) => {
-    window.cameraMove(event);
+  cameraMove: async (event) => {
+    await window.cameraMove(event);
+    if (event.slide) {
+      if (event.slide === "left") {
+        cameraMove({to: {toX: event.from.x+7, toY: event.from.y, toZ: event.from.z}, speed: 0.005});
+      }
+    }
   }
 };
