@@ -7,5 +7,6 @@ DIALOGUE_LINES.dialogueStart = [
   { name: "コウチョウ", lines: [{segments: [{text: "正しいクロを指摘できれば、クロだけが懲戒解雇。"}]},
                           {segments: [{text: "ですが...もし間違った人物をクロとした場合は..."}]}]},
   { name: "コウチョウ", lines: [{segments: [{text: "クロ以外の全員が懲戒解雇となり、"}]},
-                          {segments: [{text: "先生方を欺いたクロだけが１０億円を手にし、一生安泰な人生を得られます！"}]}]},
+                          {segments: [{text: "クロだけが１０億円を手にし、一生安泰な人生を得られます！"}]}]},
+  { name: "シノハラ　リュウジ", lines: [{segments: [{text: "おい...本当にこの中に犯人がおるんよな？"}]}]}
 ]
