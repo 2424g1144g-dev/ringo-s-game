@@ -344,7 +344,7 @@ body {
 #trialUIBottom.show {
   top: 0;
 }
-#name {
+.name {
   position: absolute;
   left: 0;
   top: 66vh;
@@ -380,7 +380,7 @@ body {
   background: rgb(253,58,54);
   z-index: 12200;
 }
-#log {
+.text {
   position: absolute;
   width: 100vw;
   height: 20vh;
