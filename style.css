@@ -445,11 +445,17 @@ body {
   }
 }
 #trialUIBottom #enterKey {
-  position: absolute;
-  right: 0;
-  top: 95vh;
-  width: 150px;
-  height: 5vh;
-  z-index: 10500;
-  background: rgb(254,55,5);
+    position: absolute;
+    left: 1215px;
+    top: 95vh;
+    width: 150px;
+    height: 5vh;
+    z-index: 10500;
+    text-align: right;
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0, 30% 0);
+    line-height: 0;
+    background: rgb(254, 55, 5);
+    font-family: 'solid';
+    font-size: 30px;
+    align-content: center;
 }
