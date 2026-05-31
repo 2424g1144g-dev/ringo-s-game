@@ -81,7 +81,8 @@ function executeFirstMenu() {
         speed: 0.1, toFov: 45, rotSpeed: 0.05});
       leftUI.classList.add("show");
       bottomUI.classList.add("show");
-      DIALOGUE_EVENTS.useDialog("trialUIBottom");
+      useDialog("trialUIBottom"); // グローバル関数側のuseDialog（activeDialogを切り替える用）
+      DIALOGUE.init(bottomUI, DIALOGUE.data);
       DIALOGUE.start(DIALOGUE_LINES.dialogueStart);
       textEnter = true;
       await cameraMove({ to: { x: 0, y: 30, z: 0 },
