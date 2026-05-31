@@ -73,8 +73,8 @@ window.DIALOGUE = {
 
   typeLine() {
     this.els.enter.style.opacity = 0;
-    let previousName = d.name;
     const d = this.data[this.dialogueIndex];
+    let previousName = d.name;
     this.els.name.innerText = d.name;
     if (previousName !== d.name) {
       document.getElementById("zappingLayer").classList.add("zappingAnim");
