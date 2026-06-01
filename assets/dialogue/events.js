@@ -259,7 +259,7 @@ window.DIALOGUE_EVENTS = {
     await window.cameraMove(event);
     if (event.slide) {
       if (event.slide === "left") {
-        cameraMove({to: {toX: event.to.toX+2, toY: event.to.toY, toZ: event.to.toZ}, speed: 0.005, yaw: null, rotSpeed: null});
+        cameraMove({to: {toX: event.to.toX+2, toY: event.to.toY, toZ: event.to.toZ}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
       }
     }
   }
