@@ -266,5 +266,9 @@ window.DIALOGUE_EVENTS = {
         cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ+2}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
       }
     }
-  }
+  },
+
+  changeExpression: (event) => {
+  window.changeStandInExpression(event.char, event.src);
+}
 };

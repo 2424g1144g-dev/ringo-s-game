@@ -137,7 +137,9 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
         // --- 位置と角度を設定 ---
         standIn.position.set(position.x, position.y, position.z);
         standIn.rotation.y = rotationY * (Math.PI / 180);
-        standIn.scale.set(scale.x, scale.y, scale.z)
+        standIn.scale.set(scale.x, scale.y, scale.z);
+        const charName = imagePath.split('/').reverse()[1]; // 後ろから2番目のフォルダ名を取得
+        standIn.name = charName;
         // 背面（裏側）
         const backMaterial = new THREE.MeshBasicMaterial({ 
             map: texture,
@@ -294,4 +296,40 @@ window.animate = function() {
     }
   }
   renderer.render(scene, camera);
-}; //yaw,pitch,rollをnullのままで使えるようにしたいんだ、初期値が0だと勝手に追加したときに０に戻されてしまうんだ
+};
+
+/**
+ * 立ち絵（テクスチャ）を瞬時に切り替える関数
+ * @param {string} charName - キャラクターの名前（例: "RYUJI"）
+ * @param {string} newImagePath - 新しい表情の画像パス
+ */
+window.changeStandInExpression = function(charName, newImagePath) {
+  // 1. シーン内から、指定した名前のキャラクター（Mesh）を探し出す
+  const targetMesh = scene.getObjectByName(charName);
+  
+  if (!targetMesh) {
+    console.warn(`【警告】${charName} というキャラクターが見つかりません。`);
+    return;
+  }
+
+  // 2. 新しいテクスチャをロードする
+  const loader = new THREE.TextureLoader();
+  loader.load(newImagePath, (newTexture) => {
+    newTexture.colorSpace = THREE.SRGBColorSpace; // 色空間を合わせる
+
+    // 3. 表面（マテリアル）のテクスチャを差し替える
+    targetMesh.material.map = newTexture;
+    targetMesh.material.needsUpdate = true; // Three.jsに更新を通知
+
+    // 4. 裏面（影用の黒板）のテクスチャも一緒に差し替える
+    if (targetMesh.children.length > 0) {
+      const backPlate = targetMesh.children[0];
+      if (backPlate.material && backPlate.material.map) {
+        backPlate.material.map = newTexture;
+        backPlate.material.needsUpdate = true;
+      }
+    }
+  }, undefined, (err) => {
+    console.error("テクスチャの切り替えに失敗しました:", err);
+  });
+};
