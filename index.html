@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西大寺高校　特別体験版</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <audio id="bgm" src="audio/BGM/BOX15.mp3" loop></audio>
+
+  <div id="backgroundLayer"></div>
+  <div id="overlay"></div>
+  <div id="fadeLayer"></div>
+  <div id="flashLayer"></div>
+
+  <div id="dialogue">
+    <div id="dialoguePaint"></div>
+    <div class="name">ツカゴエ　ミツヒロ</div>
+    <div class="text">犯人はツカゴエミツヒロ</div>
+    <div id="enterKey">ENTER</div>
+  </div>
+  <div id=dialogueSpeaking>
+    <div id="box"></div>
+    <div class="name">ニシモト　タツロウ</div>
+    <div class="text"></div>
+    <div class="state">SPEAKING</div>
+    <div id="enterKey">
+      <div id="mainEnter"></div>
+      <div id="subEnter"></div>
+    </div>
+  </div>
+  <div id="sprite">
+    <img id="spriteContain">
+  </div>
+  <div id="itemBox">
+    <img id="itemContain" src="items/farewellDocument.png">
+  </div>
+
+  <div id="neon-line"></div>
+  <div id="bullet-wave-dummy"></div>
+  <div id="bullet">
+    <div id="bulletFoot"></div>
+    <div id="bulletBody">GET!</div>
+    <div id="bulletHead"></div>
+  </div>
+
+  <div id="settingContainer">
+    <div id="settingOverlay"></div>
+    <div id="topLine">
+      <div id="topLineWtext">DEBATE　PREPRENCE</div>
+      <div id="topLineRtext">VERSION</div>
+      <div id="topLineBlack">あ</div>
+      <div id="topLineWhite">職員会議　下準備</div>
+    </div>
+    <div id="bottomText">
+      職員会議（体験版）が幕を開ける...　犯行現場は体育館、現場には被害者の退職届が落ちていた...　岡本を退職させた犯人（クロ）は一体...？　犯人はこの中にいる！？　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+    </div>
+    <div id="bottomLine"></div>
+    <div id="settingMenuContainer">
+      <img id="settingCylinder" src="setting/cylinder.png">
+      <div class="settingMenu-item active" data-index="0">取得したコトダマを見る</div>
+      <div class="settingMenu-item" data-index="1">スキルセット</div>
+      <div class="settingMenu-item" data-index="2">準備を終える</div>
+    </div>
+  </div>
+
+  <div id="kotodamaMonitorContainer">
+    <div id="kotodamaMonitorBody"></div>
+    <div id="kotodamaMenuContainer">
+      <div class="kotodamaMenu-item active" data-index="0">オカモトの退職届</div>
+      <div class="kotodamaMenu-item" data-index="1">シノハラの証言</div>
+      <div class="kotodamaMenu-item" data-index="2">消えた体育倉庫のハンマー</div>
+      <div class="kotodamaMenu-item" data-index="3">ササノの証言</div>
+      <div class="kotodamaMenu-item" data-index="4">体育倉庫の鍵の所在</div>
+      <div class="kotodamaMenu-item" data-index="5">密室の体育館</div>
+    </div>
+    <div id="kotodamaEsc">＜--ESC</div>
+    <div id="kotodamaDesc">サンプルテキスト</div>
+    <div id="kotodamaBox">
+      <img id="kotodamaItemContain">
+    </div>
+  </div>
+
+  <div id="skillSelectContainer">
+    <div id="skillMenuContainer">
+      <div class="skillMenu-item active" data-index="0">残業タフネス</div>
+      <div class="skillMenu-item" data-index="1">コーヒーブレイク</div>
+      <div class="skillMenu-item" data-index="2">コーヒーマシン</div>
+      <div class="skillMenu-item" data-index="3">長考</div>
+      <div class="skillMenu-item" data-index="4">冷静沈着</div>
+      <div class="skillMenu-item" data-index="5">ソフトタッチ</div>
+    </div>
+    <div id="skillValue">　SP　　　　<span id="currentSP">0</span>/<span id="maxSP">9</span></div>
+    <div id="skillDesc">サンプルテキスト</div>
+    <div id="kotodamaEsc">＜--ESC</div>
+  </div>
+
+  <div id="leftDoor"></div>
+  <div id="rightDoor"></div>
+
+
+  <div id="classTrial"><span>職</span><span>員</span><span>会</span><span>議</span></div>
+  <script src="rAF/getKotodama/animation.js"></script>
+  <script src="dialogues/diaFunction.js"></script>
+  <script src="dialogues/diaEvents.js"></script>
+  <script src="dialogues/diaLines.js"></script>
+  <script src=main.js></script>
+  <script src="setting/setting.js"></script>
+  <script src="setting/skillSelect.js"></script>
+  <script src="nonstopDebate/kotodamaMonitor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,739 @@
+@font-face {
+  font-family: "dialogue";
+  src: url("fonts/NekoSpoon.ttf") format("truetype")
+}
+@font-face {
+  font-family: "name";
+  src: url("fonts/NaishoMoji-Regular.otf") format("truetype")
+}
+@font-face {
+  font-family: "strongGamer";
+  src: url("fonts/strongGamer.ttf") format("truetype");
+}
+@font-face {
+  font-family: "dangan";
+  src: url("fonts/Senobi-Gothic-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "solid";
+  src: url("fonts/fontopoSOLID-Regular.otf") format("truetype");
+}
+@font-face {
+  font-family: "makinasFlat";
+  src: url("fonts/Makinas4Flat.otf") format("truetype");
+}
+@font-face {
+  font-family: "makinasSquare";
+  src: url("fonts/Makinas4Square.otf") format("truetype");
+}
+@font-face {
+  font-family: "mouhitsu";
+  src: url("fonts/mouhitsu.ttf") format("truetype");
+}
+/*テキストの色*/
+.blue {
+  color: #579ca9;
+}
+.yellow {
+  color: #ffdc10;
+  -webkit-text-stroke: 1px #bb8f2e;
+}
+.green {
+  color: rgba(131,222,102,1.0)
+}
+
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  overflow: hidden;
+  background: black;
+  margin: 0;
+  padding: 0;
+  touch-action: none;
+}
+
+/*レイヤー枠*/
+#fadeDownLayer {
+  position: absolute;
+  inset:  0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  z-index: 20000;
+  pointer-events: none;
+}
+#backgroundLayer, #settingBG {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+@keyframes flashAnim {
+  0% { opacity: 0; }
+  50% { opacity: 1 }
+  100% { opacity: 0 }
+}
+.flashAnim {
+  animation: flashAnim 0.3s linear;
+}
+#flashLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  z-index: 9999;
+}
+#fadeLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  z-index: 9990;
+}
+
+#dialogue {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 5000;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+#dialoguePaint {
+  position: absolute;
+  width: 100vw;
+  height: 40vh;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+#dialogue .name {
+  position: absolute;
+  left: 40px;
+  top: 72%;
+  width: max-content;
+  color: white;
+  font-family: "name";
+  font-size: 30px;
+}
+#dialogue .text {
+  position: absolute;
+  left: 80px;
+  top: 80%;
+  width: max-content;
+  font-family: "dialogue";
+  text-align: left;
+  font-size: 40px;
+  color: white;
+  line-height: 1.7;
+}
+#dialogue #enterKey {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: max-content;
+  height: 60px;
+  padding: 10px;
+  font-family: "strongGamer";
+  font-size: 50px;
+  color: rgba(147, 140, 140, 1);
+  border: 5px solid rgba(147, 140, 140, 1);
+  border-radius: 10%;
+  animation: enterAnim 1s linear infinite;
+}
+@keyframes enterAnim {
+  0% { filter: brightness(1) }
+  50% { filter: brightness(2); }
+  100% { filter: brightness(1);}
+}
+
+
+#dialogueSpeaking {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 5000;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+#box {
+  position: absolute;
+  width: 95vw;
+  height: 31vh;
+  bottom: 2%;
+  left: 0;
+  background: rgba(89, 86, 83, 0.8);
+  border-radius: 0 130px 130px 0 / 0 130px 130px 0;
+  overflow: hidden; /* 子要素のグラデーションが角丸からはみ出さないようにする */
+}
+/* 疑似要素で上部のバーを作成 */
+#box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6vh; /* 指定したい太さ */
+  background: linear-gradient(
+    to left,
+    rgba(255, 159, 0, 1.0) 0%,
+    rgba(255, 159, 0, 1.0) 30%,
+    rgba(255, 255, 233, 1.0) 50%
+  );
+}
+#dialogueSpeaking .name {
+  position: absolute;
+  left: 3%;
+  bottom: 29%;
+  width: max-content;
+  height: 4vh;
+  color: black;
+  font-family: "name";
+  font-size: 30px;
+}
+#dialogueSpeaking .state {
+  position: absolute;
+  right: 12%;
+  bottom: 29%;
+  width: max-content;
+  height: 4vh;
+  color: rgba(255,250,160,1.0);
+  font-size: 30px;
+  font-weight: lighter;
+}
+#dialogueSpeaking .text {
+  position: absolute;
+  left: 80px;
+  top: 77%;
+  width: max-content;
+  font-family: "dialogue";
+  text-align: left;
+  font-size: 40px;
+  color: white;
+  line-height: 1.7;
+  z-index: 5500;
+}
+#dialogueSpeaking #enterKey {
+  position: absolute;
+  right: 80px;
+  width: 150px;
+  height: 150px;
+  bottom: -10px;
+  opacity: 1;
+  z-index: 5000;
+}
+#mainEnter {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: rgba(255,159,0,1.0);
+}
+#subEnter {
+  position:absolute;
+  left: -30%;
+  bottom: 31%;
+  width: 65%;
+  height: 65%;
+  border-radius: 50%;
+  background: transparent;
+  border: 25px solid rgba(255,159,0,1.0)
+}
+
+#spriteContain {
+  position: absolute;
+  width: auto;
+  height: 290%;
+  left: 0;
+  top: -10%;
+  transform: translateX(-20%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3000;
+}
+
+#itemBox {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  right: -350px;
+  bottom: 300px;
+  background: rgba(89, 86, 83, 0.8);
+  pointer-events: none;
+  opacity: 1;
+  border: 4px solid white;
+  z-index: 6000;
+  box-shadow:  1px 1px 5px #000, -1px -1px 5px #000;
+  transition: right 0.3s ease-out;
+  overflow: hidden;
+}
+#itemBox.show {
+  right: 50px;
+}
+#kotodamaItemContain {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+
+#bullet {
+  position: absolute;
+  left: -300px;
+  top: 44vh;
+  display: flex; /* 子要素を横に並べる */
+  align-items: stretch; /* 高さを揃える */
+  z-index: 4000;
+  background: none; 
+}
+#bulletHead, #bulletBody, #bulletFoot {
+  background: rgb(224, 250, 255);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  height: 80px;
+}
+
+#bulletFoot {
+  width: 40px;
+  mask-image: url("mask/bullet/bulletFoot.png");
+}
+
+#bulletBody {
+  flex-grow: 1;
+  width: max-content;
+  padding: 0 10px;
+  mask-image: url("mask/bullet/bulletBody.png");
+  font-family: "solid";
+  font-size: 60px;
+  line-height: 80px;
+  color: #003366;
+  white-space: nowrap;
+}
+#bulletHead {
+  width: 100px;
+  mask-image: url("mask/bullet/bulletHead.png");
+}
+@keyframes wave {
+  from { 
+    transform: scale(1.0);
+    opacity: 1;
+  }
+  to { 
+    transform: scale(2.0);
+    opacity: 0;
+  }
+}
+#bullet-wave-dummy {
+  position: fixed;
+  display: none;
+  pointer-events: none;
+  z-index: 9999;
+  background: rgb(224, 250, 255);
+  mask-image: url("mask/bullet.png"); 
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+#neon-line {
+  position: absolute;
+  top: 48vh;
+  left: -25vw;
+  width:150vw;
+  height: 20px;
+  background: radial-gradient(
+    ellipse at center, 
+    rgba(224, 250, 255, 1) 0%, 
+    rgba(50, 150, 255, 0.6) 20%,  
+    rgba(0, 50, 255, 0.1) 60%,  
+    transparent 100%             
+  );
+  /* 最初は左側に隠しておく（上 右 下 左 の順。右を100%にすると中身が消える） */
+  clip-path: inset(0 100% 0 0);
+}
+@keyframes neonShow {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+@keyframes neonOff {
+  0%   { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 100%); }
+}
+.neonAnim {
+  animation: 0.3s neonShow 0s linear forwards,
+             0.3s neonOff 0.7s linear forwards;
+}
+
+/*裁判前の設定画面に関するCSS-------------------------------------------*/
+#settingContainer {
+  position: absolute;
+  inset: 0;
+  display: none;
+  z-index: 1000;
+}
+#settingOverlay {
+  position: absolute;
+  left: 0;
+  top:  0;
+  width: 100vw;
+  height: 100vh;
+  background: /* 縦線 */
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px,
+      transparent 64px
+    ),
+    /* 横線 */
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1) 2px,
+      transparent 2px,
+      transparent 64px
+    );
+  z-index: 10;
+  opacity: 1;
+}
+#topLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 12vh;
+  background: black;
+  z-index: 100;
+}
+#topLineWtext {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  top: -15px;
+  right: 3vw;
+  color: white;
+  font-family: "solid";
+  font-size: 70px;
+}
+#topLineRtext {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  top: 7px;
+  left: 3vw;
+  color: rgb(245,61,11);
+  font-family:"solid";
+  font-size: 55px;
+}
+#topLineWhite {
+  position: absolute;
+  top: 12vh;
+  width: 100vw;
+  right: 0;
+  height: 5vh;
+  background: white;
+  z-index: 200;
+  font-family: "makinasSquare";
+  font-size: 30px;
+  padding-top: 5px;
+  padding-right: 50px;
+  text-align: right;
+}
+#topLineBlack {
+  position: absolute;
+  top: 11.9vh;
+  width: 30vw;
+  left: 0;
+  height: 5.2vh;
+  background: black;
+  z-index: 300;
+  font-family: "makinasSquare";
+  font-size: 30px;
+  padding-top: 5px;
+  padding-right: 50px;
+  text-align: right;
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}
+#bottomLine {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 9vh;
+  background: black;
+  z-index: 100;
+}
+#bottomText {
+  position: absolute;
+  bottom: 10px;    
+  left: 100%;      
+  white-space: nowrap; 
+  color: white;
+  font-family: "makinasSquare";
+  font-size: 30px;
+  z-index: 200;
+  pointer-events: none; 
+  animation: textFlow 30s linear infinite;
+}
+@keyframes textFlow {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+#settingCylinder {
+  position: absolute;
+  left: -70vw;
+  top: -38vh;
+  z-index: 5;
+  width: 450px;
+  height: 450px;
+  animation: settingCylinderRotate 8s linear infinite;
+}
+@keyframes settingCylinderRotate {
+  from {transform: rotate(0deg)
+                   scale(1.8); }
+  to   {transform: rotate(360deg)
+                   scale(1.8); }
+  }
+#settingMenuContainer {
+  position: absolute;
+  right: 50px;
+  bottom: 100px;
+  text-align: left;
+  transform: scale(1.3);
+  z-index: 300;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+.settingMenu-item {
+  font-family: "makinasSquare";
+  font-size: 24px;
+  color: white;
+  padding: 5px 20px;
+  margin: 10px 0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.settingMenu-item.active {
+  background-color: #FF4500;
+  color: white;
+  transform: translateX(-10px);
+  animation: opa 1s linear infinite;
+}
+
+#kotodamaMonitorContainer {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
+}
+#kotodamaMonitorBody {
+  position: absolute;
+  background: rgba(108, 6, 6, 0.8);
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  transform-origin: center;
+}
+#kotodamaMenuContainer {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  text-align: left;
+  z-index: 12000;
+  transform: scale(1.3);
+}
+.kotodamaMenu-item {
+  font-family: "makinasSquare";
+  font-size: 24px;
+  color: white;
+  padding: 5px 20px;
+  margin: 10px 0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.kotodamaMenu-item.active {
+  background-color: #FF4500;
+  color: white;
+  animation: opa 0.8s linear infinite;
+}
+@keyframes opa {
+  0%  {background: rgba(255, 69, 0, 1.0);}
+  50% {background: rgba(255, 69, 0, 0.5);}
+  100% {background: rgba(255, 69, 0, 1.0);}
+}
+#kotodamaBox {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  right:  330px;
+  top: 50px;
+  background: rgba(89, 86, 83, 0.8);
+  pointer-events: none;
+  opacity: 1;
+  border: 4px solid white;
+  z-index: 12000;
+  box-shadow:  1px 1px 5px #000, -1px -1px 5px #000;
+  overflow: hidden;
+  transform: scale(1.3);
+}
+#kotodamaItemContain {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+#kotodamaDesc {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  text-align: left;
+  width: max-content;
+  height: max-content;
+  font-size: 30px;
+  font-family: "makinasSquare";
+  z-index: 12000;
+  pointer-events: none;
+  color: white;
+}
+#kotodamaEsc {
+  position: absolute;
+  left: 50px;
+  bottom: 50px;
+  color: white;
+  font-size: 50px;
+  z-index: 12000;
+  font-family: "makinasSquare";
+}
+
+#skillSelectContainer {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
+}
+#skillMenuContainer {
+  position: absolute;
+  right: 30vh;
+  top: 30vh;
+  text-align: left;
+  z-index: 12000;
+  transform: scale(1.3);
+}
+.skillMenu-item {
+  font-family: "makinasSquare";
+  font-size: 24px;
+  color: white;
+  padding: 5px 20px;
+  padding-right: 200px;
+  margin: 10px 0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.skillMenu-item.active {
+  background-color: #FF4500;
+  color: white;
+  animation: opa 0.8s linear infinite;
+}
+.skillMenu-item.selected {
+  background-color: rgb(25, 213, 230);
+  color: white;
+}
+#skillValue {
+  position: absolute;
+  left: 0;
+  top: 25vh;
+  width: 35vw;
+  height: 13vh;
+  line-height: 80px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.3) 80%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  font-family: "strongGamer";
+  font-weight: "bold";
+  font-size: 60px;
+  text-align: left;
+  border-top: 2px solid rgba(255,255,255,0.5);
+  border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+#skillDesc {
+  position: absolute;
+  left: 0;
+  top: 38.5vh;
+  width: 32vw;
+  height: 52vh;
+  padding: 20px;
+  font-family: "makinasSquare";
+  font-size: 25px;
+  color: white;
+  background: rgba(255,255,255,0.15);
+  text-align: left;
+}
+
+
+#classTrial {
+  position: absolute; /* 画面中央などに固定するため */
+  top: 75vh;
+  width: 100vw;
+  height: 100vh;
+  left: 45vw;
+  transform: translate(-50%, -50%);
+  font-family: "mouhitsu";
+  font-size: 400px;
+  z-index: 10000;
+  color: rgb(189, 52, 52);
+  letter-spacing: -90px;
+  pointer-events: none; /* クリックをすり抜けさせる */
+}
+
+#classTrial span {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* ★親要素に .active がついたらアニメーション開始 */
+#classTrial.active span {
+  animation: souldShake 0.2s ease-out forwards;
+}
+
+/* 遅延設定（ここは変更なし） */
+#classTrial span:nth-child(1) {
+  position: relative;
+  top: -50px; 
+  animation-delay: 0.1s; }
+#classTrial span:nth-child(2) { 
+  position:relative;
+  top: 50px;
+  animation-delay: 0.2s; }
+#classTrial span:nth-child(3) { 
+  position: relative;
+  top: 50px;
+  animation-delay: 0.3s; }
+#classTrial span:nth-child(4) {
+  position:relative;
+  top: -50px;
+  animation-delay: 0.4s; }
+
+@keyframes souldShake {
+  0% { opacity: 0; transform: scale(2); } /* 少し大きく出現させると迫力が出ます */
+  1% { opacity: 1; }
+  20% { transform: translate(-5px, 3px) rotate(-5deg); }
+  40% { transform: translate(5px, -3px) rotate(5deg); }
+  60% { transform: translate(-3px, -2px) rotate(-3deg); }
+  80% { transform: translate(3px, 2px) rotate(3deg); }
+  100% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+}
