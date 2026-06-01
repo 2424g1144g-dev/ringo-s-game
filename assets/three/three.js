@@ -173,9 +173,9 @@ window.cameraMove = function({
   speed = null,
   toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
   fovSpeed = null,
-  yaw = 0,
-  pitch = 0,
-  roll = 0,
+  yaw = null,
+  pitch = null,
+  roll = null,
   rotSpeed = null,
 } = {}) {
   // async/await で待機できるように Promise を返す
@@ -196,12 +196,14 @@ window.cameraMove = function({
     cameraAnimation.speed = (speed !== null) ? speed : 0.8;
 
     // 3. 目標の回転を設定
-    cameraAnimation.toRotation.set(
-      pitch * (Math.PI / 180),
-      yaw * (Math.PI / 180),
-      roll * (Math.PI / 180),
-      'YXZ'
-    );
+    cameraAnimation.toRotationRaw ={
+      x: pitch,
+      y: yaw,
+      z: roll
+    };
+    cameraAnimation.toRotation.x = (pitch !== null) ? pitch * (Math.PI / 180) : null;
+    cameraAnimation.toRotation.y = (yaw !== null)   ? yaw * (Math.PI / 180)   : null;
+    cameraAnimation.toRotation.z = (roll !== null)  ? roll * (Math.PI / 180)  : null;
     cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
 
     // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
@@ -245,21 +247,36 @@ window.animate = function() {
     // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
     camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
     
-    const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
-    const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
-    const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
+    // --- X軸（ピッチ） ---
+    // 💡 null（未指定）じゃない時だけ動かす！
+    if (cameraAnimation.toRotation.x !== null) {
+      const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
+      if (Math.abs(diffX) <= cameraAnimation.rotSpeed) {
+        camera.rotation.x = cameraAnimation.toRotation.x;
+      } else {
+        camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
+      }
+    }
 
-    // X軸（ピッチ）
-    if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
-    else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
+    // --- Y軸（ヨー / 横回転） ---
+    if (cameraAnimation.toRotation.y !== null) {
+      const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
+      if (Math.abs(diffY) <= cameraAnimation.rotSpeed) {
+        camera.rotation.y = cameraAnimation.toRotation.y;
+      } else {
+        camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
+      }
+    }
 
-    // Y軸（ヨー / 横回転）
-    if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
-    else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
-
-    // Z軸（ロール）
-    if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
-    else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+    // --- Z軸（ロール） ---
+    if (cameraAnimation.toRotation.z !== null) {
+      const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
+      if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) {
+        camera.rotation.z = cameraAnimation.toRotation.z;
+      } else {
+        camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+      }
+    }
 
     // ③ ズーム（FOV）の等速変化（ここはそのまま）
     const fovDiff = cameraAnimation.toFov - camera.fov;
@@ -271,10 +288,12 @@ window.animate = function() {
     camera.updateProjectionMatrix();
 
     // ④ 到着判定（★回転の判定もオイラー角の誤差チェックに変更）
-    const isPosEnd = camera.position.equals(cameraAnimation.toPos);
-    const isRotEnd = (Math.abs(camera.rotation.x - cameraAnimation.toRotation.x) < 0.01) &&
-                     (Math.abs(camera.rotation.y - cameraAnimation.toRotation.y) < 0.01) &&
-                     (Math.abs(camera.rotation.z - cameraAnimation.toRotation.z) < 0.01);
+    const isRotXEnd = (cameraAnimation.toRotation.x === null) || (Math.abs(camera.rotation.x - cameraAnimation.toRotation.x) < 0.01);
+    const isRotYEnd = (cameraAnimation.toRotation.y === null) || (Math.abs(camera.rotation.y - cameraAnimation.toRotation.y) < 0.01);
+    const isRotZEnd = (cameraAnimation.toRotation.z === null) || (Math.abs(camera.rotation.z - cameraAnimation.toRotation.z) < 0.01);
+
+    const isPosEnd = camera.position.distanceTo(cameraAnimation.toPos) < 0.01;
+    const isRotEnd = isRotXEnd && isRotYEnd && isRotZEnd;
     const isFovEnd = (Math.abs(camera.fov - cameraAnimation.toFov) < 0.01);
 
     if (isPosEnd && isRotEnd && isFovEnd) {
