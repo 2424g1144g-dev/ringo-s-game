@@ -271,6 +271,10 @@ window.DIALOGUE_EVENTS = {
   },
 
   changeExpression: (event) => {
-  window.changeStandInExpression(event.char, event.src);
-}
+    window.changeStandInExpression(event.char, event.src);
+  },
+
+  intensed: () => {
+    document.getElementById("leftBarImg").classList.add("iconBeat");
+  }
 };
