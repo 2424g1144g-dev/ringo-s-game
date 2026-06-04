@@ -264,6 +264,8 @@ window.DIALOGUE_EVENTS = {
         cameraMove({to: {toX: event.to.toX, toY: event.to.toY+2, toZ: event.to.toZ}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
       } else if (event.slide === "Z") {
         cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ+2}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
+      } else if (event.slide === "zoom") {
+        cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ}, toFov: event.slideFove4})
       }
     }
   },
