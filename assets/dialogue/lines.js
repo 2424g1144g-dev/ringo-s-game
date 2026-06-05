@@ -17,7 +17,7 @@ DIALOGUE_LINES.dialogueStart = [
                                         {segments: [{text: "そういうあなたが犯人なんじゃないですか？"}]}]},
   { name: "ササノ　ケント", lines: [{segments: [{text: "そうやって決めつけていては、"}], event: [{type: "cameraMove", to: {toX: -15, toY: 25, toZ: 15},toFov: 60, fovSpeed: 999, yaw: 135, rotSpeed: 999, slide: "X", slideYaw: 135, slideRotSpeed: 999},{type: "changeExpression", char: "KENTO", src: "assets/three/characters/KENTO/Kento_Explain.png"}]},
                                     {segments: [{text: "真実にたどり着くことはできませんよ。"}]}]},
-  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "それには、僕も賛成です。"}], event: [{type: "cameraMove", to: {toX: 0, toY: 20, toZ: -22},toFov: 45, fovSpeed: 999, slide: "Y"}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "それには、僕も賛成です。"}], event: [{type: "cameraMove", to: {toX: 0, toY: 20, toZ: -22},toFov: 70, fovSpeed: 999, slide: "Y"}]},
                                         {segments: [{text: "ですが...何から話し合えば..."}]}]},
   { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "まずは...事件についてまとめるってのはどうじゃ？"}]}]},
   { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "前提となる基礎を固めるべき...論表と同じじゃな。"}]}]},
