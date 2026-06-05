@@ -267,7 +267,7 @@ window.DIALOGUE_EVENTS = {
       } else if (event.slide === "zoom") {
         cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ}, speed: 999, toFov: event.slideFov, fovSpeed: event.slideFovSpeed, yaw: event.slideYaw, roll: event.slideRoll, rotSpeed: event.slideRotSpeed});
       } else if (event.slide === "zoomOut") {
-        cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ}, speed: 999, toFov: event.slideFov, fovSpeed: event.slideFovSpeed, yaw: event.slideYaw, pitch: slidePitch, roll: event.slideRoll, rotSpeed: event.slideRotSpeed})
+        cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ}, speed: 999, toFov: event.slideFov, fovSpeed: event.slideFovSpeed, yaw: event.slideYaw, pitch: event.slidePitch, roll: event.slideRoll, rotSpeed: event.slideRotSpeed})
       }
     }
   },
