@@ -277,8 +277,8 @@ window.DIALOGUE_EVENTS = {
   intensed: () => {
     document.getElementById("leftBarImg").classList.add("iconBeat");
   },
-  
+
   silent: () => {
-    document.getElementById("iconBarImg").classList.remove("iconBeat");
+    document.getElementById("leftBarImg").classList.remove("iconBeat");
   }
 };
