@@ -15,7 +15,7 @@ DIALOGUE_LINES.dialogueStart = [
                                         {segments: [{text: "こんなくだらん会議が始まっとんやぞ！！！"}]}]},
   { name: "フルイチ　ヒデハル", lines: [{segments: [{text: "ちゃっかり自分は容疑者から外すんですねー..."}], event: [{type: "cameraMove", to: {toX: -7, toY: 25, toZ: -8},toFov: 45, fovSpeed: 999, speed: 999, yaw: 35, roll: 15, rotSpeed: 999, slide: "Z", slideYaw: 45, slideRoll: 15, slideRotSpeed: 0.02},{type: "changeExpression", char: "FAKEFURUICHI", src: "assets/three/characters/FAKEFURUICHI/FakeFuruichi_See.png"},{type: "silent"}]},
                                         {segments: [{text: "そういうあなたが犯人なんじゃないですか？"}]}]},
-  { name: "ササノ　ケント", lines: [{segments: [{text: "そうやって決めつけていては、"}]},
+  { name: "ササノ　ケント", lines: [{segments: [{text: "そうやって決めつけていては、"}], event: [{type: "cameraMove", to: {toX: -15, toY: 25, toZ: 15},toFov: 45, fovSpeed: 999, yaw: 135, rotSpeed: 999, slide: "X", slideYaw: 135, slideRotSpeed: 999},{type: "changeExpression", char: "KENTO", src: "assets/three/characters/KENTO/Kento_Explain.png"}]},
                                     {segments: [{text: "真実にたどり着くことはできませんよ。"}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "それには、僕も賛成です。"}]},
                                         {segments: [{text: "ですが...何から話し合えば..."}]}]},
