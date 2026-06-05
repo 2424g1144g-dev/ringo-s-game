@@ -13,7 +13,7 @@ DIALOGUE_LINES.dialogueStart = [
   { name: "ツカゴエ　ミツヒロ", lines: [{segments: [{text: "誰や！岡本先生を退職させたんは！！！"}], event: [{type: "cameraMove", to: {toX: -2, toY: 25, toZ: 0},toFov: 20, fovSpeed: 2, speed: 999, yaw: -45, rotSpeed: 999, slide: "zoom", slideYaw: -45, slideRotSpeed: 0.02, slideFov: 25, slideFovSpeed: 0.02},{type: "changeExpression", char: "MITSUHIRO", src: "assets/three/characters/MITSUHIRO/Mitsuhiro_Point.png"},{type: "intensed"}]}]}, 
   { name: "ツカゴエ　ミツヒロ", lines: [{segments: [{text: "お前らの誰かのせいで"}]},
                                         {segments: [{text: "こんなくだらん会議が始まっとんやぞ！！！"}]}]},
-  { name: "フルイチ　ヒデハル", lines: [{segments: [{text: "ちゃっかり自分は容疑者から外すんですねー..."}], event: [{type: "cameraMove", to: {toX: 5, toY: 25, toZ: 3},toFov: 45, fovSpeed: 999, speed: 999, yaw: 35, roll: 15, rotSpeed: 999, slide: "Z", slideYaw: 45, slideRoll: 15, slideRotSpeed: 0.02},{type: "changeExpression", char: "FAKEFURUICHI", src: "assets/three/characters/FAKEFURUICHI/FakeFuruichi_See.png"}]},
+  { name: "フルイチ　ヒデハル", lines: [{segments: [{text: "ちゃっかり自分は容疑者から外すんですねー..."}], event: [{type: "cameraMove", to: {toX: 5, toY: 25, toZ: -15},toFov: 45, fovSpeed: 999, speed: 999, yaw: 35, roll: 15, rotSpeed: 999, slide: "Z", slideYaw: 45, slideRoll: 15, slideRotSpeed: 0.02},{type: "changeExpression", char: "FAKEFURUICHI", src: "assets/three/characters/FAKEFURUICHI/FakeFuruichi_See.png"}]},
                                         {segments: [{text: "そういうあなたが犯人なんじゃないですか？"}]}]},
   { name: "ササノ　ケント", lines: [{segments: [{text: "そうやって決めつけていては、"}]},
                                     {segments: [{text: "真実にたどり着くことはできませんよ。"}]}]},
