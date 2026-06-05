@@ -19,7 +19,7 @@ DIALOGUE_LINES.dialogueStart = [
                                     {segments: [{text: "真実にたどり着くことはできませんよ。"}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "それには、僕も賛成です。"}], event: [{type: "cameraMove", to: {toX: 0, toY: 23, toZ: -22},toFov: 70, fovSpeed: 999, slide: "Y"}]},
                                         {segments: [{text: "ですが...何から話し合えば..."}]}]},
-  { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "まずは...事件についてまとめるってのはどうじゃ？"}]}]},
+  { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "まずは...事件についてまとめるってのはどうじゃ？"}], event: [{type: "cameraMove", to: {toX: 0, y: 27, z: 10}, toFov: 45, fovSpeed: 999, speed: 999, yaw: 180, pitch: 20, rotSpeed: 999}]}]},
   { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "前提となる基礎を固めるべき...論表と同じじゃな。"}]}]},
   { name: "ヤマモト　ケイゾウ", lines: [{segments: [{text: "じゃあ早速議論を始めましょうか..."}]},
                                         {segments: [{text: "妻も愛犬のパピヨンも待っとるしな..."}]}]}
