@@ -261,7 +261,7 @@ window.DIALOGUE_EVENTS = {
       if (event.slide === "X") {
         cameraMove({to: {toX: event.to.toX+2, toY: event.to.toY, toZ: event.to.toZ}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
       } else if (event.slide === "Y") {
-        cameraMove({to: {toX: event.to.toX, toY: event.to.toY+2, toZ: event.to.toZ}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
+        cameraMove({to: {toX: event.to.toX, toY: event.to.toY+2, toZ: event.to.toZ}, speed: 0.005, yaw: event.slideYaw, roll: event.slideRoll, rotSpeed: event.slideRotSpeed});
       } else if (event.slide === "Z") {
         cameraMove({to: {toX: event.to.toX, toY: event.to.toY, toZ: event.to.toZ+2}, speed: 0.005, yaw: event.slideYaw, rotSpeed: event.slideRotSpeed});
       } else if (event.slide === "zoom") {
