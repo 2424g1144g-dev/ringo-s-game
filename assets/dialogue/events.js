@@ -285,6 +285,6 @@ window.DIALOGUE_EVENTS = {
   },
 
   dhenFlash: () => {
-    document.getElementById("overlays").classList.add("dhenFlash");
+    document.getElementById("overlays").classList.add("action-flash");
   }
 };
