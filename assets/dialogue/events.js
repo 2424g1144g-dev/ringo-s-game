@@ -285,7 +285,7 @@ window.DIALOGUE_EVENTS = {
   },
 
   dhenFlash: () => {
-    const canvas = renderer.domElement;
+    const canvas = document.querySelector("canvas");
     canvas.classList.remove("action-flash");
     void canvas.offsetWidth;
     canvas.classList.add("action-flash");
