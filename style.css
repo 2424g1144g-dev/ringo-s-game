@@ -490,7 +490,7 @@ body {
   0% {
     filter: brightness(3.0) contrast(1.5); /* 🌟一瞬めちゃくちゃ眩しく、クッキリさせる */
   }
-  40% {
+  80% {
     filter: brightness(0.8) contrast(1.2); /* 🌗ちょっとだけ暗く沈ませて余韻を作る */
   }
   100% {
