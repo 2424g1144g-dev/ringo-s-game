@@ -282,5 +282,9 @@ window.DIALOGUE_EVENTS = {
 
   silent: () => {
     document.getElementById("leftBarImg").classList.remove("iconBeat");
+  },
+
+  dhenFlash: () => {
+    document.getElementById("overlays").classList.add("dhenFlash");
   }
 };

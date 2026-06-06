@@ -115,6 +115,16 @@ body {
 }
 
 /*職員会議開始画面--------------------------*/
+#overlays {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  
+}
 #blackScreen {
   position: absolute;
   inset: 0;
@@ -469,4 +479,21 @@ body {
     font-family: 'solid';
     font-size: 30px;
     align-content: center;
+}
+
+/* 「デーン！！」用のフラッシュアニメーションクラス */
+.action-flash {
+  animation: dhenFlash 0.5s ease-out forwards;
+}
+
+@keyframes dhenFlash {
+  0% {
+    filter: brightness(3.0) contrast(1.5); /* 🌟一瞬めちゃくちゃ眩しく、クッキリさせる */
+  }
+  40% {
+    filter: brightness(0.8) contrast(1.2); /* 🌗ちょっとだけ暗く沈ませて余韻を作る */
+  }
+  100% {
+    filter: brightness(1.0) contrast(1.0); /* 🟢元の綺麗な状態に戻る */
+  }
 }
