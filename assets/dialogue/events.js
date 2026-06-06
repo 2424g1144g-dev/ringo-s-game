@@ -289,4 +289,5 @@ window.DIALOGUE_EVENTS = {
     canvas.classList.remove("action-flash");
     void canvas.offsetWidth;
     canvas.classList.add("action-flash");
+  }
 };
