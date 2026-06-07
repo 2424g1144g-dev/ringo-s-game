@@ -62,6 +62,7 @@ window.DIALOGUE = {
       document.getElementById("zappingLayer").classList.add("zappingAnim");
       icon = document.getElementById("leftBarImg");
       setTimeout(() => {
+        if (d.name !== "ナレーション") icon.opacity = 1;
         if (d.name === "ニシモト　タツロウ") {
           icon.src = "assets/icon/iconTaturo.png";
         } else if (d.name === "フルイチ　ヒデハル") {
@@ -78,6 +79,8 @@ window.DIALOGUE = {
           icon.src = "assets/icon/iconRyuji.png";
         } else if (d.name === "ヤマモト　シゲオ") {
           icon.src = "assets/icon/iconShige.png";
+        } else if (d.name === "ナレーション") {
+          icon.style.opacity = 0;
         }
       },150)
     }

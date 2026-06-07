@@ -8,6 +8,17 @@ body {
   touch-action: none;
   color: white;
 }
+/*文字の色---------------------------------------------------*/
+.blue {
+  color: #579ca9;
+}
+.yellow {
+  color: #ffdc10;
+  -webkit-text-stroke: 1px #bb8f2e;
+}
+.green {
+  color: rgba(131,222,102,1.0)
+}
 /*フォント---------------------------------------------------*/
 @font-face {
   font-family: "makinasFont";
