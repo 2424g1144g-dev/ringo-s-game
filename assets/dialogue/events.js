@@ -273,7 +273,7 @@ window.DIALOGUE_EVENTS = {
   },
 
   narration: async () => {
-    document.getElementById("leftBarImg").classList.remove("show");
+    document.getElementById("trialUILeftBar").classList.remove("show");
     await window.cameraMove({ to: { x: 0, y: 30, z: 0 },
       toFov: 80, fovSpeed: 999, speed: 999, pitch: -15, rotSpeed: 999});
     await window.cameraMove({yaw: 720, pitch: -15, rotSpeed: 0.001})
