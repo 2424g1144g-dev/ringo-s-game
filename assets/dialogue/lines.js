@@ -23,6 +23,6 @@ DIALOGUE_LINES.dialogueStart = [
   { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "前提となる基礎を固めるべき...論表と同じじゃな。"}]}]},
   { name: "ヤマモト　ケイゾウ", lines: [{segments: [{text: "じゃあ早速議論を始めましょうか..."}], event: [{type: "cameraMove", to: {toX: 10, y: 23, z: 6}, speed: 999, toFov: 45, fovSpeed: 999, speed: 999, yaw: 225, rotSpeed: 999, slide: "X", slideYaw: 225}]},
                                         {segments: [{text: "妻も愛犬のパピヨンも待っとるしな..."}]}]},
-  { name: "ナレーション", lines: [{segments: [{text: "これから", color: "green"},{text: "ノンストップ議論", color: "yellow"},{text: "が始まります", color: "green"}], event: [{type: "narration"}]},
-                                  {segments: [{text: "説明をお聞きになりますか？", color: "green"}]}]}
+  { name: "ナレーション", lines: [{segments: [{text: "これから", class: "green"},{text: "ノンストップ議論", class: "yellow"},{text: "が始まります", class: "green"}], event: [{type: "narration"}]},
+                                  {segments: [{text: "説明をお聞きになりますか？", class: "green"}]}]}
 ]
