@@ -23,6 +23,14 @@ DIALOGUE_LINES.dialogueStart = [
   { name: "ヤマモト　シゲオ", lines: [{segments: [{text: "前提となる基礎を固めるべき...論表と同じじゃな。"}]}]},
   { name: "ヤマモト　ケイゾウ", lines: [{segments: [{text: "じゃあ早速議論を始めましょうか..."}], event: [{type: "cameraMove", to: {toX: 10, y: 23, z: 6}, speed: 999, toFov: 45, fovSpeed: 999, speed: 999, yaw: 225, rotSpeed: 999, slide: "X", slideYaw: 225}]},
                                         {segments: [{text: "妻も愛犬のパピヨンも待っとるしな..."}]}]},
-  { name: "ナレーション", lines: [{segments: [{text: "これから", class: "green"},{text: "ノンストップ議論", class: "yellow"},{text: "が始まります", class: "green"}], event: [{type: "narration"}]},
-                                  {segments: [{text: "説明をお聞きになりますか？", class: "green"}]}]}
+  { name: "ナレーション", lines: [{segments: [{text: "職員会議中、ストーリーが進むと", class: "green"}]},
+                                  {segments: [{text: "ノンストップ議論", class: "yellow"},{text: "が発生します。", class: "green"}], event: [{type: "narration"}]}]},
+  { name: "ナレーション", lines: [{segments: [{text: "ノンストップ議論では登場人物が次々と発言し、"}]},
+                                  {segments: [{text: "議論が自動的に進みます。", class: "green"}]}]},
+  { name: "ナレーション", lines: [{segments: [{text: "議論に潜む", class: "green"},{text: "ウソや矛盾", class: "yellow"},{text: "を見つけ出し..."}]}]},
+  { name: "ナレーション", lines: [{segments: [{text: "言弾（コトダマ）", class: "yellow"},{text: "を使って論破しなければなりません。", class: "green"}]}]},
+  { name: "ナレーション", lines: [{segments: [{text: "捜査で集めた", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "のうち", class: "green"}]},
+                                  {segments: [{text: "議論に必要なモノのみ、", class: "green"},{text: "コトダマシリンダー", class: "yellow"},{text: "に装填されます。", class: "green"}]}]},
+  { name: "ナレーション", lines: [{segments: [{text: "その中に、議論を論破するための", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "が隠されています。", class: "green"}]}]},
+  { name: "ナレーション", lines: [{segments: [{text: "登場人物の発言に注目し、正しい", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "をぶつけてください。"}]}]}
 ]
