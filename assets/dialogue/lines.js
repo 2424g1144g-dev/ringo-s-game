@@ -32,5 +32,8 @@ DIALOGUE_LINES.dialogueStart = [
   { name: "ナレーション", lines: [{segments: [{text: "捜査で集めた", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "のうち", class: "green"}]},
                                   {segments: [{text: "議論に必要なモノのみ、", class: "green"},{text: "コトダマシリンダー", class: "yellow"},{text: "に装填されます。", class: "green"}]}]},
   { name: "ナレーション", lines: [{segments: [{text: "その中に、議論を論破するための", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "が隠されています。", class: "green"}]}]},
-  { name: "ナレーション", lines: [{segments: [{text: "登場人物の発言に注目し、正しい", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "をぶつけてください。", class: "green"}]}]}
+  { name: "ナレーション", lines: [{segments: [{text: "登場人物の発言に注目し、正しい", class: "green"},{text: "言弾（コトダマ）", class: "yellow"},{text: "をぶつけてください。", class: "green"}]}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "ついに始まるんですね...犯人を決めるための議論が...", class: "blue"}]}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "なにか気づいた事があれば、僕自身が積極的に発言しないと...", class: "blue"}]}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "僕だけではありません...皆さんの教師人生が懸かっているんですから！"}]}]}
 ]
