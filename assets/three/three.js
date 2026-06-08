@@ -166,7 +166,8 @@ let cameraAnimation = {
   rotSpeed: 0,
   toFov: 45,
   fovSpeed: 1,
-  onComplete: null 
+  onComplete: null,
+  lookAtPos: null
 };
 
 window.cameraMove = function({
@@ -179,6 +180,7 @@ window.cameraMove = function({
   pitch = 0,
   roll = 0,
   rotSpeed = null,
+  lookAtPos = null
 } = {}) {
   // async/await で待機できるように Promise を返す
   return new Promise((resolve) => {
@@ -196,8 +198,21 @@ window.cameraMove = function({
     
     // nullが混入したときのセーフティガード
     cameraAnimation.speed = (speed !== null) ? speed : 0.8;
+    
+    if (lookAtPos) {
+      cameraAnimation.lookAtPos = new THREE.Vector3(lookAtPos.x, lookAtPos.y, lookAtPos.z);
+    } else {
+      cameraAnimation.lookAtPos = null;
+    }
 
     // 3. 目標の回転を設定
+    if (lookAtPos) {
+      const tempCamera = camera.clone();
+      tempCamera.position.set(targetX, targetY, targetZ);
+      tempCamera.lookAt(cameraAnimation.lookAtPos);
+      cameraAnimation.toRotation.copy(tempCamera.rotation);
+      cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed: 0.05;
+    }
     cameraAnimation.toRotation.set(
       pitch * (Math.PI / 180),
       yaw * (Math.PI / 180),
@@ -244,24 +259,28 @@ window.animate = function() {
       camera.position.add(dir);
     }
 
-    // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
-    camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
+    if (cameraAnimation.lookAtPos) {
+      camera.lookAt(cameraAnimation.lookAtPos);
+    } else {
+      // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
+      camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
     
-    const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
-    const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
-    const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
+      const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
+      const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
+      const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
 
-    // X軸（ピッチ）
-    if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
-    else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
+      // X軸（ピッチ）
+      if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
+      else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
 
-    // Y軸（ヨー / 横回転）
-    if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
-    else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
+      // Y軸（ヨー / 横回転）
+      if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
+      else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
 
-    // Z軸（ロール）
-    if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
-    else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+      // Z軸（ロール）
+      if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
+      else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+    }
 
     // ③ ズーム（FOV）の等速変化（ここはそのまま）
     const fovDiff = cameraAnimation.toFov - camera.fov;
