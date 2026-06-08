@@ -1,7 +1,7 @@
 
 const bgm = document.getElementById("bgm");
 // 再生
-function playBGM(volume = 0.5) {
+function playBGM(volume = 0.4) {
   bgm.volume = volume;
   bgm.currentTime = 0;
   bgm.play().catch(() => {
