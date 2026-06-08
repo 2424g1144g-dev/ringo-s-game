@@ -278,6 +278,11 @@ window.DIALOGUE_EVENTS = {
       toFov: 80, fovSpeed: 999, speed: 999, pitch: -15, rotSpeed: 999});
     await window.cameraMove({yaw: 720, pitch: -15, rotSpeed: 0.001})
   },
+  
+  ordinary: async () => {
+    await cameraMove({from: { x: 0, y: 23, z: -23 }, to: { x: 0, y: 23, z: -5 },
+        speed: 0.1, toFov: 45, rotSpeed: 0.05});
+  }
 
   changeExpression: (event) => {
     window.changeStandInExpression(event.char, event.src);
