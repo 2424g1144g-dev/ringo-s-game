@@ -296,7 +296,7 @@ window.DIALOGUE_EVENTS = {
     },700)
     setTimeout (async () => {
       under.style.transition = 'opacity 0.5s linear';
-      under.style.opacity = 1;
+      under.style.opacity = 0;
       await cameraMove({from: {x: 60, y: 100, z: -50, to: {toX: 0, toY: 0, toZ: 0}, speed: 0.05, toFov: 45, FovSpeed: 999, yaw: 1080, }})
     },2500)
     await cameraMove({toFov: 35, yaw: 360, rotSpeed: 0.05});
