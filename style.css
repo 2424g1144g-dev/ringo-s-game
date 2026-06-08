@@ -126,7 +126,7 @@ body {
 }
 
 /*職員会議開始画面--------------------------*/
-#overlays {
+#blackLayer {
   position: absolute;
   left: 0;
   top: 0;
@@ -134,7 +134,10 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: 99999;
-  
+  opacity: 0;
+  transition: opacity 1.3s linear;
+  background-color: black;
+
 }
 #blackScreen {
   position: absolute;

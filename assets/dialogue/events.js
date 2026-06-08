@@ -291,6 +291,9 @@ window.DIALOGUE_EVENTS = {
     left.classList.remove("show");
     under.classList.remove("show");
     word.style.opacity = 0;
+    setTimeout (() => {
+      document.getElementById("blackLayer").style.opacity = 1;
+    },700)
     await cameraMove({toFov: 35, yaw: 1080, rotSpeed: 0.05});
   },
 
