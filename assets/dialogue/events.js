@@ -286,7 +286,7 @@ window.DIALOGUE_EVENTS = {
   
   nonstopDebateCamera: async () => {
     const left = document.getElementById("trialUILeftBar");
-    const under = document.getElementById("trialBottom");
+    const under = document.getElementById("trialUIBottom");
     const word = document.getElementById("wordBar");
     left.classList.remove("show");
     under.classList.remove("show");
