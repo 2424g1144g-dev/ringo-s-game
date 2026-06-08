@@ -79,7 +79,7 @@ function executeFirstMenu() {
       const bottomUI = document.getElementById("trialUIBottom");
       await cameraMove({from: { x: 0, y: 23, z: -23 }, to: { x: 0, y: 23, z: -5 },
         speed: 0.1, toFov: 45, rotSpeed: 0.05});
-      playBGM();
+      playBGM(0.4);
       leftUI.classList.add("show");
       bottomUI.classList.add("show");
       useDialog("trialUIBottom"); // グローバル関数側のuseDialog（activeDialogを切り替える用）
