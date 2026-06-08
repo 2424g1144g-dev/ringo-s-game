@@ -294,7 +294,7 @@ window.DIALOGUE_EVENTS = {
     setTimeout (() => {
       document.getElementById("blackLayer").style.opacity = 1;
     },700)
-    await cameraMove({toFov: 35, yaw: 1080, rotSpeed: 0.05});
+    await cameraMove({toFov: 35, yaw: 720, rotSpeed: 0.05});
   },
 
   changeExpression: (event) => {
