@@ -285,6 +285,12 @@ window.DIALOGUE_EVENTS = {
   },
   
   nonstopDebateCamera: async () => {
+    const left = document.getElementById("trialUILeftBar");
+    const under = document.getElementById("trialBottom");
+    const word = document.getElementById("wordBar");
+    left.classList.remove("show");
+    under.classList.remove("show");
+    word.style.opacity = 0;
     await cameraMove({toFov: 35, yaw: 1080, rotSpeed: 0.05});
   },
 
