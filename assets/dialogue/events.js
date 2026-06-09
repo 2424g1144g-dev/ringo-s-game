@@ -290,40 +290,49 @@ window.DIALOGUE_EVENTS = {
     const word = document.getElementById("wordBar");
     const black = document.getElementById("blackLayer");
 
-    // 💡 1. UIを非表示にする
+    // 💡 1. まずUIをサッと消す
     left.classList.remove("show");
     under.classList.remove("show");
     word.style.opacity = 0;
 
-    // 💡 2. 0.7秒（700ms）きっちり待ってから暗転を開始する
-    await new Promise(resolve => setTimeout(resolve, 700));
+    // 💡 2.【第1段階】その場で激しくぐるぐる回転（yaw: 360）を開始！
+    // 画面が暗くなる前に、まずカメラ自身がスピンし始めます。
+    const firstRotation = cameraMove({
+      to: { x: camera.position.x, y: camera.position.y, z: camera.position.z }, // その場から動かない
+      yaw: 360, 
+      rotSpeed: 0.001, // 激しめに回る
+      speed: 0
+    });
+
+    // 💡 3. 回転が始まってすぐ（0.2秒後）、追いかけるように画面を真っ暗にする
+    await new Promise(resolve => setTimeout(resolve, 200));
+    black.style.transition = 'opacity 0.5s linear';
     black.style.opacity = 1;
 
-    // 💡 3. 暗転が完了して、次のカメラの準備ができるまで「1.8秒」じっくり待つ
-    // （元のコードの 2500ms から 700ms を引いた残りの時間です）
-    await new Promise(resolve => setTimeout(resolve, 1800));
+    // 💡 4. 1回目の回転と暗転が「完全に終わる」のをしっかり待つ
+    await firstRotation;
+    await new Promise(resolve => setTimeout(resolve, 300)); // 暗闇の余韻
 
-    // 💡 4. 黒幕をパッと開けながら、本命の「ぐるぐる大回転カメラ」を発動！
-    black.style.transition = 'opacity 0.5s linear';
+    // === 💡 ここで画面は完全に真っ暗です（プレイヤーには見えない） ===
+
+    // 💡 5.【第2段階】暗闇の中で、上空のスタート地点へ爆速ワープ＆2回目の大回転移動を発動！
+    // 黒幕をじわーっと開けながら、遠くから1080度回りながら中心（0,0,0）へ突っ込ませます。
     black.style.opacity = 0;
 
     await cameraMove({
-      from: { x: 60, y: 100, z: -50 }, 
-      to: { x: 0, y: 0, z: 0 }, // 💡 x, y, z に統一！
+      from: { x: 60, y: 100, z: -50 }, // 遠くの上空へ一瞬でワープ
+      to: { x: 0, y: 0, z: 0 },         // 中心（証言台）を目指す
       speed: 0.8,  
       toFov: 45, 
       fovSpeed: 999, 
-      yaw: 1080, // 3回転
+      yaw: 1080,    // 暗転明けからさらに3回転！
       pitch: -45,   
-      // 💡 rotSpeed が「0.0008」だと細かすぎて1ミリも動かないレベルで遅くなります！
-      // 1フレームあたり何度動かすかという数値なので、「0.2 〜 0.5」あたりに設定するのがベストです。
-      rotSpeed: 0.3, 
+      rotSpeed: 0.001, 
       lookAtPos: null 
     });
 
-    // 💡 5. 上記の「ぐるぐるカメラ」が完全に目的地（0,0,0）に【到着した後】、
-    // 初めてこの一番最後のズームカメラが滑らかに動き出します！
-    await cameraMove({ toFov: 35, yaw: 360, rotSpeed: 0.05 });
+    // 💡 6.【仕上げ】中心に到着した後、さらに画角をグッと絞る（35）最後のカメラ移動
+    await cameraMove({ toFov: 35, yaw: 420, rotSpeed: 0.05 });
   },
 
   changeExpression: (event) => {
