@@ -167,7 +167,11 @@ let cameraAnimation = {
   toFov: 45,
   fovSpeed: 1,
   onComplete: null,
-  lookAtPos: null
+  lookAtPos: null,
+  isSpiral: false,
+  centerX: 0, centerY: 0, centerZ: 0,
+  currentRadius: 0, targetRadius: 0,
+  currentAngle: 0, spiralRotSpeed: 0, spiralApproachSpeed: 0
 };
 
 window.cameraMove = function({
@@ -190,137 +194,168 @@ window.cameraMove = function({
       camera.position.set(from.x, from.y, from.z);
       camera.rotation.set(0, 0, 0, 'YXZ');
     }
-
-    // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
-    const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
-    const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
-    const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
-    cameraAnimation.toPos.set(targetX, targetY, targetZ);
+    if (spiral) {
+      cameraAnimation.isSpiral = true;
+      cameraAnimation.centerX = spiral.cx || 0;
+      cameraAnimation.centerY = spiral.cy || 15;
+      cameraAnimation.centerZ = spiral.cz || 0;
+      cameraAnimation.currentRadius = spiral.startRadius || 100; // スタート時の遠さ
+      cameraAnimation.targetRadius = spiral.endRadius || 30;     // 到着時の近さ
+      cameraAnimation.currentAngle = spiral.startAngle || 0;     // 開始角度（ラジアン 0〜6.28）
+      cameraAnimation.spiralRotSpeed = spiral.rotSpeed || 0.05;  // 回転の速さ
+      cameraAnimation.spiralApproachSpeed = spiral.approachSpeed || 0.5; // 近づく速さ
+      cameraAnimation.speed = speed || 0.5; // Y軸移動用
+      cameraAnimation.toPos.set(to.x || 0, to.y || 15, to.z || 0); // 最終目標位置
+    } else {
+      cameraAnimation.isSpiral = false; // 通常モード
+      // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
+      const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
+      const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
+      const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
+      cameraAnimation.toPos.set(targetX, targetY, targetZ);
     
-    // nullが混入したときのセーフティガード
-    cameraAnimation.speed = (speed !== null) ? speed : 0.8;
+      // nullが混入したときのセーフティガード
+      cameraAnimation.speed = (speed !== null) ? speed : 0.8;
     
-    if (lookAtPos) {
-      cameraAnimation.lookAtPos = new THREE.Vector3(lookAtPos.x, lookAtPos.y, lookAtPos.z);
-    } else {
-      cameraAnimation.lookAtPos = null;
+      if (lookAtPos) {
+        cameraAnimation.lookAtPos = new THREE.Vector3(lookAtPos.x, lookAtPos.y, lookAtPos.z);
+      } else {
+        cameraAnimation.lookAtPos = null;
+      }
+
+      // 3. 目標の回転を設定
+      if (lookAtPos) {
+        const tempCamera = camera.clone();
+        tempCamera.position.set(targetX, targetY, targetZ);
+        tempCamera.lookAt(cameraAnimation.lookAtPos);
+        cameraAnimation.toRotation.copy(tempCamera.rotation);
+        cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed: 0.05;
+      } else {
+        cameraAnimation.toRotation.set(
+          pitch * (Math.PI / 180),
+          yaw * (Math.PI / 180),
+          roll * (Math.PI / 180),
+          'YXZ'
+        );
+        cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
+      }
+
+      // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
+      const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
+      cameraAnimation.toFov = targetFov;
+
+      if (fovSpeed === null || fovSpeed === undefined) {
+        camera.fov = targetFov;
+        camera.updateProjectionMatrix();
+        cameraAnimation.fovSpeed = 999; // 一瞬
+      } else {
+        cameraAnimation.fovSpeed = fovSpeed;
+      }
     }
-
-    // 3. 目標の回転を設定
-    if (lookAtPos) {
-      const tempCamera = camera.clone();
-      tempCamera.position.set(targetX, targetY, targetZ);
-      tempCamera.lookAt(cameraAnimation.lookAtPos);
-      cameraAnimation.toRotation.copy(tempCamera.rotation);
-      cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed: 0.05;
-    } else {
-      cameraAnimation.toRotation.set(
-        pitch * (Math.PI / 180),
-        yaw * (Math.PI / 180),
-        roll * (Math.PI / 180),
-        'YXZ'
-      );
-      cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
-    }
-
-    // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
-    const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
-    cameraAnimation.toFov = targetFov;
-
-    if (fovSpeed === null || fovSpeed === undefined) {
-      camera.fov = targetFov;
-      camera.updateProjectionMatrix();
-      cameraAnimation.fovSpeed = 999; // 一瞬
-    } else {
-      cameraAnimation.fovSpeed = fovSpeed;
-    }
-
     // 5. 終了時に Promise の完了（resolve）を呼ぶように仕込む
-    cameraAnimation.onComplete = () => {
-      resolve(); 
-    };
+    cameraAnimation.onComplete = () => { resolve(); };
 
     if (controls) controls.enabled = false;
     cameraAnimation.active = true;
   });
 };
 
-// --- ループ関数（移動と回転を完全に独立して同時に動かす！） ---
+// --- ループ関数（直線移動・手動回転・lookAt・さらに自動らせん軌道まで完全共存！） ---
 window.animate = function() {
   requestAnimationFrame(animate);
 
   if (cameraAnimation.active) {
-    // ① 位置の等速移動（ここはそのまま）
-    const dir = new THREE.Vector3().subVectors(cameraAnimation.toPos, camera.position);
-    const dist = dir.length();
-
-    let isPosEnd = false;
-    if (dist <= cameraAnimation.speed) {
-      camera.position.copy(cameraAnimation.toPos);
-      isPosEnd = true; // 位置が到着！
-    } else {
-      dir.normalize().multiplyScalar(cameraAnimation.speed);
-      camera.position.add(dir);
-    }
-
-    // ② 回転の等速補間
-    let isRotEnd = false;
     
-    if (cameraAnimation.lookAtPos) {
-      // lookAtがある場合は強制凝視
-      camera.lookAt(cameraAnimation.lookAtPos);
-      isRotEnd = true;
-    } else {
-      camera.rotation.order = 'YXZ';
+    // 💡 Aパターン：データ側から「らせん軌道（spiral）」の指定がある場合
+    if (cameraAnimation.isSpiral) {
+      // 毎フレーム、角度を少しずつ変化させる
+      cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed;
       
-      const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
-      const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
-      const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
-
-      // X軸（ピッチ）
-      if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
-      else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
-
-      // Y軸（ヨー / 💡ここが強制的に回るようになります！）
-      if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
-      else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
-
-      // Z軸（ロール）
-      if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
-      else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
-
-      // 💡 移動中の誤差に殺されないよう、目標角度との差が極小になったら回転終了とみなす
-      if (Math.abs(diffX) < 0.05 && Math.abs(diffY) < 0.05 && Math.abs(diffZ) < 0.05) {
-        isRotEnd = true;
+      // 半径も少しずつ縮める（これで外側から中心へ吸い込まれる「らせん」になる）
+      if (cameraAnimation.currentRadius > cameraAnimation.targetRadius) {
+        cameraAnimation.currentRadius -= cameraAnimation.spiralApproachSpeed;
+      } else {
+        cameraAnimation.currentRadius = cameraAnimation.targetRadius;
       }
-    }
 
-    // ③ ズーム（FOV）の等速変化
-    let isFovEnd = false;
-    const fovDiff = cameraAnimation.toFov - camera.fov;
-    if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
-      camera.fov = cameraAnimation.toFov;
-      isFovEnd = true;
-    } else {
-      camera.fov += Math.sign(fovDiff) * cameraAnimation.fovSpeed;
-    }
-    camera.updateProjectionMatrix();
+      // 高度（Y軸）も少しずつ下げる
+      if (Math.abs(camera.position.y - cameraAnimation.toPos.y) > 0.5) {
+        camera.position.y += Math.sign(cameraAnimation.toPos.y - camera.position.y) * cameraAnimation.speed;
+      }
 
-    // ④ 【超重要】位置・回転・ズームが「すべて」本当に終わったらアニメーションを終了する
-    if (isPosEnd && isRotEnd && isFovEnd) {
-      cameraAnimation.active = false;
-      camera.position.copy(cameraAnimation.toPos);
-      camera.rotation.copy(cameraAnimation.toRotation);
-      camera.fov = cameraAnimation.toFov;
+      // ★数学の魔法：角度と半径から、次の瞬間のXYZ座標を自動計算してカメラを動かす！
+      camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
+      camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
+
+      // 視線は常に中心（証言台）を強制ロックオン！
+      camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
+
+      // 到着判定：半径と高度が目的地に達したら終了
+      const isRadiusEnd = (cameraAnimation.currentRadius <= cameraAnimation.targetRadius);
+      const isHeightEnd = (Math.abs(camera.position.y - cameraAnimation.toPos.y) <= 0.5);
       
-      if (typeof cameraAnimation.onComplete === 'function') {
-        cameraAnimation.onComplete(); // 次の await へ
+      if (isRadiusEnd && isHeightEnd) {
+        cameraAnimation.active = false;
+        if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
+      }
+
+    } 
+    // 💡 Bパターン：これまでの通常移動（等速直線移動 ＋ 手動回転 or lookAt）
+    else {
+      // ① 位置の等速移動（今までのコードそのまま）
+      const dir = new THREE.Vector3().subVectors(cameraAnimation.toPos, camera.position);
+      const dist = dir.length();
+      let isPosEnd = false;
+      if (dist <= cameraAnimation.speed) {
+        camera.position.copy(cameraAnimation.toPos);
+        isPosEnd = true;
+      } else {
+        dir.normalize().multiplyScalar(cameraAnimation.speed);
+        camera.position.add(dir);
+      }
+
+      // ② 回転の等速補間（今までのコードそのまま）
+      let isRotEnd = false;
+      if (cameraAnimation.lookAtPos) {
+        camera.lookAt(cameraAnimation.lookAtPos);
+        isRotEnd = true;
+      } else {
+        camera.rotation.order = 'YXZ';
+        const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
+        const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
+        const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
+
+        if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
+        else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
+
+        if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
+        else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
+
+        if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
+        else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+
+        if (Math.abs(diffX) < 0.05 && Math.abs(diffY) < 0.05 && Math.abs(diffZ) < 0.05) isRotEnd = true;
+      }
+
+      // ③ ズーム（FOV）の等速変化
+      let isFovEnd = false;
+      const fovDiff = cameraAnimation.toFov - camera.fov;
+      if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
+        camera.fov = cameraAnimation.toFov;
+        isFovEnd = true;
+      } else {
+        camera.fov += Math.sign(fovDiff) * cameraAnimation.fovSpeed;
+      }
+      camera.updateProjectionMatrix();
+
+      // ④ 終了判定
+      if (isPosEnd && isRotEnd && isFovEnd) {
+        cameraAnimation.active = false;
+        if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
       }
     }
   } else {
-    if (controls && controls.enabled) {
-      controls.update();
-    }
+    if (controls && controls.enabled) controls.update();
   }
   renderer.render(scene, camera);
 };

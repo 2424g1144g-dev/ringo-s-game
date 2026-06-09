@@ -319,18 +319,21 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      from: { x: 60, y: 100, z: -50 }, // 遠くの上空へ一瞬でワープ
-      to: { x: 0, y: 0, z: 0 },         // 中心（証言台）を目指す
-      speed: 0.8,  
-      toFov: 45, 
-      fovSpeed: 999, 
-      yaw: 1080,    // 暗転明けからさらに3回転！   
-      rotSpeed: 0.07, 
-      lookAtPos: {x: 0, y: 15, z: 0}
+      to: { x: 0, y: 15, z: 30 }, // 最終的なカメラ位置の目安
+      speed: 0.5,
+      spiral: {
+        cx: 0, cy: 15, cz: 0,          // 証言台の中心座標
+        startRadius: 120,              // 最初はめちゃくちゃ遠くから
+        endRadius: 35,                 // 最終的にここまで近づく
+        startAngle: 0,                 // スタートのアングル
+        rotSpeed: 0.06,                // ぐるぐる公転する速度
+        approachSpeed: 0.4             // 中心に吸い込まれる速度
+      }
     });
 
-    // 💡 6.【仕上げ】中心に到着した後、さらに画角をグッと絞る（35）最後のカメラ移動
-    await cameraMove({ toFov: 35, yaw: 420, rotSpeed: 0.05 });
+    // らせんが終わったら、シームレスに次の通常のズームカメラへ移行！
+    await cameraMove({ toFov: 35, yaw: 360, rotSpeed: 0.05 });
+
   },
 
   changeExpression: (event) => {
