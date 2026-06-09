@@ -298,7 +298,21 @@ window.DIALOGUE_EVENTS = {
     setTimeout (async () => {
       black.style.transition = 'opacity 0.5s linear';
       black.style.opacity = 0;
-      await cameraMove({from: {x: 60, y: 100, z: -50}, to: {toX: 0, toY: 0, toZ: 0}, speed: 0.05, toFov: 45, FovSpeed: 999, yaw: 1080, lookAtPos: {x: 0, y: 15, z: 0}})
+      await cameraMove({
+        from: { x: 60, y: 100, z: -50 }, 
+        // 1. 座標のキー名を x, y, z に統一（これで目的地が正しく 0,0,0 になる！）
+        to: { x: 0, y: 0, z: 0 }, 
+        // 2. 移動速度（0.05だと超ゆっくりなので、様子見で 0.8 あたりから調整がおすすめ）
+        speed: 0.8,  
+        toFov: 45, 
+        fovSpeed: 999, // 小文字の fovSpeed に修正
+        // 3. ぐるぐる3回転させる設定
+        yaw: 1080, 
+        pitch: 45,   // 上空から見下ろす角度（適宜調整してください）
+        rotSpeed: 2.0, // 💡回転速度（これまでの等速回転ロジックで3回転させるために少し高めに設定）
+        // 4. yawで回転させるために、競合する lookAtPos はあえて指定しない！
+        lookAtPos: null 
+});
     },2500)
     await cameraMove({toFov: 35, yaw: 360, rotSpeed: 0.05});
   },
