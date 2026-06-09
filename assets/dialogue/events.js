@@ -319,11 +319,11 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      from: {x: 170, y: 170, z: 170 },
-      to: { x: 0, y: 25, z: 30 }, // 最終的なカメラ位置の目安
+      from: {x: 250, y: 250, z: 250 },
+      to: { x: 0, y: 25, z: 0 }, // 最終的なカメラ位置の目安
       speed: 1,
       spiral: {
-        cx: 0, cy: 15, cz: 0,          // 証言台の中心座標
+        cx: 0, cy: 25, cz: 0,          // 証言台の中心座標
         startRadius: 120,              // 最初はめちゃくちゃ遠くから
         endRadius: 35,                 // 最終的にここまで近づく
         startAngle: 0,                 // スタートのアングル
@@ -333,7 +333,7 @@ window.DIALOGUE_EVENTS = {
     });
 
     // らせんが終わったら、シームレスに次の通常のズームカメラへ移行！
-    await cameraMove({ toFov: 35, yaw: -360, rotSpeed: 0.05 });
+    //await cameraMove({ toFov: 35, yaw: -360, rotSpeed: 0.05 });
 
   },
 
