@@ -319,7 +319,7 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      from: {x: 100, y: 100, z: 75 },
+      from: {x: 170, y: 170, z: 170 },
       to: { x: 0, y: 25, z: 0 }, // 最終的なカメラ位置の目安
       speed: 1,
       spiral: {
