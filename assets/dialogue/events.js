@@ -319,9 +319,9 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      from: {x: 50, y: 50, z: 50 },
+      from: {x: 100, y: 100, z: 75 },
       to: { x: 0, y: 25, z: 0 }, // 最終的なカメラ位置の目安
-      speed: 0.5,
+      speed: 1,
       spiral: {
         cx: 0, cy: 15, cz: 0,          // 証言台の中心座標
         startRadius: 120,              // 最初はめちゃくちゃ遠くから
