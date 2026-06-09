@@ -312,7 +312,7 @@ window.DIALOGUE_EVENTS = {
         rotSpeed: 0.8, // 💡回転速度（これまでの等速回転ロジックで3回転させるために少し高めに設定）
         // 4. yawで回転させるために、競合する lookAtPos はあえて指定しない！
         lookAtPos: null 
-});
+       });
     },2500)
     await cameraMove({toFov: 35, yaw: 360, rotSpeed: 0.05});
   },
