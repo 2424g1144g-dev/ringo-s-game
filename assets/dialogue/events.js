@@ -304,7 +304,7 @@ window.DIALOGUE_EVENTS = {
     });
 
     // 💡 3. 回転が始まってすぐ（0.2秒後）、追いかけるように画面を真っ暗にする
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise(resolve => setTimeout(resolve, 500));
     black.style.transition = 'opacity 0.5s linear';
     black.style.opacity = 1;
 
