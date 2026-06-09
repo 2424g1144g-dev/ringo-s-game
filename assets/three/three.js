@@ -184,7 +184,8 @@ window.cameraMove = function({
   pitch = 0,
   roll = 0,
   rotSpeed = null,
-  lookAtPos = null
+  lookAtPos = null,
+  spiral = null
 } = {}) {
   // async/await で待機できるように Promise を返す
   return new Promise((resolve) => {
