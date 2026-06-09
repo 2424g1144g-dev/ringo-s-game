@@ -324,10 +324,9 @@ window.DIALOGUE_EVENTS = {
       speed: 0.8,  
       toFov: 45, 
       fovSpeed: 999, 
-      yaw: 1080,    // 暗転明けからさらに3回転！
-      pitch: -45,   
+      yaw: 1080,    // 暗転明けからさらに3回転！   
       rotSpeed: 0.07, 
-      lookAtPos: null 
+      lookAtPos: {x: 0, y: 15, z: 0}
     });
 
     // 💡 6.【仕上げ】中心に到着した後、さらに画角をグッと絞る（35）最後のカメラ移動
