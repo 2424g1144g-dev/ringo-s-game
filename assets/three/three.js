@@ -188,6 +188,7 @@ window.cameraMove = function({
     // 1. 開始位置（from）のワープ処理
     if (from) {
       camera.position.set(from.x, from.y, from.z);
+      camera.rotation.set(0, 0, 0, 'YXZ');
     }
 
     // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
