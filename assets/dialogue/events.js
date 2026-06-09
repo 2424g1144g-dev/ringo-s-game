@@ -299,7 +299,7 @@ window.DIALOGUE_EVENTS = {
     // 画面が暗くなる前に、まずカメラ自身がスピンし始めます。
     const firstRotation = cameraMove({
       yaw: 360, 
-      rotSpeed: 0.2, // 激しめに回る
+      rotSpeed: 0.1, // 激しめに回る
       speed: 0
     });
 
@@ -326,7 +326,7 @@ window.DIALOGUE_EVENTS = {
       fovSpeed: 999, 
       yaw: 1080,    // 暗転明けからさらに3回転！
       pitch: -45,   
-      rotSpeed: 0.001, 
+      rotSpeed: 0.07, 
       lookAtPos: null 
     });
 

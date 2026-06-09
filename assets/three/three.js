@@ -245,28 +245,34 @@ window.cameraMove = function({
   });
 };
 
-// --- ループ関数（判定処理をさらに厳密化） ---
+// --- ループ関数（移動と回転を完全に独立して同時に動かす！） ---
 window.animate = function() {
   requestAnimationFrame(animate);
 
   if (cameraAnimation.active) {
-    // ① 位置の等速移動
+    // ① 位置の等速移動（ここはそのまま）
     const dir = new THREE.Vector3().subVectors(cameraAnimation.toPos, camera.position);
     const dist = dir.length();
 
+    let isPosEnd = false;
     if (dist <= cameraAnimation.speed) {
       camera.position.copy(cameraAnimation.toPos);
+      isPosEnd = true; // 位置が到着！
     } else {
       dir.normalize().multiplyScalar(cameraAnimation.speed);
       camera.position.add(dir);
     }
 
-    if (cameraAnimation.lookAtPos) {
-      camera.lookAt(cameraAnimation.lookAtPos);
-    } else {
-      // ② 回転の等速補間（★ここをクォータニオンからオイラー角の直接計算に変更！）
-      camera.rotation.order = 'YXZ'; // 回転の軸の順番を固定（ゲームで一般的なFPSスタイル）
+    // ② 回転の等速補間
+    let isRotEnd = false;
     
+    if (cameraAnimation.lookAtPos) {
+      // lookAtがある場合は強制凝視
+      camera.lookAt(cameraAnimation.lookAtPos);
+      isRotEnd = true;
+    } else {
+      camera.rotation.order = 'YXZ';
+      
       const diffX = cameraAnimation.toRotation.x - camera.rotation.x;
       const diffY = cameraAnimation.toRotation.y - camera.rotation.y;
       const diffZ = cameraAnimation.toRotation.z - camera.rotation.z;
@@ -275,33 +281,34 @@ window.animate = function() {
       if (Math.abs(diffX) <= cameraAnimation.rotSpeed) camera.rotation.x = cameraAnimation.toRotation.x;
       else camera.rotation.x += Math.sign(diffX) * cameraAnimation.rotSpeed;
 
-      // Y軸（ヨー / 横回転）
+      // Y軸（ヨー / 💡ここが強制的に回るようになります！）
       if (Math.abs(diffY) <= cameraAnimation.rotSpeed) camera.rotation.y = cameraAnimation.toRotation.y;
       else camera.rotation.y += Math.sign(diffY) * cameraAnimation.rotSpeed;
 
       // Z軸（ロール）
       if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
       else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
+
+      // 💡 移動中の誤差に殺されないよう、目標角度との差が極小になったら回転終了とみなす
+      if (Math.abs(diffX) < 0.05 && Math.abs(diffY) < 0.05 && Math.abs(diffZ) < 0.05) {
+        isRotEnd = true;
+      }
     }
-    // ③ ズーム（FOV）の等速変化（ここはそのまま）
+
+    // ③ ズーム（FOV）の等速変化
+    let isFovEnd = false;
     const fovDiff = cameraAnimation.toFov - camera.fov;
     if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
       camera.fov = cameraAnimation.toFov;
+      isFovEnd = true;
     } else {
       camera.fov += Math.sign(fovDiff) * cameraAnimation.fovSpeed;
     }
     camera.updateProjectionMatrix();
 
-    // ④ 到着判定（★回転の判定もオイラー角の誤差チェックに変更）
-    const isPosEnd = camera.position.equals(cameraAnimation.toPos);
-    const isRotEnd = (Math.abs(camera.rotation.x - cameraAnimation.toRotation.x) < 0.01) &&
-                     (Math.abs(camera.rotation.y - cameraAnimation.toRotation.y) < 0.01) &&
-                     (Math.abs(camera.rotation.z - cameraAnimation.toRotation.z) < 0.01);
-    const isFovEnd = (Math.abs(camera.fov - cameraAnimation.toFov) < 0.01);
-
+    // ④ 【超重要】位置・回転・ズームが「すべて」本当に終わったらアニメーションを終了する
     if (isPosEnd && isRotEnd && isFovEnd) {
       cameraAnimation.active = false;
-      // 最後に値を完全に同期
       camera.position.copy(cameraAnimation.toPos);
       camera.rotation.copy(cameraAnimation.toRotation);
       camera.fov = cameraAnimation.toFov;
