@@ -298,9 +298,14 @@ window.DIALOGUE_EVENTS = {
     // 💡 2.【第1段階】その場で激しくぐるぐる回転（yaw: 360）を開始！
     // 画面が暗くなる前に、まずカメラ自身がスピンし始めます。
     const firstRotation = cameraMove({
-      yaw: 360, 
-      rotSpeed: 0.05, // 激しめに回る
-      speed: 0
+      spiral: {
+       cx: 0, cy: 20, cy: 0,
+       startRadius: 0,
+       endRadius: 200,
+       startAngle: 0,
+       rotSpeed: 0.06,
+       approachSpeed: 0
+     }
     });
 
     // 💡 3. 回転が始まってすぐ（0.2秒後）、追いかけるように画面を真っ暗にする
