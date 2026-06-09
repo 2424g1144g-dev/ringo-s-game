@@ -319,7 +319,8 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      to: { x: 0, y: 15, z: 30 }, // 最終的なカメラ位置の目安
+      from: {x: 50, y: 50, z: 50 }.x,
+      to: { x: 0, y: 25, z: 0 }, // 最終的なカメラ位置の目安
       speed: 0.5,
       spiral: {
         cx: 0, cy: 15, cz: 0,          // 証言台の中心座標
@@ -332,7 +333,7 @@ window.DIALOGUE_EVENTS = {
     });
 
     // らせんが終わったら、シームレスに次の通常のズームカメラへ移行！
-    await cameraMove({ toFov: 35, yaw: 360, rotSpeed: 0.05 });
+    await cameraMove({ toFov: 35, yaw: -360, rotSpeed: 0.05 });
 
   },
 
