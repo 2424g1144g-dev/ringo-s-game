@@ -299,7 +299,7 @@ window.DIALOGUE_EVENTS = {
     // 画面が暗くなる前に、まずカメラ自身がスピンし始めます。
     const firstRotation = cameraMove({
       yaw: 360, 
-      rotSpeed: 0.03, // 激しめに回る
+      rotSpeed: 0.05, // 激しめに回る
       speed: 0
     });
 
@@ -323,7 +323,7 @@ window.DIALOGUE_EVENTS = {
       to: { x: 0, y: 25, z: 0 }, // 最終的なカメラ位置の目安
       speed: 1,
       spiral: {
-        cx: 0, cy: 20, cz: 0,          // 証言台の中心座標
+        cx: 10, cy: 20, cz: 0,          // 証言台の中心座標
         startRadius: 120,              // 最初はめちゃくちゃ遠くから
         endRadius: 35,                 // 最終的にここまで近づく
         startAngle: 0,                 // スタートのアングル
