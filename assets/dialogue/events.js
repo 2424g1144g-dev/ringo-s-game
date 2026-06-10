@@ -334,7 +334,7 @@ window.DIALOGUE_EVENTS = {
       spiral: {
         cx: 0, cy: 20, cz: 0,          // 証言台の中心（0,20,0）
         startRadius: 120,              // fromのXと同じにする
-        endRadius: 35,                 // 💡 1だとキャラクターの首の皮1枚までめり込むので、顔の手前「35」あたりが綺麗です！
+        endRadius: 30,                 // 💡 1だとキャラクターの首の皮1枚までめり込むので、顔の手前「35」あたりが綺麗です！
         startAngle: 0,                 
         rotSpeed: 0.06,                
         approachSpeed: 0.4             
@@ -343,8 +343,8 @@ window.DIALOGUE_EVENTS = {
     await cameraMove({
      spiral: {
        cx: 0, cy: 0, cz: 0,
-       startRadius: 35,
-       endRadius: 35,
+       startRadius: 30,
+       endRadius: 30,
        startAngle: 0,
        turnAngle: 360,
        rotSpeed: 0.06
