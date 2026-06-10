@@ -303,7 +303,7 @@ window.DIALOGUE_EVENTS = {
       toFov: 20,
       fovSpeed: 999,
       spiral: {
-       cx: 0, cy: 20, cz: 0,
+       cx: 0, cy: 30, cz: 0,
        startRadius: 20,
        endRadius: 20,
        startAngle: 0,
