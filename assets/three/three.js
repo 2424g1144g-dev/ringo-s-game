@@ -169,6 +169,8 @@ let cameraAnimation = {
   onComplete: null,
   lookAtPos: null,
   isSpiral: false,
+  startRadius: 0,
+  startY: 0,
   centerX: 0, centerY: 0, centerZ: 0,
   currentRadius: 0, targetRadius: 0,
   currentAngle: 0, spiralRotSpeed: 0, spiralApproachSpeed: 0
