@@ -155,9 +155,8 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
     });
 }
 
-
-
-//camera関数
+// --- ループ関数（直線移動・手動回転・lookAt・さらに自動らせん軌道まで完全共存！） ---
+// --- 修正版：カメラアニメーションの管理データ ---
 let cameraAnimation = {
   active: false,
   toPos: new THREE.Vector3(),
@@ -170,17 +169,22 @@ let cameraAnimation = {
   lookAtPos: null,
   isSpiral: false,
   startRadius: 0,
+  targetRadius: 0,
+  currentRadius: 0,
   startY: 0,
+  targetY: 0,
   centerX: 0, centerY: 0, centerZ: 0,
-  currentRadius: 0, targetRadius: 0,
-  currentAngle: 0, spiralRotSpeed: 0, spiralApproachSpeed: 0
+  currentAngle: 0, 
+  targetAngle: 0,    // ★追加：目標角度をしっかり保持
+  spiralRotSpeed: 0, 
+  spiralApproachSpeed: 0
 };
 
 window.cameraMove = function({
   from = null,
   to = {},
   speed = null,
-  toFov = null,       // nullなら現在のカメラの画角を引き継ぐ
+  toFov = null,
   fovSpeed = null,
   yaw = 0,
   pitch = 0,
@@ -189,54 +193,55 @@ window.cameraMove = function({
   lookAtPos = null,
   spiral = null
 } = {}) {
-  // async/await で待機できるように Promise を返す
   return new Promise((resolve) => {
     
-    // 1. 開始位置（from）のワープ処理
+    // 1. 目的地の座標をあらかじめ安全に取得
+    const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
+    const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
+    const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
+    cameraAnimation.toPos.set(targetX, targetY, targetZ);
+
+    // 2. 開始位置（from）のワープ処理
     if (from) {
       camera.position.set(from.x, from.y, from.z);
       camera.rotation.set(0, 0, 0, 'YXZ');
     }
+
+    // 3. モード分岐
     if (spiral) {
       cameraAnimation.isSpiral = true;
 
-      // ★ 角度の初期化（startAngle を正しく反映）
-      cameraAnimation.currentAngle = (spiral.startAngle || 0) * Math.PI / 180;
-
-      const turnRad = (spiral.turnAngle || 0) * Math.PI / 180;
+      // 角度の設定
+      cameraAnimation.currentAngle = (spiral.startAngle || 0) * (Math.PI / 180);
+      const turnRad = (spiral.turnAngle || 0) * (Math.PI / 180);
       cameraAnimation.targetAngle = cameraAnimation.currentAngle + turnRad;
 
-      // ★ 半径の初期化（絶対必要）
-      cameraAnimation.startRadius = spiral.startRadius || 100;
+      // 半径の設定
+      cameraAnimation.startRadius = spiral.startRadius !== undefined ? spiral.startRadius : 100;
       cameraAnimation.currentRadius = cameraAnimation.startRadius;
-      cameraAnimation.targetRadius = spiral.endRadius || cameraAnimation.startRadius;
+      cameraAnimation.targetRadius = spiral.endRadius !== undefined ? spiral.endRadius : cameraAnimation.startRadius;
 
-      // ★ Y の初期化（from があるなら from.y を使う）
+      // 高さ（Y）の設定（fromがあればそのY、なければ現在のカメラのY）
       cameraAnimation.startY = from ? from.y : camera.position.y;
+      cameraAnimation.targetY = targetY; // to.y をターゲットにする
 
-      // その他の設定
+      // 中心点
       cameraAnimation.centerX = spiral.cx || 0;
       cameraAnimation.centerY = spiral.cy || 20;
       cameraAnimation.centerZ = spiral.cz || 0;
 
+      // 回転速度と接近速度
       cameraAnimation.spiralRotSpeed = spiral.rotSpeed || 0.03;
-      cameraAnimation.spiralApproachSpeed =
-        (spiral.startRadius === spiral.endRadius)
-          ? 0
-          : (spiral.approachSpeed || 0.5);
+      cameraAnimation.spiralApproachSpeed = spiral.approachSpeed || 0.5;
 
-      cameraAnimation.speed = speed || 0.5;
+      // 初期フレームの位置を数学的にカチッと合わせる（fromのXZを無視してらせんのスタート位置にワープ）
+      camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
+      camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
+      camera.position.y = cameraAnimation.startY;
 
-      cameraAnimation.toPos.set(to.x || 0, to.y || 20, to.z || 0);
     } else {
-      cameraAnimation.isSpiral = false; // 通常モード
-      // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
-      const targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
-      const targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
-      const targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
-      cameraAnimation.toPos.set(targetX, targetY, targetZ);
-    
-      // nullが混入したときのセーフティガード
+      // 通常モード
+      cameraAnimation.isSpiral = false;
       cameraAnimation.speed = (speed !== null) ? speed : 0.8;
     
       if (lookAtPos) {
@@ -245,13 +250,13 @@ window.cameraMove = function({
         cameraAnimation.lookAtPos = null;
       }
 
-      // 3. 目標の回転を設定
+      // 目標回転の設定
       if (lookAtPos) {
         const tempCamera = camera.clone();
         tempCamera.position.set(targetX, targetY, targetZ);
         tempCamera.lookAt(cameraAnimation.lookAtPos);
         cameraAnimation.toRotation.copy(tempCamera.rotation);
-        cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed: 0.05;
+        cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
       } else {
         cameraAnimation.toRotation.set(
           pitch * (Math.PI / 180),
@@ -261,85 +266,104 @@ window.cameraMove = function({
         );
         cameraAnimation.rotSpeed = (rotSpeed !== null) ? rotSpeed : 0.05;
       }
-
-      // 4. ズーム（FOV）の安全処理（0やnullなら今の設定をキープ）
-      const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
-      cameraAnimation.toFov = targetFov;
-
-      if (fovSpeed === null || fovSpeed === undefined) {
-        camera.fov = targetFov;
-        camera.updateProjectionMatrix();
-        cameraAnimation.fovSpeed = 999; // 一瞬
-      } else {
-        cameraAnimation.fovSpeed = fovSpeed;
-      }
     }
-    // 5. 終了時に Promise の完了（resolve）を呼ぶように仕込む
-    cameraAnimation.onComplete = () => { resolve(); };
 
+    // 4. FOV（ズーム）の共通処理
+    const targetFov = (toFov && toFov !== 0) ? toFov : camera.fov;
+    cameraAnimation.toFov = targetFov;
+
+    if (fovSpeed === null || fovSpeed === undefined) {
+      camera.fov = targetFov;
+      camera.updateProjectionMatrix();
+      cameraAnimation.fovSpeed = 999;
+    } else {
+      cameraAnimation.fovSpeed = fovSpeed;
+    }
+
+    // 5. コールバック設定
+    cameraAnimation.onComplete = () => { resolve(); };
     if (controls) controls.enabled = false;
     cameraAnimation.active = true;
   });
 };
 
-// --- ループ関数（直線移動・手動回転・lookAt・さらに自動らせん軌道まで完全共存！） ---
+// --- 修正版：アニメーションループ関数 ---
 window.animate = function() {
   requestAnimationFrame(animate);
 
   if (cameraAnimation.active) {
     
-    // 💡 Aパターン：データ側から「らせん軌道（spiral）」の指定がある場合
+    // 💡 Aパターン：らせん軌道（spiral）
     if (cameraAnimation.isSpiral) {
       // 1. 角度を進める
       cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed;
       
-      // 2. 半径を縮める
-      const startR = cameraAnimation.startRadius;
-      const endR = cameraAnimation.targetRadius;
+      // 2. 半径をターゲットに近づける（引き算ではなく目標へ向かって補間）
+      const rDiff = cameraAnimation.targetRadius - cameraAnimation.currentRadius;
+      if (Math.abs(rDiff) <= cameraAnimation.spiralApproachSpeed) {
+        cameraAnimation.currentRadius = cameraAnimation.targetRadius;
+      } else {
+        cameraAnimation.currentRadius += Math.sign(rDiff) * cameraAnimation.spiralApproachSpeed;
+      }
+
+      // 3. 角度の進捗率（0.0 〜 1.0）を計算して、高さをシンクロさせる
+      const totalAngleChange = cameraAnimation.targetAngle - (cameraAnimation.startRadius === cameraAnimation.targetRadius ? 0 : cameraAnimation.currentAngle); // 安全策
       
-      if (cameraAnimation.currentRadius > endR) {
-        cameraAnimation.currentRadius -= cameraAnimation.spiralApproachSpeed;
-      } else {
-        cameraAnimation.currentRadius = endR;
-      }
+      // 今回は「角度をどれだけ回ったか」で進捗を出すのが最も確実
+      const totalDelta = cameraAnimation.targetAngle - (cameraAnimation.targetAngle - (cameraAnimation.spiralRotSpeed * (100))); // 概算用ではなく、単純に角度の残りから計算
+      
+      // シンプルに：初期位置からの角度の進み具合で割合を出す
+      const startAngle = cameraAnimation.targetAngle - ((cameraAnimation.spiralRotSpeed > 0 ? 1 : -1) * Math.abs(cameraAnimation.targetAngle)); 
+      // もっと単純に、半径 or 角度の残り具合で進捗率を作る
+      let progress = 0;
+      const totalAngle = Math.abs(cameraAnimation.targetAngle - (cameraAnimation.targetAngle - (cameraAnimation.spiralRotSpeed))); // 処理用
 
-      // 💡 3.【ここを完全修正！】半径の「残り具合」から、Y軸の進捗率を正確に計算する
-      if (startR !== endR) {
-        // 現在どれくらい中心に近づいたかの割合（0.0 〜 1.0）
-        const progress = (startR - cameraAnimation.currentRadius) / (startR - endR);
-        
-        // スタートの高さからゴールの高さまで、半径の縮まりに100%シンクロして降下する
-        const startY = cameraAnimation.startY;
-        const targetY = cameraAnimation.toPos.y;
-        camera.position.y = startY + (targetY - startY) * progress;
+      // 確実な進捗率の計算（角度ベース）
+      const initialTotalAngle = Math.abs(cameraAnimation.spiralRotSpeed) * 100; // 簡易的な分母対策をやめ、単純にフレームごとの線形補間、もしくは残りの角度から割り出す
+      
+      // 半径が変わる場合は半径ベース、変わらない場合は角度ベースで進捗を管理
+      if (cameraAnimation.startRadius !== cameraAnimation.targetRadius) {
+        progress = (cameraAnimation.startRadius - cameraAnimation.currentRadius) / (cameraAnimation.startRadius - cameraAnimation.targetRadius);
       } else {
-        // 半径が変わらない（そのまま回る）ときは指定の高さに固定
-        camera.position.y = cameraAnimation.toPos.y;
+        // 半径が変わらない（その場回転）の時は、目標角度に近づいた割合
+        const currentDiff = Math.abs(cameraAnimation.targetAngle - cameraAnimation.currentAngle);
+        const totalDiff = Math.allAngle || 1; 
+        progress = 1 - (currentDiff / (Math.abs(cameraAnimation.targetAngle - (cameraAnimation.targetAngle - (cameraAnimation.currentAngle))))); 
+        // 制御を簡単にするため、単純に目標値への接近度合いで出します
       }
+      
+      // 高さを適用
+      camera.position.y = cameraAnimation.startY + (cameraAnimation.targetY - cameraAnimation.startY) * progress;
 
-      // 4. 数学の魔法でXYZを適用（XとZは今までのままで完璧です！）
+      // 4. 数学の魔法でXYZを適用
       camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
       camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
 
-      // 視線は常に中心（証源台）を強制ロックオン！
+      // 視線は常に中心をロックオン
       camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
 
-      // 5. 到着判定（角度を回り切ったか、または半径がゴールに達したら終了）
-      const isRadiusEnd = (cameraAnimation.currentRadius <= endR);
+      // 5. 【修正】終了判定：指定された「目標角度」を通り過ぎたか、またはピッタリになったか
       const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
         ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
         : (cameraAnimation.currentAngle <= cameraAnimation.targetAngle);
 
-      if (isRadiusEnd || isAngleEnd) {
+      const isRadiusEnd = cameraAnimation.currentRadius === cameraAnimation.targetRadius;
+
+      if (isAngleEnd && isRadiusEnd) {
         cameraAnimation.active = false;
-        camera.position.copy(cameraAnimation.toPos); // 最後に位置をカチッと合わせる
+        camera.position.set(
+          cameraAnimation.centerX + cameraAnimation.targetRadius * Math.cos(cameraAnimation.targetAngle),
+          cameraAnimation.targetY,
+          cameraAnimation.centerZ + cameraAnimation.targetRadius * Math.sin(cameraAnimation.targetAngle)
+        );
+        camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
         if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
       }
 
     } 
-    // 💡 Bパターン：これまでの通常移動（等速直線移動 ＋ 手動回転 or lookAt）
+    // 💡 Bパターン：通常移動
     else {
-      // ① 位置の等速移動（今までのコードそのまま）
+      // ① 位置の等速移動
       const dir = new THREE.Vector3().subVectors(cameraAnimation.toPos, camera.position);
       const dist = dir.length();
       let isPosEnd = false;
@@ -351,7 +375,7 @@ window.animate = function() {
         camera.position.add(dir);
       }
 
-      // ② 回転の等速補間（今までのコードそのまま）
+      // ② 回転の等速補間
       let isRotEnd = false;
       if (cameraAnimation.lookAtPos) {
         camera.lookAt(cameraAnimation.lookAtPos);
@@ -374,7 +398,7 @@ window.animate = function() {
         if (Math.abs(diffX) < 0.05 && Math.abs(diffY) < 0.05 && Math.abs(diffZ) < 0.05) isRotEnd = true;
       }
 
-      // ③ ズーム（FOV）の等速変化
+      // ③ ズーム（FOV）の変化
       let isFovEnd = false;
       const fovDiff = cameraAnimation.toFov - camera.fov;
       if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
