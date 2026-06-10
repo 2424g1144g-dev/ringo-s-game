@@ -201,12 +201,15 @@ window.cameraMove = function({
       cameraAnimation.centerY = spiral.cy || 20;
       cameraAnimation.centerZ = spiral.cz || 0;
       cameraAnimation.currentRadius = spiral.startRadius || 100;
-      cameraAnimation.targetRadius = spiral.endRadius || 100; // startと同じならキープされる
-      cameraAnimation.currentAngle = spiral.startAngle || 0;
-      
+      cameraAnimation.targetRadius = spiral.endRadius || 100;
+
+      // 👇 【重要】ここを追加！データから計算に使うスタート時の値をアニメーション用オブジェクトに保存する
+      cameraAnimation.startRadius = spiral.startRadius || 100;
+      cameraAnimation.startY = from ? from.y : camera.position.y; 
+
       // 💡【追加】何ラジアン分まわるかのゴールを計算（例：2π = 360度分まわる）
-      // spiral.turnAngle に 360 などを指定できるようにする（未指定なら1回転分）
       const turnRad = (spiral.turnAngle !== undefined) ? spiral.turnAngle * (Math.PI / 180) : Math.PI * 2;
+
       cameraAnimation.targetAngle = cameraAnimation.currentAngle + turnRad;
 
       cameraAnimation.spiralRotSpeed = spiral.rotSpeed || 0.03;
