@@ -302,10 +302,11 @@ window.DIALOGUE_EVENTS = {
       to: {x: 0, y: 23, z: 0},
       toFov: 5,
       fovSpeed: 999,
+      yaw: 180,
       spiral: {
        cx: 0, cy: 20, cz: 0,
-       startRadius: 20,
-       endRadius: 20,
+       startRadius: 10,
+       endRadius: 10,
        startAngle: 0,
        turnAngle: 360,
        rotSpeed: 0.06
@@ -336,7 +337,7 @@ window.DIALOGUE_EVENTS = {
         startRadius: 120,              // fromのXと同じにする
         endRadius: 20,                 // 💡 1だとキャラクターの首の皮1枚までめり込むので、顔の手前「35」あたりが綺麗です！
         startAngle: 0,                 
-        rotSpeed: 0.06,                
+        rotSpeed: 0.04,                
         approachSpeed: 0.4             
       }
     });
