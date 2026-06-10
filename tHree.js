@@ -114,7 +114,7 @@ window.loadCourtroom = function() {
 }
 
 // --- 3. 単一のクリーンな描画ループ（重複を完全除去！） ---
-function animate() {
+window.animate = function() {
   requestAnimationFrame(animate);
 
   // カメラアニメーションの処理
