@@ -197,9 +197,8 @@ window.cameraMove = function({
     }
     if (spiral) {
       cameraAnimation.isSpiral = true;
+      cameraAnimation.startY = from ? from.y : camera.position.y; // 💡【追加】スタートの高さを記録！
       cameraAnimation.centerX = spiral.cx || 0;
-      cameraAnimation.centerY = spiral.cy || 20;
-      cameraAnimation.centerZ = spiral.cz || 0;
       cameraAnimation.currentRadius = spiral.startRadius || 100;
       cameraAnimation.targetRadius = spiral.endRadius || 100; // startと同じならキープされる
       cameraAnimation.currentAngle = spiral.startAngle || 0;
@@ -278,36 +277,49 @@ window.animate = function() {
     
     // 💡 Aパターン：データ側から「らせん軌道（spiral）」の指定がある場合
     if (cameraAnimation.isSpiral) {
-      // 毎フレーム、角度を少しずつ変化させる
+      // 1. 角度を進める
       cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed;
       
-      // 半径も少しずつ縮める（これで外側から中心へ吸い込まれる「らせん」になる）
-      if (cameraAnimation.currentRadius > cameraAnimation.targetRadius) {
+      // 2. 半径を縮める
+      const startR = cameraAnimation.startRadius;
+      const endR = cameraAnimation.targetRadius;
+      
+      if (cameraAnimation.currentRadius > endR) {
         cameraAnimation.currentRadius -= cameraAnimation.spiralApproachSpeed;
       } else {
-        cameraAnimation.currentRadius = cameraAnimation.targetRadius;
+        cameraAnimation.currentRadius = endR;
       }
 
-      // 高度（Y軸）も少しずつ下げる
-      if (Math.abs(camera.position.y - cameraAnimation.toPos.y) > 0.5) {
-        camera.position.y += Math.sign(cameraAnimation.toPos.y - camera.position.y) * cameraAnimation.speed;
+      // 💡 3.【ここを完全修正！】半径の「残り具合」から、Y軸の進捗率を正確に計算する
+      if (startR !== endR) {
+        // 現在どれくらい中心に近づいたかの割合（0.0 〜 1.0）
+        const progress = (startR - cameraAnimation.currentRadius) / (startR - endR);
+        
+        // スタートの高さからゴールの高さまで、半径の縮まりに100%シンクロして降下する
+        const startY = cameraAnimation.startY;
+        const targetY = cameraAnimation.toPos.y;
+        camera.position.y = startY + (targetY - startY) * progress;
+      } else {
+        // 半径が変わらない（そのまま回る）ときは指定の高さに固定
+        camera.position.y = cameraAnimation.toPos.y;
       }
 
-      // ★数学の魔法：角度と半径から、次の瞬間のXYZ座標を自動計算してカメラを動かす！
+      // 4. 数学の魔法でXYZを適用（XとZは今までのままで完璧です！）
       camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
       camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
 
-      // 視線は常に中心（証言台）を強制ロックオン！
+      // 視線は常に中心（証源台）を強制ロックオン！
       camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
 
-      // 到着判定：半径と高度が目的地に達したら終了
+      // 5. 到着判定（角度を回り切ったか、または半径がゴールに達したら終了）
+      const isRadiusEnd = (cameraAnimation.currentRadius <= endR);
       const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
         ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
         : (cameraAnimation.currentAngle <= cameraAnimation.targetAngle);
-      const isHeightEnd = (Math.abs(camera.position.y - cameraAnimation.toPos.y) <= 0.5);
-      
-      if (isAngleEnd && isHeightEnd) {
+
+      if (isRadiusEnd || isAngleEnd) {
         cameraAnimation.active = false;
+        camera.position.copy(cameraAnimation.toPos); // 最後に位置をカチッと合わせる
         if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
       }
 
