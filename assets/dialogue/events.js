@@ -299,16 +299,16 @@ window.DIALOGUE_EVENTS = {
     // 画面が暗くなる前に、まずカメラ自身がスピンし始めます。
     const firstRotation = cameraMove({
       from: {x: 0, y: 23, z: 0},
-      to: {x: 0, y: 0, z: 0},
+      to: {x: 0, y: 23, z: 0},
       toFov: 20,
       fovSpeed: 999,
       spiral: {
        cx: 0, cy: 20, cz: 0,
-       startRadius: 0,
-       endRadius: 0,
+       startRadius: 20,
+       endRadius: 20,
        startAngle: 0,
+       turnAngle: 360,
        rotSpeed: 0.06,
-       approachSpeed: 0
      }
     });
 
