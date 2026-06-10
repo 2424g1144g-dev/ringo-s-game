@@ -334,7 +334,7 @@ window.DIALOGUE_EVENTS = {
       spiral: {
         cx: 0, cy: 20, cz: 0,          // 証言台の中心座標
         startRadius: 120,              // 最初はめちゃくちゃ遠くから
-        endRadius: 90,                 // 最終的にここまで近づく
+        endRadius: 1,                 // 最終的にここまで近づく
         startAngle: 0,                 // スタートのアングル
         rotSpeed: 0.06,                // ぐるぐる公転する速度
         approachSpeed: 0.4             // 中心に吸い込まれる速度
