@@ -308,7 +308,7 @@ window.DIALOGUE_EVENTS = {
        endRadius: 20,
        startAngle: 0,
        turnAngle: 360,
-       rotSpeed: 0.06,
+       rotSpeed: 0.06
      }
     });
 
@@ -340,9 +340,16 @@ window.DIALOGUE_EVENTS = {
         approachSpeed: 0.4             
       }
     });
-
-    // らせんが終わったら、シームレスに次の通常のズームカメラへ移行！
-    //await cameraMove({ toFov: 35, yaw: -360, rotSpeed: 0.05 });
+    await cameraMove({
+     spiral: {
+       cx: 0, cy: 0, cz: 0,
+       startRadius: 35,
+       endRadius: 35,
+       startAngle: 0,
+       turnAngle: 360,
+       rotSpeed: 0.06
+     }
+    })
 
   },
 
