@@ -300,10 +300,10 @@ window.DIALOGUE_EVENTS = {
     const firstRotation = cameraMove({
       from: {x: 0, y: 23, z: 0},
       to: {x: 0, y: 23, z: 0},
-      toFov: 20,
+      toFov: 5,
       fovSpeed: 999,
       spiral: {
-       cx: 0, cy: 30, cz: 0,
+       cx: 0, cy: 20, cz: 0,
        startRadius: 20,
        endRadius: 20,
        startAngle: 0,
