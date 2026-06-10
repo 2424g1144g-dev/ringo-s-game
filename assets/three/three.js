@@ -199,27 +199,34 @@ window.cameraMove = function({
     }
     if (spiral) {
       cameraAnimation.isSpiral = true;
+
+      // ★ 角度の初期化（startAngle を正しく反映）
+      cameraAnimation.currentAngle = (spiral.startAngle || 0) * Math.PI / 180;
+
+      const turnRad = (spiral.turnAngle || 0) * Math.PI / 180;
+      cameraAnimation.targetAngle = cameraAnimation.currentAngle + turnRad;
+
+      // ★ 半径の初期化（絶対必要）
+      cameraAnimation.startRadius = spiral.startRadius || 100;
+      cameraAnimation.currentRadius = cameraAnimation.startRadius;
+      cameraAnimation.targetRadius = spiral.endRadius || cameraAnimation.startRadius;
+
+      // ★ Y の初期化（from があるなら from.y を使う）
+      cameraAnimation.startY = from ? from.y : camera.position.y;
+
+      // その他の設定
       cameraAnimation.centerX = spiral.cx || 0;
       cameraAnimation.centerY = spiral.cy || 20;
       cameraAnimation.centerZ = spiral.cz || 0;
-      cameraAnimation.currentRadius = spiral.startRadius || 100;
-      cameraAnimation.targetRadius = spiral.endRadius || 100;
-
-      // 👇 【重要】ここを追加！データから計算に使うスタート時の値をアニメーション用オブジェクトに保存する
-      cameraAnimation.startRadius = spiral.startRadius || 100;
-      cameraAnimation.startY = from ? from.y : camera.position.y; 
-
-      // 💡【追加】何ラジアン分まわるかのゴールを計算（例：2π = 360度分まわる）
-      const turnRad = (spiral.turnAngle !== undefined) ? spiral.turnAngle * (Math.PI / 180) : Math.PI * 2;
-
-      cameraAnimation.targetAngle = cameraAnimation.currentAngle + turnRad;
 
       cameraAnimation.spiralRotSpeed = spiral.rotSpeed || 0.03;
-      
-      // 💡 半径が同じなら、近づく速度（approachSpeed）は自動的に「0」にするセーフティ
-      cameraAnimation.spiralApproachSpeed = (spiral.startRadius === spiral.endRadius) ? 0 : (spiral.approachSpeed || 0.5);
-      
+      cameraAnimation.spiralApproachSpeed =
+        (spiral.startRadius === spiral.endRadius)
+          ? 0
+          : (spiral.approachSpeed || 0.5);
+
       cameraAnimation.speed = speed || 0.5;
+
       cameraAnimation.toPos.set(to.x || 0, to.y || 20, to.z || 0);
     } else {
       cameraAnimation.isSpiral = false; // 通常モード
