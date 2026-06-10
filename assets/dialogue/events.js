@@ -329,7 +329,7 @@ window.DIALOGUE_EVENTS = {
 
     await cameraMove({
       from: {x: 200, y: 200, z: 200 },
-      to: { x: 0, y: 20 , z: 20 }, // 最終的なカメラ位置の目安
+      to: { x: 50, y: 20 , z: 50 }, // 最終的なカメラ位置の目安
       speed: 1,
       spiral: {
         cx: 0, cy: 20, cz: 0,          // 証言台の中心座標
