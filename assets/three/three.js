@@ -197,8 +197,10 @@ window.cameraMove = function({
     }
     if (spiral) {
       cameraAnimation.isSpiral = true;
-      cameraAnimation.startY = from ? from.y : camera.position.y; // 💡【追加】スタートの高さを記録！
-      cameraAnimation.centerX = spiral.cx || 0;
+      cameraAnimation.startY = from ? from.y : camera.position.y;
+      cameraAnimation.centerX = spiral.cx !== undefined ? spiral.cx : 0;
+      cameraAnimation.centerY = spiral.cy !== undefined ? spiral.cy : 20;
+      cameraAnimation.centerZ = spiral.cz !== undefined ? spiral.cz : 0;
       cameraAnimation.currentRadius = spiral.startRadius || 100;
       cameraAnimation.targetRadius = spiral.endRadius || 100; // startと同じならキープされる
       cameraAnimation.currentAngle = spiral.startAngle || 0;
