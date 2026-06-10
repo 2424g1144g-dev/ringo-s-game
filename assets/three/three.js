@@ -368,7 +368,9 @@ window.animate = function() {
       }
     }
   } else {
-    if (controls && controls.enabled) controls.update();
+    if (controls && controls.enabled) { 
+      controls.update();
+    }
   }
   renderer.render(scene, camera);
 };
