@@ -198,15 +198,24 @@ window.cameraMove = function({
     if (spiral) {
       cameraAnimation.isSpiral = true;
       cameraAnimation.centerX = spiral.cx || 0;
-      cameraAnimation.centerY = spiral.cy || 15;
+      cameraAnimation.centerY = spiral.cy || 20;
       cameraAnimation.centerZ = spiral.cz || 0;
-      cameraAnimation.currentRadius = spiral.startRadius || 100; // スタート時の遠さ
-      cameraAnimation.targetRadius = spiral.endRadius || 30;     // 到着時の近さ
-      cameraAnimation.currentAngle = spiral.startAngle || 0;     // 開始角度（ラジアン 0〜6.28）
-      cameraAnimation.spiralRotSpeed = spiral.rotSpeed || 0.05;  // 回転の速さ
-      cameraAnimation.spiralApproachSpeed = spiral.approachSpeed || 0.5; // 近づく速さ
-      cameraAnimation.speed = speed || 0.5; // Y軸移動用
-      cameraAnimation.toPos.set(to.x || 0, to.y || 15, to.z || 0); // 最終目標位置
+      cameraAnimation.currentRadius = spiral.startRadius || 100;
+      cameraAnimation.targetRadius = spiral.endRadius || 100; // startと同じならキープされる
+      cameraAnimation.currentAngle = spiral.startAngle || 0;
+      
+      // 💡【追加】何ラジアン分まわるかのゴールを計算（例：2π = 360度分まわる）
+      // spiral.turnAngle に 360 などを指定できるようにする（未指定なら1回転分）
+      const turnRad = (spiral.turnAngle !== undefined) ? spiral.turnAngle * (Math.PI / 180) : Math.PI * 2;
+      cameraAnimation.targetAngle = cameraAnimation.currentAngle + turnRad;
+
+      cameraAnimation.spiralRotSpeed = spiral.rotSpeed || 0.03;
+      
+      // 💡 半径が同じなら、近づく速度（approachSpeed）は自動的に「0」にするセーフティ
+      cameraAnimation.spiralApproachSpeed = (spiral.startRadius === spiral.endRadius) ? 0 : (spiral.approachSpeed || 0.5);
+      
+      cameraAnimation.speed = speed || 0.5;
+      cameraAnimation.toPos.set(to.x || 0, to.y || 20, to.z || 0);
     } else {
       cameraAnimation.isSpiral = false; // 通常モード
       // 2. 目的地の安全な読み込み（zでもtoZでも、未指定なら現在地を維持）
@@ -292,12 +301,15 @@ window.animate = function() {
       camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
 
       // 到着判定：半径と高度が目的地に達したら終了
-      const isRadiusEnd = (cameraAnimation.currentRadius <= cameraAnimation.targetRadius);
+      const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
+        ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
+        : (cameraAnimation.currentAngle <= cameraAnimation.targetAngle);
       const isHeightEnd = (Math.abs(camera.position.y - cameraAnimation.toPos.y) <= 0.5);
       
-      if (isRadiusEnd && isHeightEnd) {
+      if (isAngleEnd && isHeightEnd) {
         cameraAnimation.active = false;
         if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
+      }
       }
 
     } 
