@@ -328,16 +328,16 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      from: {x: 200, y: 200, z: 200 },
-      to: { toX: 70, toY: 20 , toZ: 0 }, // 最終的なカメラ位置の目安
+      from: { x: 120, y: 200, z: 0 }, 
+      to: { x: 0, y: 20, z: 0 }, 
       speed: 1,
       spiral: {
-        cx: 0, cy: 0, cz: 0,          // 証言台の中心座標
-        startRadius: 120,              // 最初はめちゃくちゃ遠くから
-        endRadius: 1,                 // 最終的にここまで近づく
-        startAngle: 0,                 // スタートのアングル
-        rotSpeed: 0.06,                // ぐるぐる公転する速度
-        approachSpeed: 0.4             // 中心に吸い込まれる速度
+        cx: 0, cy: 20, cz: 0,          // 証言台の中心（0,20,0）
+        startRadius: 120,              // fromのXと同じにする
+        endRadius: 35,                 // 💡 1だとキャラクターの首の皮1枚までめり込むので、顔の手前「35」あたりが綺麗です！
+        startAngle: 0,                 
+        rotSpeed: 0.06,                
+        approachSpeed: 0.4             
       }
     });
 
