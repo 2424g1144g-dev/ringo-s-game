@@ -310,7 +310,6 @@ window.animate = function() {
         cameraAnimation.active = false;
         if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
       }
-      }
 
     } 
     // 💡 Bパターン：これまでの通常移動（等速直線移動 ＋ 手動回転 or lookAt）
