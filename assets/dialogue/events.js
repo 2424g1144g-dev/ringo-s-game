@@ -302,7 +302,6 @@ window.DIALOGUE_EVENTS = {
       to: {x: 0, y: 23, z: 0},
       toFov: 5,
       fovSpeed: 999,
-      yaw: 180,
       spiral: {
        cx: 0, cy: 20, cz: 0,
        startRadius: 10,
@@ -329,7 +328,7 @@ window.DIALOGUE_EVENTS = {
     black.style.opacity = 0;
 
     await cameraMove({
-      from: { x: 200, y: 200, z: 0 }, 
+      from: { x: 200, y: 200, z: 200 }, 
       to: { x: 0, y: 20, z: 0 }, 
       speed: 1,
       spiral: {
