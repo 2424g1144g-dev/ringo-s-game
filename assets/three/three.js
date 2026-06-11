@@ -469,11 +469,15 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  // フォグを設定 (色: 鮮やかなオレンジ、開始距離: 10、終了距離: 50)
-  scene.fog = new THREE.Fog(0xD0772E, 40, 130)
-  
-  // 必要なら背景色も怪しい暗いオレンジに変えると、より雰囲気が出ます
-  scene.background = new THREE.Color(0x1a0600); 
+  const ambientLight = new THREE.AmbientLight(0x4a2312, 1.5); 
+  scene.add(ambientLight);
+
+  // 2. 平行光源（太陽光のような光）：強いオレンジ
+  // 斜め上（あるいは横）から照らすことで、キャラクターの片側に強いハイライトを作ります
+  const dirLight = new THREE.DirectionalLight(0xff6600, 2.5); 
+  dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
+  scene.add(dirLight);
+  scene.background = new THREE.Color(0x1a0803);
 }
 window.stopNonstopDebateFog = function() {
   // フォグを null にすると完全に消えます
