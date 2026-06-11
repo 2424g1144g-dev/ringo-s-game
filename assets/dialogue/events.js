@@ -327,6 +327,10 @@ window.DIALOGUE_EVENTS = {
     // 💡 5.【第2段階】暗闇の中で、上空のスタート地点へ爆速ワープ＆2回目の大回転移動を発動！
     // 黒幕をじわーっと開けながら、遠くから1080度回りながら中心（0,0,0）へ突っ込ませます。
     window.startNonstopDebateFog();
+    const canvas = document.querySelector("canvas");
+    canvas.classList.remove("debate-mode");
+    void canvas.offsetWidth;
+    canvas.classList.add("debate-mode");
     black.style.opacity = 0;
     setTimeout (() => {
     },500)

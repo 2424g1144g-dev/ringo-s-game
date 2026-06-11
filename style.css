@@ -8,6 +8,14 @@ body {
   touch-action: none;
   color: white;
 }
+canvas.debate-mode {
+  filter: 
+    sepia(35%) 
+    hue-rotate(-10deg) 
+    saturate(150%) 
+    contrast(115%) 
+    brightness(90%);
+}
 /*文字の色---------------------------------------------------*/
 .blue {
   color: #579ca9;
