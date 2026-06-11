@@ -478,8 +478,14 @@ window.startNonstopDebateFog = function() {
   dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
   scene.add(dirLight);
   scene.background = new THREE.Color(0x1a0803);
-  const debateFilter = "sepia(35%) hue-rotate(-10deg) saturate(140%) contrast(115%) brightness(95%)";
-  renderer.domElement.style.filter = debateFilter;
+  
+  ambientLight.color.setHex(0x3a190e); 
+  ambientLight.intensity = 0.6; // 👈 ここを小さくして暗くする！
+
+  // 2. 平行光源（太陽の光）を強烈な「夕焼けオレンジ」にして、横から当てる
+  dirLight.color.setHex(0xff5500);
+  dirLight.intensity = 4.0; // 👈 ここを思いっきり強くしてオレンジを焼き付ける！
+  dirLight.position.set(8, 3, 2); // 横から当てることで、ダンロン風の影を作る
 }
 window.stopNonstopDebateFog = function() {
   // フォグを null にすると完全に消えます
