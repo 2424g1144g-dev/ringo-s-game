@@ -478,6 +478,8 @@ window.startNonstopDebateFog = function() {
   dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
   scene.add(dirLight);
   scene.background = new THREE.Color(0x1a0803);
+  const debateFilter = "sepia(35%) hue-rotate(-10deg) saturate(140%) contrast(115%) brightness(95%)";
+  renderer.domElement.style.filter = debateFilter;
 }
 window.stopNonstopDebateFog = function() {
   // フォグを null にすると完全に消えます
