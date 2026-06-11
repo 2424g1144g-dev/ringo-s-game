@@ -467,3 +467,18 @@ window.changeStandInExpression = function(charName, newImagePath) {
     console.error("テクスチャの切り替えに失敗しました:", err);
   });
 };
+
+window.startNonstopDebateFog = function() {
+  // フォグを設定 (色: 鮮やかなオレンジ、開始距離: 10、終了距離: 50)
+  scene.fog = new THREE.FogLinear(0xff5500, 10, 50);
+  
+  // 必要なら背景色も怪しい暗いオレンジに変えると、より雰囲気が出ます
+  scene.background = new THREE.Color(0x1a0600); 
+}
+window.stopNonstopDebateFog = function() {
+  // フォグを null にすると完全に消えます
+  scene.fog = null;
+  
+  // 背景色を元の黒（あるいは通常の背景）に戻す
+  scene.background = new THREE.Color(0x000000); 
+}
