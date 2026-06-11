@@ -30,7 +30,7 @@ window.initThree = function() {
   canvas.style.transition = "opacity 2s ease-out";
   document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0,4);
   scene.add(ambientLight);
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
   dirLight.position.set(10, 20, 10);
@@ -126,7 +126,7 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
         const geometry = new THREE.PlaneGeometry(25, 30); 
 
         // 表面
-        const material = new THREE.MeshLambertMaterial({
+        const material = new THREE.MeshBasicMaterial({
             map: texture,
             transparent: true,
             side: THREE.FrontSide,
