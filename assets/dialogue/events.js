@@ -327,7 +327,8 @@ window.DIALOGUE_EVENTS = {
     // 💡 5.【第2段階】暗闇の中で、上空のスタート地点へ爆速ワープ＆2回目の大回転移動を発動！
     // 黒幕をじわーっと開けながら、遠くから1080度回りながら中心（0,0,0）へ突っ込ませます。
     black.style.opacity = 0;
-
+    setTimeout (() => {
+    },500)
     await cameraMove({
       from: { x: 200, y: 200, z: 200 }, 
       to: { x: 0, y: 20, z: 0 }, 
