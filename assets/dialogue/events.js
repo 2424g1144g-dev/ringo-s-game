@@ -298,13 +298,13 @@ window.DIALOGUE_EVENTS = {
     // 💡 2.【第1段階】その場で激しくぐるぐる回転（yaw: 360）を開始！
     // 画面が暗くなる前に、まずカメラ自身がスピンし始めます。
     const firstRotation = cameraMove({
-      from: {x: 0, y: 26, z: 0},
-      to: {x: 0, y: 26, z: 0},
+      from: {x: 0, y: 23, z: 0},
+      to: {x: 0, y: 23, z: 0},
       toFov: 50,
       fovSpeed: 999,
       yaw: 180,
       spiral: {
-       cx: 0, cy: 26, cz: 0,
+       cx: 0, cy: 23, cz: 0,
        startRadius: 20,
        endRadius: 20,
        startAngle: 0,
