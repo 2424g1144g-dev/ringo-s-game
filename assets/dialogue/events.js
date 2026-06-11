@@ -337,7 +337,7 @@ window.DIALOGUE_EVENTS = {
         endRadius: 20,                 // 💡 1だとキャラクターの首の皮1枚までめり込むので、顔の手前「35」あたりが綺麗です！
         startAngle: 0,                 
         rotSpeed: 0.04,                
-        approachSpeed: 0.4             
+        approachSpeed: 0.6             
       }
     });
     await cameraMove({
