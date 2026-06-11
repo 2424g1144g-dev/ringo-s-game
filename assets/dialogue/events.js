@@ -332,7 +332,7 @@ window.DIALOGUE_EVENTS = {
       from: { x: 200, y: 200, z: 200 }, 
       to: { x: 0, y: 20, z: 0 }, 
       speed: 1,
-      toFov: 50,
+      toFov: 35,
       fovSpeed: 999,
       spiral: {
         cx: 0, cy: 20, cz: 0,          // 証言台の中心（0,20,0）
