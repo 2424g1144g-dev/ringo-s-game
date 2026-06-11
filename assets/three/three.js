@@ -342,6 +342,15 @@ window.animate = function() {
       // 視線は常に中心をロックオン
       camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
 
+      let isFovEnd = false;
+      const fovDiff = cameraAnimation.toFov - camera.fov;
+      if (Math.abs(fovDiff) <= cameraAnimation.fovSpeed) {
+        camera.fov = cameraAnimation.toFov;
+        isFovEnd = true;
+      } else {
+        camera.fov += Math.sign(fovDiff) * cameraAnimation.fovSpeed;
+      }
+      camera.updateProjectionMatrix(); // 画角の変更を画面に反映
       // 5. 【修正】終了判定：指定された「目標角度」を通り過ぎたか、またはピッタリになったか
       const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
         ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
