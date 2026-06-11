@@ -470,7 +470,7 @@ window.changeStandInExpression = function(charName, newImagePath) {
 
 window.startNonstopDebateFog = function() {
   // フォグを設定 (色: 鮮やかなオレンジ、開始距離: 10、終了距離: 50)
-  scene.fog = new THREE.Fog(rgb(208, 119, 46), 100, 1000)
+  scene.fog = new THREE.Fog(0xD0772E, 100, 1000)
   
   // 必要なら背景色も怪しい暗いオレンジに変えると、より雰囲気が出ます
   scene.background = new THREE.Color(0x1a0600); 
