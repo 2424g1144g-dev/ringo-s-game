@@ -42,7 +42,7 @@ window.DIALOGUE_EVENTS = {
   },
 
   bgmChange: (event) => {
-    bgm.src = `assets/BGM/${event.id}.mp3`;
+    bgm.src = `assets/audio/BGM/${event.id}.mp3`;
   },
 
   bgmPlay: (event) => playBGM(event.id),

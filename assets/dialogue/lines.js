@@ -2,7 +2,7 @@
 window.DIALOGUE_LINES = window.DIALOGUE_LINES || {};
 
 DIALOGUE_LINES.dialogueStart = [
-  { name: "コウチョウ", lines: [{segments: [{text: "まずは、職員会議の簡単な説明を始めますね。"}]},
+  { name: "コウチョウ", lines: [{segments: [{text: "まずは、職員会議の簡単な説明を始めますね。"}], event: [{type: "bgmPlay", id: 0.4}]},
                           {segments: [{text: "職員会議の結果は貴方達の投票によって決定されます。"}]}]},
   { name: "コウチョウ", lines: [{segments: [{text: "正しいクロを指摘できれば、クロだけが懲戒解雇。"}]},
                           {segments: [{text: "ですが...もし間違った人物をクロとした場合は..."}]}]},
