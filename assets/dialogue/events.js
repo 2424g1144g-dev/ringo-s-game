@@ -305,8 +305,8 @@ window.DIALOGUE_EVENTS = {
       yaw: 180,
       spiral: {
        cx: 0, cy: 26, cz: 0,
-       startRadius: 10,
-       endRadius: 10,
+       startRadius: 20,
+       endRadius: 20,
        startAngle: 0,
        turnAngle: 360,
        rotSpeed: 0.06
