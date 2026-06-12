@@ -469,27 +469,13 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  const ambientLight = scene.getObjectByName("mainAmbient");
-  const dirLight = scene.getObjectByName("mainDir");
-
-  // 1. 背景を深い赤暗色へ（隙間から黒が見えないように）
-  scene.background = new THREE.Color(0x1a0803);
-
-  // 2. 全体の白い光（環境光）を【赤茶色】に落とし、
-  // キャラクター画像が持っている本来の「白さ」を強制的に沈める
-  if (ambientLight) {
-    ambientLight.color.setHex(0x3a190e); 
-    ambientLight.intensity = 0.6; 
-  }
-
-  // 3. 強烈な【夕焼けオレンジ】をカメラの斜め横（右前・少し上）から当てる
-  // これにより、キャラクターの片側に強いオレンジのハイライトと影が生まれ、一気に立体感が出ます
-  if (dirLight) {
-    dirLight.color.setHex(0xff5500);
-    dirLight.intensity = 4.5; // ガツンと強く！
-    dirLight.position.set(30, 20, 40); // 👈 西日が差し込む角度へ調整
-  }
+  debateObjects.forEach(mesh => {
+    // ほんのり暗いオレンジ色に光らせる（これで夕焼け感がなじみます）
+    mesh.material.emissive.setHex(0x5c240b); 
+    mesh.material.color.setHex(0xaaaaaa); 
+  });
 }
+
 
 window.stopNonstopDebateFog = function() {
   // 1. 背景を黒に戻す
