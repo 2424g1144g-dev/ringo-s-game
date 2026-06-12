@@ -29,7 +29,7 @@ window.initThree = function() {
   canvas.style.opacity = "0";
   document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
   scene.add(ambientLight);
   const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
   dirLight.position.set(10, 20, 10);
