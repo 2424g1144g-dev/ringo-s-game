@@ -485,7 +485,7 @@ window.startNonstopDebateFog = function() {
   // 2. 平行光源（太陽光のような光）：強いオレンジ
   // 斜め上（あるいは横）から照らすことで、キャラクターの片側に強いハイライトを作ります
   const dirLight = new THREE.DirectionalLight(0xff6600, 2.5); 
-  dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
+  dirLight.position.set(0, 20, 50); // カメラより少し斜め前・上から照らす
   scene.add(dirLight);
 }
 
