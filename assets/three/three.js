@@ -469,7 +469,7 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  const ambientLight = new THREE.AmbientLight(0x4a2312, 1.5); 
+  const ambientLight = new THREE.AmbientLight(0x4a2312, 0.4); 
   scene.add(ambientLight);
 
   // 2. 平行光源（太陽光のような光）：強いオレンジ
