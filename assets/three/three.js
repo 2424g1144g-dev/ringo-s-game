@@ -125,11 +125,12 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
         const geometry = new THREE.PlaneGeometry(25, 30); 
 
         // 表面
-        const material = new THREE.MeshBasicMaterial({
+        const material = new THREE.MeshLambertMaterial({
             map: texture,
             transparent: true,
             side: THREE.FrontSide,
-            alphaTest: 0.5 
+            alphaTest: 0.5,
+            emissive: 0xffffff
         });
         const standIn = new THREE.Mesh(geometry, material);
         
