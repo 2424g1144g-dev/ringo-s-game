@@ -469,6 +469,15 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
+  scene.fog = null; 
+  scene.background = new THREE.Color(0x1a0803);
+
+  // 💡 【ここを追加！】通常時の明るいライト（白）を名前で探して、強度を「0」にして消します
+  // これにより、今ついている通常時の強い光が混ざらなくなり、全体がガツンと薄暗くなります！
+  const mainAmbient = scene.getObjectByName("mainAmbient");
+  const mainDir = scene.getObjectByName("mainDir");
+  if (mainAmbient) mainAmbient.intensity = 0;
+  if (mainDir) mainDir.intensity = 0;
   // 1. 環境光（全体を底上げする光）：暗めの赤褐色
   // これにより、影の部分が真っ黒にならず、ダンロン特有の渋い赤茶色に沈みます
   const ambientLight = new THREE.AmbientLight(0x4a2312, 1.5); 
