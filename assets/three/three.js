@@ -29,7 +29,7 @@ window.initThree = function() {
   canvas.style.opacity = "0";
   document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 3.5);
   scene.add(ambientLight);
   const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
   dirLight.position.set(10, 20, 10);
@@ -130,7 +130,7 @@ window.spawnStandIn = function(imagePath, position = { x: 0, y: 16, z: 45 }, rot
             transparent: true,
             side: THREE.FrontSide,
             alphaTest: 0.5,
-            emissive: 0xffffff
+            emissive: 0x000000
         });
         const standIn = new THREE.Mesh(geometry, material);
         
@@ -469,28 +469,17 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  // 1. 背景を深い赤暗色へ
   scene.background = new THREE.Color(0x1a0803);
 
-  // 2. シーン内の【すべてのマテリアル】の自己発光を「オフ(黒)」にして、3Dの影を有効化する
-  scene.traverse((child) => {
-    if (child.isMesh && child.material) {
-      const materials = Array.isArray(child.material) ? child.material : [child.material];
-      materials.forEach((mat) => {
-        if (mat.emissive) mat.emissive.setHex(0x000000); // 影を出すために発光をゼロに
-      });
-    }
-  });
-
-  // 3. 議論用の夕焼けライトをON（前回の設定）
+  // 1. 議論開始：ライトの陰影をしっかり出すために、環境光を暗くする
   const ambientLight = scene.getObjectByName("mainAmbient");
   const dirLight = scene.getObjectByName("mainDir");
-  if (ambientLight) {
+  if (ambientLight) { 
     ambientLight.color.setHex(0x3a190e); 
-    ambientLight.intensity = 0.6; 
+    ambientLight.intensity = 0.5; // 影を引き立たせるために暗く
   }
-  if (dirLight) {
-    dirLight.color.setHex(0xff5500);
+  if (dirLight) { 
+    dirLight.color.setHex(0xff5500); // 強烈な夕焼けオレンジ
     dirLight.intensity = 4.5; 
     dirLight.position.set(30, 20, 40); 
   }
