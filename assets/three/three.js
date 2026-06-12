@@ -469,14 +469,28 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  const ambientLight = new THREE.AmbientLight(0x4a2312, 0.4); 
-  scene.add(ambientLight);
+  scene.fog = null; 
 
-  // 2. 平行光源（太陽光のような光）：強いオレンジ
-  // 斜め上（あるいは横）から照らすことで、キャラクターの片側に強いハイライトを作ります
-  const dirLight = new THREE.DirectionalLight(0xff6600, 1.2); 
-  dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
-  scene.add(dirLight);
+  // 奥の壁（中央の黒い部分など）を闇に溶かすため、背景色を深い赤暗色にする
+  scene.background = new THREE.Color(0x1a0803);
+
+  // 既存のライトを取得
+  const ambientLight = scene.getObjectByName("mainAmbient");
+  const dirLight = scene.getObjectByName("mainDir");
+
+  // 1. 全体を均等に照らす白い光を、ガツンと「暗い赤茶色」に落とす
+  // これでキャラクターの透過に影響を与えず、画面全体が夕暮れトーンに沈みます
+  if (ambientLight) { 
+    ambientLight.color.setHex(0x220f07); // 暗い赤茶色
+    ambientLight.intensity = 0.4;        // 全体を暗く！
+  }
+
+  // 2. キャラクターたちを狙うオレンジの西日
+  if (dirLight) { 
+    dirLight.color.setHex(0xff5500);     // 鮮やかなオレンジ
+    dirLight.intensity = 4.0;            // 西日なので強め
+    dirLight.position.set(30, 20, 40);   // 斜め横から照らす
+  }
 }
 
 
