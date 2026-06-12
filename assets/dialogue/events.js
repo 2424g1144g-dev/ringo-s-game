@@ -351,7 +351,7 @@ window.DIALOGUE_EVENTS = {
        startRadius: 20,
        endRadius: 20,
        startAngle: 0,
-       turnAngle: 360,
+       turnAngle: 720,
        rotSpeed: 0.04
      }
     })
