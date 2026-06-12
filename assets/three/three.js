@@ -469,11 +469,14 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  debateObjects.forEach(mesh => {
-    // ほんのり暗いオレンジ色に光らせる（これで夕焼け感がなじみます）
-    mesh.material.emissive.setHex(0x5c240b); 
-    mesh.material.color.setHex(0xaaaaaa); 
-  });
+  const ambientLight = new THREE.AmbientLight(0x4a2312, 1.5); 
+  scene.add(ambientLight);
+
+  // 2. 平行光源（太陽光のような光）：強いオレンジ
+  // 斜め上（あるいは横）から照らすことで、キャラクターの片側に強いハイライトを作ります
+  const dirLight = new THREE.DirectionalLight(0xff6600, 2.5); 
+  dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
+  scene.add(dirLight);
 }
 
 
