@@ -474,7 +474,7 @@ window.startNonstopDebateFog = function() {
 
   scene.traverse((child) => {
     if (child.isAmbientLight || child.isDirectionalLight) {
-      child.intensity = 0; // 通常時の白い光をすべて完全にシャットアウト
+      child.intensity = 0.8; // 通常時の白い光をすべて完全にシャットアウト
     }
   });
   // 1. 環境光（全体を底上げする光）：暗めの赤褐色
