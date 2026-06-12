@@ -29,9 +29,9 @@ window.initThree = function() {
   canvas.style.opacity = "0";
   document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
-  const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
   scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
   dirLight.position.set(10, 20, 10);
   scene.add(dirLight);
   // 操作設定
@@ -468,32 +468,58 @@ window.changeStandInExpression = function(charName, newImagePath) {
 };
 
 window.startNonstopDebateFog = function() {
-  const ambientLight = new THREE.AmbientLight(0x4a2312, 1.5); 
-  scene.add(ambientLight);
-
-  // 2. 平行光源（太陽光のような光）：強いオレンジ
-  // 斜め上（あるいは横）から照らすことで、キャラクターの片側に強いハイライトを作ります
-  const dirLight = new THREE.DirectionalLight(0xff6600, 2.5); 
-  dirLight.position.set(5, 5, 4); // カメラより少し斜め前・上から照らす
-  scene.add(dirLight);
+  // 1. 背景を深い赤暗色へ
   scene.background = new THREE.Color(0x1a0803);
-  
-  ambientLight.color.setHex(0x3a190e); 
-  ambientLight.intensity = 0.6; // 👈 ここを小さくして暗くする！
 
-  // 2. 平行光源（太陽の光）を強烈な「夕焼けオレンジ」にして、横から当てる
-  dirLight.color.setHex(0xff5500);
-  dirLight.intensity = 4.0; // 👈 ここを思いっきり強くしてオレンジを焼き付ける！
-  dirLight.position.set(8, 3, 2); // 横から当てることで、ダンロン風の影を作る
+  // 2. シーン内の【すべてのマテリアル】の自己発光を「オフ(黒)」にして、3Dの影を有効化する
+  scene.traverse((child) => {
+    if (child.isMesh && child.material) {
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach((mat) => {
+        if (mat.emissive) mat.emissive.setHex(0x000000); // 影を出すために発光をゼロに
+      });
+    }
+  });
 
-  const canvas = document.querySelector("canvas");
-  // 4. ガツンと夕焼けオレンジフィルターを適用する
-  canvas.style.filter = "sepia(35%) hue-rotate(-10deg) saturate(150%) contrast(115%) brightness(90%)";
+  // 3. 議論用の夕焼けライトをON（前回の設定）
+  const ambientLight = scene.getObjectByName("mainAmbient");
+  const dirLight = scene.getObjectByName("mainDir");
+  if (ambientLight) {
+    ambientLight.color.setHex(0x3a190e); 
+    ambientLight.intensity = 0.6; 
+  }
+  if (dirLight) {
+    dirLight.color.setHex(0xff5500);
+    dirLight.intensity = 4.5; 
+    dirLight.position.set(30, 20, 40); 
+  }
 }
+
 window.stopNonstopDebateFog = function() {
-  // フォグを null にすると完全に消えます
-  scene.fog = null;
-  
-  // 背景色を元の黒（あるいは通常の背景）に戻す
+  // 1. 背景を黒に戻す
   scene.background = new THREE.Color(0x000000); 
+
+  // 2. シーン内の【すべてのマテリアル】を真っ白に自己発光（100%の明るさ）させる！
+  // これにより、Lambertでありながら、影を完全に無視して元の綺麗な画像そのままの明るさ（Basicと同等）になります。
+  scene.traverse((child) => {
+    if (child.isMesh && child.material) {
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach((mat) => {
+        if (mat.emissive) mat.emissive.setHex(0xffffff); // 👈 魔法の一行：100%の明るさで発光
+      });
+    }
+  });
+
+  // 3. 通常時のライト（あなたの現在の設定に合わせておきます）
+  const ambientLight = scene.getObjectByName("mainAmbient");
+  const dirLight = scene.getObjectByName("mainDir");
+  if (ambientLight) {
+    ambientLight.color.setHex(0xffffff);
+    ambientLight.intensity = 2.5; 
+  }
+  if (dirLight) {
+    dirLight.color.setHex(0xffffff);
+    dirLight.intensity = 1.2;
+    dirLight.position.set(0, 20, 50); 
+  }
 }
