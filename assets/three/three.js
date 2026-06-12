@@ -486,6 +486,15 @@ window.startNonstopDebateFog = function() {
   dirLight.color.setHex(0xff5500);
   dirLight.intensity = 4.0; // 👈 ここを思いっきり強くしてオレンジを焼き付ける！
   dirLight.position.set(8, 3, 2); // 横から当てることで、ダンロン風の影を作る
+
+  const canvas = document.querySelector("canvas");
+  canvas.style.transition = "opacity 2s ease-out, filter 0.8s ease-out";
+  // 2. 一旦フィルターを完全にリセット（なし）にする
+  canvas.style.filter = "none";
+  // 3. あなたが気づいた「リフローの魔法」をここで実行！
+  void canvas.offsetWidth; 
+  // 4. ガツンと夕焼けオレンジフィルターを適用する
+  canvas.style.filter = "sepia(35%) hue-rotate(-10deg) saturate(150%) contrast(115%) brightness(90%)";
 }
 window.stopNonstopDebateFog = function() {
   // フォグを null にすると完全に消えます
