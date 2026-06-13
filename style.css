@@ -522,10 +522,19 @@ canvas.debate-mode {
 
 /*ノンストップ議論--------------------------*/
 #debate {
+  position: absolute;
   display: inline-block;
   color: white;
   font-size: 90px;
   font-family: "mouhitsu";
   z-index: 30000;
-  
+  letter-spacing: -20px;
 }
+#debate:nth-child(1) { position: relative; top: 0; }
+#debate:nth-child(2) { position: relative; top: 0; }
+#debate:nth-child(3) { position: relative; top: 0; }
+#debate:nth-child(4) { position: relative; top: 0; }
+#debate:nth-child(5) { position: relative; top: 0; }
+#debate:nth-child(6) { position: relative; top: 0; }
+#debate:nth-child(7) { position: relative; top: 0; }
+#debate:nth-child(8) { position: relative; top: 0; }
