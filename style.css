@@ -521,19 +521,11 @@ canvas.debate-mode {
 }
 
 /*ノンストップ議論--------------------------*/
-#orange-overlay {
-  position: fixed;   /* 画面全体に固定 */
-  top: 0;
-  left: 0;
-  width: 100%;       /* 幅いっぱいに広げる */
-  height: 100%;      /* 高さいっぱいに広げる */
-  pointer-events: none; /* 下にある要素（ボタンなど）を操作できるようにする */
-  z-index: 300000;        /* 他の要素より上に重ねる（必要に応じて調整） */
-
-  /* グラデーションの設定 */
-  background: linear-gradient(
-    to bottom,              /* 上から下へ向かうグラデーション */
-    rgba(224, 106, 63, 0.5) 0%,   /* 上端：完全に透明なオレンジ（rgbaの最後の0はアルファ値） */
-    rgba(153, 68, 40, 0.7) 100% /* 下端：70%不透明な暗いオレンジ */
-  );
+#debate {
+  display: inline-block;
+  color: white;
+  font-size: 90px;
+  font-family: "mouhitsu";
+  z-index: 30000;
+  
 }
