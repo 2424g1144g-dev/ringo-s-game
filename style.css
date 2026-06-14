@@ -524,7 +524,7 @@ canvas.debate-mode {
 #debate  {
   position: absolute;
   top: 20vh;
-  left: -200px;
+  left: 0;
   width: max-content;
   position: absolute;
   display: inline-block;
