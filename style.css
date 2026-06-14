@@ -533,11 +533,11 @@ canvas.debate-mode {
   z-index: 30000;
   letter-spacing: -90px;
 }
-#debate span:nth-child(1) { position: relative; top: 0; }
-#debate span:nth-child(2) { position: relative; top: 0; }
-#debate span:nth-child(3) { position: relative; top: 0; }
-#debate span:nth-child(4) { position: relative; top: 0; }
-#debate span:nth-child(5) { position: relative; top: 0; }
-#debate span:nth-child(6) { position: relative; top: 0; }
-#debate span:nth-child(7) { position: relative; top: 0; }
-#debate span:nth-child(8) { position: relative; top: 0; }
+#debate span:nth-child(1) { position: relative; top: 30px; font-size: 450px; letter-spacing: -250px;}
+#debate span:nth-child(2) { position: relative; top: 0; font-size: 230px; letter-spacing: -110px;}
+#debate span:nth-child(3) { position: relative; top: -35px; font-size: 250px; letter-spacing: -130px;}
+#debate span:nth-child(4) { position: relative; top: 0; font-size: 230px; letter-spacing: -100px;}
+#debate span:nth-child(5) { position: relative; top: -50px; font-size: 200px; letter-spacing: -140px;}
+#debate span:nth-child(6) { position: relative; top: -20px; font-size: 320px; letter-spacing: -160px;}
+#debate span:nth-child(7) { position: relative; top: 0; font-size: 220px; letter-spacing: -50px; }
+#debate span:nth-child(8) { position: relative; top: 0; font-size: 340px;}
