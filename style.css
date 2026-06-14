@@ -524,11 +524,11 @@ canvas.debate-mode {
 #debate  {
   position: absolute;
   top: 20vh;
+  left: -200px;
   width: max-content;
   position: absolute;
   display: inline-block;
   color: white;
-  font-size: 200px;
   font-family: "mouhitsu";
   z-index: 30000;
   letter-spacing: -90px;
