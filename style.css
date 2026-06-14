@@ -584,7 +584,8 @@ canvas.debate-mode {
   font-family: "mouhitsu";
   font-size: 450px;
   width: max-content;
-  color: "red";
+  color: red;
   z-index: 31000;
   letter-spacing: -40px;
+
 }
