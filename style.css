@@ -578,3 +578,13 @@ canvas.debate-mode {
     opacity: 0;
   }
 }
+#start {
+  position: absolute;
+  top: 10vh;
+  font-family: "mouhitsu";
+  font-size: 450px;
+  width: max-content;
+  color: "red";
+  z-index: 31000;
+  letter-spacing: -40px;
+}
