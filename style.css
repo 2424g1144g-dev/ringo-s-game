@@ -536,7 +536,10 @@ canvas.debate-mode {
     0 0 10px rgb(255 0 0 / 80%),  /* 1層目: 文字のキワをクッキリ光らせる */
     0 0 20px rgb(164 49 49 / 80%),  /* 2層目: 少し広げて青みを強く */
     0 0 40px rgb(234 32 88 / 60%),   /* 3層目: さらに外側へ大きくぼかす */
-    0 0 60px rgb(197 23 73 / 40%);  
+    0 0 60px rgb(197 23 73 / 40%);
+  animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) 2.2s forwards;
+  transform: translateX(-150px) skewX(-20deg);
+  opacity: 0;
 }
 #debate span:nth-child(1) { position: relative; top: 30px; font-size: 450px; letter-spacing: -250px;}
 #debate span:nth-child(2) { position: relative; top: 0; font-size: 230px; letter-spacing: -110px;}
@@ -546,3 +549,30 @@ canvas.debate-mode {
 #debate span:nth-child(6) { position: relative; top: -20px; font-size: 320px; letter-spacing: -160px;}
 #debate span:nth-child(7) { position: relative; top: 0; font-size: 220px; letter-spacing: -50px; }
 #debate span:nth-child(8) { position: relative; top: 0; font-size: 340px;}
+/* --- 1文字ずつ左からスッと出現するアニメーション --- */
+.appear {
+  animation: appearAnim 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes appearAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-150px) skewX(-20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) skewX(-20deg); /* skewXを維持してスタイリッシュに */
+  }
+}
+
+/* --- 右にスッと消えるアニメーション --- */
+@keyframes runAway {
+  0% {
+    transform: translateX(-50%) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateX(1200px);
+    opacity: 0;
+  }
+}
