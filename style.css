@@ -532,6 +532,11 @@ canvas.debate-mode {
   font-family: "mouhitsu";
   z-index: 30000;
   letter-spacing: -90px;
+  text-shadow:
+    0 0 10px rgba(0, 140, 255, 0.8),  /* 1層目: 文字のキワをクッキリ光らせる */
+    0 0 20px rgba(0, 100, 255, 0.8),  /* 2層目: 少し広げて青みを強く */
+    0 0 40px rgba(0, 50, 255, 0.6),   /* 3層目: さらに外側へ大きくぼかす */
+    0 0 60px rgba(0, 0, 255, 0.4);    /* 4層目: 全体の環境光（青いモヤ） */
 }
 #debate span:nth-child(1) { position: relative; top: 30px; font-size: 450px; letter-spacing: -250px;}
 #debate span:nth-child(2) { position: relative; top: 0; font-size: 230px; letter-spacing: -110px;}
