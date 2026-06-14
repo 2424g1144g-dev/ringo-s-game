@@ -578,7 +578,7 @@ canvas.debate-mode {
     opacity: 0;
   }
 }
-#start {
+#startDebate {
   position: absolute;
   top: 10vh;
   font-family: "mouhitsu";
@@ -587,5 +587,4 @@ canvas.debate-mode {
   color: red;
   z-index: 31000;
   letter-spacing: -40px;
-
 }
