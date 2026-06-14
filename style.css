@@ -539,6 +539,10 @@ canvas.debate-mode {
     0 0 60px rgb(197 23 73 / 40%);
   animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) 2.2s forwards;
 }
+#debate span {
+  display: inline-block;
+  opacity: 0;
+}
 #debate span:nth-child(1) { position: relative; top: 30px; font-size: 450px; letter-spacing: -250px;}
 #debate span:nth-child(2) { position: relative; top: 0; font-size: 230px; letter-spacing: -110px;}
 #debate span:nth-child(3) { position: relative; top: -35px; font-size: 250px; letter-spacing: -130px;}
@@ -566,11 +570,11 @@ canvas.debate-mode {
 /* --- 右にスッと消えるアニメーション --- */
 @keyframes runAway {
   0% {
-    transform: translateX(-50%) translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
   100% {
-    transform: translateX(-50%) translateX(1200px);
+    transform: translateX(1200px);
     opacity: 0;
   }
 }
