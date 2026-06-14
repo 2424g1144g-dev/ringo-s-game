@@ -537,7 +537,7 @@ canvas.debate-mode {
     0 0 20px rgb(164 49 49 / 80%),  /* 2層目: 少し広げて青みを強く */
     0 0 40px rgb(234 32 88 / 60%),   /* 3層目: さらに外側へ大きくぼかす */
     0 0 60px rgb(197 23 73 / 40%);
-  animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) 2.2s forwards;
+  animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) 1.3s forwards;
 }
 #debate span {
   display: inline-block;
