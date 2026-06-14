@@ -521,14 +521,17 @@ canvas.debate-mode {
 }
 
 /*ノンストップ議論--------------------------*/
-#debate {
+#debate  {
+  position: absolute;
+  top: 20vh;
+  width: max-content;
   position: absolute;
   display: inline-block;
   color: white;
-  font-size: 90px;
+  font-size: 200px;
   font-family: "mouhitsu";
   z-index: 30000;
-  letter-spacing: -20px;
+  letter-spacing: -90px;
 }
 #debate:nth-child(1) { position: relative; top: 0; }
 #debate:nth-child(2) { position: relative; top: 0; }
