@@ -12,3 +12,6 @@ reverseSpans.forEach((span, i) => {
   }, i * 100); 
   // 最後の文字「ノ」が出るのが 7文字×150ms = 1050ms（約1秒後）
 });
+setTimeout (() => {
+  document.getElementById("startDebate").classList.add("startAnim");
+},1000)
