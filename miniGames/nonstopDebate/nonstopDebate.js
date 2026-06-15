@@ -14,4 +14,4 @@ reverseSpans.forEach((span, i) => {
 });
 setTimeout (() => {
   document.getElementById("startDebate").classList.add("startAnim");
-},1500)
+},1300)
