@@ -580,8 +580,8 @@ canvas.debate-mode {
 }
 #startDebate {
   position: absolute;
-  top: 40vh;
-  left: 35%;
+  top: 30vh;
+  left: 30%;
   font-family: "mouhitsu";
   font-size: 300px;
   width: max-content;
