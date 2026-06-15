@@ -17,3 +17,4 @@ window.nonstopDebateStart = function() {
     document.getElementById("startDebate").classList.add("startAnim");
   },1300)
 }
+nonstopDebateStart();

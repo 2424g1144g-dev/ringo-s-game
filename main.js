@@ -7,4 +7,4 @@ window.addEventListener("keydown", (e) => {
     e.preventDefault();
   }
 })
-window.nonstopDebateStart();
+
