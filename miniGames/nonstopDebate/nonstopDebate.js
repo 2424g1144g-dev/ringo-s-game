@@ -16,5 +16,5 @@ window.nonstopDebateStart = function() {
   setTimeout (() => {
     debate.classList.add("runAway");
     document.getElementById("startDebate").classList.add("startAnim");
-  },1300)
+  },800)
 }
