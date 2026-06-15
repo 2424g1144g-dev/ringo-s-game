@@ -592,6 +592,6 @@ canvas.debate-mode {
 }
 .startAnim { animation: startAnim 0.4s linear; }
 @keyframes startAnim {
-  from { opacity: 1; transform: scale(1.0); }
-  to { opacity: 0; transform: scale(1.5); }
+  from { opacity: 1; transform: scale(1.0); filter: brightness(2.0);}
+  to { opacity: 0; transform: scale(1.5); filter: brightness(1.0); }
 }
