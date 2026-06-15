@@ -9,7 +9,7 @@ window.nonstopDebateStart = function() {
   setTimeout (() => {
     debate.classList.add("runAway");
     document.getElementById("startDebate").classList.add("startAnim");
-  }, 2000)
+  }, 1700)
   reverseSpans.forEach((span, i) => {
     // 1文字ごとに150ミリ秒（0.15秒）ずつズラして出現クラスを付与
     setTimeout(() => {
