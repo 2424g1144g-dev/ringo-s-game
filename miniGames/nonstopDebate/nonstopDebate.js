@@ -6,6 +6,10 @@ const spans = Array.from(debate.children);
 const reverseSpans = spans.reverse();
 
 window.nonstopDebateStart = function() {
+  setTimeout (() => {
+    debate.classList.add("runAway");
+    document.getElementById("startDebate").classList.add("startAnim");
+  }, 1200)
   reverseSpans.forEach((span, i) => {
     // 1文字ごとに150ミリ秒（0.15秒）ずつズラして出現クラスを付与
     setTimeout(() => {
@@ -13,8 +17,5 @@ window.nonstopDebateStart = function() {
     }, i * 100); 
     // 最後の文字「ノ」が出るのが 7文字×150ms = 1050ms（約1秒後）
   });
-  setTimeout (() => {
-    debate.classList.add("runAway");
-    document.getElementById("startDebate").classList.add("startAnim");
-  }, 1000)
+  
 }
