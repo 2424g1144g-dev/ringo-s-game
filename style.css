@@ -541,7 +541,7 @@ canvas.debate-mode {
   
 }
 .runAway {
-  animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) 1.3s forwards;
+  animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 #debate span {
   display: inline-block;
