@@ -543,6 +543,7 @@ canvas.debate-mode {
 #debate span {
   display: inline-block;
   opacity: 0;
+  z-index: 30000;
 }
 #debate span:nth-child(1) { position: relative; top: 30px; font-size: 450px; letter-spacing: -250px; z-index: 30000;}
 #debate span:nth-child(2) { position: relative; top: 0; font-size: 230px; letter-spacing: -110px; z-index: 30000;}
