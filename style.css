@@ -520,29 +520,39 @@ canvas.debate-mode {
   }
 }
 
-/*ノンストップ議論--------------------------*/
-#debate  {
+/* --- 📦 1. 新設：ラッパー要素（退場アニメーションだけを担当） --- */
+#debateWrapper {
   position: absolute;
   top: 20vh;
-  left: -25px;
+  left: -25px; /* あなたの指定したベース位置 */
   width: max-content;
-  position: absolute;
-  display: inline-block;
-  color: white;
-  font-family: "mouhitsu";
   z-index: 30000;
-  letter-spacing: -90px;
-  text-shadow:
-    0 0 10px rgb(255 0 0 / 80%),  /* 1層目: 文字のキワをクッキリ光らせる */
-    0 0 20px rgb(164 49 49 / 80%),  /* 2層目: 少し広げて青みを強く */
-    0 0 40px rgb(234 32 88 / 60%),   /* 3層目: さらに外側へ大きくぼかす */
-    0 0 60px rgb(197 23 73 / 40%);
+
+  /* 文字が出揃う1.3秒後に、このラッパーごと右へスッと消し去る！ */
   animation: runAway 0.25s cubic-bezier(0.25, 1, 0.5, 1) 1.3s forwards;
 }
+
+/* --- 📝 2. ノンストップ議論のコンテナ（共通の装飾スタイルだけを担当） --- */
+#debate {
+  display: inline-block;
+  color: white;
+  font-family: "Yu Gothic", "mouhitsu", sans-serif;
+  letter-spacing: -90px;
+  
+  text-shadow:
+    0 0 10px rgb(255 0 0 / 80%),  
+    0 0 20px rgb(164 49 49 / 80%),  
+    0 0 40px rgb(234 32 88 / 60%),   
+    0 0 60px rgb(197 23 73 / 40%);
+}
+
+/* --- 🌟 子要素共通：登場前の初期状態（透明） --- */
 #debate span {
   display: inline-block;
   opacity: 0;
 }
+
+/* --- 📐 あなたの作った完璧なサイズ・位置調整（完全維持） --- */
 #debate span:nth-child(1) { position: relative; top: 30px; font-size: 450px; letter-spacing: -250px;}
 #debate span:nth-child(2) { position: relative; top: 0; font-size: 230px; letter-spacing: -110px;}
 #debate span:nth-child(3) { position: relative; top: -35px; font-size: 250px; letter-spacing: -130px;}
@@ -551,7 +561,8 @@ canvas.debate-mode {
 #debate span:nth-child(6) { position: relative; top: -20px; font-size: 320px; letter-spacing: -160px;}
 #debate span:nth-child(7) { position: relative; top: 0; font-size: 220px; letter-spacing: -50px; }
 #debate span:nth-child(8) { position: relative; top: 0; font-size: 340px;}
-/* --- 1文字ずつ左からスッと出現するアニメーション --- */
+
+/* --- 🎬 1文字ずつ左からスッと出現するアニメーション --- */
 .appear {
   animation: appearAnim 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
@@ -563,44 +574,52 @@ canvas.debate-mode {
   }
   100% {
     opacity: 1;
-    transform: translateX(0) skewX(-20deg); /* skewXを維持してスタイリッシュに */
+    transform: translateX(0) skewX(-20deg); /* 個別の位置に着地 */
   }
 }
 
-/* --- 右にスッと消えるアニメーション --- */
+/* --- 🚀 ラッパーを動かすので、純粋に現在の位置から右へ飛ばすだけでOK --- */
 @keyframes runAway {
   0% {
     transform: translateX(0);
     opacity: 1;
   }
   100% {
-    transform: translateX(1200px);
+    transform: translateX(100vw); /* 画面右外へ一気に退場 */
     opacity: 0;
   }
 }
+
+/* --- 💥 「開始」ロゴのスタイルとアニメーション --- */
 #startDebate {
   position: absolute;
-  top: 30vh;
-  left: 30%;
-  font-family: "mouhitsu";
-  font-size: 300px;
+  top: 15vh;
+  left: 25%;
+  font-family: "Yu Gothic", "mouhitsu", sans-serif;
+  font-size: 350px;
   width: max-content;
   color: rgb(249, 161, 161);
   z-index: 31000;
-  letter-spacing: -100px;
+  letter-spacing: -30px;
   opacity: 0;
+  
   text-shadow:
-    0 0 10px rgb(255 0 0 / 80%),  /* 1層目: 文字のキワをクッキリ光らせる */
-    0 0 20px rgb(164 49 49 / 80%),  /* 2層目: 少し広げて青みを強く */
-    0 0 40px rgb(234 32 88 / 60%),   /* 3層目: さらに外側へ大きくぼかす */
+    0 0 10px rgb(255 0 0 / 80%),  
+    0 0 20px rgb(164 49 49 / 80%),  
+    0 0 40px rgb(234 32 88 / 60%),   
     0 0 60px rgb(197 23 73 / 40%);
 }
-.startAnim { animation: startAnim 0.4s linear; }
+
+.startAnim { 
+  /* ラッパーが右に消える瞬間（1.3秒後）に発動 */
+  animation: startAnim 0.5s linear 1.3s forwards; 
+}
+
 @keyframes startAnim {
-  0% { opacity: 1; transform: scale(1.0);}
-  10% { opacity: 1; transform: scale(1.3);}
-  30% { opacity: 1; transform: scale(1.4);}
-  50% { opacity: 1; transform: scale(1.5); color: rgb(206, 104, 104);}
-  90% { opacity: 1; transform: scale(2.0); color: rgb(101, 13, 13);}
-  100% { opacity: 0; transform: scale(2.0); color:rgb(101, 13, 13);}
+  0% { opacity: 0; transform: scale(0.5); }
+  10% { opacity: 1; transform: scale(1.0); }
+  30% { opacity: 1; transform: scale(1.1); }
+  50% { opacity: 1; transform: scale(1.2); color: rgb(206, 104, 104); }
+  90% { opacity: 1; transform: scale(1.8); color: rgb(101, 13, 13); }
+  100% { opacity: 0; transform: scale(2.0); color: rgb(101, 13, 13); }
 }
