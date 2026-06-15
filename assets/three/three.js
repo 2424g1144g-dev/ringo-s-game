@@ -25,7 +25,7 @@ window.initThree = function() {
   canvas.style.position = "absolute";
   canvas.style.top = "0";
   canvas.style.left = "0";
-  canvas.style.zIndex = "1";
+  canvas.style.zIndex = "0";
   canvas.style.opacity = "0";
   document.body.appendChild(canvas);
   // ライト設定（MMDモデル向けに強めに設定）
