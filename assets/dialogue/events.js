@@ -328,6 +328,9 @@ window.DIALOGUE_EVENTS = {
     // 黒幕をじわーっと開けながら、遠くから1080度回りながら中心（0,0,0）へ突っ込ませます。
     window.startNonstopDebateFog();
     black.style.opacity = 0;
+    setTimeout(() => {
+      window.nonstopDebateStart();
+    }, 800)
     setTimeout (() => {
     },500)
     await cameraMove({
