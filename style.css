@@ -542,7 +542,7 @@ canvas.debate-mode {
 }
 #debate span {
   display: inline-block;
-  opacity: 0;
+  opacity: 1;
   position: relative;
   z-index: 30000;
 }
