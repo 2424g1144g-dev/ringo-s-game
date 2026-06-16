@@ -525,6 +525,7 @@ canvas.debate-mode {
   position: absolute;
   top: 20vh;
   left: -25px;
+  pointer-events: none;
   width: max-content;
   position: absolute;
   display: inline-block;
@@ -588,6 +589,7 @@ canvas.debate-mode {
   position: absolute;
   top: 30vh;
   left: 30%;
+  pointer-events: none;
   font-family: "mouhitsu";
   font-size: 300px;
   width: max-content;
@@ -610,4 +612,15 @@ canvas.debate-mode {
   90% { opacity: 1; transform: scale(2.0); color: rgb(101, 13, 13);}
   100% { opacity: 0; transform: scale(2.0); color:rgb(101, 13, 13);}
 }
-
+#circleDebate {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  width: 300px;
+  height: 300px;
+  border: 10px solid rgb(216, 44, 41);
+  border-radius: 50%;
+  z-index: 29000;
+}
