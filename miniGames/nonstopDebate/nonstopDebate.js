@@ -11,7 +11,7 @@ window.nonstopDebateStart = function() {
     debate.classList.add("runAway");
     circle.classList.add("zoomDisappear");
     document.getElementById("startDebate").classList.add("startAnim");
-  }, 1700)
+  }, 1500)
   reverseSpans.forEach((span, i) => {
     setTimeout(() => {
       span.classList.add("appear");
