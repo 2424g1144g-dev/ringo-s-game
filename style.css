@@ -621,6 +621,7 @@ canvas.debate-mode {
   width: 500px;
   height: 500px;
   filter: blur(3px);
+  opacity: 0;
   box-shadow:
     0 0 10px red,
     0 0 20px red;
