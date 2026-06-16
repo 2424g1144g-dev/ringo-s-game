@@ -615,6 +615,7 @@ canvas.debate-mode {
   width:2000px;
   height:10px;
   transform:translate(-50%,-50%);
+  filter: blur(3px);
   z-index: 29000;
   background:
     linear-gradient(
@@ -631,5 +632,5 @@ canvas.debate-mode {
   }
   #beamTop {top: 10vh;}
   #beanBottom {bottom: 10vh; transform: rotate(180deg);}
-  #beamLeft {left: 10vw; transform: scale(90deg);}
-  #beamRight {right: 10vh; transform: scale(180deg);}
+  #beamLeft {left: 10vw; transform: rotate(90deg);}
+  #beamRight {right: 10vh; transform: rotate(180deg);}
