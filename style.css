@@ -620,7 +620,11 @@ canvas.debate-mode {
   pointer-events: none;
   width: 500px;
   height: 500px;
-  border: 25px solid rgb(216, 44, 41);
+  filter: blur(3px);
+  box-shadow:
+    0 0 10px red,
+    0 0 20px red;
+  border: 2px solid rgb(216, 44, 41);
   border-radius: 50%;
   z-index: 29000;
 }
