@@ -628,3 +628,10 @@ canvas.debate-mode {
   border-radius: 50%;
   z-index: 29000;
 }
+.zoomDisappear {
+  animation: zoomDisappear 0.7s linear;
+}
+@keyframes zoomDisappear {
+  from {opacity: 1; transform: scale(1.0);}
+  to {opacity: 0; transform: scale(1.3);}
+}
