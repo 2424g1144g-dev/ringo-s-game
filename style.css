@@ -610,3 +610,26 @@ canvas.debate-mode {
   90% { opacity: 1; transform: scale(2.0); color: rgb(101, 13, 13);}
   100% { opacity: 0; transform: scale(2.0); color:rgb(101, 13, 13);}
 }
+#beamTop, #beamBottom, #beamLeft, #beamRight {
+  position: absolute;
+  width:2000px;
+  height:10px;
+  transform:translate(-50%,-50%);
+  z-index: 29000;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(101,11,13,0.3) 0%,
+      red 50%,
+      rgba(101,11,13,0.3) 100%,
+      transparent 100%
+    );
+  box-shadow:
+    0 0 10px red,
+    0 0 20px red,
+  }
+  #beamTop {top: 10vh;}
+  #beanBottom {bottom: 10vh; transform: rotate(180deg);}
+  #beamLeft {left: 10vw; transform: scale(90deg);}
+  #beamRight {right: 10vh; transform: scale(180deg);}
