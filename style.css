@@ -618,9 +618,9 @@ canvas.debate-mode {
   top: 50vh;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  width: 300px;
-  height: 300px;
-  border: 10px solid rgb(216, 44, 41);
+  width: 500px;
+  height: 500px;
+  border: 25px solid rgb(216, 44, 41);
   border-radius: 50%;
   z-index: 29000;
 }
