@@ -646,7 +646,7 @@ canvas.debate-mode {
   height: 500px;
   left: 0;
   top: 50vh;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   background: rgb(189, 52, 52);
   mask-image: url("miniGames/nonstopDebate/cylinder.png");
   mask-size: contain;
