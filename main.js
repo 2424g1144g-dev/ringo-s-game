@@ -16,4 +16,4 @@ for (let step = 0; step < 20; step++) {
     cylinder.style.setProperty('--angle', `${currentAngle}deg`);
   } ,step * 300)
 }
-window.nonstopDebateStart();
+
