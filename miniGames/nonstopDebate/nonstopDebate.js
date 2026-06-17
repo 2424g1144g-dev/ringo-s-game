@@ -7,8 +7,8 @@ const circle = document.getElementById("circleDebate");
 const reverseSpans = spans.reverse();
 
 window.nonstopDebateStart = function() {
+  playSE("nonstopDebateStart");
   setTimeout (() => {
-    playSE("nonstopDebateStart");
     debate.classList.add("runAway");
     circle.classList.add("zoomDisappear");
     document.getElementById("startDebate").classList.add("startAnim");
