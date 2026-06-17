@@ -351,16 +351,17 @@ window.DIALOGUE_EVENTS = {
 
     setTimeout (async () => {
       await cameraMove({
+        from: {x: 0, y: 26, z: 0},
         to: {x: 0, y: 26, z: 0 },
         toFov: 15,
         fovSpeed: 999,
         spiral: {
-          cx: 0, cy: 0, cz: 0,
+          cx: 0, cy: 26, cz: 0,
           startRadius: 20,
           endRadius: 20,
           startAngle: 0,
           turnAngle: 99999,
-          rotSpeed: 0.025,
+          rotSpeed: 0.015,
         }
       })
     }, 3000)
