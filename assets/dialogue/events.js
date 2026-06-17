@@ -359,7 +359,7 @@ window.DIALOGUE_EVENTS = {
           cx: 0, cy: 23, cz: 0,
           startRadius: 20,
           endRadius: 20,
-          startAngle: 0,
+          startAngle: 30,
           turnAngle: 99999,
           rotSpeed: 0.015,
         }
