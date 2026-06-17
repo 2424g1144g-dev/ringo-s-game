@@ -348,8 +348,8 @@ window.DIALOGUE_EVENTS = {
         approachSpeed: 0.6             
       }
     });
-    
-    setTimeout (() => {
+
+    setTimeout (async () => {
       await cameraMove({
         toFov: 15,
         fovSpeed: 999,
