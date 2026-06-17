@@ -348,6 +348,21 @@ window.DIALOGUE_EVENTS = {
         approachSpeed: 0.6             
       }
     });
+    
+    setTimeout (() => {
+      await cameraMove({
+        toFov: 15,
+        fovSpeed: 999,
+        spiral: {
+          cx: 0, cy: 0, cz: 0,
+          startRadius: 0,
+          endRadius: 0,
+          startAngle: 0,
+          turnAngle: 99999,
+          rotSpeed: 0.025,
+        }
+      })
+    }, 3000)
     await cameraMove({
      spiral: {
        cx: 0, cy: 0, cz: 0,
