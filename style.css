@@ -648,6 +648,7 @@ canvas.debate-mode {
   top: 50vh;
   transform: translate(-50%, 50%);
   background: rgb(189, 52, 52);
+  mask-image: url("miniGames/nonstopDebate/Cylinder.png");
   mask-size: contain;
   -webkit-mask-size: contain;
   /* 💡 3. マスク画像を繰り返さない（重要！） */
