@@ -636,3 +636,17 @@ canvas.debate-mode {
   from {opacity: 1; transform: translate(-50%, -50%) scale(1.0);}
   to {opacity: 0; transform: translate(-50%, -50%) scale(1.5);}
 }
+#cylinderParents {
+  pointer-events: none;
+  z-index: 20000;
+}
+#cylinder {
+  position: absolute;
+  mask-image: url("miniGames/nonstopDebate/Cylinder.png");
+  width: 600px;
+  height: 600px;
+  left: 0;
+  top: 50vh;
+  transform: translate(-50%, 50%);
+  background: rgb(189, 52, 52);
+}
