@@ -642,11 +642,19 @@ canvas.debate-mode {
 }
 #cylinder {
   position: absolute;
-  mask-image: url("miniGames/nonstopDebate/Cylinder.png");
   width: 600px;
   height: 600px;
   left: 0;
   top: 50vh;
   transform: translate(-50%, 50%);
   background: rgb(189, 52, 52);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  /* 💡 3. マスク画像を繰り返さない（重要！） */
+  /* デフォルトは「repeat（繰り返す）」なので、1つだけ表示させる */
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  /* 💡 4. マスク画像を「中心（center）」に配置する！これで解決 */
+  mask-position: center;
+  -webkit-mask-position: center;
 }
