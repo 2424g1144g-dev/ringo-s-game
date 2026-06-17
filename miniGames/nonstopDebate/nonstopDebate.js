@@ -8,6 +8,7 @@ const reverseSpans = spans.reverse();
 
 window.nonstopDebateStart = function() {
   setTimeout (() => {
+    playSE("nonstopDebateStart");
     debate.classList.add("runAway");
     circle.classList.add("zoomDisappear");
     document.getElementById("startDebate").classList.add("startAnim");
