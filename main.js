@@ -11,7 +11,8 @@ window.addEventListener("keydown", (e) => {
 const cylinder = document.getElementById("cylinder");
 let currentAngle = 0;
 for (let step = 0; step < 20; step++) {
-  currentAngle += 60; 
-
-  cylinder.style.setProperty('--angle', `${currentAngle}deg`);
+  setTimeout(() => {
+    currentAngle += 60; 
+    cylinder.style.setProperty('--angle', `${currentAngle}deg`);
+  } ,step * 300)
 }
