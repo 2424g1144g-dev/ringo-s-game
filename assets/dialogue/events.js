@@ -358,9 +358,9 @@ window.DIALOGUE_EVENTS = {
         spiral: {
           cx: 0, cy: 23, cz: 0,
           startRadius: 20,
-          endRadius: 21,
+          endRadius: 20,
           startAngle: 70,
-          turnAngle: 99999,
+          turnAngle: 720,
           rotSpeed: 0.015,
         }
       })
