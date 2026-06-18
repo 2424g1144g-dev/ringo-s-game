@@ -680,7 +680,8 @@ canvas.debate-mode {
   width: max-content;
   padding: 0 10px;
   mask-image: url("miniGames/nonstopDebate/bulletBody.png");
-  font-family: "solid";
+  image-rendering: pixelated;
+  font-family: "makinasFont";
   font-size: 60px;
   line-height: 80px;
   color: #db6124;
