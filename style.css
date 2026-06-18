@@ -664,8 +664,15 @@ canvas.debate-mode {
   top: 50vh;
   transform: translate(-50%, -50%);
   border: white solid 2px;
+  border-radius: 50%;
   z-index: 30000;
   animation: smallRotate 15s linear infinite;
+  clip-path: polygon(
+    0% 0%, 48% 0%, 48% 48%, 0% 48%,       /* 左上の扇形 */
+    0% 52%, 48% 52%, 48% 100%, 0% 100%,   /* 左下の扇形 */
+    52% 100%, 52% 52%, 100% 52%, 100% 100%,/* 右下の扇形 */
+    100% 0%, 52% 0%, 52% 48%, 100% 48%    /* 右上の扇形 */
+  );
 }
 @keyframes smallRotate {
  from {transform: translate(-50%, -50%) rotate(0deg);}
