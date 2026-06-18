@@ -655,6 +655,7 @@ canvas.debate-mode {
   mask-repeat: no-repeat;
   mask-position: center;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 20000;
 }
 #cylinderCircleSmall {
   position: absolute;
