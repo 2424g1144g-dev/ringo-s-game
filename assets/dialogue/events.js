@@ -357,7 +357,7 @@ window.DIALOGUE_EVENTS = {
         fovSpeed: 999,
         yaw: 1080,
         roll: -10,
-        rotSpeed: 999
+        rotSpeed: 0.015
       })
     }, 3000)
     await cameraMove({
