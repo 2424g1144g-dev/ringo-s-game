@@ -666,7 +666,7 @@ canvas.debate-mode {
   background: none; 
 }
 #bulletHead, #bulletBody, #bulletFoot {
-  background: rgb(224, 250, 255);
+  background: rgb(242,129,4);
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
   height: 80px;
@@ -683,10 +683,11 @@ canvas.debate-mode {
   padding: 0 10px;
   mask-image: url("miniGames/nonstopDebate/bulletBody.png");
   image-rendering: pixelated;
-  font-family: "bullet";
+  font-family: "makinasFont";
+  font-weight: bold;
   font-size: 40px;
   line-height: 95px;
-  color: #db6124;
+  color: #000000;
   white-space: nowrap;
 }
 #bulletHead {
