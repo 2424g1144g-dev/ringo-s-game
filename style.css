@@ -664,7 +664,7 @@ canvas.debate-mode {
   left: 0;
   top: 50vh;
   transform: translate(-50%, -50%);
-  border: white solid 2px;
+  border: white solid 4px;
   border-radius: 50%;
   z-index: 30000;
   animation: smallRotate 15s linear infinite;
@@ -680,6 +680,38 @@ canvas.debate-mode {
     #ffffff 360deg
   );
 }
+#cylinderCircleLarge {
+  position: absolute;
+  width: 720px;
+  height: 720px;
+  left: 0;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  border: white solid 15px;
+  border-radius: 50%;
+  z-index: 30000;
+  animation: smallRotate 15s linear infinite reverse;
+  mask-image: conic-gradient(
+    from 0deg at center,
+    transparent 0deg,
+    transparent 45deg,
+    #ffffff 45deg,
+    #ffffff 90deg,
+    transparent 90deg,
+    transparent 135deg,
+    #ffffff 135deg,
+    #ffffff 180deg,
+    transparent 180deg,
+    transparent 225deg,
+    #ffffff 225deg,
+    #ffffff 270deg,
+    transparent 270deg,
+    transparent 315deg,
+    #ffffff 315deg,
+    #ffffff 360deg 
+  );
+}
+
 @keyframes smallRotate {
  from {transform: translate(-50%, -50%) rotate(0deg);}
  to   {transform: translate(-50%, -50%) rotate(360deg);}
