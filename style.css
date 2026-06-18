@@ -44,8 +44,10 @@ canvas.debate-mode {
   font-family: "name";
   src: url("assets/fonts/name.otf") format("truetype");
 }
-
-
+@font-face {
+  font-family: "bullet";
+  src: url("assets/fonts/DelaGothicOne-Regular.ttf");
+}
 
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
@@ -681,7 +683,7 @@ canvas.debate-mode {
   padding: 0 10px;
   mask-image: url("miniGames/nonstopDebate/bulletBody.png");
   image-rendering: pixelated;
-  font-family: "makinasFont";
+  font-family: "bullet";
   font-size: 60px;
   line-height: 80px;
   color: #db6124;
