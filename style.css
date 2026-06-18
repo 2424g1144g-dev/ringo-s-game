@@ -667,11 +667,16 @@ canvas.debate-mode {
   border-radius: 50%;
   z-index: 30000;
   animation: smallRotate 15s linear infinite;
-  clip-path: polygon(
-    50% 46%,  0%  0%,  0%  4%, 46% 50%,
-     0% 96%,  0% 100%, 46% 100%, 50% 54%,
-    100% 100%, 100% 96%, 54% 50%, 100%  4%,
-    100%  0%, 54%  0%
+  mask-image: conic-gradient(
+    from 0deg at center,
+    transparent 0deg,
+    transparent 45deg,
+    #ffffff 45deg,
+    #ffffff 180deg,
+    transparent 180deg,
+    transparent 225deg,
+    #ffffff 225deg,
+    #000 360deg
   );
 }
 @keyframes smallRotate {
