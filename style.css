@@ -656,6 +656,21 @@ canvas.debate-mode {
   mask-position: center;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
+#cylinderCircleSmall {
+  position: absolute;
+  width: 530px;
+  height: 530px;
+  left: 0;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  border: white solid 2px;
+  z-index: 30000;
+  animation: smallRotate 15s linear infinite;
+}
+@keyframes smallRotate {
+ from {transform: translate(-50%, -50%) rotate(0deg);}
+ to   {transform: translate(-50%, -50%) rotate(360deg);}
+}
 #bullet {
   position: absolute;
   left: 50px;
