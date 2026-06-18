@@ -358,6 +358,7 @@ window.DIALOGUE_EVENTS = {
         yaw: 1080,
         roll: 15,
         rotSpeed: 0.015
+      })
     }, 3000)
     await cameraMove({
      spiral: {
