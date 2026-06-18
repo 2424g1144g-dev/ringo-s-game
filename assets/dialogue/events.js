@@ -355,15 +355,9 @@ window.DIALOGUE_EVENTS = {
         to: {x: 0, y: 23, z: 0 },
         toFov: 25,
         fovSpeed: 999,
-        spiral: {
-          cx: 0, cy: 23, cz: 0,
-          startRadius: 20,
-          endRadius: 20,
-          startAngle: 70,
-          turnAngle: 720,
-          rotSpeed: 0.015,
-        }
-      })
+        yaw: 1080,
+        roll: 15,
+        rotSpeed: 0.015
     }, 3000)
     await cameraMove({
      spiral: {
