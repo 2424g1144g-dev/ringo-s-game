@@ -676,7 +676,7 @@ canvas.debate-mode {
     transparent 180deg,
     transparent 225deg,
     #ffffff 225deg,
-    #000 360deg
+    #ffffff 360deg
   );
 }
 @keyframes smallRotate {
