@@ -351,7 +351,7 @@ window.DIALOGUE_EVENTS = {
     });
 
     setTimeout (async () => {
-      cylinderPartents.style.transform = 'translateX(0)';
+      cylinderPartents.style.left = 0;
       await cameraMove({
         from: {x: 0, y: 23, z: 0},
         to: {x: 0, y: 23, z: 0 },
