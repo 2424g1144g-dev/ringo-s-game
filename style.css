@@ -726,9 +726,6 @@ canvas.debate-mode {
  to   {transform: translate(-50%, -50%) rotate(360deg);}
 }
 .bullet {
-  position: absolute;
-  left: 50px;
-  top: 44vh;
   display: flex; /* 子要素を横に並べる */
   align-items: stretch; /* 高さを揃える */
   z-index: 30000;
