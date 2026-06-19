@@ -639,8 +639,17 @@ canvas.debate-mode {
   to {opacity: 0; transform: translate(-50%, -50%) scale(1.5);}
 }
 #cylinderParents {
+  position: absolute;
   pointer-events: none;
-  z-index: 20000;
+  transform: translateX(-100%);
+  transition: transform 0.8s linear;
+}
+@keyframes cylinderAppear {
+  from {transform: translateX(-100%) rotate(180deg);}
+  to   {transform: translateX(0) rotate(0deg);}
+}
+.cylinderAppear {
+  animation: cylinderAnimation 0.8s linear forwards;
 }
 #cylinder {
   position: absolute;

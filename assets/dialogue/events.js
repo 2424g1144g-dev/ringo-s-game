@@ -289,6 +289,7 @@ window.DIALOGUE_EVENTS = {
     const under = document.getElementById("trialUIBottom");
     const word = document.getElementById("wordBar");
     const black = document.getElementById("blackLayer");
+    const cylinderParents = document.getElementById("cylinderParents");
 
     // 💡 1. まずUIをサッと消す
     left.classList.remove("show");
@@ -350,12 +351,13 @@ window.DIALOGUE_EVENTS = {
     });
 
     setTimeout (async () => {
+      cylinderPartents.style.transform = 'translateX(0)';
       await cameraMove({
         from: {x: 0, y: 23, z: 0},
         to: {x: 0, y: 23, z: 0 },
         toFov: 25,
         fovSpeed: 999,
-        yaw: 1080,
+        yaw: 3000,
         roll: -10,
         rotSpeed: 0.015
       })
