@@ -725,7 +725,7 @@ canvas.debate-mode {
  from {transform: translate(-50%, -50%) rotate(0deg);}
  to   {transform: translate(-50%, -50%) rotate(360deg);}
 }
-#bullet {
+.bullet {
   position: absolute;
   left: 50px;
   top: 44vh;
@@ -734,19 +734,19 @@ canvas.debate-mode {
   z-index: 30000;
   background: none; 
 }
-#bulletHead, #bulletBody, #bulletFoot {
+.bullet-Head, .bullet-Body, .bullet-Foot {
   background: rgb(242,129,4);
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
   height: 80px;
 }
 
-#bulletFoot {
+.bullet-Foot {
   width: 40px;
   mask-image: url("miniGames/nonstopDebate/bulletFoot.png");
 }
 
-#bulletBody {
+.bullet-Body {
   flex-grow: 1;
   width: max-content;
   padding: 0 10px;
@@ -759,7 +759,17 @@ canvas.debate-mode {
   color: #000000;
   white-space: nowrap;
 }
-#bulletHead {
+.bullet-Head {
   width: 100px;
   mask-image: url("miniGames/nonstopDebate/bulletHead.png");
+}
+#bulletList {
+  position: absolute;
+  left: 50px;
+  top: 50vh;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 30000;
 }

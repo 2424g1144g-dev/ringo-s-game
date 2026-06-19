@@ -20,3 +20,4 @@ window.nonstopDebateStart = function() {
     // 最後の文字「ノ」が出るのが 7文字×150ms = 1050ms（約1秒後）
   });
 }
+
