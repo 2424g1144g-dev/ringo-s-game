@@ -642,7 +642,7 @@ canvas.debate-mode {
   position: absolute;
   pointer-events: none;
   left: -800px;
-  transition: left: 0.8s ease-out;
+  transition: left 0.8s ease-out;
 }
 @keyframes cylinderAppear {
   from {transform: translateX(-100%) rotate(180deg);}
