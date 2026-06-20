@@ -45,7 +45,7 @@ window.addBullet = function(bulletText) {
   });
 }
 
-let bulletNum = ["ツカゴエのポケットに入っていたゴミ","１００年前の西大寺高校のビジョン","黒幕の罠"];
+let bulletNum = ["ツカゴエのポケットに入っていたゴミ","１００年前の西大寺高校のビジョン","黒幕の罠","消えた体育倉庫のハンマー","西大寺高校絶望的事件","シノハラの証言","割れたコップ"];
 function loadAllBullets() {
   bulletNum.forEach((text, i) => {
     setTimeout(() => {
