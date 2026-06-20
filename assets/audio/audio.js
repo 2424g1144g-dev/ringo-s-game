@@ -1,6 +1,7 @@
 
 const bgm = new Audio("assets/audio/BGM/trialNormal.mp3");
 bgm.preload = "auto"; // 事前ロードを強制
+bgm.loop = true;
 function playBGM(volume = 0.4) {
   bgm.volume = volume;
   if (bgm.readyState >= 2) {
