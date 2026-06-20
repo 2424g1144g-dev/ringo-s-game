@@ -1,11 +1,13 @@
 
-const bgm = document.getElementById("bgm");
-// 再生
+const bgm = new Audio("assets/audio/BGM/trialNormal.mp3");
+bgm.preload = "auto"; // 事前ロードを強制
 function playBGM(volume = 0.4) {
   bgm.volume = volume;
-  bgm.currentTime = 0;
-  bgm.play().catch(() => {
-    console.log("bgm");
+  if (bgm.readyState >= 2) {
+    bgm.currentTime = 0;
+  }
+  bgm.play().catch((error) => {
+    console.log("BGM再生エラー:", error);
   });
 }
 // 停止
