@@ -733,7 +733,7 @@ canvas.debate-mode {
   transform: translateX(1300px);
 }
 .bullet.shoot-in {
-  animation: shootIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: shootIn 0.3s linear forwards;
 }
 @keyframes shootIn{
   from {transform: translateX(1300px);}
