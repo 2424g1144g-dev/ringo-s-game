@@ -657,13 +657,14 @@ canvas.debate-mode {
   height: 500px;
   left: 0;
   top: 50vh;
-  transform: translateX(-50%) rotate(var(--angle));
+  translate: -50% -50%;          /* 位置調整はこれだけで固定 */
+  rotate: var(--angle);  
   background: rgb(189, 52, 52);
   mask-image: url("miniGames/nonstopDebate/cylinder.png");
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: rotate 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 20000;
 }
 #cylinderCircleSmall {
