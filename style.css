@@ -664,7 +664,7 @@ canvas.debate-mode {
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
-  transition: rotate 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: rotate 0.4s linear;
   z-index: 20000;
 }
 #cylinderCircleSmall {
