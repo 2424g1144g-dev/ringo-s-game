@@ -46,10 +46,15 @@ window.addBullet = function(bulletText) {
 }
 
 let bulletNum = ["ツカゴエのポケットに入っていたゴミ","１００年前の西大寺高校のビジョン","黒幕の罠","消えた体育倉庫のハンマー","西大寺高校絶望的事件","シノハラの証言","割れたコップ"];
+let currentAngle = 0;
 function loadAllBullets() {
   bulletNum.forEach((text, i) => {
     setTimeout(() => {
       window.addBullet(text);
+      setTimeout(() =>{
+        currentAngle += 60;
+        document.getElementById("cylinder").style.setProperty('--angle', `${currentAngle}deg`);
+      },180)
       // playLoadingSound();
     }, i * 400);
   });
