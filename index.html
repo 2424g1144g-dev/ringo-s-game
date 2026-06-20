@@ -7,58 +7,6 @@
     <meta http-equiv="Expires" content="0">
     <title>ノンストップ議論プロトタイプ</title>
     <link rel="stylesheet" href="style.css">
-
-    <link rel="preload" href="assets/audio/BGM/trialNormal.mp3" as="fetch" type="audio/mpeg">
-    <link rel="preload" href="assets/audio/BGM/underground.mp3" as="fetch" type="audio/mpeg">
-    <link rel="preload" href="assets/audio/BGM/DebateBreak.mp3" as="fetch" type="audio/mpeg">
-
-    <link rel="preload" href="assets/audio/SE/hammer.wav" as="fetch" type="audio/wav">
-    <link rel="preload" href="assets/audio/SE/stamp.wav" as="fetch" type="audio/wav">
-
-    <link rel="preload" href="assets/three/trialPlace/trial.pmx" as="fetch">
-    <link rel="preload" href="assets/three/trialPlace/カーテン.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/スクリーン.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/スクリーン下１.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/スクリーン枠.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/スクリーン１.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/ドーム1.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/傍聴席.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/床.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/カーテン.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/虚無ドーム.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/虚無ドーム２.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/証言台.png" as="image">
-    <link rel="preload" href="assets/three/trialPlace/証言台床.png" as="image">
-
-    <link rel="preload" href="assets/icon/iconFakeFuruichi.png" as="image">
-    <link rel="preload" href="assets/icon/iconKeizo.png" as="image">
-    <link rel="preload" href="assets/icon/iconKento.png" as="image">
-    <link rel="preload" href="assets/icon/iconMitsuhiro.png" as="image">
-    <link rel="preload" href="assets/icon/iconPrincipal.png" as="image">
-    <link rel="preload" href="assets/icon/iconRyuji.png" as="image">
-    <link rel="preload" href="assets/icon/iconShige.png" as="image">
-    <link rel="preload" href="assets/icon/iconTaturo.png" as="image">
-
-    <link rel="preload" href="assets/three/characters/FAKEFURUICHI/FakeFuruichi_Normal.png" as="image">
-    <link rel="preload" href="assets/three/characters/FAKEFURUICHI/FakeFuruichi_See.png" as="image">
-    <link rel="preload" href="assets/three/characters/KEIZO/Keizo_Normal.png" as="image">
-    <link rel="preload" href="assets/three/characters/KEIZO/Keizo_Think.png" as="image">
-    <link rel="preload" href="assets/three/characters/KEIZO/Keizo_Claim.png" as="image">
-    <link rel="preload" href="assets/three/characters/KENTO/Kento_Normal.png" as="image">
-    <link rel="preload" href="assets/three/characters/KENTO/Kento_Explain.png" as="image">
-    <link rel="preload" href="assets/three/characters/MITSUHIRO/Mitsuhiro_Normal.png" as="image">
-    <link rel="preload" href="assets/three/characters/MITSUHIRO/Mitsuhiro_Point.png" as="image">
-    <link rel="preload" href="assets/three/characters/RYUJI/Ryuji_Normal.png" as="image">
-    <link rel="preload" href="assets/three/characters/RYUJI/Ryuji_Think.png" as="image">
-    <link rel="preload" href="assets/three/characters/SHIGE/Shige_Normal.png" as="image">
-    <link rel="preload" href="assets/three/characters/SHIGE/Shige_Explain.png" as="image">
-    <link rel="preload" href="assets/three/characters/SHIGE/Shige_Doubt.png" as="image">
-    <link rel="preload" href="assets/three/characters/TATURO/Taturo_Consider.png" as="image">
-
-    <link rel="preload" href="miniGames/nonstopDebate/bulletBody.png" as="image">
-    <link rel="preload" href="miniGames/nonstopDebate/bulletFoot.png" as="image">
-    <link rel="preload" href="miniGames/nonstopDebate/bulletHead.png" as="image">
-
   </head>
   <body>
     <audio id="bgm" src="assets/audio/BGM/trialNormal.mp3" loop></audio>
@@ -109,6 +57,62 @@
     <div id="bulletParents">
       <div id="bulletList">
       </div>
+    </div>
+
+
+
+
+
+
+
+    <div style="display: none;" aria-hidden="true">
+      <audio src="assets/audio/BGM/trialNormal.mp3" preload="auto"></audio>
+      <audio src="assets/audio/BGM/underground.mp3" preload="auto"></audio>
+      <audio src="assets/audio/BGM/DebateBreak.mp3" preload="auto"></audio>
+      <audio src="assets/audio/SE/hammer.wav" preload="auto"></audio>
+      <audio src="assets/audio/SE/stamp.wav" preload="auto"></audio>
+
+      <img src="assets/three/trialPlace/カーテン.png" loading="eager">
+      <img src="assets/three/trialPlace/スクリーン.png" loading="eager">
+      <img src="assets/three/trialPlace/スクリーン下１.png" loading="eager">
+      <img src="assets/three/trialPlace/スクリーン枠.png" loading="eager">
+      <img src="assets/three/trialPlace/スクリーン１.png" loading="eager">
+      <img src="assets/three/trialPlace/ドーム1.png" loading="eager">
+      <img src="assets/three/trialPlace/傍聴席.png" loading="eager">
+      <img src="assets/three/trialPlace/床.png" loading="eager">
+      <img src="assets/three/trialPlace/虚無ドーム.png" loading="eager">
+      <img src="assets/three/trialPlace/虚無ドーム２.png" loading="eager">
+      <img src="assets/three/trialPlace/証言台.png" loading="eager">
+      <img src="assets/three/trialPlace/証言台床.png" loading="eager">
+
+      <img src="assets/icon/iconFakeFuruichi.png" loading="eager">
+      <img src="assets/icon/iconKeizo.png" loading="eager">
+      <img src="assets/icon/iconKento.png" loading="eager">
+      <img src="assets/icon/iconMitsuhiro.png" loading="eager">
+      <img src="assets/icon/iconPrincipal.png" loading="eager">
+      <img src="assets/icon/iconRyuji.png" loading="eager">
+      <img src="assets/icon/iconShige.png" loading="eager">
+      <img src="assets/icon/iconTaturo.png" loading="eager">
+
+      <img src="assets/three/characters/FAKEFURUICHI/FakeFuruichi_Normal.png" loading="eager">
+      <img src="assets/three/characters/FAKEFURUICHI/FakeFuruichi_See.png" loading="eager">
+      <img src="assets/three/characters/KEIZO/Keizo_Normal.png" loading="eager">
+      <img src="assets/three/characters/KEIZO/Keizo_Think.png" loading="eager">
+      <img src="assets/three/characters/KEIZO/Keizo_Claim.png" loading="eager">
+      <img src="assets/three/characters/KENTO/Kento_Normal.png" loading="eager">
+      <img src="assets/three/characters/KENTO/Kento_Explain.png" loading="eager">
+      <img src="assets/three/characters/MITSUHIRO/Mitsuhiro_Normal.png" loading="eager">
+      <img src="assets/three/characters/MITSUHIRO/Mitsuhiro_Point.png" loading="eager">
+      <img src="assets/three/characters/RYUJI/Ryuji_Normal.png" loading="eager">
+      <img src="assets/three/characters/RYUJI/Ryuji_Think.png" loading="eager">
+      <img src="assets/three/characters/SHIGE/Shige_Normal.png" loading="eager">
+      <img src="assets/three/characters/SHIGE/Shige_Explain.png" loading="eager">
+      <img src="assets/three/characters/SHIGE/Shige_Doubt.png" loading="eager">
+      <img src="assets/three/characters/TATURO/Taturo_Consider.png" loading="eager">
+
+      <img src="miniGames/nonstopDebate/bulletBody.png" loading="eager">
+      <img src="miniGames/nonstopDebate/bulletFoot.png" loading="eager">
+      <img src="miniGames/nonstopDebate/bulletHead.png" loading="eager">
     </div>
     <script src="assets/audio/audio.js"></script>
     <script type="importmap">
