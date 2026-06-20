@@ -284,7 +284,9 @@ window.DIALOGUE_EVENTS = {
         speed: 0.1, toFov: 35, rotSpeed: 0.05});
   },
   
-  nonstopDebateCamera: async () => {
+  nonstopDebateCamera: async (event) => {
+    bgm.src = `assets/audio/BGM/${event.id}.mp3`;
+    playBGM(0.4)
     const left = document.getElementById("trialUILeftBar");
     const under = document.getElementById("trialUIBottom");
     const word = document.getElementById("wordBar");
