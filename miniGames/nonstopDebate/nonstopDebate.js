@@ -21,3 +21,28 @@ window.nonstopDebateStart = function() {
   });
 }
 
+window.addBullet = function(bulletText) {
+  const bulletList = document.getElementById("bulletList");
+
+  // 1. まずは中身が空っぽの「弾丸の器（div）」を1つ作る
+  const bulletEl = document.createElement("div");
+  bulletEl.className = "bullet"; // 基本クラスを付与
+
+  // 2. その器の中に、Foot / Body / Head の中身を流し込む
+  bulletEl.innerHTML = `
+    <div class="bullet-Foot"></div>
+    <div class="bullet-Body">${bulletText}</div>
+    <div class="bullet-Head"></div>
+  `;
+
+  // 3. 親コンテナに追加する
+  bulletList.appendChild(bulletEl);
+
+  // 4. 💡 追加された「この1発」だけに、登場アニメーションクラスを付与！
+  // わずかな時間差（リフロー待ち）を作ることで、確実にアニメーションを発動させます
+  requestAnimationFrame(() => {
+    bulletEl.classList.add("shoot-in");
+  });
+}
+
+window.addBullet("ツカゴエのポケットに入っていたゴミ")

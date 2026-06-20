@@ -730,6 +730,14 @@ canvas.debate-mode {
   align-items: stretch; /* 高さを揃える */
   z-index: 30000;
   background: none; 
+  transform: translateX(1000px);
+}
+.bullet.shoot-in {
+  animation: shootIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+@keyframes shootIn{
+  from {transform: translateX(1000px);}
+  to   {transform: translateX(0);}
 }
 .bullet-Head, .bullet-Body, .bullet-Foot {
   background: rgb(242,129,4);
