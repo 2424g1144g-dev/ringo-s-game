@@ -73,5 +73,6 @@ const SE = {
   heartBeatFast: "assets/audio/SE/heartBeatFast.wav",
   hammer: "assets/audio/SE/hammer.wav",
   stamp: "assets/audio/SE/stamp.wav",
-  nonstopDebateStart: "assets/audio/SE/nonstopDebateStart.wav"
+  nonstopDebateStart: "assets/audio/SE/nonstopDebateStart.wav",
+  addBullet: "assets/audio/SE/addBullet.wav"
 };

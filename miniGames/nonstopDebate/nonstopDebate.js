@@ -53,6 +53,7 @@ window.loadAllBullets = function() {
       window.addBullet(text);
       setTimeout(() =>{
         currentAngle += 60;
+        playSE("addBullet");
         document.getElementById("cylinder").style.setProperty('--angle', `${currentAngle}deg`);
       },180)
       // playLoadingSound();
