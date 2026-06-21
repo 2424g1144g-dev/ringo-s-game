@@ -45,19 +45,31 @@ window.addBullet = function(bulletText) {
   });
 }
 
-let bulletNum = ["ツカゴエのポケットに入っていたゴミ","１００年前の西大寺高校のビジョン","黒幕の罠","消えた体育倉庫のハンマー","西大寺高校絶望的事件","シノハラの証言","割れたコップ"];
+let bulletNum = [];
 let currentAngle = 0;
-window.loadAllBullets = function(bullet) {
+// 💡 Pythonの time.sleep() と同じ機能を持つおやすみ関数（ミリ秒指定）
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+// 💡 「async」をつけて、中で時間を止められる特別な関数にする
+window.loadAllBullets = async function(bullet) {
   bulletNum = bullet;
-  bulletNum.forEach((text, i) => {
-    setTimeout(() => {
-      window.addBullet(text);
-      setTimeout(() =>{
-        currentAngle += 60;
-        playSE("addBullet");
-        document.getElementById("cylinder").style.setProperty('--angle', `${currentAngle}deg`);
-      },180)
-      // playLoadingSound();
-    }, i * 400);
-  });
+  // 💡 1発ずつ順番に「時間を止めながら」ループさせるため for...of を使います
+  for (const text of bulletNum) { 
+    // 1. まず弾丸テキストを画面（UI）に追加！
+    window.addBullet(text); 
+    // 2. 弾が画面に出てからシリンダーが回りだすまでの「タメ」を作る（180ms待機）
+    await sleep(180);
+    // 3. シリンダーを回転させ、SEを鳴らす！
+    currentAngle += 60;
+    playSE("addBullet");
+    document.getElementById("cylinder").style.setProperty('--angle', `${currentAngle}deg`);
+    // 4. 💡 【ここが重要！】
+    // 回転演出が終わってから、次の弾丸の装填に移るまでの「余韻」として、しっかり待つ！
+    //（220ms 待つことで、1発あたり合計400msの小気味いい等間隔テンポになります）
+    await sleep(220);
+  }
+  // 💡 5. 【臨機応変ポイント】
+  // 弾丸のループが「すべて終わったこの場所」で、さらに最後の余韻を待つ！
+  await sleep(800); 
+  console.log("すべての装填演出が終了しました。議論の文字送りなどを開始できます！");
+  // ここに「議論開始関数」などを書けば、何発あっても完璧なタイミングでゲームが進行します！
 }
