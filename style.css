@@ -792,15 +792,12 @@ canvas.debate-mode {
 }
 #nonstopDebateName {
   position: absolute;
-  right: 0;
-  top: 85vh;
-  width: 50vw;
-  height: 8vh;
-  background: linear-gradient(
-    to right,
-    rgba(253,58,54,1.0) 70%,
-    rgba(253,58,54,0) 80%
-  );
-  rotate: 20deg;
+  right: -50px;
+  top: 90vh;
+  width: 75vw;
+  height: 7vh;
+  background: linear-gradient(to left, rgba(253, 58, 54, 1.0) 90%, rgba(253, 58, 54, 0) 100%);
+  rotate: -4deg;
   z-index: 25000;
+  text-align: right;
 }
