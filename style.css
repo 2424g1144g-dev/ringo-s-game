@@ -785,3 +785,22 @@ canvas.debate-mode {
   from {gap: 10px; opacity: 1;}
   to   {gap: 0px; opacity: 0;}
 }
+
+#nonstopDebateUI {
+  inset: 0;
+  pointer-events: none;
+}
+#nonstopDebateName {
+  position: absolute;
+  right: 0;
+  top: 85vh;
+  width: 50vw;
+  height: 8vh;
+  background: linear-gradient(
+    to right,
+    rgba(253,58,54,1.0) 70%,
+    rgba(253,58,54,0) 80%
+  );
+  rotate: 20deg;
+  z-index: 25000;
+}
