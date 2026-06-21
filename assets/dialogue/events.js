@@ -355,7 +355,7 @@ window.DIALOGUE_EVENTS = {
     setTimeout (async () => {
       cylinderParents.style.left = 0;
       setTimeout (() => {
-        loadAllBullets();
+        loadAllBullets(event.bullets);
       },400)
       await cameraMove({
         from: {x: 0, y: 23, z: 0},
