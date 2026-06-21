@@ -45,6 +45,7 @@ window.addBullet = function(bulletText) {
   });
 }
 
+const bulletList = document.getElementById("bulletList");
 let bulletNum = [];
 let currentAngle = 0;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -60,4 +61,6 @@ window.loadAllBullets = async function(bullet) {
   }
   await sleep(800); 
   console.log("すべての装填演出が終了しました。議論の文字送りなどを開始できます！");
+  bulletList.classList.add("bulletGathering");
+  document.getElementById("cylinderParents").style.left = "-800px";
 }

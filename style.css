@@ -780,3 +780,8 @@ canvas.debate-mode {
   gap: 10px;
   z-index: 30000;
 }
+.bulletGathering { animation: bulletGathering 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;}
+@keyframes bulletGathering {
+  from {gap: 10px; opacity: 1;}
+  to   {gap: -30px; opacity: 0;}
+}
