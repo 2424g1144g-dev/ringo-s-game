@@ -831,11 +831,22 @@ canvas.debate-mode {
 }
 #NDiconContainer {
   position: absolute;
-  right: -50px;
+  right: -130px;
+  top: 55vh;
   width: 30vw;
-  height: 30vh;
-  background:rgb(101, 13, 13);
+  height: 40vh;
+  background: rgb(101, 13, 13);
   border: 2px solid white;
   z-index: 20000;
-  rotate: -70deg;
+  rotate: -80deg;
+}
+#NDprocess {
+  position: absolute;
+  right: -130px;
+  top: 30vh;
+  width: 30vw;
+  height: 50vh;
+  background: rgba(0, 0, 0,0.5);
+  border: 2px solid white;
+  rotate(-80deg);
 }
