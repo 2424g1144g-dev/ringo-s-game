@@ -804,4 +804,5 @@ canvas.debate-mode {
   padding-right: 80px;
   text-align: right;
   line-height: 1;
+  -webkit-text-stroke: 3px #a91313; 
 }
