@@ -829,4 +829,13 @@ canvas.debate-mode {
   rotate: -4deg;
   z-index: 24000;
 }
-
+#NDiconContainer {
+  position: absolute;
+  right: -50px;
+  width: 30vw;
+  height: 30vh;
+  background:rgb(101, 13, 13);
+  border: 2px solid white;
+  z-index: 20000;
+  rotate: -70deg;
+}
