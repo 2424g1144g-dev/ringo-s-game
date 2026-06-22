@@ -840,7 +840,7 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
 }
-#NDprocess {
+#NDprocessCotnainer {
   position: absolute;
   right: -130px;
   top: 30vh;
@@ -848,5 +848,6 @@ canvas.debate-mode {
   height: 50vh;
   background: rgba(0, 0, 0,0.5);
   border: 2px solid white;
-  rotate(-80deg);
+  rotate: (-180deg);
+  z-index: 19000;
 }
