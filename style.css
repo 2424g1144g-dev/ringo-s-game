@@ -825,5 +825,5 @@ canvas.debate-mode {
   height: 200px;
   background: black;
   rotate: -4deg;
-  z-index: 25000;
+  z-index: 24000;
 }
