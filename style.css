@@ -410,9 +410,9 @@ canvas.debate-mode {
 }
 #whiteLine {
   position: absolute;
-  left: 0;
+  left: -50px;
   top: 74vh;
-  width: 100vw;
+  width: 110vw;
   height: 10px;
   background: rgb(225,225,186);
   z-index: 12100;
@@ -425,7 +425,7 @@ canvas.debate-mode {
   width: 100vw;
   height: 5px;
   background: rgb(253,58,54);
-  z-index: 12200;
+  z-index: 12050;
 }
 .text {
   position: absolute;
