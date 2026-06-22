@@ -817,4 +817,13 @@ canvas.debate-mode {
   z-index: 26000;
   border: 2px solid #a91313;
 }
-
+#NDNameUnderBlack {
+  position: absolute;
+  right: -50px;
+  top: 9.58vh;
+  width: 100vw;
+  height: 200px;
+  background: black;
+  rotate: -4deg;
+  z-index: 25000;
+}
