@@ -797,7 +797,11 @@ canvas.debate-mode {
   width: 75vw;
   height: 7vh;
   background: linear-gradient(to left, rgba(253, 58, 54, 1.0) 90%, rgba(253, 58, 54, 0) 100%);
+  font-family: 'name';
+  font-size: 30px;
   rotate: -4deg;
   z-index: 25000;
+  padding-right: 80px;
   text-align: right;
+  line-height: 1;
 }
