@@ -853,11 +853,12 @@ canvas.debate-mode {
 }
 #NDtimeContainer {
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 50vw;
+  right: -50px;
+  top: -100px;
+  width: 60vw;
   height: 20vh;
   background: rgba(219, 13, 13, 0.5);
   z-index: 20000;
-  border: 2px rgb(226,123,123);
+  border: 2px solid rgb(226, 123, 123);
+  rotate: 10deg;
 }
