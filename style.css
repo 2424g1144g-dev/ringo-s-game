@@ -840,6 +840,14 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
 }
+#NDicon {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 300px;
+  z-index: 20005;
+}
 #NDprocessContainer {
   position: absolute;
   right: -347px;
