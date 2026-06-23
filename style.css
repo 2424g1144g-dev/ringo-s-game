@@ -898,3 +898,13 @@ canvas.debate-mode {
   border-radius: 50%;
   scale: 1.1;
 }
+#NDcylinderWhiteline {
+  position: absolute;
+  left: -101px;
+  bottom: -90px;
+  width: 300px;
+  height: 300px;
+  border: 6px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  scale: 1.15;
+}
