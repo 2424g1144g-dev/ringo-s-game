@@ -851,3 +851,12 @@ canvas.debate-mode {
   rotate: -80deg;
   z-index: 19000;
 }
+#NDtimeContainer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50vw;
+  height: 20vh;
+  background: rgba(219, 13, 13, 0.5);
+  z-index: 20000;
+}
