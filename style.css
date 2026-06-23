@@ -872,12 +872,26 @@ canvas.debate-mode {
   border: 2px solid rgb(226, 123, 123);
   rotate: 10deg;
 }
+#NDcylinderContainer {
+  z-index: 23000
+}
 #NDcylinder {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  height: 200px;
-  mask-image: url("miniGames/nonstopDebate/cylinder.png");
+  left: -90px;
+  bottom: -90px;
+  width: 300px;
+  height: 300px;
+  mask-image: url(miniGames/nonstopDebate/cylinder.png);
   background: rgb(189, 52, 52);
+  mask-repeat: no-repeat;
+  scale: 1.1;
+}
+#NDcylinderWhiteline {
+  position: absolute;
+  left: -90px;
+  bottom: -90px;
+  width: 320px;
+  height: 320px;
+  border: 3px solid white;
+  border-radius: 50%;
 }
