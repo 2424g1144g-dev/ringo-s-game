@@ -873,6 +873,8 @@ canvas.debate-mode {
   rotate: 10deg;
 }
 #NDcylinderContainer {
+  position: absolute;
+  bottom: 0;
   z-index: 23000
 }
 #NDcylinder {
@@ -888,10 +890,11 @@ canvas.debate-mode {
 }
 #NDcylinderWhiteline {
   position: absolute;
-  left: -90px;
+  left: -101px;
   bottom: -90px;
-  width: 320px;
-  height: 320px;
-  border: 3px solid white;
+  width: 300px;
+  height: 300px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
+  scale: 1.1;
 }
