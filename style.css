@@ -842,11 +842,11 @@ canvas.debate-mode {
 }
 #NDprocessContainer {
   position: absolute;
-  right: -130px;
-  top: 30vh;
-  width: 30vw;
-  height: 50vh;
-  background: rgba(0, 0, 0,0.5);
+  right: -347px;
+  top: -8vh;
+  width: 53vw;
+  height: 30vh;
+  background: rgba(0, 0, 0, 0.5);
   border: 2px solid white;
   rotate: -80deg;
   z-index: 19000;
