@@ -859,4 +859,5 @@ canvas.debate-mode {
   height: 20vh;
   background: rgba(219, 13, 13, 0.5);
   z-index: 20000;
+  border: 2px rgb(226,123,123);
 }
