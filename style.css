@@ -932,8 +932,9 @@ canvas.debate-mode {
   align-items: stretch; /* 高さを揃える */
   z-index: 30000;
   background: none; 
+  transform: translateX(1300px);
 }
-.NDbullet-Head, .NDbullet-Body{
+.NDbullet-Head, .NDbullet-Body, .NDbullet-Foot {
   background: rgb(219,32,5);
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
@@ -942,10 +943,7 @@ canvas.debate-mode {
 
 .NDbullet-Foot {
   width: 40px;
-  font-size: 40px;
-  color: white;
-  flex-basis: 40px; 
-  flex-shrink: 1;
+  mask-image: url("miniGames/nonstopDebate/bulletFoot.png");
 }
 
 .NDbullet-Body {
