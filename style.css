@@ -929,16 +929,15 @@ canvas.debate-mode {
 }
 .NDbullet {
   position: absolute;
-  right: 200px;
+  left: 0;
   bottom: 30px;
   display: flex;
   align-items: stretch;
   z-index: 30000;
   background: none;
   rotate: -4deg;
-  transform-origin: right center; 
-  /* 必要に応じて微調整。右基準なのでマイナス方向に動かす感じになります */
-  transform: translateX(0px);
+  transform-origin: left center;
+  transform: translateX(250px);
 }
 .NDbullet-Head, .NDbullet-Body{
   background: rgb(219,32,5);
