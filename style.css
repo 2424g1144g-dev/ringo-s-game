@@ -944,10 +944,11 @@ canvas.debate-mode {
 .NDbullet-Foot {
   width: 10px;
   height: 80px;
-  background: rgb(255,180,0);
+  background: rgb(255, 180, 0);
   flex-shrink: 0;
   margin-right: 0;
   animation: glowPulse 1.5s linear infinite;
+  filter: brightness(1.1) blur(2px);
 }
 @keyframes glowPulse {
   from {
