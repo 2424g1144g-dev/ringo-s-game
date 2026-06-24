@@ -9,7 +9,7 @@ window.addEventListener("keydown", (e) => {
 })
 
 const ndBullet = document.querySelector(".NDbullet")
-ndBullet.style.addClassList("changeBullet");
+ndBullet.classList.add("changeBullet");
 setTimeout(() => {
   ndBullet.textContent = "ツカゴエミツヒロの証言";
 },300)
