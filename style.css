@@ -943,6 +943,9 @@ canvas.debate-mode {
 .NDbullet-Foot {
   width: 40px;
   font-size: 40px;
+  color: white;
+  flex-basis: 40px; 
+  flex-shrink: 1;
 }
 
 .NDbullet-Body {
