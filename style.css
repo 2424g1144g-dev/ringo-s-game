@@ -947,7 +947,7 @@ canvas.debate-mode {
   background: rgb(255, 180, 0);
   flex-shrink: 0;
   margin-right: 0;
-  animation: glowPulse 1.5s linear infinite;
+  animation: glowPulse 1.5s linear infinite alternate;
   filter: brightness(1.1) blur(2px);
 }
 @keyframes glowPulse {
