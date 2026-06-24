@@ -929,10 +929,14 @@ canvas.debate-mode {
 }
 .NDbullet {
   position: absolute;
-  display: flex; /* 子要素を横に並べる */
-  align-items: stretch; /* 高さを揃える */
+  left: 0;
+  bottom: 30px;
+  display: flex;
+  align-items: stretch;
   z-index: 30000;
-  background: none; 
+  background: none;
+  rotate: -4deg;
+  transform: translateX(250px);
 }
 .NDbullet-Head, .NDbullet-Body{
   background: rgb(219,32,5);
