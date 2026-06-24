@@ -8,8 +8,9 @@ window.addEventListener("keydown", (e) => {
   }
 })
 
-const ndBullet = document.querySelector(".NDbullet")
-ndBullet.classList.add("changeBullet");
+const ndBullet = document.querySelector(".NDbullet");
+const ndBulletBody = document.querySelector(".NDbullet-body");
+ndBulletBody.classList.add("changeBullet");
 setTimeout(() => {
-  ndBullet.textContent = "ツカゴエミツヒロの証言";
+  ndBulletBody.textContent = "ツカゴエミツヒロの証言";
 },300)

@@ -994,8 +994,26 @@ canvas.debate-mode {
   width: 100px;
   mask-image: url("miniGames/nonstopDebate/bulletHead.png");
 }
-.bulletChange {animation: bulletChange 0.3s linear alternate;}
+/* 💡 クラス名をJSと一致させます */
+.bulletChange {
+  /* 0.6秒かけて、閉じて開く一連のドラマを再生する */
+  animation: bulletChange 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
 @keyframes bulletChange {
-  from {clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);}
-  to   {clip-path: polygon(0 100%, 0 100%, 0 0, 0 0)}
+  0% {
+    /* 最初は全開（右端まで見えている状態） */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  
+  50% {
+    /* 💡 【300ms時点：完全閉鎖】右側から左端（0%）に向かってシュッと閉じる！
+       この瞬間にJSで文字が裏で切り替わります */
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  
+  100% {
+    /* 後半0.3秒：左端から右側に向かって、新しい文字を乗せた弾丸が再びパッと開く！ */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
 }
