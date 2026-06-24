@@ -9,8 +9,18 @@ window.addEventListener("keydown", (e) => {
 })
 
 const ndBullet = document.querySelector(".NDbullet");
-const ndBulletBody = document.querySelector(".NDbullet-body");
-ndBulletBody.classList.add("changeBullet");
+const ndBulletBody = ndBullet.querySelector(".NDbullet-Body"); // 💡 中の文字部分だけを狙う
+
+// 1. 演出開始！切り替えアニメーション用クラスをつける
+ndBullet.classList.add("bulletChange");
+
+// 2. 弾丸が左にシュッと閉じきった瞬間（0.3秒後 / 300ms）
 setTimeout(() => {
+  // 💡 HTML構造を壊さず、中の文字だけを「ツカゴエミツヒロの証言」に変える！
   ndBulletBody.textContent = "ツカゴエミツヒロの証言";
-},300)
+}, 300);
+
+// 3. 全ての演出が終わったら、次の切り替えのためにクラスを外しておく（0.6秒後）
+setTimeout(() => {
+  ndBullet.classList.remove("bulletChange");
+}, 600);
