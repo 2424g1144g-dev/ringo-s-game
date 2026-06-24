@@ -934,7 +934,7 @@ canvas.debate-mode {
   background: none; 
   transform: translateX(1300px);
 }
-.NDbullet-Head, .NDbullet-Body, .NDbullet-Foot {
+.NDbullet-Head, .NDbullet-Body{
   background: rgb(219,32,5);
   mask-size: 100% 100%;
   mask-repeat: no-repeat;
@@ -943,7 +943,20 @@ canvas.debate-mode {
 
 .NDbullet-Foot {
   width: 40px;
-  mask-image: url("miniGames/nonstopDebate/bulletFoot.png");
+  height: 80px;
+  background: none; /* ここ自体は透明に */
+  
+  /* 1. 【黄色いフチ】右側だけに、本家っぽい黄色（オレンジ）の太めの線を引く */
+  border-right: 12px solid rgb(255,180,0); /* 💡 色は好みに合わせて調整してね */
+  
+  /* 2. 【丸み】右側の上下角を大きくカーブさせて、( の形にする */
+  border-radius: 0 40px 40px 0; /* 右上と右下を大きく丸める */
+  
+  flex-shrink: 0; /* 絶対に潰させない */
+  box-sizing: border-box; /* フチの太さを幅に含める */
+  
+  /* 💡 【微調整】Bodyの赤地に、( のフチを少し「重ねる」ために左に引っ張る */
+  margin-right: -10px;
 }
 
 .NDbullet-Body {
