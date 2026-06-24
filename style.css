@@ -994,3 +994,8 @@ canvas.debate-mode {
   width: 100px;
   mask-image: url("miniGames/nonstopDebate/bulletHead.png");
 }
+.bulletChange {animation: bulletChange 0.3s linear alternate;}
+@keyframes bulletChange {
+  from {clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);}
+  to   {clip-path: polygon(0 100%, 0 100%, 0 0, 0 0)}
+}
