@@ -997,7 +997,7 @@ canvas.debate-mode {
 /* 💡 クラス名をJSと一致させます */
 .bulletChange {
   /* 0.6秒かけて、閉じて開く一連のドラマを再生する */
-  animation: bulletChange 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: bulletChange 0.6s linear forwards;
 }
 
 @keyframes bulletChange {
