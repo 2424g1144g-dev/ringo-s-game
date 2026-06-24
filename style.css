@@ -927,3 +927,38 @@ canvas.debate-mode {
     #ffffff 360deg 
   );
 }
+.NDbullet {
+  display: flex; /* 子要素を横に並べる */
+  align-items: stretch; /* 高さを揃える */
+  z-index: 30000;
+  background: none; 
+}
+.NDbullet-Head, .NDbullet-Body{
+  background: rgb(219,32,5);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  height: 80px;
+}
+
+.NDbullet-Foot {
+  width: 40px;
+  font-size: 40px;
+}
+
+.NDbullet-Body {
+  flex-grow: 1;
+  width: max-content;
+  padding: 0 10px;
+  mask-image: url("miniGames/nonstopDebate/bulletBody.png");
+  image-rendering: pixelated;
+  font-family: "makinasFont";
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 95px;
+  color: #000000;
+  white-space: nowrap;
+}
+.NDbullet-Head {
+  width: 100px;
+  mask-image: url("miniGames/nonstopDebate/bulletHead.png");
+}
