@@ -879,8 +879,8 @@ canvas.debate-mode {
 }
 #NDcylinder {
   position: absolute;
-  left: -90px;
-  bottom: -90px;
+  left: -99px;
+  bottom: -89px;
   width: 300px;
   height: 300px;
   mask-image: url(miniGames/nonstopDebate/cylinder.png);
