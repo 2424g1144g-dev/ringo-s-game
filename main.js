@@ -31,7 +31,7 @@ window.addEventListener("keydown", (event) => {
       // 👉 右Shiftなら：次の弾へ（進む）
       currentBulletIndex++;
       currentAngle += 60;
-      document.getElementById("NDcylinder").style.setProperty('--angle', `${currentAngle}deg`);
+      document.getElementById("NDcylinder").style.setProperty('--NDangle', `${currentAngle}deg`);
 
       if (currentBulletIndex >= bulletNumi.length) {
         currentBulletIndex = 0; // 最後を超えたら最初に戻る
@@ -40,7 +40,7 @@ window.addEventListener("keydown", (event) => {
       // 👈 左Shiftなら：前の弾へ（戻る）
       currentBulletIndex--;
       currentAngle -= 60;
-      document.getElementById("NDcylinder").style.setProperty('--angle', `${currentAngle}deg`);
+      document.getElementById("NDcylinder").style.setProperty('--NDangle', `${currentAngle}deg`);
       if (currentBulletIndex < 0) {
         currentBulletIndex = bulletNumi.length - 1; // 0未満になったら最後の弾に戻る
       }
