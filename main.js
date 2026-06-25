@@ -9,23 +9,7 @@ window.addEventListener("keydown", (e) => {
 })
 
 const ndBullet = document.querySelector(".NDbullet");
-const ndBulletBody = ndBullet.querySelector(".NDbullet-Body"); // 💡 中の文字部分だけを狙う
-
-// 1. 演出開始！切り替えアニメーション用クラスをつける
-ndBullet.classList.add("bulletChange");
-
-// 2. 弾丸が左にシュッと閉じきった瞬間（0.3秒後 / 300ms）
-setTimeout(() => {
-  // 💡 HTML構造を壊さず、中の文字だけを「ツカゴエミツヒロの証言」に変える！
-  ndBulletBody.textContent = "ツカゴエミツヒロの証言";
-}, 150);
-
-// 3. 全ての演出が終わったら、次の切り替えのためにクラスを外しておく（0.6秒後）
-setTimeout(() => {
-  ndBullet.classList.remove("bulletChange");
-}, 300);
-
-// 💡 現在選ばれている弾丸の番号（最初は0番目＝ツカゴエの証言）
+const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
 let currentBulletIndex = 0;
 
 // 💡 弾丸の配列（あなたのデータをここにセット）
@@ -46,12 +30,16 @@ window.addEventListener("keydown", (event) => {
     if (event.code === "ShiftRight") {
       // 👉 右Shiftなら：次の弾へ（進む）
       currentBulletIndex++;
+      currentAngle += 60;
+      
       if (currentBulletIndex >= bulletNumi.length) {
         currentBulletIndex = 0; // 最後を超えたら最初に戻る
       }
     } else if (event.code === "ShiftLeft") {
       // 👈 左Shiftなら：前の弾へ（戻る）
       currentBulletIndex--;
+      currentAngle -= 60;
+      document.getElementById("cylinder").style.setProperty('--angle', `${currentAngle}deg`);
       if (currentBulletIndex < 0) {
         currentBulletIndex = bulletNumi.length - 1; // 0未満になったら最後の弾に戻る
       }
