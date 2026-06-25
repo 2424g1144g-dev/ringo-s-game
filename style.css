@@ -886,6 +886,8 @@ canvas.debate-mode {
   mask-image: url(miniGames/nonstopDebate/cylinder.png);
   background: rgb(189, 52, 52);
   mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
   scale: 1.1;
   transition: rotate 0.1s linear;
   rotate: var(--NDangle);
