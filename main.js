@@ -29,7 +29,7 @@ setTimeout(() => {
 let currentBulletIndex = 0;
 
 // 💡 弾丸の配列（あなたのデータをここにセット）
-const bulletNumi = ["ツカゴエの証言", "落ちていた紙コップ"];
+const bulletNumi = ["ツカゴエの証言", "落ちていた紙コップ","ツカゴエのポケットに入っていたゴミ","消えた体育館のハンマー","西大寺高校の罠"];
 
 // 💡 キーボードの入力を監視するイベントリスナー
 window.addEventListener("keydown", (event) => {
@@ -61,7 +61,7 @@ window.addEventListener("keydown", (event) => {
       const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
       
       // 現在のインデックスの文字を配列から引っ張ってきて上書き
-      ndBulletBody.textContent = bulletNum[currentBulletIndex];
+      ndBulletBody.textContent = bulletNumi[currentBulletIndex];
     }, 150);
     
     // 4. アニメーションが終わったら（600ms後）、クラスを外して次のシフト入力に備える
