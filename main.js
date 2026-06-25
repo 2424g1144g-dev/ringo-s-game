@@ -11,6 +11,7 @@ window.addEventListener("keydown", (e) => {
 const ndBullet = document.querySelector(".NDbullet");
 const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
 let currentBulletIndex = 0;
+let NDcurrentAngle = 0;
 
 // 💡 弾丸の配列（あなたのデータをここにセット）
 const bulletNumi = ["ツカゴエの証言", "落ちていた紙コップ","ツカゴエのポケットに入っていたゴミ","消えた体育館のハンマー","西大寺高校の罠"];
@@ -30,8 +31,8 @@ window.addEventListener("keydown", (event) => {
     if (event.code === "ShiftRight") {
       // 👉 右Shiftなら：次の弾へ（進む）
       currentBulletIndex++;
-      currentAngle += 60;
-      document.getElementById("NDcylinder").style.setProperty('--NDangle', `${currentAngle}deg`);
+      NDcurrentAngle += 60;
+      document.getElementById("NDcylinder").style.setProperty('--NDangle', `${NDcurrentAngle}deg`);
 
       if (currentBulletIndex >= bulletNumi.length) {
         currentBulletIndex = 0; // 最後を超えたら最初に戻る
@@ -39,8 +40,8 @@ window.addEventListener("keydown", (event) => {
     } else if (event.code === "ShiftLeft") {
       // 👈 左Shiftなら：前の弾へ（戻る）
       currentBulletIndex--;
-      currentAngle -= 60;
-      document.getElementById("NDcylinder").style.setProperty('--NDangle', `${currentAngle}deg`);
+      NDcurrentAngle -= 60;
+      document.getElementById("NDcylinder").style.setProperty('--NDangle', `${NDcurrentAngle}deg`);
       if (currentBulletIndex < 0) {
         currentBulletIndex = bulletNumi.length - 1; // 0未満になったら最後の弾に戻る
       }
