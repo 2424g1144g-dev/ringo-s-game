@@ -18,9 +18,9 @@ ndBullet.classList.add("bulletChange");
 setTimeout(() => {
   // 💡 HTML構造を壊さず、中の文字だけを「ツカゴエミツヒロの証言」に変える！
   ndBulletBody.textContent = "ツカゴエミツヒロの証言";
-}, 300);
+}, 150);
 
 // 3. 全ての演出が終わったら、次の切り替えのためにクラスを外しておく（0.6秒後）
 setTimeout(() => {
   ndBullet.classList.remove("bulletChange");
-}, 600);
+}, 300);
