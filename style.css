@@ -887,6 +887,7 @@ canvas.debate-mode {
   background: rgb(189, 52, 52);
   mask-repeat: no-repeat;
   scale: 1.1;
+  transition: rotate 0.1s linear;
   rotate: var(--NDangle);
 }
 #NDcylinderWhiteline {
