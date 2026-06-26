@@ -839,7 +839,7 @@ canvas.debate-mode {
 }
 #NDiconContainer {
   position: absolute;
-  right: -130px;
+  right: -500px;
   top: 60vh;
   width: 30vw;
   height: 40vh;
@@ -848,6 +848,10 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
   overflow: hidden;
+  transition: right 0.15 linear;
+}
+#nonstopDebateUI.show #NDiconContainer {
+  right: -130px;
 }
 #NDicon {
   position: relative;
