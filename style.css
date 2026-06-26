@@ -864,7 +864,7 @@ canvas.debate-mode {
 }
 #NDprocessContainer {
   position: absolute;
-  right: -347px;
+  right: -900px;
   top: -8vh;
   width: 53vw;
   height: 30vh;
@@ -872,17 +872,25 @@ canvas.debate-mode {
   border: 2px solid white;
   rotate: -80deg;
   z-index: 19000;
+  transition: right 0.15s linear;
+}
+#nonstopDebateUI.show #NDprocessC0ntainer {
+  right: -347px;
 }
 #NDtimeContainer {
   position: absolute;
   right: -50px;
-  top: -100px;
+  top: -300px;
   width: 60vw;
   height: 20vh;
   background: rgba(219, 13, 13, 0.5);
   z-index: 20000;
   border: 2px solid rgb(226, 123, 123);
   rotate: 10deg;
+  transition: top 0.15s linear;
+}
+#nonstopDebateUI.show #NDtimeContainer {
+  top: -100px;
 }
 #NDcylinderContainer {
   position: absolute;
