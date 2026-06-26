@@ -848,7 +848,7 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
   overflow: hidden;
-  transition: right 0.15 linear;
+  transition: right 0.15s linear;
 }
 #nonstopDebateUI.show #NDiconContainer {
   right: -130px;
