@@ -64,3 +64,9 @@ window.loadAllBullets = async function(bullet) {
   bulletList.classList.add("bulletGathering");
   document.getElementById("cylinderParents").style.left = "-800px";
 }
+
+window.showNDUI = function() {
+  const UI = document.getElementById("nonstopDebateUI");
+  UI.classList.add("show");
+  setTimeout(() => {},)
+}

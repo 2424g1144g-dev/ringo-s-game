@@ -895,7 +895,12 @@ canvas.debate-mode {
 #NDcylinderContainer {
   position: absolute;
   bottom: 0;
-  z-index: 23000
+  z-index: 23000;
+  left: -600px;
+  transition: left 0.15s linear;
+}
+#nonsstopDebateUI.show #NDcylinderContainer {
+  left: 0;
 }
 #NDcylinder {
   position: absolute;
