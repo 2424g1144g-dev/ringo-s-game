@@ -874,7 +874,7 @@ canvas.debate-mode {
   z-index: 19000;
   transition: right 0.15s linear;
 }
-#nonstopDebateUI.show #NDprocessC0ntainer {
+#nonstopDebateUI.show #NDprocessContainer {
   right: -347px;
 }
 #NDtimeContainer {
