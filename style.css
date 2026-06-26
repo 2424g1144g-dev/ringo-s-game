@@ -792,6 +792,12 @@ canvas.debate-mode {
   inset: 0;
   pointer-events: none;
 }
+#NDbottom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  
+}
 #nonstopDebateName {
   position: absolute;
   right: -50px;
@@ -806,7 +812,10 @@ canvas.debate-mode {
   padding-right: 80px;
   text-align: right;
   line-height: 1;
-  -webkit-text-stroke: 2px #a91313; 
+  -webkit-text-stroke: 2px #a91313;
+}
+#nonstopDebateUI.show #nonstopDebateName {
+  position: absolute;
 }
 #NDNameUnderline {
   position: absolute;
