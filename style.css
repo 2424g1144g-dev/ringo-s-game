@@ -793,10 +793,7 @@ canvas.debate-mode {
   pointer-events: none;
 }
 #NDbottom {
-  position: absolute;
-  left: 0;
-  top: 0;
-  
+  position: relative;
 }
 #nonstopDebateName {
   position: absolute;
