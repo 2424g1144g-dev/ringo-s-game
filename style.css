@@ -794,7 +794,7 @@ canvas.debate-mode {
 }
 #NDbottom {
   position: relative;
-  top: 10vh;
+  top: 20vh;
   transition: top 0.15s linear;
 }
 #nonstopDebateName {
