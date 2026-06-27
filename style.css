@@ -899,7 +899,7 @@ canvas.debate-mode {
   left: -600px;
   transition: left 0.15s linear;
 }
-#nonsstopDebateUI.show #NDcylinderContainer {
+#nonstopDebateUI.show #NDcylinderContainer {
   left: 0;
 }
 #NDcylinder {
