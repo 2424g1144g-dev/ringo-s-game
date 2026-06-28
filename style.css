@@ -967,6 +967,11 @@ canvas.debate-mode {
   rotate: -4deg;
   transform-origin: left center;
   transform: translateX(250px);
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+#nonstopDebateUI.show .NDbullet {
+  opacity: 1;
 }
 .NDbullet-Head, .NDbullet-Body{
   background: rgb(219,32,5);
