@@ -4,7 +4,7 @@ window.nonstopDebate1 = async function () {
   debateController = new AbortController();
   const signal = debateController.signal;
   
-  currentDebateTime = 50000; // 50秒
+  currentDebateTime = 10000000; // 50秒
   gameSpeed = 1.0;
 
   try {
