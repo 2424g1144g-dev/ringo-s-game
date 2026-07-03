@@ -19,7 +19,10 @@ window.nonstopDebate1 = async function () {
         duration: 3000 // このセクションのカメラの所要時間（ミリ秒）
       }, signal);
 
-      if (signal.aborted) break;
+      if (signal.aborted){
+        console.log("breakを起動");
+        break
+    }
 
       console.log("セクション２：自動らせん軌道(spiral)");
       await moveCameraPromise({
