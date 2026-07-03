@@ -65,7 +65,7 @@ window.loadAllBullets = async function(bullet) {
   document.getElementById("cylinderParents").style.left = "-800px";
   await sleep(800);
   document.getElementById("nonstopDebateUI").classList.add("show");
-  await sleep(800);
+  await sleep(1200);
   window.nonstopDebate1();
 }
 
@@ -140,26 +140,23 @@ function moveCameraPromise(config, signal) {
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(new Error("Aborted"));
 
-    // 1. 既存のカメラ設定関数(window.cameraMove)を呼び出して、目標値やらせんの初期位置を設定させる
-    // ただし、既存の window.cameraMove 内の「cameraAnimation.active = true」や「resolve()」の
-    // タイミングをこちらの promise で制御するため、一部処理をフックします。
+    // 1. 既存のカメラ設定関数を呼び出して、目標値やらせんの初期位置を設定
     window.cameraMove(config); 
     
-    // cameraMoveがセットしたコールバックを無効化し、こちらでコントロールする
     cameraAnimation.onComplete = null; 
-    cameraAnimation.active = false; // 既存の animate() ループ側では動かさないようにする
+    cameraAnimation.active = false; // 既存のメインループ側では動かさない
 
     let lastTime = performance.now();
-    let animationProgress = 0; // アニメーション全体の進行度 (0〜1)
+    let animationProgress = 0; 
 
-    // 通常移動の場合の初期位置・角度を退避（線形補間のため）
+    // 通常移動の場合の初期位置・角度・FOVを退避（線形補間のため）
     const startPosition = camera.position.clone();
     const startRotation = camera.rotation.clone();
     const startFov = camera.fov;
 
     function animate(now) {
       if (signal.aborted) {
-        cameraAnimation.active = false; // カメラ動作を完全に停止
+        cameraAnimation.active = false;
         return reject(new Error("Aborted"));
       }
 
@@ -179,13 +176,11 @@ function moveCameraPromise(config, signal) {
         return reject(new Error("Timeout"));
       }
 
-      // 🎥 既存の「window.animate」内の計算ロジックを、gameDeltaベースでここに移植・実行する
+      // 🎥 既存の計算ロジック
       if (cameraAnimation.isSpiral) {
-        // --- 🌀 Aパターン: らせん軌道の処理（gameSpeed同期版） ---
-        // 1. 角度を進める（gameSpeedを乗算）
-        cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed * (gameDelta / 16.66); // 60fps換算の係数調整
+        // --- 🌀 Aパターン: らせん軌道の処理 ---
+        cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed * (gameDelta / 16.66);
         
-        // 2. 半径の補間
         const rDiff = cameraAnimation.targetRadius - cameraAnimation.currentRadius;
         const radiusStep = cameraAnimation.spiralApproachSpeed * (gameDelta / 16.66);
         if (Math.abs(rDiff) <= radiusStep) {
@@ -194,44 +189,51 @@ function moveCameraPromise(config, signal) {
           cameraAnimation.currentRadius += Math.sign(rDiff) * radiusStep;
         }
 
-        // 3. 進捗率（高さ用）の計算
         let progress = 0;
         if (cameraAnimation.startRadius !== cameraAnimation.targetRadius) {
           progress = (cameraAnimation.startRadius - cameraAnimation.currentRadius) / (cameraAnimation.startRadius - cameraAnimation.targetRadius);
         } else {
           const currentDiff = Math.abs(cameraAnimation.targetAngle - cameraAnimation.currentAngle);
-          const totalDiff = Math.abs(cameraAnimation.targetAngle - (cameraAnimation.targetAngle - cameraAnimation.currentAngle)) || 1;
+          const totalDiff = Math.allAngle || 1; 
           progress = 1 - (currentDiff / totalDiff);
         }
         progress = THREE.MathUtils.clamp(progress, 0, 1);
 
-        // 高さとXYZ座標の適用
         camera.position.y = cameraAnimation.startY + (cameraAnimation.targetY - cameraAnimation.startY) * progress;
         camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
         camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
         camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
 
-        // 終了判定（角度と半径がターゲットに達したか）
+        // FOVの補間処理
+        const fovDiff = cameraAnimation.toFov - camera.fov;
+        const fovStep = cameraAnimation.fovSpeed * (gameDelta / 16.66);
+        if (Math.abs(fovDiff) <= fovStep) {
+          camera.fov = cameraAnimation.toFov;
+        } else {
+          camera.fov += Math.sign(fovDiff) * fovStep;
+        }
+        camera.updateProjectionMatrix();
+
         const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
           ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
           : (cameraAnimation.currentAngle <= cameraAnimation.targetAngle);
         const isRadiusEnd = cameraAnimation.currentRadius === cameraAnimation.targetRadius;
 
         if (isAngleEnd && isRadiusEnd) {
-          // カチッと最終座標に合わせる
           camera.position.set(
             cameraAnimation.centerX + cameraAnimation.targetRadius * Math.cos(cameraAnimation.targetAngle),
             cameraAnimation.targetY,
             cameraAnimation.centerZ + cameraAnimation.targetRadius * Math.sin(cameraAnimation.targetAngle)
           );
           camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
+          
+          // ★重要：resolveしてこのループを完全に抜ける
           resolve(); 
-          return;
+          return; 
         }
 
       } else {
-        // --- 🏃 Bパターン: 通常移動の処理（gameSpeed同期版） ---
-        // animationProgressをベースに、config.durationに対してどれだけ進んだかで等速・線形補間(LERP)します
+        // --- 🏃 Bパターン: 通常移動の処理 ---
         animationProgress += gameDelta / (config.duration || 3000);
         const t = THREE.MathUtils.clamp(animationProgress, 0, 1);
 
@@ -252,12 +254,22 @@ function moveCameraPromise(config, signal) {
         camera.updateProjectionMatrix();
 
         if (t >= 1) {
-          resolve(); // 目的地に到着！次のセクションへ
-          return;
+          // ★重要：ここが原因でした！位置を確定させてreturnで終了
+          camera.position.copy(cameraAnimation.toPos);
+          if (cameraAnimation.lookAtPos) {
+            camera.lookAt(cameraAnimation.lookAtPos);
+          } else {
+            camera.rotation.copy(cameraAnimation.toRotation);
+          }
+          camera.fov = cameraAnimation.toFov;
+          camera.updateProjectionMatrix();
+
+          resolve(); // セクション1終了を通知して次のawaitへ
+          return;    // ループを止めるために必須！
         }
       }
 
-      // ループ継続
+      // まだ完了していない場合のみ、次のフレームを要求
       requestAnimationFrame(animate);
     }
 
