@@ -20,7 +20,7 @@ window.nonstopDebate1 = async function () {
       }, signal);
 
       if (signal.aborted){
-        console.log("breakを起動");
+        console.log("breakを起動します");
         break
     }
 
