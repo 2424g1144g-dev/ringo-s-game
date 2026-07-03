@@ -1,7 +1,7 @@
 window.nonstopDebate1 = async function () {
   console.log("【デバッグ】nonstopDebate1 が呼び出されました");
 
-  if (debateController) {
+  if (debateController != null) {
     console.log("【デバッグ】過去のコントローラーが存在するため abort します");
     debateController.abort();
   }
