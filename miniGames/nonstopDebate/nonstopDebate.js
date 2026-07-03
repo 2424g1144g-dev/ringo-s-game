@@ -127,3 +127,138 @@ window.addEventListener("keydown", (event) => {
     }, 300);
   }
 });
+
+
+// --- 共通のゲームスピードとコントローラー（前回の設計をそのまま流用） ---
+let debateController = null;
+let currentDebateTime = 30000;
+let gameSpeed = 1.0; // 通常1.0、スロー時0.3など
+
+function moveCameraPromise(config, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal.aborted) return reject(new Error("Aborted"));
+
+    // 1. 既存のカメラ設定関数(window.cameraMove)を呼び出して、目標値やらせんの初期位置を設定させる
+    // ただし、既存の window.cameraMove 内の「cameraAnimation.active = true」や「resolve()」の
+    // タイミングをこちらの promise で制御するため、一部処理をフックします。
+    window.cameraMove(config); 
+    
+    // cameraMoveがセットしたコールバックを無効化し、こちらでコントロールする
+    cameraAnimation.onComplete = null; 
+    cameraAnimation.active = false; // 既存の animate() ループ側では動かさないようにする
+
+    let lastTime = performance.now();
+    let animationProgress = 0; // アニメーション全体の進行度 (0〜1)
+
+    // 通常移動の場合の初期位置・角度を退避（線形補間のため）
+    const startPosition = camera.position.clone();
+    const startRotation = camera.rotation.clone();
+    const startFov = camera.fov;
+
+    function animate(now) {
+      if (signal.aborted) {
+        cameraAnimation.active = false; // カメラ動作を完全に停止
+        return reject(new Error("Aborted"));
+      }
+
+      let realDelta = now - lastTime;
+      lastTime = now;
+
+      // 🔥 ゲーム内時間（スロー対応）
+      let gameDelta = realDelta * gameSpeed;
+
+      // ⏰ 制限時間の減算
+      currentDebateTime -= gameDelta;
+      if (typeof updateTimerUI === "function") updateTimerUI(currentDebateTime);
+
+      if (currentDebateTime <= 0) {
+        if (typeof onDebateTimeout === "function") onDebateTimeout();
+        cameraAnimation.active = false;
+        return reject(new Error("Timeout"));
+      }
+
+      // 🎥 既存の「window.animate」内の計算ロジックを、gameDeltaベースでここに移植・実行する
+      if (cameraAnimation.isSpiral) {
+        // --- 🌀 Aパターン: らせん軌道の処理（gameSpeed同期版） ---
+        // 1. 角度を進める（gameSpeedを乗算）
+        cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed * (gameDelta / 16.66); // 60fps換算の係数調整
+        
+        // 2. 半径の補間
+        const rDiff = cameraAnimation.targetRadius - cameraAnimation.currentRadius;
+        const radiusStep = cameraAnimation.spiralApproachSpeed * (gameDelta / 16.66);
+        if (Math.abs(rDiff) <= radiusStep) {
+          cameraAnimation.currentRadius = cameraAnimation.targetRadius;
+        } else {
+          cameraAnimation.currentRadius += Math.sign(rDiff) * radiusStep;
+        }
+
+        // 3. 進捗率（高さ用）の計算
+        let progress = 0;
+        if (cameraAnimation.startRadius !== cameraAnimation.targetRadius) {
+          progress = (cameraAnimation.startRadius - cameraAnimation.currentRadius) / (cameraAnimation.startRadius - cameraAnimation.targetRadius);
+        } else {
+          const currentDiff = Math.abs(cameraAnimation.targetAngle - cameraAnimation.currentAngle);
+          const totalDiff = Math.abs(cameraAnimation.targetAngle - (cameraAnimation.targetAngle - cameraAnimation.currentAngle)) || 1;
+          progress = 1 - (currentDiff / totalDiff);
+        }
+        progress = THREE.MathUtils.clamp(progress, 0, 1);
+
+        // 高さとXYZ座標の適用
+        camera.position.y = cameraAnimation.startY + (cameraAnimation.targetY - cameraAnimation.startY) * progress;
+        camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
+        camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
+        camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
+
+        // 終了判定（角度と半径がターゲットに達したか）
+        const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
+          ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
+          : (cameraAnimation.currentAngle <= cameraAnimation.targetAngle);
+        const isRadiusEnd = cameraAnimation.currentRadius === cameraAnimation.targetRadius;
+
+        if (isAngleEnd && isRadiusEnd) {
+          // カチッと最終座標に合わせる
+          camera.position.set(
+            cameraAnimation.centerX + cameraAnimation.targetRadius * Math.cos(cameraAnimation.targetAngle),
+            cameraAnimation.targetY,
+            cameraAnimation.centerZ + cameraAnimation.targetRadius * Math.sin(cameraAnimation.targetAngle)
+          );
+          camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
+          resolve(); 
+          return;
+        }
+
+      } else {
+        // --- 🏃 Bパターン: 通常移動の処理（gameSpeed同期版） ---
+        // animationProgressをベースに、config.durationに対してどれだけ進んだかで等速・線形補間(LERP)します
+        animationProgress += gameDelta / (config.duration || 3000);
+        const t = THREE.MathUtils.clamp(animationProgress, 0, 1);
+
+        // ① 位置の補間
+        camera.position.lerpVectors(startPosition, cameraAnimation.toPos, t);
+
+        // ② 回転の補間
+        if (cameraAnimation.lookAtPos) {
+          camera.lookAt(cameraAnimation.lookAtPos);
+        } else {
+          camera.rotation.x = THREE.MathUtils.lerp(startRotation.x, cameraAnimation.toRotation.x, t);
+          camera.rotation.y = THREE.MathUtils.lerp(startRotation.y, cameraAnimation.toRotation.y, t);
+          camera.rotation.z = THREE.MathUtils.lerp(startRotation.z, cameraAnimation.toRotation.z, t);
+        }
+
+        // ③ FOVの補間
+        camera.fov = THREE.MathUtils.lerp(startFov, cameraAnimation.toFov, t);
+        camera.updateProjectionMatrix();
+
+        if (t >= 1) {
+          resolve(); // 目的地に到着！次のセクションへ
+          return;
+        }
+      }
+
+      // ループ継続
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  });
+}

@@ -356,7 +356,7 @@ window.DIALOGUE_EVENTS = {
       cylinderParents.style.left = 0;
       setTimeout (() => {
         loadAllBullets(event.bullets);
-        
+        window.nonstopDebate1();
       },400)
       await cameraMove({
         from: {x: 0, y: 23, z: 0},
