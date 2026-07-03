@@ -65,6 +65,8 @@ window.loadAllBullets = async function(bullet) {
   document.getElementById("cylinderParents").style.left = "-800px";
   await sleep(800);
   document.getElementById("nonstopDebateUI").classList.add("show");
+  await sleep(800);
+  window.nonstopDebate1();
 }
 
 window.showNDUI = function() {
