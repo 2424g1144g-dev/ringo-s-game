@@ -61,9 +61,10 @@ window.loadAllBullets = async function(bullet) {
   }
   await sleep(2000); 
   console.log("すべての装填演出が終了しました。議論の文字送りなどを開始できます！");
-  document.getElementById("nonstopDebateUI").classList.add("show");
   bulletList.classList.add("bulletGathering");
   document.getElementById("cylinderParents").style.left = "-800px";
+  await sleep(800);
+  document.getElementById("nonstopDebateUI").classList.add("show");
 }
 
 window.showNDUI = function() {
