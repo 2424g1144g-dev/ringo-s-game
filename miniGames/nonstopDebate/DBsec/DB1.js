@@ -21,7 +21,7 @@ window.nonstopDebate1 = async function () {
       console.log("👉 セクション１：開始（通常移動＋LookAt）");
       
       // セクション1のカメラ移動を待つ
-      await moveCameraPromise({
+      await window.moveCameraPromise({
         to: { x: 0, y: 15, z: 50 },
         lookAtPos: { x: 0, y: 15, z: 0 },
         toFov: 45,
@@ -37,7 +37,7 @@ window.nonstopDebate1 = async function () {
 
       console.log("👉 セクション２：開始（自動らせん軌道）");
       
-      await moveCameraPromise({
+      await window.moveCameraPromise({
         to: { y: 25 }, 
         spiral: {
           cx: 0, cy: 15, cz: 0, 

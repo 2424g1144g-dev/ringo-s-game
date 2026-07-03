@@ -524,7 +524,7 @@ window.stopNonstopDebateFog = function() {
 let currentDebateTime = 30000;
 let gameSpeed = 1.0; // 通常1.0、スロー時0.3など
 
-function moveCameraPromise(config, signal) {
+window.moveCameraPromise = function(config, signal) {
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(new Error("Aborted"));
 
