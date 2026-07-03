@@ -59,8 +59,9 @@ window.loadAllBullets = async function(bullet) {
     document.getElementById("cylinder").style.setProperty('--angle', `${currentAngle}deg`);
     await sleep(220);
   }
-  await sleep(800); 
+  await sleep(2000); 
   console.log("すべての装填演出が終了しました。議論の文字送りなどを開始できます！");
+  document.getElementById("nonstopDebateUI").classList.add("show");
   bulletList.classList.add("bulletGathering");
   document.getElementById("cylinderParents").style.left = "-800px";
 }
