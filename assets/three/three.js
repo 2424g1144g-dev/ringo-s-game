@@ -521,7 +521,6 @@ window.stopNonstopDebateFog = function() {
 
 
 // --- 共通のゲームスピードとコントローラー（前回の設計をそのまま流用） ---
-let debateController = null;
 let currentDebateTime = 30000;
 let gameSpeed = 1.0; // 通常1.0、スロー時0.3など
 
