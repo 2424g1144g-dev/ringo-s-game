@@ -138,79 +138,45 @@ let gameSpeed = 1.0; // 通常1.0、スロー時0.3など
 
 function moveCameraPromise(config, signal) {
   return new Promise((resolve, reject) => {
+    // 呼び出された時点で中断されていれば即終了
     if (signal.aborted) return reject(new Error("Aborted"));
 
-    let lastTime = performance.now();
-    let animationProgress = 0; // 0.0 〜 1.0
+    // 1. PDFにある元のカメラ設定関数を呼び出し、安全にすべての目標値をセットさせる
+    window.cameraMove(config); 
+    
+    // 2. 元のコールバック関数を退避させ、このPromiseのresolveと同期させる
+    const originalOnComplete = cameraAnimation.onComplete;
+    cameraAnimation.onComplete = null; 
+    cameraAnimation.active = false; // 一旦メインの window.animate 側での自動等速移動を止める
 
-    // --- 🏁 開始時のカメラ状態を完全に記憶 ---
+    let lastTime = performance.now();
+    let animationProgress = 0; // 0.0 〜 1.0 の進捗管理
+
+    // 通常モード用の初期状態をバックアップ（線形補間 LERP 用）
     const startPosition = camera.position.clone();
     const startRotation = camera.rotation.clone();
     const startFov = camera.fov;
 
-    // --- 🎯 目的地の FOV 設定 ---
-    const targetFov = (config.toFov && config.toFov !== 0) ? config.toFov : camera.fov;
-
-    // --- 🌀 らせん軌道（Spiral）用の初期化処理 ---
-    const isSpiralMode = !!config.spiral;
-    let spiralConfig = {};
-
-    if (isSpiralMode) {
-      const s = config.spiral;
-      // PDFの初期化ロジックを忠実に再現 [cite: 56, 58, 61, 63, 67, 70, 71, 72]
-      spiralConfig = {
-        centerX: s.cx || 0,
-        centerY: s.cy || 20,
-        centerZ: s.cz || 0,
-        startAngle: (s.startAngle || 0) * (Math.PI / 180),
-        turnAngle: (s.turnAngle || 0) * (Math.PI / 180),
-        startRadius: s.startRadius !== undefined ? s.startRadius : 100,
-        endRadius: s.endRadius !== undefined ? s.endRadius : (s.startRadius || 100),
-        targetY: (config.to && config.to.y !== undefined) ? config.to.y : camera.position.y
-      };
-      
-      // らせんのスタート位置にカチッとワープさせる（PDFの78〜84行目の再現） [cite: 78, 81, 84]
-      camera.position.x = spiralConfig.centerX + spiralConfig.startRadius * Math.cos(spiralConfig.startAngle);
-      camera.position.z = spiralConfig.centerZ + spiralConfig.startRadius * Math.sin(spiralConfig.startAngle);
-      camera.position.y = startPosition.y;
-      camera.lookAt(new THREE.Vector3(spiralConfig.centerX, spiralConfig.centerY, spiralConfig.centerZ));
-      
-      // ワープ後の状態をあらためて開始位置として記憶
+    // らせんモード用の追加初期化
+    if (cameraAnimation.isSpiral) {
+      // PDFの初期化によって camera.position が既にらせん開始位置にワープしているので、それを開始地点とする
       startPosition.copy(camera.position);
+      // 最初のlookAtを強制適用
+      camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
       startRotation.copy(camera.rotation);
-    } 
-    // --- 🏃 通常移動用の初期化処理 ---
-    else {
-      // 目的地の座標を安全に取得（PDFの39〜43行目の仕様を再現） [cite: 39, 41, 43]
-      const to = config.to || {};
-      spiralConfig.targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
-      spiralConfig.targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
-      spiralConfig.targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
-
-      // 目標回転の設定（lookAtPos があればそれをクローンして計算、なければ yaw/pitch/roll）
-      if (config.lookAtPos) {
-        const tempCamera = camera.clone();
-        tempCamera.position.set(spiralConfig.targetX, spiralConfig.targetY, spiralConfig.targetZ);
-        tempCamera.lookAt(new THREE.Vector3(config.lookAtPos.x, config.lookAtPos.y, config.lookAtPos.z));
-        spiralConfig.targetRotation = tempCamera.rotation.clone();
-      } else {
-        spiralConfig.targetRotation = new THREE.Euler(
-          (config.pitch || 0) * (Math.PI / 180),
-          (config.yaw || 0) * (Math.PI / 180),
-          (config.roll || 0) * (Math.PI / 180),
-          'YXZ'
-        );
-      }
     }
 
-    // --- 🔄 毎フレームのループアニメーション ---
     function animate(now) {
-      if (signal.aborted) return reject(new Error("Aborted"));
+      // 毎フレームの中断チェック
+      if (signal.aborted) {
+        cameraAnimation.active = false;
+        return reject(new Error("Aborted"));
+      }
 
       let realDelta = now - lastTime;
       lastTime = now;
 
-      // 🔥 ゲームスピード（スロー）対応の経過時間
+      // 🔥 ゲームスピード（スロー）を適用した時間差分
       let gameDelta = realDelta * gameSpeed;
 
       // ⏰ 制限時間の減算
@@ -219,53 +185,86 @@ function moveCameraPromise(config, signal) {
 
       if (currentDebateTime <= 0) {
         if (typeof onDebateTimeout === "function") onDebateTimeout();
+        cameraAnimation.active = false;
         return reject(new Error("Timeout"));
       }
 
-      // 🎥 全体時間の進捗率（0.0 〜 1.0）
+      // 🎥 指定時間(duration)に対する進捗率(t)を計算
       animationProgress += gameDelta / (config.duration || 3000);
       const t = THREE.MathUtils.clamp(animationProgress, 0, 1);
 
-      // 画角（FOV）の共通線形補間
-      camera.fov = THREE.MathUtils.lerp(startFov, targetFov, t);
+      // 共通の FOV（ズーム）補間
+      camera.fov = THREE.MathUtils.lerp(startFov, cameraAnimation.toFov, t);
       camera.updateProjectionMatrix();
 
-      if (isSpiralMode) {
-        // --- 🌀 Aパターン: らせん軌道の時間同期 LERP 計算 ---
-        // 進捗 t (0〜1) に応じて、角度、半径、高さを綺麗に一本道で計算します
-        const currentAngle = THREE.MathUtils.lerp(spiralConfig.startAngle, spiralConfig.startAngle + spiralConfig.turnAngle, t);
-        const currentRadius = THREE.MathUtils.lerp(spiralConfig.startRadius, spiralConfig.endRadius, t);
+      // --- モード別のカメラ座標・角度計算 ---
+      if (cameraAnimation.isSpiral) {
+        // 🌀 Aパターン: らせん軌道の時間補間 (PDFの計算式を gameSpeed/duration に完全同期)
+        // 開始時の角度から、turnAngle（目標の回転総量）まで t に応じて進める
+        const startAngle = (config.spiral.startAngle || 0) * (Math.PI / 180);
+        const turnRad = (config.spiral.turnAngle || 0) * (Math.PI / 180);
+        const targetAngle = startAngle + turnRad;
         
-        camera.position.y = THREE.MathUtils.lerp(startPosition.y, spiralConfig.targetY, t);
-        camera.position.x = spiralConfig.centerX + currentRadius * Math.cos(currentAngle);
-        camera.position.z = spiralConfig.centerZ + currentRadius * Math.sin(currentAngle);
+        const currentAngle = THREE.MathUtils.lerp(startAngle, targetAngle, t);
+        const currentRadius = THREE.MathUtils.lerp(cameraAnimation.startRadius, cameraAnimation.targetRadius, t);
         
-        // 視線は常に中心をロック
-        camera.lookAt(new THREE.Vector3(spiralConfig.centerX, spiralConfig.centerY, spiralConfig.centerZ));
-      } else {
-        // --- 🏃 Bパターン: 通常移動の時間同期 LERP 計算 ---
-        // 位置の補間
-        camera.position.lerpVectors(startPosition, new THREE.Vector3(spiralConfig.targetX, spiralConfig.targetY, spiralConfig.targetZ), t);
+        camera.position.y = THREE.MathUtils.lerp(startPosition.y, cameraAnimation.targetY, t);
+        camera.position.x = cameraAnimation.centerX + currentRadius * Math.cos(currentAngle);
+        camera.position.z = cameraAnimation.centerZ + currentRadius * Math.sin(currentAngle);
+        
+        // 常に中心をロックオン
+        camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
 
-        // 回転の補間
-        if (config.lookAtPos) {
-          camera.lookAt(new THREE.Vector3(config.lookAtPos.x, config.lookAtPos.y, config.lookAtPos.z));
+      } else {
+        // 🏃 Bパターン: 通常移動の時間補間
+        // 位置のLERP
+        camera.position.lerpVectors(startPosition, cameraAnimation.toPos, t);
+
+        // 回転のLERP
+        if (cameraAnimation.lookAtPos) {
+          camera.lookAt(cameraAnimation.lookAtPos);
         } else {
-          camera.rotation.x = THREE.MathUtils.lerp(startRotation.x, spiralConfig.targetRotation.x, t);
-          camera.rotation.y = THREE.MathUtils.lerp(startRotation.y, spiralConfig.targetRotation.y, t);
-          camera.rotation.z = THREE.MathUtils.lerp(startRotation.z, spiralConfig.targetRotation.z, t);
+          camera.rotation.x = THREE.MathUtils.lerp(startRotation.x, cameraAnimation.toRotation.x, t);
+          camera.rotation.y = THREE.MathUtils.lerp(startRotation.y, cameraAnimation.toRotation.y, t);
+          camera.rotation.z = THREE.MathUtils.lerp(startRotation.z, cameraAnimation.toRotation.z, t);
         }
       }
 
-      // 終了判定
+      // --- 🏁 終了判定 ---
       if (t >= 1) {
-        resolve(); // 完全に処理を終了して次のセクションへ！
-        return;
+        // 最終フレームの座標を完全にターゲット値にカチッと固定する
+        if (cameraAnimation.isSpiral) {
+          const startAngle = (config.spiral.startAngle || 0) * (Math.PI / 180);
+          const turnRad = (config.spiral.turnAngle || 0) * (Math.PI / 180);
+          camera.position.set(
+            cameraAnimation.centerX + cameraAnimation.targetRadius * Math.cos(startAngle + turnRad),
+            cameraAnimation.targetY,
+            cameraAnimation.centerZ + cameraAnimation.targetRadius * Math.sin(startAngle + turnRad)
+          );
+          camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
+        } else {
+          camera.position.copy(cameraAnimation.toPos);
+          if (cameraAnimation.lookAtPos) {
+            camera.lookAt(cameraAnimation.lookAtPos);
+          } else {
+            camera.rotation.copy(cameraAnimation.toRotation);
+          }
+        }
+        camera.fov = cameraAnimation.toFov;
+        camera.updateProjectionMatrix();
+
+        // 既存のコールバックがあれば一応実行して安全に解決
+        if (typeof originalOnComplete === 'function') originalOnComplete();
+        
+        resolve(); // 🌟 ここで無事に次のセクションへ移行します！
+        return;    // requestAnimationFrame を止める
       }
 
+      // ループ継続
       requestAnimationFrame(animate);
     }
 
+    // ループスタート
     requestAnimationFrame(animate);
   });
 }
