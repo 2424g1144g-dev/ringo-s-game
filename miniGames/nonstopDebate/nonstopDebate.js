@@ -140,30 +140,77 @@ function moveCameraPromise(config, signal) {
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(new Error("Aborted"));
 
-    // 1. 既存のカメラ設定関数を呼び出して、目標値やらせんの初期位置を設定
-    window.cameraMove(config); 
-    
-    cameraAnimation.onComplete = null; 
-    cameraAnimation.active = false; // 既存のメインループ側では動かさない
-
     let lastTime = performance.now();
-    let animationProgress = 0; 
+    let animationProgress = 0; // 0.0 〜 1.0
 
-    // 通常移動の場合の初期位置・角度・FOVを退避（線形補間のため）
+    // --- 🏁 開始時のカメラ状態を完全に記憶 ---
     const startPosition = camera.position.clone();
     const startRotation = camera.rotation.clone();
     const startFov = camera.fov;
 
-    function animate(now) {
-      if (signal.aborted) {
-        cameraAnimation.active = false;
-        return reject(new Error("Aborted"));
+    // --- 🎯 目的地の FOV 設定 ---
+    const targetFov = (config.toFov && config.toFov !== 0) ? config.toFov : camera.fov;
+
+    // --- 🌀 らせん軌道（Spiral）用の初期化処理 ---
+    const isSpiralMode = !!config.spiral;
+    let spiralConfig = {};
+
+    if (isSpiralMode) {
+      const s = config.spiral;
+      // PDFの初期化ロジックを忠実に再現 [cite: 56, 58, 61, 63, 67, 70, 71, 72]
+      spiralConfig = {
+        centerX: s.cx || 0,
+        centerY: s.cy || 20,
+        centerZ: s.cz || 0,
+        startAngle: (s.startAngle || 0) * (Math.PI / 180),
+        turnAngle: (s.turnAngle || 0) * (Math.PI / 180),
+        startRadius: s.startRadius !== undefined ? s.startRadius : 100,
+        endRadius: s.endRadius !== undefined ? s.endRadius : (s.startRadius || 100),
+        targetY: (config.to && config.to.y !== undefined) ? config.to.y : camera.position.y
+      };
+      
+      // らせんのスタート位置にカチッとワープさせる（PDFの78〜84行目の再現） [cite: 78, 81, 84]
+      camera.position.x = spiralConfig.centerX + spiralConfig.startRadius * Math.cos(spiralConfig.startAngle);
+      camera.position.z = spiralConfig.centerZ + spiralConfig.startRadius * Math.sin(spiralConfig.startAngle);
+      camera.position.y = startPosition.y;
+      camera.lookAt(new THREE.Vector3(spiralConfig.centerX, spiralConfig.centerY, spiralConfig.centerZ));
+      
+      // ワープ後の状態をあらためて開始位置として記憶
+      startPosition.copy(camera.position);
+      startRotation.copy(camera.rotation);
+    } 
+    // --- 🏃 通常移動用の初期化処理 ---
+    else {
+      // 目的地の座標を安全に取得（PDFの39〜43行目の仕様を再現） [cite: 39, 41, 43]
+      const to = config.to || {};
+      spiralConfig.targetX = to.toX !== undefined ? to.toX : (to.x !== undefined ? to.x : camera.position.x);
+      spiralConfig.targetY = to.toY !== undefined ? to.toY : (to.y !== undefined ? to.y : camera.position.y);
+      spiralConfig.targetZ = to.toZ !== undefined ? to.toZ : (to.z !== undefined ? to.z : camera.position.z);
+
+      // 目標回転の設定（lookAtPos があればそれをクローンして計算、なければ yaw/pitch/roll）
+      if (config.lookAtPos) {
+        const tempCamera = camera.clone();
+        tempCamera.position.set(spiralConfig.targetX, spiralConfig.targetY, spiralConfig.targetZ);
+        tempCamera.lookAt(new THREE.Vector3(config.lookAtPos.x, config.lookAtPos.y, config.lookAtPos.z));
+        spiralConfig.targetRotation = tempCamera.rotation.clone();
+      } else {
+        spiralConfig.targetRotation = new THREE.Euler(
+          (config.pitch || 0) * (Math.PI / 180),
+          (config.yaw || 0) * (Math.PI / 180),
+          (config.roll || 0) * (Math.PI / 180),
+          'YXZ'
+        );
       }
+    }
+
+    // --- 🔄 毎フレームのループアニメーション ---
+    function animate(now) {
+      if (signal.aborted) return reject(new Error("Aborted"));
 
       let realDelta = now - lastTime;
       lastTime = now;
 
-      // 🔥 ゲーム内時間（スロー対応）
+      // 🔥 ゲームスピード（スロー）対応の経過時間
       let gameDelta = realDelta * gameSpeed;
 
       // ⏰ 制限時間の減算
@@ -172,104 +219,50 @@ function moveCameraPromise(config, signal) {
 
       if (currentDebateTime <= 0) {
         if (typeof onDebateTimeout === "function") onDebateTimeout();
-        cameraAnimation.active = false;
         return reject(new Error("Timeout"));
       }
 
-      // 🎥 既存の計算ロジック
-      if (cameraAnimation.isSpiral) {
-        // --- 🌀 Aパターン: らせん軌道の処理 ---
-        cameraAnimation.currentAngle += cameraAnimation.spiralRotSpeed * (gameDelta / 16.66);
+      // 🎥 全体時間の進捗率（0.0 〜 1.0）
+      animationProgress += gameDelta / (config.duration || 3000);
+      const t = THREE.MathUtils.clamp(animationProgress, 0, 1);
+
+      // 画角（FOV）の共通線形補間
+      camera.fov = THREE.MathUtils.lerp(startFov, targetFov, t);
+      camera.updateProjectionMatrix();
+
+      if (isSpiralMode) {
+        // --- 🌀 Aパターン: らせん軌道の時間同期 LERP 計算 ---
+        // 進捗 t (0〜1) に応じて、角度、半径、高さを綺麗に一本道で計算します
+        const currentAngle = THREE.MathUtils.lerp(spiralConfig.startAngle, spiralConfig.startAngle + spiralConfig.turnAngle, t);
+        const currentRadius = THREE.MathUtils.lerp(spiralConfig.startRadius, spiralConfig.endRadius, t);
         
-        const rDiff = cameraAnimation.targetRadius - cameraAnimation.currentRadius;
-        const radiusStep = cameraAnimation.spiralApproachSpeed * (gameDelta / 16.66);
-        if (Math.abs(rDiff) <= radiusStep) {
-          cameraAnimation.currentRadius = cameraAnimation.targetRadius;
-        } else {
-          cameraAnimation.currentRadius += Math.sign(rDiff) * radiusStep;
-        }
-
-        let progress = 0;
-        if (cameraAnimation.startRadius !== cameraAnimation.targetRadius) {
-          progress = (cameraAnimation.startRadius - cameraAnimation.currentRadius) / (cameraAnimation.startRadius - cameraAnimation.targetRadius);
-        } else {
-          const currentDiff = Math.abs(cameraAnimation.targetAngle - cameraAnimation.currentAngle);
-          const totalDiff = Math.allAngle || 1; 
-          progress = 1 - (currentDiff / totalDiff);
-        }
-        progress = THREE.MathUtils.clamp(progress, 0, 1);
-
-        camera.position.y = cameraAnimation.startY + (cameraAnimation.targetY - cameraAnimation.startY) * progress;
-        camera.position.x = cameraAnimation.centerX + cameraAnimation.currentRadius * Math.cos(cameraAnimation.currentAngle);
-        camera.position.z = cameraAnimation.centerZ + cameraAnimation.currentRadius * Math.sin(cameraAnimation.currentAngle);
-        camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
-
-        // FOVの補間処理
-        const fovDiff = cameraAnimation.toFov - camera.fov;
-        const fovStep = cameraAnimation.fovSpeed * (gameDelta / 16.66);
-        if (Math.abs(fovDiff) <= fovStep) {
-          camera.fov = cameraAnimation.toFov;
-        } else {
-          camera.fov += Math.sign(fovDiff) * fovStep;
-        }
-        camera.updateProjectionMatrix();
-
-        const isAngleEnd = (cameraAnimation.spiralRotSpeed > 0) 
-          ? (cameraAnimation.currentAngle >= cameraAnimation.targetAngle)
-          : (cameraAnimation.currentAngle <= cameraAnimation.targetAngle);
-        const isRadiusEnd = cameraAnimation.currentRadius === cameraAnimation.targetRadius;
-
-        if (isAngleEnd && isRadiusEnd) {
-          camera.position.set(
-            cameraAnimation.centerX + cameraAnimation.targetRadius * Math.cos(cameraAnimation.targetAngle),
-            cameraAnimation.targetY,
-            cameraAnimation.centerZ + cameraAnimation.targetRadius * Math.sin(cameraAnimation.targetAngle)
-          );
-          camera.lookAt(new THREE.Vector3(cameraAnimation.centerX, cameraAnimation.centerY, cameraAnimation.centerZ));
-          
-          // ★重要：resolveしてこのループを完全に抜ける
-          resolve(); 
-          return; 
-        }
-
+        camera.position.y = THREE.MathUtils.lerp(startPosition.y, spiralConfig.targetY, t);
+        camera.position.x = spiralConfig.centerX + currentRadius * Math.cos(currentAngle);
+        camera.position.z = spiralConfig.centerZ + currentRadius * Math.sin(currentAngle);
+        
+        // 視線は常に中心をロック
+        camera.lookAt(new THREE.Vector3(spiralConfig.centerX, spiralConfig.centerY, spiralConfig.centerZ));
       } else {
-        // --- 🏃 Bパターン: 通常移動の処理 ---
-        animationProgress += gameDelta / (config.duration || 3000);
-        const t = THREE.MathUtils.clamp(animationProgress, 0, 1);
+        // --- 🏃 Bパターン: 通常移動の時間同期 LERP 計算 ---
+        // 位置の補間
+        camera.position.lerpVectors(startPosition, new THREE.Vector3(spiralConfig.targetX, spiralConfig.targetY, spiralConfig.targetZ), t);
 
-        // ① 位置の補間
-        camera.position.lerpVectors(startPosition, cameraAnimation.toPos, t);
-
-        // ② 回転の補間
-        if (cameraAnimation.lookAtPos) {
-          camera.lookAt(cameraAnimation.lookAtPos);
+        // 回転の補間
+        if (config.lookAtPos) {
+          camera.lookAt(new THREE.Vector3(config.lookAtPos.x, config.lookAtPos.y, config.lookAtPos.z));
         } else {
-          camera.rotation.x = THREE.MathUtils.lerp(startRotation.x, cameraAnimation.toRotation.x, t);
-          camera.rotation.y = THREE.MathUtils.lerp(startRotation.y, cameraAnimation.toRotation.y, t);
-          camera.rotation.z = THREE.MathUtils.lerp(startRotation.z, cameraAnimation.toRotation.z, t);
-        }
-
-        // ③ FOVの補間
-        camera.fov = THREE.MathUtils.lerp(startFov, cameraAnimation.toFov, t);
-        camera.updateProjectionMatrix();
-
-        if (t >= 1) {
-          // ★重要：ここが原因でした！位置を確定させてreturnで終了
-          camera.position.copy(cameraAnimation.toPos);
-          if (cameraAnimation.lookAtPos) {
-            camera.lookAt(cameraAnimation.lookAtPos);
-          } else {
-            camera.rotation.copy(cameraAnimation.toRotation);
-          }
-          camera.fov = cameraAnimation.toFov;
-          camera.updateProjectionMatrix();
-
-          resolve(); // セクション1終了を通知して次のawaitへ
-          return;    // ループを止めるために必須！
+          camera.rotation.x = THREE.MathUtils.lerp(startRotation.x, spiralConfig.targetRotation.x, t);
+          camera.rotation.y = THREE.MathUtils.lerp(startRotation.y, spiralConfig.targetRotation.y, t);
+          camera.rotation.z = THREE.MathUtils.lerp(startRotation.z, spiralConfig.targetRotation.z, t);
         }
       }
 
-      // まだ完了していない場合のみ、次のフレームを要求
+      // 終了判定
+      if (t >= 1) {
+        resolve(); // 完全に処理を終了して次のセクションへ！
+        return;
+      }
+
       requestAnimationFrame(animate);
     }
 
