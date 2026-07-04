@@ -44,7 +44,7 @@ window.nonstopDebate1 = async function () {
       
       // 🌟 セクション1のセリフ発射（「html: 」ではなくそのまま文字列を入れるだけで大丈夫です）
       window.spawnFlexibleSerif(
-        "退職させられたのはオカモトユウダイ先生...",
+        "退職させられたのは<br>オカモトユウダイ先生...",
         30,
         window.serifBehaviors.linearLeft,
         3000
