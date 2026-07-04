@@ -24,7 +24,7 @@ const MAX_SPEED = 12;
 
 // 【追加】手ブレの設定（お好みで調整してください）
 const SWAY_SPEED = 0.05;  // 揺れるスピード（大きいほど素早く動く）
-const SWAY_AMOUNT = 0.3; // 揺れる大きさ（大きいほど大きくズレる）
+const SWAY_AMOUNT = 0.08; // 揺れる大きさ（大きいほど大きくズレる）
 
 const keys = {
   ArrowUp: false,
