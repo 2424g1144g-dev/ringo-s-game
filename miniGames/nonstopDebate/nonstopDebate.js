@@ -122,7 +122,7 @@ window.addEventListener("keydown", (event) => {
     // 3. ちょうど閉じきった150msの瞬間に、判定された次の文字に書き換える
     setTimeout(() => {
       const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
-      ndBulletBody.textContent = bulletNumi[currentBulletIndex];
+      ndBulletBody.textContent = bulletNum[currentBulletIndex];
     }, 150);
     
     // 4. アニメーション終了処理（300ms後）
