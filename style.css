@@ -1042,16 +1042,16 @@ canvas.debate-mode {
   position: absolute;
   left: 100px;
   top: 100px;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   z-index: 40000;
   display: flex;
   justify-content: center; /* 横方向の真ん中 */
   align-items: center; 
 }
 #crosshairCircle {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border: 3px solid rgb(242,129,4);
   border-radius: 50%;
   mask-image: conic-gradient(
@@ -1066,4 +1066,33 @@ canvas.debate-mode {
     transparent 360deg
   );
   animation: smallRotate 10s linear infinite;
+}
+#crosshairPlus {
+  position: absolute; /* 親要素の真ん中に固定する */
+  width: 20px;        /* プラスマーク全体の横幅 */
+  height: 20px;       /* プラスマーク全体の縦幅 */
+}
+
+/* 縦の棒 */
+#crosshairPlus::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;         /* 線の太さ */
+  height: 100%;       /* 線の長さ（widthと同じ20pxになります） */
+  background-color: rgb(242,129,4);
+  transform: translate(-50%, -50%);
+}
+
+/* 横の棒 */
+#crosshairPlus::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;        /* 線の長さ（heightと同じ20pxになります） */
+  height: 2px;        /* 線の太さ */
+  background-color: rgb(242,129,4);
+  transform: translate(-50%, -50%);
 }
