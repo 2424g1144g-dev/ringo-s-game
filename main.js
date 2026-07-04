@@ -18,9 +18,9 @@ let vy = 0;
 // 【追加】手ブレの時間を進めるためのカウンター
 let swayTime = 0;
 
-const ACCELERATION = 0.8;
+const ACCELERATION = 1.5;
 const FRICTION = 0.88;
-const MAX_SPEED = 12;
+const MAX_SPEED = 20;
 
 // 【追加】手ブレの設定（お好みで調整してください）
 const SWAY_SPEED = 0.05;  // 揺れるスピード（大きいほど素早く動く）
