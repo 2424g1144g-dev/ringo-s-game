@@ -64,6 +64,8 @@ window.loadAllBullets = async function(bullet) {
   bulletList.classList.add("bulletGathering");
   document.getElementById("cylinderParents").style.left = "-800px";
   await sleep(800);
+  const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
+  ndBulletBody.textContent = bulletNumi[0];
   document.getElementById("nonstopDebateUI").classList.add("show");
   await sleep(1200);
   window.nonstopDebate1();
