@@ -1037,3 +1037,30 @@ canvas.debate-mode {
   50%  { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
   100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 }
+
+#crosshairContainer {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+
+  z-index: 40000;
+}
+#crosshairCircle {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 80px;
+  height: 80px;
+  border: 3px solid rgb(242,129,4);
+  mask-image: conic-gradient(
+    from 0deg at center,
+    rgb(242,129,4) 0deg,
+    rgb(242,129,4) 175deg,
+    transparent 175deg,
+    transparent 185deg,
+    rgb(242,129,4) 185deg,
+    rgb(242,129,4) 350deg,
+    transparent 350deg,
+    transparent 360deg,
+  );
+}
