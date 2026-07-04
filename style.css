@@ -1068,9 +1068,13 @@ canvas.debate-mode {
   animation: smallRotate 10s linear infinite;
 }
 #crosshairPlus {
-  position: absolute; /* 親要素の真ん中に固定する */
-  width: 20px;        /* プラスマーク全体の横幅 */
-  height: 20px;       /* プラスマーク全体の縦幅 */
+  position: absolute; 
+  top: 0;             /* 追加：親要素の左上に合わせる */
+  left: 0;            /* 追加：親要素の左上に合わせる */
+  width: 100%;        /* 20px から 100% に変更 */
+  height: 100%;       /* 20px から 100% に変更 */
+  pointer-events: none; /* 念のためクリックを透過する設定 */
+
 }
 
 /* 縦の棒 */
@@ -1080,7 +1084,7 @@ canvas.debate-mode {
   top: 50%;
   left: 50%;
   width: 2px;         /* 線の太さ */
-  height: 100%;       /* 線の長さ（widthと同じ20pxになります） */
+  height: 20px;       /* 線の長さ（widthと同じ20pxになります） */
   background-color: rgb(242,129,4);
   transform: translate(-50%, -50%);
 }
@@ -1091,7 +1095,7 @@ canvas.debate-mode {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;        /* 線の長さ（heightと同じ20pxになります） */
+  width: 20px;        /* 線の長さ（heightと同じ20pxになります） */
   height: 2px;        /* 線の太さ */
   background-color: rgb(242,129,4);
   transform: translate(-50%, -50%);
