@@ -1103,11 +1103,13 @@ canvas.debate-mode {
 
 .serif-bubble {
   position: absolute;
+  font-family: solid;
   font-size: 30px;
   color: white;
   white-space: nowrap;
   pointer-events: none;
   z-index: 38000;
+  -webkit-text-stroke: 2px black;
 }
 .weak-target {
   color: yellow;
