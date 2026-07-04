@@ -1113,8 +1113,8 @@ canvas.debate-mode {
   white-space: nowrap;
   pointer-events: none;
   z-index: 38000;
-  -webkit-text-stroke: 1px black;
-  letter-spacing: -10px;
+  -webkit-text-stroke: 2px black;
+  letter-spacing: -15px;
 }
 .weak-target {
   color: yellow;
