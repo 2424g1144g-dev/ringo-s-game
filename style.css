@@ -1077,9 +1077,7 @@ canvas.debate-mode {
   width: 100%;        /* 20px から 100% に変更 */
   height: 100%;       /* 20px から 100% に変更 */
   pointer-events: none; /* 念のためクリックを透過する設定 */
-
 }
-
 /* 縦の棒 */
 #crosshairPlus::before {
   content: "";
@@ -1091,7 +1089,6 @@ canvas.debate-mode {
   background-color: rgb(242,129,4);
   transform: translate(-50%, -50%);
 }
-
 /* 横の棒 */
 #crosshairPlus::after {
   content: "";
@@ -1102,4 +1099,17 @@ canvas.debate-mode {
   height: 6px;        /* 線の太さ */
   background-color: rgb(242,129,4);
   transform: translate(-50%, -50%);
+}
+
+.serif-bubble {
+  position: absolute;
+  font-size: 30px;
+  color: white;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 38000;
+}
+.weak-target {
+  color: yellow;
+  display: inline-block;
 }

@@ -17,9 +17,12 @@ window.nonstopDebate1 = async function () {
     let loopCount = 1;
     while (!signal.aborted) {
       console.log(`--- 🔄 議論ループ 第 ${loopCount} 周目 ---`);
-      
-      console.log("👉 セクション１：開始（通常移動＋LookAt）");
-      
+      window.spawnFlexibleSerif(
+        "退職させられたのはオカモトユウダイ先生...",
+        30,
+        window.serifBehaviors.linearLeft,
+        3000
+      )
       // セクション1のカメラ移動を待つ
       await window.moveCameraPromise({
         to: { x: 0, y: 15, z: 50 },

@@ -131,3 +131,58 @@ window.addEventListener("keydown", (event) => {
 });
 
 
+
+window.serifBehaviors = {
+  linearLeft: (element, t) => {
+    const currentX = 100 + (-100 - 100) * t;
+    element.style.left = currentX + "%";
+  }
+}
+window.spawnFlexibleSerif = function(htmlContent, topPercent, behaviorFunc, duration = 4000) {
+  const screen = document.getElementById("debate-screen");
+  if (!screen) return;
+
+  const newSerif = document.createElement("div");
+  newSerif.className = "serif-bubble";
+  newSerif.innerHTML = htmlContent;
+  newSerif.style.top = topPercent + "%";
+  
+  screen.appendChild(newSerif);
+
+  let lastTime = performance.now();
+  let animationProgress = 0;
+
+  function animateSerif(now) {
+    // 議論自体が止まったらセリフも即座に消去
+    if (debateController && debateController.signal.aborted) {
+      newSerif.remove();
+      return;
+    }
+
+    let realDelta = now - lastTime;
+    lastTime = now;
+    
+    // スローモーション（集中）倍率をここに適用
+    let gameDelta = realDelta * gameSpeed;
+
+    animationProgress += gameDelta / duration;
+    
+    // THREE.MathUtils.clamp の代わり（0.0 〜 1.0 に収める標準の書き方）
+    const t = Math.max(0, Math.min(1, animationProgress));
+
+    // 外部から貰った軌道ロジック関数を実行
+    if (typeof behaviorFunc === "function") {
+      behaviorFunc(newSerif, t);
+    }
+
+    // 終了したら削除
+    if (t >= 1) {
+      newSerif.remove();
+      return;
+    }
+
+    requestAnimationFrame(animateSerif);
+  }
+
+  requestAnimationFrame(animateSerif);
+}
