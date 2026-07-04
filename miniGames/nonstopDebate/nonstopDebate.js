@@ -134,8 +134,9 @@ window.addEventListener("keydown", (event) => {
 
 window.serifBehaviors = {
   linearLeft: (element, t) => {
-    const startX = 70;
-    const endX = 50;
+    element.dataset.startX = parseFloat(element.dataset.startX);
+    const startX = parseFloat(element.dataset.startX);
+    const endX = startX - 10;
     const currentX = startX + (endX - startX) * t;
     element.style.left = currentX + "%";
     let opacity = 1;
