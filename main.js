@@ -10,14 +10,19 @@ window.addEventListener("keydown", (e) => {
 
 const container = document.getElementById('crosshairContainer');
 
-// 初期位置（画面の中心あたり、またはお好みの座標）
+// 位置の初期値
 let posX = 100;
 let posY = 100;
 
-// 1回キーを押したときに動くピクセル数（スピード調整用）
-const SPEED = 5; 
+// 【追加】現在の移動速度（X軸・Y軸）
+let vx = 0;
+let vy = 0;
 
-// 押されているキーの状態を記録するオブジェクト
+// 調整パラメーター（お好みで調整してください）
+const ACCELERATION = 0.8; // 加速度（キーを押したときの加速の勢い。大きいほどキビキビ動く）
+const FRICTION = 0.88;    // 摩擦係数（キーを離したときの減速具合。0.95だとぬるっと滑り、0.8だとピタッと止まる）
+const MAX_SPEED = 12;     // 最高速度（これ以上速くならない限界値）
+
 const keys = {
   ArrowUp: false,
   ArrowDown: false,
@@ -25,15 +30,13 @@ const keys = {
   ArrowRight: false
 };
 
-// キーが押されたとき
 window.addEventListener('keydown', (e) => {
   if (e.key in keys) {
     keys[e.key] = true;
-    e.preventDefault(); // 画面が一緒にスクロールするのを防ぐ
+    e.preventDefault();
   }
 });
 
-// キーが離されたとき
 window.addEventListener('keyup', (e) => {
   if (e.key in keys) {
     keys[e.key] = false;
@@ -41,32 +44,39 @@ window.addEventListener('keyup', (e) => {
 });
 
 function updatePosition() {
-  if (keys.ArrowUp)    posY -= SPEED;
-  if (keys.ArrowDown)  posY += SPEED;
-  if (keys.ArrowLeft)  posX -= SPEED;
-  if (keys.ArrowRight) posX += SPEED;
+  // 1. キーの入力に応じて「速度」を増減させる（加速）
+  if (keys.ArrowUp)    vy -= ACCELERATION;
+  if (keys.ArrowDown)  vy += ACCELERATION;
+  if (keys.ArrowLeft)  vx -= ACCELERATION;
+  if (keys.ArrowRight) vx += ACCELERATION;
 
-  // --- 【追加】画面外への飛び出し制限 ---
-  // 画面の現在の横幅と縦幅を取得
+  // 2. 摩擦をかけて、常に少しずつ減速させる
+  vx *= FRICTION;
+  vy *= FRICTION;
+
+  // 3. スピードが出すぎないように最高速度で制限をかける
+  vx = Math.max(-MAX_SPEED, Math.min(vx, MAX_SPEED));
+  vy = Math.max(-MAX_SPEED, Math.min(vy, MAX_SPEED));
+
+  // 4. 計算した速度を「位置」に加算する
+  posX += vx;
+  posY += vy;
+
+  // 5. 画面外への飛び出し制限（壁にぶつかったら速度も0にする）
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
-
-  // コンテナのサイズ（70px）
   const containerSize = 70;
 
-  // 横方向（X軸）の制限：左端は0まで、右端は（画面幅 - 70px）まで
-  posX = Math.max(0, Math.min(posX, windowWidth - containerSize));
-  
-  // 縦方向（Y軸）の制限：上端は0まで、下端は（画面高 - 70px）まで
-  posY = Math.max(0, Math.min(posY, windowHeight - containerSize));
-  // --------------------------------------
+  if (posX < 0) { posX = 0; vx = 0; }
+  if (posX > windowWidth - containerSize) { posX = windowWidth - containerSize; vx = 0; }
+  if (posY < 0) { posY = 0; vy = 0; }
+  if (posY > windowHeight - containerSize) { posY = windowHeight - containerSize; vy = 0; }
 
-  // 照準の位置を更新
+  // 6. 照準の位置を更新
   container.style.left = `${posX}px`;
   container.style.top = `${posY}px`;
 
   requestAnimationFrame(updatePosition);
 }
 
-// 動きを開始
 updatePosition();
