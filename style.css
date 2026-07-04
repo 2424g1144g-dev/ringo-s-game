@@ -1057,12 +1057,12 @@ canvas.debate-mode {
   mask-image: conic-gradient(
     from 0deg at center,
     #F28104 0deg,
-    #F28104 165deg,
-    transparent 165deg,
+    #F28104 160deg,
+    transparent 160deg,
     transparent 180deg,
     #F28104 180deg,
-    #F28104 345deg,
-    transparent 345deg,
+    #F28104 340deg,
+    transparent 340deg,
     transparent 360deg
   );
   animation: smallRotate 10s linear infinite;
