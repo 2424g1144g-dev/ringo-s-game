@@ -45,9 +45,9 @@ window.nonstopDebate1 = async function () {
         to: {toX: -10, toY: 16, toZ: -1},toFov: 45, fovSpeed: 999, speed: 100, yaw: 78, rotSpeed: 5,
         duration: 500 
       }, signal);
-      // 🌟 セクション1のセリフ発射（「html: 」ではなくそのまま文字列を入れるだけで大丈夫です）
       window.spawnFlexibleSerif(
         "退職させられたのは<br>オカモトユウダイ先生...",
+        60,
         30,
         window.serifBehaviors.linearLeft,
         3000

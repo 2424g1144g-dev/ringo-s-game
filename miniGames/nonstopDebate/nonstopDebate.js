@@ -151,13 +151,14 @@ window.serifBehaviors = {
     element.style.opacity = opacity;
   }
 }
-window.spawnFlexibleSerif = function(htmlContent, topPercent, behaviorFunc, duration = 4000) {
+window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
   const screen = document.getElementById("debate-screen");
   if (!screen) return;
 
   const newSerif = document.createElement("div");
   newSerif.className = "serif-bubble";
   newSerif.innerHTML = htmlContent;
+  newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
   
   screen.appendChild(newSerif);
