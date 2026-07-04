@@ -1061,7 +1061,7 @@ canvas.debate-mode {
     #F28104 185deg,
     #F28104 350deg,
     transparent 350deg,
-    transparent 360deg,
+    transparent 360deg
   );
-  animation: smallRotate 15s linear;
+  animation: smallRotate 15s linear infinite;
 }
