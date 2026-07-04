@@ -40,12 +40,26 @@ window.addEventListener('keyup', (e) => {
   }
 });
 
-// ループ処理で滑らかに動かす
 function updatePosition() {
   if (keys.ArrowUp)    posY -= SPEED;
   if (keys.ArrowDown)  posY += SPEED;
   if (keys.ArrowLeft)  posX -= SPEED;
   if (keys.ArrowRight) posX += SPEED;
+
+  // --- 【追加】画面外への飛び出し制限 ---
+  // 画面の現在の横幅と縦幅を取得
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
+  // コンテナのサイズ（70px）
+  const containerSize = 70;
+
+  // 横方向（X軸）の制限：左端は0まで、右端は（画面幅 - 70px）まで
+  posX = Math.max(0, Math.min(posX, windowWidth - containerSize));
+  
+  // 縦方向（Y軸）の制限：上端は0まで、下端は（画面高 - 70px）まで
+  posY = Math.max(0, Math.min(posY, windowHeight - containerSize));
+  // --------------------------------------
 
   // 照準の位置を更新
   container.style.left = `${posX}px`;
