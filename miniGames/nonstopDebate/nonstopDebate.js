@@ -2,6 +2,7 @@
 const debate = document.getElementById("debate");
 const spans = Array.from(debate.children);
 const circle = document.getElementById("circleDebate");
+let cylinderShift = false;
 
 // 配列を逆順（論、議、プ、ッ...）にする
 const reverseSpans = spans.reverse();
@@ -67,6 +68,7 @@ window.loadAllBullets = async function(bullet) {
   const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
   ndBulletBody.textContent = bulletNum[0];
   document.getElementById("nonstopDebateUI").classList.add("show");
+  cylinderShift = true;
   await sleep(1200);
   window.nonstopDebate1();
 }
@@ -89,7 +91,7 @@ const bulletNumi = ["ツカゴエの証言", "落ちていた紙コップ","ツ�
 window.addEventListener("keydown", (event) => {
   
   // 💡 event.key ではなく、左右を識別できる event.code を使います！
-  if ((event.code === "ShiftLeft" || event.code === "ShiftRight") && !event.repeat) {
+  if ((event.code === "ShiftLeft" || event.code === "ShiftRight") && !event.repeat && cylinderShift) {
     
     const ndBullet = document.querySelector(".NDbullet");
     if (ndBullet.classList.contains("bulletChange")) return;
