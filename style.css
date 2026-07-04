@@ -48,6 +48,10 @@ canvas.debate-mode {
   font-family: "bullet";
   src: url("assets/fonts/DelaGothicOne-Regular.ttf");
 }
+@font-face {
+  font-family: "NDSerif";
+  src: url("assets/fonts/ndSerif.ttf");
+}
 
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
@@ -1103,9 +1107,8 @@ canvas.debate-mode {
 
 .serif-bubble {
   position: absolute;
-  font-family: "makinasFont";
+  font-family: "NDSerif";
   font-size: 50px;
-  font-weight: bold;
   color: white;
   white-space: nowrap;
   pointer-events: none;
