@@ -1103,7 +1103,7 @@ canvas.debate-mode {
 
 .serif-bubble {
   position: absolute;
-  font-family: solid;
+  font-family: "makinasFont";
   font-size: 30px;
   color: white;
   white-space: nowrap;
