@@ -65,7 +65,7 @@ window.loadAllBullets = async function(bullet) {
   document.getElementById("cylinderParents").style.left = "-800px";
   await sleep(800);
   const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
-  ndBulletBody.textContent = bulletNumi[0];
+  ndBulletBody.textContent = bulletNum[0];
   document.getElementById("nonstopDebateUI").classList.add("show");
   await sleep(1200);
   window.nonstopDebate1();
@@ -103,7 +103,7 @@ window.addEventListener("keydown", (event) => {
       NDcurrentAngle += 60;
       document.getElementById("NDcylinder").style.setProperty('--NDangle', `${NDcurrentAngle}deg`);
 
-      if (currentBulletIndex >= bulletNumi.length) {
+      if (currentBulletIndex >= bulletNum.length) {
         currentBulletIndex = 0; // 最後を超えたら最初に戻る
       }
     } else if (event.code === "ShiftLeft") {
@@ -112,7 +112,7 @@ window.addEventListener("keydown", (event) => {
       NDcurrentAngle -= 60;
       document.getElementById("NDcylinder").style.setProperty('--NDangle', `${NDcurrentAngle}deg`);
       if (currentBulletIndex < 0) {
-        currentBulletIndex = bulletNumi.length - 1; // 0未満になったら最後の弾に戻る
+        currentBulletIndex = bulletNum.length - 1; // 0未満になったら最後の弾に戻る
       }
     }
     
