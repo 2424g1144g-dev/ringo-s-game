@@ -43,7 +43,7 @@ window.nonstopDebate1 = async function () {
       console.log(`--- 🔄 議論ループ 第 ${loopCount} 周目 ---`);
       await window.moveCameraPromise({
         to: {toX: -10, toY: 16, toZ: -1},toFov: 45, fovSpeed: 999, speed: 100, yaw: 78, rotSpeed: 5,
-        duration: 3000 
+        duration: 500 
       }, signal);
       // 🌟 セクション1のセリフ発射（「html: 」ではなくそのまま文字列を入れるだけで大丈夫です）
       window.spawnFlexibleSerif(
