@@ -1042,25 +1042,26 @@ canvas.debate-mode {
   position: absolute;
   width: 100px;
   height: 100px;
-
   z-index: 40000;
+  display: flex;
+  justify-content: center; /* 横方向の真ん中 */
+  align-items: center; 
 }
 #crosshairCircle {
-  position: relative;
-  top: 10px;
-  left: 10px;
   width: 80px;
   height: 80px;
   border: 3px solid rgb(242,129,4);
+  border-radius: 50%;
   mask-image: conic-gradient(
     from 0deg at center,
-    rgb(242,129,4) 0deg,
-    rgb(242,129,4) 175deg,
+    #F28104 0deg,
+    #F28104 175deg,
     transparent 175deg,
     transparent 185deg,
-    rgb(242,129,4) 185deg,
-    rgb(242,129,4) 350deg,
+    #F28104 185deg,
+    #F28104 350deg,
     transparent 350deg,
     transparent 360deg,
   );
+  animation: smallRotate 15s linear;
 }
