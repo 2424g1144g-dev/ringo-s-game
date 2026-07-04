@@ -134,8 +134,21 @@ window.addEventListener("keydown", (event) => {
 
 window.serifBehaviors = {
   linearLeft: (element, t) => {
-    const currentX = 100 + (-100 - 100) * t;
+    const startX = 85;
+    const endX = -70;
+    const currentX = startX + (endX - startX) * t;
     element.style.left = currentX + "%";
+    let opacity = 1;
+  
+    if (t < 0.2) {
+      opacity = t / 0.2; // 0.0 から 1.0 へ上昇
+    } else if (t > 0.8) {
+      opacity = (1 - t) / 0.2; // 1.0 から 0.0 へ下降
+    } else {
+      opacity = 1; // 中盤はくっきり表示
+    }
+  
+    element.style.opacity = opacity;
   }
 }
 window.spawnFlexibleSerif = function(htmlContent, topPercent, behaviorFunc, duration = 4000) {
