@@ -565,16 +565,6 @@ window.moveCameraPromise = function(config, signal) {
       // 🔥 ゲームスピード（スロー）を適用した時間差分
       let gameDelta = realDelta * gameSpeed;
 
-      // ⏰ 制限時間の減算
-      currentDebateTime -= gameDelta;
-      if (typeof updateTimerUI === "function") updateTimerUI(currentDebateTime);
-
-      if (currentDebateTime <= 0) {
-        if (typeof onDebateTimeout === "function") onDebateTimeout();
-        cameraAnimation.active = false;
-        return reject(new Error("Timeout"));
-      }
-
       // 🎥 指定時間(duration)に対する進捗率(t)を計算 (0.0 〜 1.0)
       animationProgress += gameDelta / (config.duration || 3000);
       const t = THREE.MathUtils.clamp(animationProgress, 0, 1);
