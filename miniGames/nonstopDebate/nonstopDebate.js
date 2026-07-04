@@ -185,8 +185,9 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 
     // 外部から貰った軌道ロジック関数を実行
     if (typeof behaviorFunc === "function") {
-    // 引数に「要素」「スロー対応した時間差分」「総時間」「今の全体進捗(0~1)」を渡す
-    behaviorFunc(newSerif, gameDelta, duration, t);
+      // 引数に「要素」「スロー対応した時間差分」「総時間」「今の全体進捗(0~1)」を渡す
+      behaviorFunc(newSerif, gameDelta, duration, t);
+    }
 
     // 終了したら削除
     if (t >= 1) {
