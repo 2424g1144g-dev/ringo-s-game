@@ -1040,6 +1040,8 @@ canvas.debate-mode {
 
 #crosshairContainer {
   position: absolute;
+  left: 100px;
+  top: 100px;
   width: 100px;
   height: 100px;
   z-index: 40000;
@@ -1055,13 +1057,13 @@ canvas.debate-mode {
   mask-image: conic-gradient(
     from 0deg at center,
     #F28104 0deg,
-    #F28104 175deg,
-    transparent 175deg,
+    #F28104 170deg,
+    transparent 170deg,
     transparent 185deg,
     #F28104 185deg,
     #F28104 350deg,
     transparent 350deg,
     transparent 360deg
   );
-  animation: smallRotate 15s linear infinite;
+  animation: smallRotate 10s linear infinite;
 }
