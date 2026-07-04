@@ -93,4 +93,4 @@ function updatePosition() {
   requestAnimationFrame(updatePosition);
 }
 
-updatePosition();
+updatePosition(); 
