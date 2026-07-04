@@ -135,25 +135,21 @@ window.addEventListener("keydown", (event) => {
 
 
 window.serifBehaviors = {
-  linearLeft: (element, t) => {
-    element.dataset.startX = parseFloat(element.dataset.startX);
-    const startX = parseFloat(element.dataset.startX);
-    const endX = startX - 10;
-    const currentX = startX + (endX - startX) * t;
-    element.style.left = currentX + "%";
+  linearLeft: (element, gameDelta, duration, currentT) => {
+    const currentX = parseFloat(element.style.left) || 0;
+    const moveStep = (gameDelta / duration) * 10;
+    element.style.left = (currentX - moveStep) + "%";
     let opacity = 1;
-  
-    if (t < 0.2) {
-      opacity = t / 0.2; // 0.0 から 1.0 へ上昇
-    } else if (t > 0.8) {
-      opacity = (1 - t) / 0.2; // 1.0 から 0.0 へ下降
+    if (currentT < 0.2) {
+      opacity = currentT / 0.2;
+    } else if (currentT > 0.8) {
+      opacity = (1 - currentT) / 0.2;
     } else {
-      opacity = 1; // 中盤はくっきり表示
+      opacity = 1;
     }
-  
     element.style.opacity = opacity;
   }
-}
+};
 window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
   const screen = document.getElementById("debate-screen");
   if (!screen) return;
@@ -189,8 +185,8 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 
     // 外部から貰った軌道ロジック関数を実行
     if (typeof behaviorFunc === "function") {
-      behaviorFunc(newSerif, t);
-    }
+    // 引数に「要素」「スロー対応した時間差分」「総時間」「今の全体進捗(0~1)」を渡す
+    behaviorFunc(newSerif, gameDelta, duration, t);
 
     // 終了したら削除
     if (t >= 1) {
