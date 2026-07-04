@@ -10,18 +10,21 @@ window.addEventListener("keydown", (e) => {
 
 const container = document.getElementById('crosshairContainer');
 
-// 位置の初期値
 let posX = 100;
 let posY = 100;
-
-// 【追加】現在の移動速度（X軸・Y軸）
 let vx = 0;
 let vy = 0;
 
-// 調整パラメーター（お好みで調整してください）
-const ACCELERATION = 0.8; // 加速度（キーを押したときの加速の勢い。大きいほどキビキビ動く）
-const FRICTION = 0.88;    // 摩擦係数（キーを離したときの減速具合。0.95だとぬるっと滑り、0.8だとピタッと止まる）
-const MAX_SPEED = 12;     // 最高速度（これ以上速くならない限界値）
+// 【追加】手ブレの時間を進めるためのカウンター
+let swayTime = 0;
+
+const ACCELERATION = 0.8;
+const FRICTION = 0.88;
+const MAX_SPEED = 12;
+
+// 【追加】手ブレの設定（お好みで調整してください）
+const SWAY_SPEED = 0.05;  // 揺れるスピード（大きいほど素早く動く）
+const SWAY_AMOUNT = 0.3; // 揺れる大きさ（大きいほど大きくズレる）
 
 const keys = {
   ArrowUp: false,
@@ -44,7 +47,7 @@ window.addEventListener('keyup', (e) => {
 });
 
 function updatePosition() {
-  // 1. キーの入力に応じて「速度」を増減させる（加速）
+  // 1. キーの入力に応じて「速度」を増減させる
   if (keys.ArrowUp)    vy -= ACCELERATION;
   if (keys.ArrowDown)  vy += ACCELERATION;
   if (keys.ArrowLeft)  vx -= ACCELERATION;
@@ -54,15 +57,26 @@ function updatePosition() {
   vx *= FRICTION;
   vy *= FRICTION;
 
-  // 3. スピードが出すぎないように最高速度で制限をかける
+  // 3. 【追加】手ブレ（照準ズレ）の計算
+  // プレイヤーが操作していない（キーを全て離している）ときだけブレるようにチェック
+  const isMoving = keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight;
+  
+  if (!isMoving) {
+    swayTime += SWAY_SPEED;
+    // サイン波とコサイン波を使って、滑らかな無限の「8の字」や「円」に近い揺らぎを作る
+    vx += Math.sin(swayTime) * SWAY_AMOUNT;
+    vy += Math.cos(swayTime * 0.7) * SWAY_AMOUNT; // 縦横の周期を少しズラして不規則にする
+  }
+
+  // 4. スピードが出すぎないように最高速度で制限をかける
   vx = Math.max(-MAX_SPEED, Math.min(vx, MAX_SPEED));
   vy = Math.max(-MAX_SPEED, Math.min(vy, MAX_SPEED));
 
-  // 4. 計算した速度を「位置」に加算する
+  // 5. 計算した速度を「位置」に加算する
   posX += vx;
   posY += vy;
 
-  // 5. 画面外への飛び出し制限（壁にぶつかったら速度も0にする）
+  // 6. 画面外への飛び出し制限
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
   const containerSize = 70;
@@ -72,7 +86,7 @@ function updatePosition() {
   if (posY < 0) { posY = 0; vy = 0; }
   if (posY > windowHeight - containerSize) { posY = windowHeight - containerSize; vy = 0; }
 
-  // 6. 照準の位置を更新
+  // 7. 照準の位置を更新
   container.style.left = `${posX}px`;
   container.style.top = `${posY}px`;
 
