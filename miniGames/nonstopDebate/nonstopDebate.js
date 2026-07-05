@@ -156,7 +156,7 @@ window.serifBehaviors = {
   },
 
   linearRight: (element, gameDelta, duration, currentT) => {
-    const currentX = paseFloat(element.style.left) || 0;
+    const currentX = parseFloat(element.style.left) || 0;
     const moveStep = (gameDelta / duration) * 10;
     element.style.left = (currentX + moveStep) + "%";
     let opacity = 1;
