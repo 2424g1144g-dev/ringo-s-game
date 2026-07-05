@@ -85,11 +85,11 @@ window.nonstopDebate1 = async function () {
         break;
       }
 
-      await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: 4},toFov: 30, fovSpeed: 1, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 500 }, signal);
+      await window.moveCameraPromise({to: {toX: -10, toY: 20, toZ: 8},toFov: 30, fovSpeed: 1, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 500 }, signal);
 
       window.spawnFlexibleSerif("現場は体育館でしたよね？",55, 80, window.serifBehaviors.linearLeft, 3000);
       window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Normal.png");
-      await window.moveCameraPromise({to: {toX: -10, toY: 23, toZ: 4},toFov: 30, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
+      await window.moveCameraPromise({to: {toX: -10, toY: 23, toZ: 8},toFov: 30, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
      
 
       console.log("✅ セクション２：無事に完了しました！");
