@@ -77,17 +77,19 @@ window.nonstopDebate1 = async function () {
     while (!signal.aborted) {
       console.log(`--- 🔄 議論ループ 第 ${loopCount} 周目 ---`);
       await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: -1},toFov: 45, fovSpeed: 999, speed: 100, yaw: 78, rotSpeed: 5,duration: 500}, signal);
+
       window.spawnFlexibleSerif("退職させられたのは<br>オカモトユウダイ先生...", 55, 20, window.serifBehaviors.linearLeft, 3000);
-      // セクション1のカメラ移動を待つ
       await window.moveCameraPromise({to: {toX: -10, toY: 23, toZ: -1},toFov: 45, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
       if (signal.aborted) {
         console.log("⚠️ セクション1の直後で signal.aborted を検知したため break します");
         break;
       }
-      await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: -6},toFov: 30, fovSpeed: 1, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 500 }, signal);
-      await window.moveCameraPromise({to: {toX: -10, toY: 23, toZ: -6},toFov: 30, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
-      window.changeStandInExpression("RYUJI", "Ryuji_Normal");
+
+      await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: 4},toFov: 30, fovSpeed: 1, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 500 }, signal);
+
       window.spawnFlexibleSerif("現場は体育館でしたよね？",55, 80, window.serifBehaviors.linearLeft, 3000);
+      window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Normal.png");
+      await window.moveCameraPromise({to: {toX: -10, toY: 23, toZ: 4},toFov: 30, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
      
 
       console.log("✅ セクション２：無事に完了しました！");
