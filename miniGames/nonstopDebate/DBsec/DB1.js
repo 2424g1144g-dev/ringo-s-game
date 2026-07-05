@@ -84,25 +84,11 @@ window.nonstopDebate1 = async function () {
         console.log("⚠️ セクション1の直後で signal.aborted を検知したため break します");
         break;
       }
-
-      console.log("👉 セクション２：開始（自動らせん軌道）");
-      
-      // 🌟 セクション2のセリフ発射（もし2つ目のセリフを出すならここに同じように書けます）
-      // window.spawnFlexibleSerif("次のセリフ...", 50, window.serifBehaviors.linearLeft, 4000);
-      window.spawnFlexibleSerif("現場は体育館でしたよね？")
-      await window.moveCameraPromise({
-        to: { y: 25 }, 
-        spiral: {
-          cx: 0, cy: 15, cz: 0, 
-          startAngle: 0,
-          turnAngle: 180,       
-          startRadius: 50,
-          endRadius: 30,        
-          rotSpeed: 0.03,
-          approachSpeed: 0.5
-        },
-        duration: 4000 
-      }, signal);
+      await window.moveCameraPromise({to: {toX: -15, toY: 16, toZ: -1},toFov: 30, fovSpeed: 1, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 500 }, signal);
+      await window.moveCameraPromise({to: {toX: -15, toY: 23, toZ: -1},toFov: 30, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
+      window.changeStandInExpression("RYUJI", "Ryuji_Normal");
+      window.spawnFlexibleSerif("現場は体育館でしたよね？",55, 80, window.serifBehaviors.linearLeft, 3000);
+     
 
       console.log("✅ セクション２：無事に完了しました！");
       
