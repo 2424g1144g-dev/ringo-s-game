@@ -165,6 +165,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
   newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
   
+  newSerif.style.opacity = "0";
   screen.appendChild(newSerif);
 
   let lastTime = performance.now();
