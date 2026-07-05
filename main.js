@@ -34,14 +34,14 @@ const keys = {
 };
 
 window.addEventListener('keydown', (e) => {
-  if (e.key in keys) {
+  if (e.key in keys && crosshairOperate) {
     keys[e.key] = true;
     e.preventDefault();
   }
 });
 
 window.addEventListener('keyup', (e) => {
-  if (e.key in keys) {
+  if (e.key in keys && crosshairOperate) {
     keys[e.key] = false;
   }
 });
