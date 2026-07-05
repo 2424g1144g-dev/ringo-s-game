@@ -1,4 +1,37 @@
 let debateController = null;
+window.updateTimerUI = function(remainingMs) {
+  const timerElement = document.getElementById("timeUI");
+  if (!timerElement) return;
+
+  // マイナスにならないようにガード
+  const msTotal = Math.max(0, remainingMs);
+
+  // 1. 🕒 各単位に分解する計算
+  const minutes = Math.floor(msTotal / 60000);          // 分（1分＝60000ms）
+  const seconds = Math.floor((msTotal % 60000) / 1000); // 秒（1秒＝1000ms）
+  const millis  = Math.floor(msTotal % 1000);           // ミリ秒（0〜999）
+
+  // 2. ✨ 桁数を揃える（ゼロ埋め）
+  // padStart(桁数, "0") を使うと、1桁のとき（例: 5）に自動で「05」にしてくれます
+  const strMin = String(minutes).padStart(2, "0");
+  const strSec = String(seconds).padStart(2, "0");
+  
+  // 💡 ミリ秒は下3桁にする（画像っぽく下2桁にしたい場合は padStart(2, "0") にして Math.floor(millis / 10) にしてください）
+  const strMs  = String(millis).padStart(3, "0");
+
+  // 3. 🖥️ ドッキングして画面に表示！（例: "00:49:523"）
+  timerElement.innerText = `${strMin}:${strSec}:${strMs}`;
+
+  // 🚨 残り10秒以下の赤点滅演出（ここはそのまま引き継ぎ）
+  if (msTotal <= 10000) {
+    timerElement.style.color = "#ff3333";
+    timerElement.style.textShadow = "0 0 15px #ff0000, 3px 3px 0px #000";
+  } else {
+    timerElement.style.color = "#fff";
+    timerElement.style.textShadow = "0 0 10px #ff0055, 3px 3px 0px #000";
+  }
+};
+
 window.nonstopDebate1 = async function () {
   console.log("【デバッグ】nonstopDebate1 が呼び出されました");
 
@@ -33,9 +66,7 @@ window.nonstopDebate1 = async function () {
     }
     requestAnimationFrame(updateTimerLoop);
   }
-  requestAnimationFrame(updateTimerLoop); // タイマースタート
-  // ーーー 🕒 ここまで：追加したのはこれだけです ーーー
-
+  requestAnimationFrame(updateTimerLoop);
 
   try {
     let loopCount = 1;
