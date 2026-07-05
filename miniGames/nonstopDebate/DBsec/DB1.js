@@ -58,6 +58,10 @@ window.nonstopDebate1 = async function () {
     let gameDelta = realDelta * gameSpeed; // スロー対応
     currentDebateTime -= gameDelta;        // 時間を減らす
 
+    if (typeof window.updateTimerUI === "function") {
+      window.updateTimerUI(currentDebateTime);
+    }
+
     if (currentDebateTime <= 0) {
       currentDebateTime = 0;
       console.log("⏰ タイムアップ！");
