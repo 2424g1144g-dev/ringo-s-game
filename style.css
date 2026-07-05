@@ -1051,7 +1051,12 @@ canvas.debate-mode {
   z-index: 40000;
   display: flex;
   justify-content: center; /* 横方向の真ん中 */
-  align-items: center; 
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.7s linear;
+}
+#crosshairContainer.show {
+  opacity: 1;
 }
 #crosshairCircle {
   position: absolute;
