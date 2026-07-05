@@ -49,6 +49,7 @@ canvas.debate-mode {
   src: url("assets/fonts/DelaGothicOne-Regular.ttf");
 }
 @font-face {
+  font-display: block;
   font-family: "NDSerif";
   src: url("assets/fonts/ndSerif.ttf");
 }
