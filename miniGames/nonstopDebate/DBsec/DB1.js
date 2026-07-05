@@ -44,7 +44,7 @@ window.nonstopDebate1 = async function () {
   const signal = debateController.signal;
   
   // ⏳ 制限時間を本番用の50秒に（whileの外なので周回でリセットされません）
-  currentDebateTime = 50000; 
+  currentDebateTime = 180000; 
   gameSpeed = 1.0;
 
   // ーーー 🕒 ここから：タイマー専用の裏ループ ーーー
