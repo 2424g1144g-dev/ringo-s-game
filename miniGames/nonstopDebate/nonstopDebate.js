@@ -153,6 +153,21 @@ window.serifBehaviors = {
       opacity = 1;
     }
     element.style.opacity = opacity;
+  },
+
+  linearRight: (element, gameDelta, duration, currentT) => {
+    const currentX = paseFloat(element.style.left) || 0;
+    const moveStep = (gameDelta / duration) * 10;
+    element.style.left = (currentX + moveStep) + "%";
+    let opacity = 1;
+    if (currentT < 0.2) {
+      opacity = currentT / 0.2;
+    } else if (currentT > 0.8) {
+      opacity = (1 - currentT) / 0.2;
+    } else {
+      opacity = 1;
+    }
+    element.style.opacity = opacity;
   }
 };
 window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
