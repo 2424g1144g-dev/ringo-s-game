@@ -79,6 +79,7 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: -1},toFov: 45, fovSpeed: 999, speed: 100, yaw: 78, rotSpeed: 5,duration: 500}, signal);
 
       window.spawnFlexibleSerif("退職させられたのは<br>オカモトユウダイ先生...", 55, 20, window.serifBehaviors.linearLeft, 3000);
+      window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Think.png")
       await window.moveCameraPromise({to: {toX: -10, toY: 23, toZ: -1},toFov: 45, fovSpeed: 999, speed: 1, yaw: 78, rotSpeed: 0.1,duration: 3000 }, signal);
       if (signal.aborted) {
         console.log("⚠️ セクション1の直後で signal.aborted を検知したため break します");
