@@ -107,12 +107,9 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: -10, toY: 20, toZ: 7},toFov: 30, fovSpeed: 1, speed: 1, yaw: 75, rotSpeed: 0.1,duration: 500}, signal);
 
-      window.spawnFlexibleSerif("現場は体育館でしたよね？",10, 50, window.serifBehaviors.linearRight, 3000);
+      window.spawnFlexibleSerif("現場は<span class='weak-target'>体育館</span>でしたよね？",10, 50, window.serifBehaviors.linearRight, 3000);
       window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Normal.png");
       await window.moveCameraPromise({to: {toX: -10, toY: 25, toZ: 7},toFov: 30, fovSpeed: 999, speed: 1, yaw: 75, rotSpeed: 0.1,duration: 3000}, signal);
-     
-
-      console.log("✅ セクション２：無事に完了しました！");
       
       loopCount++;
     }

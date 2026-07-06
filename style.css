@@ -1147,6 +1147,6 @@ canvas.debate-mode {
   letter-spacing: -15px;
 }
 .weak-target {
-  color: yellow;
+  color: linear-gradient(to bottom, #fff642 0%, #ffaa00 40%, #ff5500 100%);
   display: inline-block;
 }
