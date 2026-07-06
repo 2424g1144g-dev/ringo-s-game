@@ -137,7 +137,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-window.ndIconChange = function (newName, newSrc){
+window.ndIconChange = function (newName){
   const icon = document.getElementById("NDicon");
   const name = document.getElementById("nonstopDebateName");
   const zapping = document.getElementById("NDzapping");
@@ -146,24 +146,29 @@ window.ndIconChange = function (newName, newSrc){
   void zapping.offsetWidth;
   zapping.classList.add("zappingAnim");
   setTimeout(() => {
-    if (d.name === "ニシモト　タツロウ") {
+    if (newName === "ニシモト　タツロウ") {
       icon.src = "assets/icon/iconTaturo.png";
-    } else if (d.name === "フルイチ　ヒデハル") {
+    } else if (newName === "フルイチ　ヒデハル") {
       icon.src = "assets/icon/iconFakeFuruichi.png";
-    } else if (d.name === "ヤマモト　ケイゾウ") {
+    } else if (newName === "ヤマモト　ケイゾウ") {
       icon.src = "assets/icon/iconKeizo.png";
-    } else if (d.name === "ササノ　ケント") {
+    } else if (newName === "ササノ　ケント") {
       icon.src = "assets/icon/iconKento.png";
-    } else if (d.name === "ツカゴエ　ミツヒロ") {
+    } else if (newName === "ツカゴエ　ミツヒロ") {
       icon.src = "assets/icon/iconMitsuhiro.png";
-    } else if (d.name === "コウチョウ"){
+    } else if (newName === "コウチョウ"){
       icon.src = "assets/icon/iconPrincipal.png";
-    } else if (d.name === "シノハラ　リュウジ") {
+    } else if (newName === "シノハラ　リュウジ") {
       icon.src = "assets/icon/iconRyuji.png";
-    } else if (d.name === "ヤマモト　シゲオ") {
+    } else if (newName === "ヤマモト　シゲオ") {
       icon.src = "assets/icon/iconShige.png";
     }
   }, 150)
+  if (icon.style.opacity == 0) {
+    setTimeout(() => {
+      icon.style.opacity = 1;
+    },150)
+  }
 } 
 
 window.serifBehaviors = {
