@@ -881,6 +881,7 @@ canvas.debate-mode {
   z-index: 20005;
   rotate: 84deg;
   top: -150px;
+  opacity: 1;
 }
 #NDprocessContainer {
   position: absolute;
