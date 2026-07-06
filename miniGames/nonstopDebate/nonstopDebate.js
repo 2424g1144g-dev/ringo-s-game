@@ -253,3 +253,26 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 
   requestAnimationFrame(animateSerif);
 }
+
+
+//照準がセリフに重なったときの処理
+function checkCollision () {
+  const crosshair = document.getElementById("crosshairContainer");
+  const bubbles = document.getElementById("serif-bubble");
+  const cRect = crosshair.getBoundingClientRect();
+  const cX = cRect.left + cRect.width / 2;
+  const cY = cRect.top + cRect.height / 2;
+  const isOverlapping = false;
+  bubbles.forEach(bubble => {
+    const bRect = bubble.getBoundingClientRect();
+    if (cX >= bRect.left && cX <= bRect.right && cY >= bRect.top && cY <= bRect.bottom) {
+      isOverlapping = true;
+    }
+  })
+  if (isOverlapping) {
+    crosshair.classList.add("locked"); // 重なったらクラスを追加
+  } else {
+    crosshair.classList.remove("locked"); // 外れたら消す
+  }
+}
+
