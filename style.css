@@ -874,13 +874,13 @@ canvas.debate-mode {
   opacity: 0;
 }
 #NDicon {
-  position: relative;
-  left: 60px;
-  width: 400px;
+  position: absolute;
+  left: 48px;
+  width: 380px;
   height: auto;
   z-index: 20005;
   rotate: 84deg;
-  top: -150px;
+  top: -130px;
   opacity: 1;
 }
 #NDprocessContainer {
