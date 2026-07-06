@@ -1157,4 +1157,5 @@ canvas.debate-mode {
   -webkit-text-fill-color: transparent;
   color: transparent; /* 念のためのフォールバック */
   display: inline-block;
+  font-size: 75px;
 }
