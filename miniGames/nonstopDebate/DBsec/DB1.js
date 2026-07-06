@@ -47,6 +47,24 @@ window.nonstopDebate1 = async function () {
   currentDebateTime = 180000; 
   gameSpeed = 1.0;
 
+  const handleKeyDown = (e) => {
+    // Zキー（小文字・大文字両対応）が押されたらスロー（0.3倍速）にする
+    if (e.key === "z" || e.key === "Z") {
+      gameSpeed = 0.3; // 💡 本家風の絶妙なスロー倍率
+    }
+  };
+
+  const handleKeyUp = (e) => {
+    // Zキーが離されたら元の速度（1.0倍速）に戻す
+    if (e.key === "z" || e.key === "Z") {
+      gameSpeed = 1.0;
+    }
+  };
+
+  // イベントリスナーを登録
+  window.addEventListener("keydown", handleKeyDown);
+  window.addEventListener("keyup", handleKeyUp);
+
   // ーーー 🕒 ここから：タイマー専用の裏ループ ーーー
   let lastTimerTime = performance.now();
   function updateTimerLoop(now) {
