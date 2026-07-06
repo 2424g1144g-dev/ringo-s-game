@@ -1147,6 +1147,14 @@ canvas.debate-mode {
   letter-spacing: -15px;
 }
 .weak-target {
-  color: linear-gradient(to bottom, #fff642 0%, #ffaa00 40%, #ff5500 100%);
+  background: linear-gradient(to bottom, #fff642 0%, #ffaa00 40%, #ff5500 100%);
+  
+  /* 2. 背景を文字の形にくり抜く */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* 3. 本来の文字の色を「透明」にして、後ろのグラデーションを透かす */
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* 念のためのフォールバック */
   display: inline-block;
 }
