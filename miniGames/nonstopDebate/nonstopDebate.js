@@ -137,7 +137,34 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-
+window.ndIconChange = function (newName, newSrc){
+  const icon = document.getElementById("NDicon");
+  const name = document.getElementById("nonstopDebateName");
+  const zapping = document.getElementById("NDzapping");
+  name.textContent = newName;
+  zapping.classList.remove("zappingAnim");
+  void zapping.offsetWidth;
+  zapping.classList.add("zappingAnim");
+  setTimeout(() => {
+    if (d.name === "ニシモト　タツロウ") {
+      icon.src = "assets/icon/iconTaturo.png";
+    } else if (d.name === "フルイチ　ヒデハル") {
+      icon.src = "assets/icon/iconFakeFuruichi.png";
+    } else if (d.name === "ヤマモト　ケイゾウ") {
+      icon.src = "assets/icon/iconKeizo.png";
+    } else if (d.name === "ササノ　ケント") {
+      icon.src = "assets/icon/iconKento.png";
+    } else if (d.name === "ツカゴエ　ミツヒロ") {
+      icon.src = "assets/icon/iconMitsuhiro.png";
+    } else if (d.name === "コウチョウ"){
+      icon.src = "assets/icon/iconPrincipal.png";
+    } else if (d.name === "シノハラ　リュウジ") {
+      icon.src = "assets/icon/iconRyuji.png";
+    } else if (d.name === "ヤマモト　シゲオ") {
+      icon.src = "assets/icon/iconShige.png";
+    }
+  }, 150)
+} 
 
 window.serifBehaviors = {
   linearLeft: (element, gameDelta, duration, currentT) => {

@@ -852,7 +852,7 @@ canvas.debate-mode {
   top: 60vh;
   width: 30vw;
   height: 40vh;
-  background: rgb(101, 13, 13);
+  background: rgba(101, 13, 13, 0.8);
   border: 2px solid white;
   z-index: 20000;
   rotate: -80deg;
@@ -861,6 +861,17 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show #NDiconContainer {
   right: -130px;
+}
+#NDzapping {
+  position: relative;
+  left: 60px;
+  width: 500px;
+  height: auto;
+  z-index: 20010;
+  rotate: 84deg;
+  top: -150px;
+  scale: 1.4;
+  opacity: 0;
 }
 #NDicon {
   position: relative;
