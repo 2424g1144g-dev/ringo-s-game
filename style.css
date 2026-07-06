@@ -886,8 +886,8 @@ canvas.debate-mode {
 #NDprocessContainer {
   position: absolute;
   right: -900px;
-  top: -8vh;
-  width: 53vw;
+  top: -8.8vh;
+  width: 52.95vw;
   height: 30vh;
   background: rgba(0, 0, 0, 0.5);
   border: 2px solid white;
