@@ -94,3 +94,11 @@ function updatePosition() {
 }
 
 updatePosition(); 
+
+function crosshairCollision() {
+  checkCollision(); 
+  requestAnimationFrame(crosshairCollision);
+}
+
+// ゲーム開始時にこのループを1回起動する
+crosshairCollision();
