@@ -118,6 +118,12 @@ window.nonstopDebate1 = async function () {
       window.changeStandInExpression("KENTO", "assets/three/characters/KENTO/Kento_Think.png");
       await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 60, fovSpeed: 1, speed: 100, yaw: 137, rotSpeed: 5, duration: 2500}, signal);
 
+      await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 30, fovSpeed: 1, speed: 100, yaw: 135, roll: 35, rotSpeed: 5, duration: 500}, signal);
+
+      await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 50, fovSpeed: 0.2, speed: 100, yaw: 135, roll: 0, rotSpeed: 0.2, duration: 3000}, signal)
+      window.spawnFlexibleSerif("オカモト先生が書いた退職届が<br>落ちていましたね！");
+      window.changeStandInExpression("KENTO", "assets/three/charactrers/KENTO/Kento_Explain.png");
+
       loopCount++;
     }
     
