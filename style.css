@@ -1176,6 +1176,7 @@ canvas.debate-mode {
   z-index: 38000;
   -webkit-text-stroke: 2px black;
   letter-spacing: -15px;
+  line-height: 1.1;
 }
 .weak-target {
   background: linear-gradient(to bottom, #fff642 0%, #ffaa00 40%, #ff5500 100%);
