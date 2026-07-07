@@ -1077,7 +1077,7 @@ canvas.debate-mode {
   display: flex;
   justify-content: center; /* 横方向の真ん中 */
   align-items: center;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.7s linear;
 }
 #crosshairContainer.show {
@@ -1125,7 +1125,7 @@ canvas.debate-mode {
   z-index: 39995;
   opacity: 0;
 }
-#crosshairContainer.locked #crosshairPulse {
+#crosshairContainer.loocked #crosshairPulse {
   animation: pulseAnim 0.7s linear infinite;
 }
 @keyframes pulseAnim {
