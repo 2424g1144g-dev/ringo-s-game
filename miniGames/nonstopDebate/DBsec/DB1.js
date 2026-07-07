@@ -115,9 +115,9 @@ window.nonstopDebate1 = async function () {
 
       window.ndIconChange("ササノ　ケント");
       window.spawnFlexibleSerif("しかも現場の近くには...", 55, 20, window.serifBehaviors.linearLeft, 3000);
-      await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 60, fovSpeed: 1, speed: 100, yaw: 137, rotSpeed: 5, duration: 3000}, signal); 
+      window.changeStandInExpression("KENTO", "assets/three/characters/KENTO/Kento_Think.png");
+      await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 60, fovSpeed: 1, speed: 100, yaw: 137, rotSpeed: 5, duration: 2500}, signal);
 
-      
       loopCount++;
     }
     
