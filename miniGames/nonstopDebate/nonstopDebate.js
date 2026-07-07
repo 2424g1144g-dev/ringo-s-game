@@ -262,7 +262,7 @@ function checkCollision () {
   const cRect = crosshair.getBoundingClientRect();
   const cX = cRect.left + cRect.width / 2;
   const cY = cRect.top + cRect.height / 2;
-  const isOverlapping = false;
+  let isOverlapping = false;
   bubbles.forEach(bubble => {
     const bRect = bubble.getBoundingClientRect();
     if (cX >= bRect.left && cX <= bRect.right && cY >= bRect.top && cY <= bRect.bottom) {
