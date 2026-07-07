@@ -111,11 +111,11 @@ window.nonstopDebate1 = async function () {
       window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Normal.png");
       await window.moveCameraPromise({to: {toX: -10, toY: 25, toZ: 7},toFov: 30, fovSpeed: 999, speed: 1, yaw: 75, rotSpeed: 0.1,duration: 3000}, signal);
 
-      await window.moveCameraPromise({to: {toX: -20, toY: 16, toZ: 18}, toFov: 50, fovSpeed: 1, speed: 100, yaw: 132, rotSpeed: 5, duration: 500}, signal);
+      await window.moveCameraPromise({to: {toX: -20, toY: 16, toZ: 10}, toFov: 50, fovSpeed: 1, speed: 100, yaw: 132, rotSpeed: 5, duration: 500}, signal);
 
       window.ndIconChange("ササノ　ケント");
       window.spawnFlexibleSerif("しかも現場の近くには...", 55, 20, window.serifBehaviors.linearLeft, 3000);
-      await window.moveCameraPromise({to: {toX: -20, toY: 16, toZ: 18}, toFov: 50, fovSpeed: 1, speed: 100, yaw: 135, rotSpeed: 5, duration: 500}, signal); 
+      await window.moveCameraPromise({to: {toX: -20, toY: 16, toZ: 10}, toFov: 50, fovSpeed: 1, speed: 100, yaw: 135, rotSpeed: 5, duration: 3000}, signal); 
 
       
       loopCount++;
