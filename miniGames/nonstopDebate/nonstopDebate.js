@@ -258,7 +258,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 //照準がセリフに重なったときの処理
 function checkCollision () {
   const crosshair = document.getElementById("crosshairContainer");
-  const bubbles = document.querySelector(".serif-bubble");
+  const bubbles = document.querySelectorAll(".serif-bubble");
   const cRect = crosshair.getBoundingClientRect();
   const cX = cRect.left + cRect.width / 2;
   const cY = cRect.top + cRect.height / 2;
