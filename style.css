@@ -1103,9 +1103,12 @@ canvas.debate-mode {
   animation: smallRotate 10s linear infinite;
 }
 #crosshairContainer.locked #crosshairCircle {
+  left: 7px;
+  top: 7px;
   rotate: 90deg;
   transition: rotate 0.2s linear;
   animation: lockedAnim 0.3s linear;
+  left: 
 }
 @keyframes lockedAnim {
   0% {scale: 1;}
@@ -1124,7 +1127,7 @@ canvas.debate-mode {
   z-index: 39995;
   opacity: 0;
 }
-#crosshairContainer.loocked #crosshairPulse {
+#crosshairContainer.locked #crosshairPulse {
   animation: pulseAnim 0.7s linear infinite;
 }
 

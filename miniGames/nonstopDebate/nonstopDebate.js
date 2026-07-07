@@ -69,7 +69,7 @@ window.loadAllBullets = async function(bullet) {
   const ndBulletBody = ndBullet.querySelector(".NDbullet-Body");
   ndBulletBody.textContent = bulletNum[0];
   document.getElementById("nonstopDebateUI").classList.add("show");
-  document.getElementById("crosshairContainer").classList.add("show");
+  document.getElementById("crosshairContainer").style.opacity = 1;
   cylinderShift = true;
   crosshairOperate = true;
   await sleep(1200);
