@@ -1123,7 +1123,7 @@ canvas.debate-mode {
   height: 50px;
   border-radius: 50%;
   background: transparent;
-  border: 10px solid rgba(225, 74, 20,0.7);
+  border: 10px solid rgb(225, 74, 20);
   z-index: 39995;
   opacity: 0;
 }
