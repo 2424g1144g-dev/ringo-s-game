@@ -126,6 +126,7 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: 0, toY: 30, toZ: 0}, toFov: 35 , fovSpeed: 1, speed: 100, yaw: 325, pitch: -35, rotSpeed: 0.2, duration: 500}, signal)
 
+      await window.moveCameraPromise({to: {toX: 0, toY: 30, toZ: 0}, toFov: 50 , fovSpeed: 0.2, speed: 100, yaw: 325, pitch: -35, rotSpeed: 0.2, duration: 3000}, signal)
       loopCount++;
     }
     
