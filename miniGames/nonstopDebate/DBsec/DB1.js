@@ -122,7 +122,7 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: 0, toY: 26, toZ: 0}, toFov: 15, fovSpeed: 1, speed: 100, yaw: 135, roll: 20, rotSpeed: 5, duration: 500}, signal);
 
       window.changeStandInExpression("KENTO", "assets/three/characters/KENTO/Kento_Explain.png");
-      await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 25, fovSpeed: 0.2, speed: 100, yaw: 135, roll: 0, rotSpeed: 0.2, duration: 3000}, signal);
+      await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 25, fovSpeed: 0.1, speed: 100, yaw: 135, roll: 0, rotSpeed: 0.2, duration: 2700}, signal);
 
       await window.moveCameraPromise({to: {toX: 0, toY: 35, toZ: 0}, toFov: 35 , fovSpeed: 1, speed: 100, yaw: -45, pitch: -35, rotSpeed: 0.2, duration: 500}, signal)
 
