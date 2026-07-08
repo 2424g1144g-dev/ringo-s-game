@@ -203,54 +203,46 @@ window.serifBehaviors = {
   },
 
   bangAndShake: (element, gameDelta, duration, currentT) => {
-    // 1. 固定の目標着地点（真ん中に配置する前提なら50%など）
-    // もし元々のHTML配置（CSSのleft/top）をそのまま着地点にしたいなら、
-    // 最初の1フレーム目だけ座標を記憶するなどの工夫が必要ですが、
-    // ここでは基準となる着地スタイルをベースに計算します。
-    
-    // 2. 進行度（currentT）に応じて「スケール（大きさ）」と「透明度」を計算
     let scale = 1.0;
     let opacity = 1.0;
     let shakeX = 0;
     let shakeY = 0;
 
-    // 着地するタイミングを全体の30%（currentT = 0.3）の時点に設定
+    // 着地するタイミング（全体の15%の時点）
     const landTime = 0.15; 
 
     if (currentT < landTime) {
       // 【着地前：手前から奥へ一気に縮小しながらフェードイン】
-      const progress = currentT / landTime; // 0.0 〜 1.0 に正規化
-      
-      // 最初は3.5倍の大きさ ➔ 着地時に1.0倍になる
+      const progress = currentT / landTime;
       scale = 3.5 - (progress * 2.5); 
-      // 最初は透明 ➔ 着地時に不透明度1に
       opacity = progress; 
       
     } else {
-      // 【着地後：残りの時間（0.3 〜 1.0）で衝撃の揺れ（余韻）を表現】
-      opacity = 1.0;
+      // 【着地後：衝撃の揺れ（余韻）を表現】
       scale = 1.0;
 
-      // 着地した瞬間からの経過時間（0.0 〜 0.7）
+      // 着地した瞬間からの経過時間
       const shakeProgress = (currentT - landTime) / (1.0 - landTime); 
-
-      // 揺れの減衰係数（時間が経つほど揺れを小さくする。1.0 から 0.0 へ）
       const fade = Math.max(0, 1.0 - shakeProgress); 
 
       if (fade > 0) {
-        // サイン波を使ってブルブル細かく往復させる（数字を大きくすると激しく早く震えます）
-        const shakeSpeed = 60; // 震える速さ
-        const shakeAmount = 8; // 最大の揺れ幅（px）
-        
+        const shakeSpeed = 60; 
+        const shakeAmount = 8; 
         shakeX = Math.sin(currentT * shakeSpeed) * shakeAmount * fade;
         shakeY = Math.cos(currentT * shakeSpeed * 1.2) * shakeAmount * fade;
+      }
+
+      // 【★追加：消え際のフェードアウト処理★】
+      // linearと同じく、進行度が80%（0.8）を超えたら徐々に透明にする
+      if (currentT > 0.8) {
+        opacity = (1 - currentT) / 0.2;
+      } else {
+        opacity = 1.0;
       }
     }
 
     // 3. 要素へのスタイル反映
     element.style.opacity = opacity;
-    
-    // translate(-50%, -50%) で要素の中心を軸にしつつ、拡大縮小と揺れを同時に適応
     element.style.transform = `translate(calc(-50% + ${shakeX}px), calc(-50% + ${shakeY}px)) scale(${scale})`;
   },
 };
