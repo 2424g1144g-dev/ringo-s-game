@@ -215,7 +215,7 @@ window.serifBehaviors = {
     let shakeY = 0;
 
     // 着地するタイミングを全体の30%（currentT = 0.3）の時点に設定
-    const landTime = 0.02; 
+    const landTime = 0.10; 
 
     if (currentT < landTime) {
       // 【着地前：手前から奥へ一気に縮小しながらフェードイン】
