@@ -131,8 +131,8 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: 0, toY: 20, toZ: 0}, toFov: 40, fovSpeed: 0.2, speed: 100, yaw: -45, pitch: 0, rotSpeed: 0.2, duration: 500}, signal);
 
-      window.spawnFlexibleSerif("たしか...全員がおったよな？", 20, 60, window.serifBehaviors.letterByLetterPop, 3000);
-      await window.moveCameraPromise({to: {toX: 0, toY: 20, toZ: 0}, toFov: 40, fovSpeed: 0.1, speed: 100, yaw: -45, pitch: 0, rotSpeed: 0.2, duration: 3000}, signal);
+      window.spawnFlexibleSerif("たしか...全員がおったよな？", 35, 60, window.serifBehaviors.letterByLetterPop, 3000);
+      await window.moveCameraPromise({to: {toX: 0, toY: 20, toZ: 0}, toFov: 30, fovSpeed: 0.1, speed: 100, yaw: -45, pitch: 0, rotSpeed: 0.2, duration: 3000}, signal);
       loopCount++;
     }
     
