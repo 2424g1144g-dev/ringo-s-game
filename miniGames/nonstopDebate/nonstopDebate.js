@@ -245,6 +245,69 @@ window.serifBehaviors = {
     element.style.opacity = opacity;
     element.style.transform = `translate(calc(-50% + ${shakeX}px), calc(-50% + ${shakeY}px)) scale(${scale})`;
   },
+
+  letterByLetterPop: (element, gameDelta, duration, currentT) => {
+    // 1. 最初の一フレーム目だけ、文字列を一文字ずつの <span> に分解する準備
+    // すでに分解済み（子どもにspanがある状態）ならスキップする
+    if (element.children.length === 0 && element.textContent.trim() !== "") {
+      const text = element.textContent;
+      element.innerHTML = ""; // 一旦空にする
+      
+      // 一文字ずつ span で囲んで再配置
+      for (let char of text) {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.style.display = "inline-block";
+        span.style.position = "relative"; // 下から浮かび上がらせるため
+        element.appendChild(span);
+      }
+    }
+
+    // 2. 全体としてのフェードアウト判定（linearと同じく全体の80%以降で消える）
+    let globalOpacity = 1.0;
+    if (currentT > 0.8) {
+      globalOpacity = (1 - currentT) / 0.2;
+    }
+
+    // 親要素全体の透明度を適用（消え際用）
+    element.style.opacity = globalOpacity;
+
+    // 3. 子要素（各文字のspan）をループして、それぞれの出現タイミングを計算
+    const spans = element.children;
+    const totalLetters = spans.length;
+    if (totalLetters === 0) return;
+
+    // 文字同士がどれくらいズレて出てくるかの間隔（0.3 = 全体の30%の時間を使って全文字が出揃う）
+    // 文字数に応じて調整できるようにしています
+    const staggerRange = 0.3; 
+
+    for (let i = 0; i < totalLetters; i++) {
+      const span = spans[i];
+
+      // この文字がスタートするべきタイミング（0.0 〜 staggerRange の間）
+      const startDelay = (i / totalLetters) * staggerRange;
+      
+      // この文字が「下からふわっ」と出終わるまでの期間（例：0.15秒相当の割合）
+      const popDuration = 0.15; 
+
+      // 現在の全体進行度（currentT）から、この文字専用の進行度を切り出す
+      if (currentT < startDelay) {
+        // まだ自分の出番が来ていない時：透明で、少し下に隠しておく
+        span.style.opacity = 0;
+        span.style.transform = "translateY(20px)";
+      } else {
+        // 自分の出番が来た、または過ぎている時
+        const letterProgress = Math.min(1.0, (currentT - startDelay) / popDuration);
+        
+        // 0.0 から 1.0 に向けて「ふわっ」と変化させる
+        const opacity = letterProgress;
+        const yOffset = 20 - (letterProgress * 20); // 20px下から0px（元の位置）へ
+
+        span.style.opacity = opacity;
+        span.style.transform = `translateY(${yOffset}px)`;
+      }
+    }
+  },
 };
 window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
   const screen = document.getElementById("debate-screen");
