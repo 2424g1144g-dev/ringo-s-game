@@ -144,6 +144,9 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 45, fovSpeed: 1, speed: 100, yaw: -42, pitch: 0, roll: -15, rotSpeed: 0.2, duration: 500}, signal);
 
+      ndIconChange("ツカゴエ　ミツヒロ");
+      window.changeStandInExpression("MITSUHIRO", "aseets/three/characters/MITSUHIRO/Mitsuhiro_Smile.png");
+      window.spawnFlexibleSerif("いい加減にしないと<br>アンモニアで殺しますよ？", 10, 20, window.serifBehaviors.linearLeft, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 45, fovSpeed: 1, speed: 100, yaw: -45, pitch: 0, roll: -15, rotSpeed: 0.2, duration: 3000}, signal);
     }
     
