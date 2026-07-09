@@ -137,6 +137,9 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: -7, toY: 25, toZ: -8}, toFov: 45, fovSpeed: 1, speed: 100, yaw: 35, roll: 15, rotSpeed: 0.2, duration: 500}, signal);
 
+      window.spawnFlexibleSerif("やっぱりツカゴエ先生が犯人じゃないですか？")
+      await window.moveCameraPromise({to: {toX: -7, toY: 25, toZ: -8}, toFov: 45, fovSpeed: 1, speed: 100, yaw: 38, roll: 15, rotSpeed: 0.01, duration: 3000}, signal);
+
       
     }
     

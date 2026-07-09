@@ -54,6 +54,11 @@ canvas.debate-mode {
   src: url("assets/fonts/ndSerif.ttf");
 }
 @font-face {
+  font-display: block;
+  font-family: "NDserif2";
+  src: url("assets/fonts/WDXLLubrifontJPN-Regular.ttf");
+}
+@font-face {
   font-family: "digital";
   src: url("assets/fonts/strongGamer.ttf");
 }
@@ -1168,7 +1173,7 @@ canvas.debate-mode {
 
 .serif-bubble {
   position: absolute;
-  font-family: "NDSerif";
+  font-family: "NDSerif2";
   font-size: 70px;
   color: white;
   white-space: nowrap;
