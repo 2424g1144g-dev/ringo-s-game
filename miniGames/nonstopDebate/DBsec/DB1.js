@@ -126,6 +126,7 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: 0, toY: 35, toZ: 0}, toFov: 35 , fovSpeed: 1, speed: 100, yaw: -45, pitch: -35, rotSpeed: 0.2, duration: 500}, signal)
 
+      window.spawnFlexibleSerif("事職<br>件員<br>発室<br>生に<br>時は<br>の.<br>.<br>.", 0, 10, window.serifBehaviors.linearRight, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 40, toZ: 0}, toFov: 50 , fovSpeed: 0.2, speed: 100, yaw: -45, pitch: -35, rotSpeed: 0.2, duration: 3000}, signal)
       loopCount++;
     }
