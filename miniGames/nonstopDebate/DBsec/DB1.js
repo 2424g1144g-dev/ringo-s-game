@@ -139,7 +139,7 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: -7, toY: 25, toZ: -8}, toFov: 45, fovSpeed: 1, speed: 100, yaw: 35, roll: 15, rotSpeed: 0.2, duration: 500}, signal);
 
       ndIconChange("フルイチ　ヒデハル");
-      window.spawnFlexibleSerif("やっぱりツカゴエ先生が犯人じゃないですか？", 60, 70, window.serifBehaviors.linearRight, 3000);
+      window.spawnFlexibleSerif("やっぱりツカゴエ先生が犯人じゃないですか？", 20, 70, window.serifBehaviors.linearRight, 3000);
       await window.moveCameraPromise({to: {toX: -7, toY: 25, toZ: -8}, toFov: 45, fovSpeed: 1, speed: 100, yaw: 38, roll: 15, rotSpeed: 0.01, duration: 3000}, signal);
 
       

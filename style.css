@@ -1174,7 +1174,7 @@ canvas.debate-mode {
 .serif-bubble {
   position: absolute;
   font-family: "NDSerif2";
-  font-size: 60px;
+  font-size: 65px;
   color: white;
   white-space: nowrap;
   pointer-events: none;
@@ -1188,5 +1188,5 @@ canvas.debate-mode {
   -webkit-text-fill-color: transparent;
   color: transparent;
   display: inline-block;
-  font-size: 70px;
+  font-size: 75px;
 }
