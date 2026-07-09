@@ -1180,7 +1180,6 @@ canvas.debate-mode {
   pointer-events: none;
   z-index: 38000;
   -webkit-text-stroke: 2px black;
-  letter-spacing: -15px;
   line-height: 1.1;
 }
 .weak-target {
