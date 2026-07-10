@@ -398,7 +398,7 @@ let bulletEnter = false;
 window.addEventListener("keydown", (e) => {
   if (e.code === "Enter" && bulletEnter) {
     const bullet = document.querySelector(".NDbullet");
-    const ndCylinder = document.getElementById("NDcylinderCOntainer");
+    const ndCylinder = document.getElementById("NDcylinderContainer");
     ndCylinder.classList.add("bulletLaunch");
   }
 })
