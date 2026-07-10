@@ -396,7 +396,7 @@ crosshairCollision();
 
 let bulletEnter = false;
 window.addEventListener("keydown", (e) => {
-  if (e.code === "Enter" && bulletEnter) {
+  if (e.code === "Enter" && !e.repeat && bulletEnter) {
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
     ndCylinder.classList.remove("bulletLaunch");
