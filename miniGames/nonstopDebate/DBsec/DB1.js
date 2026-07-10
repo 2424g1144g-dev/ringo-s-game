@@ -42,6 +42,7 @@ window.nonstopDebate1 = async function () {
   
   debateController = new AbortController();
   const signal = debateController.signal;
+  let zPush = false;
   
   // ⏳ 制限時間を本番用の50秒に（whileの外なので周回でリセットされません）
   currentDebateTime = 180000; 
@@ -49,14 +50,14 @@ window.nonstopDebate1 = async function () {
 
   const handleKeyDown = (e) => {
     // Zキー（小文字・大文字両対応）が押されたらスロー（0.3倍速）にする
-    if (e.key === "z" || e.key === "Z") {
+    if (e.key === "z" || e.key === "Z" && zPush) {
       gameSpeed = 0.3; // 💡 本家風の絶妙なスロー倍率
     }
   };
 
   const handleKeyUp = (e) => {
     // Zキーが離されたら元の速度（1.0倍速）に戻す
-    if (e.key === "z" || e.key === "Z") {
+    if (e.key === "z" || e.key === "Z" && zPush) {
       gameSpeed = 1.0;
     }
   };

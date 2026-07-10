@@ -72,6 +72,7 @@ window.loadAllBullets = async function(bullet) {
   document.getElementById("crosshairContainer").style.opacity = 1;
   cylinderShift = true;
   crosshairOperate = true;
+  zPush = true;
   await sleep(1200);
   window.nonstopDebate1();
 }
