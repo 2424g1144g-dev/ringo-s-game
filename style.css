@@ -1190,3 +1190,12 @@ canvas.debate-mode {
   display: inline-block;
   font-size: 75px;
 }
+
+.bulletLaunch {
+  animation: bulletLaunch 0.2s linear;
+}
+@keyframes bulletLaunch {
+  0% {left: 0;}
+  50% {left: 300px;}
+  100% {left: 0;}
+}

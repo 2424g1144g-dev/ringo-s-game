@@ -73,6 +73,7 @@ window.loadAllBullets = async function(bullet) {
   cylinderShift = true;
   crosshairOperate = true;
   zPush = true;
+  bulletEnter = true;
   await sleep(1200);
   window.nonstopDebate1();
 }
@@ -392,3 +393,12 @@ function crosshairCollision() {
 // ゲーム開始時にこのループを1回起動する
 crosshairCollision();
 
+
+let bulletEnter = false;
+window.addEventListener("keydown", (e) => {
+  if (e.code === "Enter" && bulletEnter) {
+    const bullet = document.querySelector(".NDbullet");
+    const ndCylinder = document.getElementById("NDcylinderCOntainer");
+    ndCylinder.classList.add("bulletLaunch");
+  }
+})
