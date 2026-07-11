@@ -402,5 +402,7 @@ window.addEventListener("keydown", (e) => {
     ndCylinder.classList.remove("bulletLaunch");
     void ndCylinder.offsetWidth;
     ndCylinder.classList.add("bulletLaunch");
+    bullet.style.left = "800px";
+
   }
 })

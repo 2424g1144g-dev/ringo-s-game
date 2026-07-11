@@ -1002,7 +1002,7 @@ canvas.debate-mode {
   transform-origin: left center;
   transform: translateX(250px);
   opacity: 0;
-  transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear, left 0.5s linear;
 }
 #nonstopDebateUI.show .NDbullet {
   opacity: 1;
