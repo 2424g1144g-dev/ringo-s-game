@@ -1198,3 +1198,16 @@ canvas.debate-mode {
   50% {left: 300px;}
   100% {left: 0;}
 }
+
+.shotText {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  perspective: 200px;
+  z-index: 50000;
+  transform: rotate3d(1, 1, 0, 45deg);
+  opacity: 1;
+  font-family: "NDserif2";
+  font-size: 65px;
+  border: 2px solid red;
+}

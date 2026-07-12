@@ -400,10 +400,12 @@ window.addEventListener("keydown", (e) => {
     bulletEnter = true;
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
+    const text = document.querySelector(".shotText");
     ndCylinder.classList.remove("bulletLaunch");
     void ndCylinder.offsetWidth;
     ndCylinder.classList.add("bulletLaunch");
     bullet.style.transform = "rotate(-4deg) translateX(2000px)";
-
+    text.textContent = bulletNum[currentBulletIndex];
+    text.classList.add("textFlying");
   }
 })
