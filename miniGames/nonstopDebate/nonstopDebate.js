@@ -402,7 +402,7 @@ window.addEventListener("keydown", (e) => {
     ndCylinder.classList.remove("bulletLaunch");
     void ndCylinder.offsetWidth;
     ndCylinder.classList.add("bulletLaunch");
-    bullet.style.transform = "rotate(-4deg) translateX(1600px)";
+    bullet.style.transform = "rotate(-4deg) translateX(2000px)";
 
   }
 })
