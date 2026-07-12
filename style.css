@@ -1209,5 +1209,5 @@ canvas.debate-mode {
   opacity: 1;
   font-family: "NDserif2";
   font-size: 65px;
-  border: 2px solid red;
+  -webkit-text-stroke: 2px red;
 }
