@@ -409,8 +409,8 @@ window.addEventListener("keydown", (e) => {
     text.textContent = bulletNum[currentBulletIndex];
     const crosshair = document.getElementById("crosshairContainer");
     const cRect = crosshair.getBoundingClientRect();
-    const cX = cRect.left + cRect.width / 2;
-    const cY = cRect.top + cRect.height / 2;
+    const cX = cRect.left + cRect.width / 2 + 35;
+    const cY = cRect.top + cRect.height / 2 - 35;
     container.style.setProperty('--landX', `${cX}px`);
     container.style.setProperty('--landY', `${cY}px`);
     setTimeout(() => {
