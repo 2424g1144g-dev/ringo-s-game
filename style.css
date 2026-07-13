@@ -1203,16 +1203,20 @@ canvas.debate-mode {
   position: absolute;
   left: 100px;
   top: 200px;
+  width: 0;
+  height: 0;
   z-index: 50000;
   perspective: 250px;
   animation: y 0.7s linear infinite;
+  perspective-origin: 0 0; 
 }
 .shotText {
   opacity: 1;
   font-family: "NDserif2";
   font-size: 65px;
   -webkit-text-stroke: 2px red;
-  transform-origin: left center;
+  white-space: nowrap; 
+  transform-origin: 0 0;
 }
 
 @keyframes y {
