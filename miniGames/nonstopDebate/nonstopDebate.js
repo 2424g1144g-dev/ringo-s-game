@@ -406,6 +406,8 @@ window.addEventListener("keydown", (e) => {
     ndCylinder.classList.add("bulletLaunch");
     bullet.style.transform = "rotate(-4deg) translateX(2000px)";
     text.textContent = bulletNum[currentBulletIndex];
-    text.classList.add("textFlying");
+    setTimeout(() => {
+      text.classList.add("flyShot");
+    }, 500)
   }
 })

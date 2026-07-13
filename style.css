@@ -1207,7 +1207,6 @@ canvas.debate-mode {
   height: 0;
   z-index: 50000;
   perspective: 250px;
-  animation: y 0.7s linear infinite;
   perspective-origin: 0 0; 
 }
 .shotText {
@@ -1219,7 +1218,10 @@ canvas.debate-mode {
   transform-origin: 0 0;
 }
 
-@keyframes y {
+.flyShot {
+  animation: flyShot 0.7s linear forwards;
+}
+@keyframes flyShot {
   from {transform: rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
   to {transform:  rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
