@@ -1201,20 +1201,19 @@ canvas.debate-mode {
 
 .shotText {
   position: absolute;
-  left: 0;
+  left: 100px;
   top: 200px;
-  perspective: 200px;
+  perspective: 10px;
   z-index: 50000;
-  transform: rotateX(0) rotateY(70deg) rotateZ(0) translateZ(0);
-  transform-style: preserve-3d;
+  transform: rotate3d(0, 1, 0, -45deg);
   opacity: 1;
   font-family: "NDserif2";
   font-size: 65px;
   -webkit-text-stroke: 2px red;
-  animation: y 1s linear infinite;
+  animation: y 0.7s linear infinite;
 }
 
 @keyframes y {
-  from {transform:  rotateX(0) rotateY(70deg) rotateZ(0) translateX(0);}
-  to {transform: translateX(300px);}
+  from {transform: rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
+  to {transform:  rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
