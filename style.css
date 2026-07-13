@@ -1212,6 +1212,7 @@ canvas.debate-mode {
   font-family: "NDserif2";
   font-size: 65px;
   -webkit-text-stroke: 2px red;
+  transform-origin: left center;
 }
 
 @keyframes y {
