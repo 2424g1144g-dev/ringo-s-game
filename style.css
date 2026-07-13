@@ -1207,7 +1207,6 @@ canvas.debate-mode {
   height: 0;
   z-index: 50000;
   perspective: 250px;
-  perspective-origin: 0 0; 
 }
 .shotText {
   opacity: 1;
