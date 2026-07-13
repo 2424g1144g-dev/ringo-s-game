@@ -415,7 +415,9 @@ window.addEventListener("keydown", (e) => {
     container.style.setProperty('--landY', `${cY}px`);
     setTimeout(() => {
       text.classList.add("flyShot");
-      if ()
+      if (!isOverlapping) {
+        alert("あたってねぇぞ！”！かずぼけ！！")
+      }
       setTimeout(() => {},)
     }, 400)
   }
