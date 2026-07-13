@@ -1201,8 +1201,8 @@ canvas.debate-mode {
 
 #shotTextContainer {
   position: absolute;
-  left: 100px;
-  top: 200px;
+  left: var(--landX);
+  top: var(--landY);
   width: 0;
   height: 0;
   z-index: 50000;

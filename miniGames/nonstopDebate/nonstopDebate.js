@@ -406,6 +406,12 @@ window.addEventListener("keydown", (e) => {
     ndCylinder.classList.add("bulletLaunch");
     bullet.style.transform = "rotate(-4deg) translateX(2000px)";
     text.textContent = bulletNum[currentBulletIndex];
+    const crosshair = document.getElementById("crosshairContainer");
+    const cRect = crosshair.getBoundingClientRect();
+    const cX = cRect.left + cRect.width / 2;
+    const cY = cRect.top + cRect.height / 2;
+    text.style.setProperty('--landX', `${cX}px`);
+    text.style.setProperty('--landY', `${cY}px`);
     setTimeout(() => {
       text.classList.add("flyShot");
     }, 500)
