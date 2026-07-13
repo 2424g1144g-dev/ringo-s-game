@@ -415,6 +415,8 @@ window.addEventListener("keydown", (e) => {
     container.style.setProperty('--landY', `${cY}px`);
     setTimeout(() => {
       text.classList.add("flyShot");
-    }, 500)
+      if ()
+      setTimeout(() => {},)
+    }, 400)
   }
 })

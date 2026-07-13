@@ -1208,7 +1208,7 @@ canvas.debate-mode {
   z-index: 50000;
 }
 .shotText {
-  opacity: 1;
+  opacity: 0;
   font-family: "NDserif2";
   font-size: 65px;
   -webkit-text-stroke: 2px red;
@@ -1220,6 +1220,6 @@ canvas.debate-mode {
   animation: flyShot 0.7s linear forwards;
 }
 @keyframes flyShot {
-  from {transform: rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
-  to {transform:  rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
+  from {opacity: 1; transform: rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
+  to { opacity: 1; transform:  rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
