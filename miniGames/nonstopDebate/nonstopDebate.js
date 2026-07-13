@@ -401,6 +401,7 @@ window.addEventListener("keydown", (e) => {
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
     const text = document.querySelector(".shotText");
+    const container = document.getElementById("shotTextContainer");
     ndCylinder.classList.remove("bulletLaunch");
     void ndCylinder.offsetWidth;
     ndCylinder.classList.add("bulletLaunch");
@@ -410,8 +411,8 @@ window.addEventListener("keydown", (e) => {
     const cRect = crosshair.getBoundingClientRect();
     const cX = cRect.left + cRect.width / 2;
     const cY = cRect.top + cRect.height / 2;
-    text.style.setProperty('--landX', `${cX}px`);
-    text.style.setProperty('--landY', `${cY}px`);
+    container.style.setProperty('--landX', `${cX}px`);
+    container.style.setProperty('--landY', `${cY}px`);
     setTimeout(() => {
       text.classList.add("flyShot");
     }, 500)
