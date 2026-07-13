@@ -418,7 +418,7 @@ window.addEventListener("keydown", (e) => {
       if (!isOverlapping) {
         alert("あたってねぇぞ！”！かずぼけ！！")
       }
-      setTimeout(() => {},)
+      setTimeout(() => {}, 300)
     }, 400)
   }
 })
