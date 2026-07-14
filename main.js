@@ -9,6 +9,7 @@ window.addEventListener("keydown", (e) => {
 })
 
 const container = document.getElementById('crosshairContainer');
+let rough = true;
 
 let posX = 100;
 let posY = 100;
@@ -61,7 +62,7 @@ function updatePosition() {
   // プレイヤーが操作していない（キーを全て離している）ときだけブレるようにチェック
   const isMoving = keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight;
   
-  if (!isMoving) {
+  if (rough && !isMoving) {
     swayTime += SWAY_SPEED;
     // サイン波とコサイン波を使って、滑らかな無限の「8の字」や「円」に近い揺らぎを作る
     vx += Math.sin(swayTime) * SWAY_AMOUNT;

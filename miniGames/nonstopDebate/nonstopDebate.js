@@ -411,6 +411,8 @@ let bulletEnter = false;
 window.addEventListener("keydown", (e) => {
   if (e.code === "Enter" && !e.repeat && bulletEnter) {
     bulletEnter = true;
+    crosshairOperate = false;
+    rough = false;
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
     const text = document.querySelector(".shotText");
