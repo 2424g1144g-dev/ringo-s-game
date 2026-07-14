@@ -1199,7 +1199,7 @@ canvas.debate-mode {
   100% {left: 0;}
 }
 .launch {
-  animation: launch 0.3s linear;
+  animation: launch 0.3s linear forwards;
 }
 @keyframes launch {
   from {transform: rotate(-4deg) translateX(0);}
