@@ -420,7 +420,7 @@ window.addEventListener("keydown", (e) => {
     ndCylinder.classList.remove("bulletLaunch");
     void ndCylinder.offsetWidth;
     ndCylinder.classList.add("bulletLaunch");
-    bullet.style.transform = "rotate(-4deg) translateX(2000px)";
+    bullet.classList.add("bulletLaunch");
     text.textContent = bulletNum[currentBulletIndex];
     const crosshair = document.getElementById("crosshairContainer");
     const cRect = crosshair.getBoundingClientRect();
@@ -440,7 +440,7 @@ window.addEventListener("keydown", (e) => {
             alert("セリフにあたった");
           }
         }
-      }, 700)
-    }, 400)
+      }, 500)
+    }, 200)
   }
 })

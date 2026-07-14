@@ -1194,9 +1194,8 @@ canvas.debate-mode {
   animation: bulletLaunch 0.2s linear;
 }
 @keyframes bulletLaunch {
-  0% {left: 0;}
-  50% {left: 300px;}
-  100% {left: 0;}
+  from { transform: rotate(-4deg) translateX(0);}
+  to { transform: rotate(-4deg) translateX(2000px);}
 }
 
 #shotTextContainer {
@@ -1217,7 +1216,7 @@ canvas.debate-mode {
 }
 
 .flyShot {
-  animation: flyShot 0.7s linear forwards;
+  animation: flyShot 0.5s linear forwards;
 }
 @keyframes flyShot {
   from {opacity: 1; transform: rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
