@@ -376,6 +376,8 @@ function checkCollision () {
     const bRect = bubble.getBoundingClientRect();
     if (cX >= bRect.left && cX <= bRect.right && cY >= bRect.top && cY <= bRect.bottom) {
       isOverlapping = true;
+    } else {
+      isOverlapping = false;
     }
   })
   if (isOverlapping) {
