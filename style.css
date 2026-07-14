@@ -1191,11 +1191,12 @@ canvas.debate-mode {
 }
 
 .bulletLaunch {
-  animation: bulletLaunch 0.5s linear;
+  animation: bulletLaunch 0.2s linear;
 }
 @keyframes bulletLaunch {
-  from { left: 0;}
-  to { left: 300px;}
+  0% { left: 0;}
+  50% { left: 300px;}
+  100% {left: 0;}
 }
 .launch {
   animation: launch 0.3s linear;
