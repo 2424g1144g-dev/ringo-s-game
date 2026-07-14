@@ -1230,3 +1230,10 @@ canvas.debate-mode {
   from {opacity: 1; transform: rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
   to { opacity: 1; transform:  rotate(45deg) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
+.shotDisappear {
+  animation: shotDisappear 0.7s linear forwards;
+}
+@keyframes shotDisappear {
+  from {clip-path: polygon(0% 100%, 100% 100%, 100% 0, 0 0);}
+  to {clip-path: polygon(100% 100%, 100% 100%, 100% 0, 100% 0);}
+}
