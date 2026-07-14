@@ -365,13 +365,13 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 
 
 //照準がセリフに重なったときの処理
+let isOverlapping = false;
 function checkCollision () {
   const crosshair = document.getElementById("crosshairContainer");
   const bubbles = document.querySelectorAll(".serif-bubble");
   const cRect = crosshair.getBoundingClientRect();
   const cX = cRect.left + cRect.width / 2;
   const cY = cRect.top + cRect.height / 2;
-  let isOverlapping = false;
   bubbles.forEach(bubble => {
     const bRect = bubble.getBoundingClientRect();
     if (cX >= bRect.left && cX <= bRect.right && cY >= bRect.top && cY <= bRect.bottom) {
@@ -415,10 +415,11 @@ window.addEventListener("keydown", (e) => {
     container.style.setProperty('--landY', `${cY}px`);
     setTimeout(() => {
       text.classList.add("flyShot");
-      if (!isOverlapping) {
-        alert("あたってねぇぞ！”！かずぼけ！！")
-      }
-      setTimeout(() => {}, 300)
+      setTimeout(() => {
+        if (!isOverlapping) {
+          alert("あたってねぇぞ！”！かずぼけ！！")
+        }
+      }, 700)
     }, 400)
   }
 })
