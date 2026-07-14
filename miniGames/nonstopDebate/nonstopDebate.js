@@ -385,7 +385,7 @@ function checkCollision () {
   })
   weaks.forEach(weak => {
     const wRect = weak.getBoundingClientRect();
-    if (cX >= bRect.left && cX <= bRect.right && cY >= bRect.top && cY <= bRect.bottom) {
+    if (cX >= wRect.left && cX <= wRect.right && cY >= wRect.top && cY <= wRect.bottom) {
       isweak = true;
     } else {
       isweak = false;
