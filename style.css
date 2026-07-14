@@ -1191,11 +1191,18 @@ canvas.debate-mode {
 }
 
 .bulletLaunch {
-  animation: bulletLaunch 0.2s linear;
+  animation: bulletLaunch 0.5s linear;
 }
 @keyframes bulletLaunch {
-  from { transform: rotate(-4deg) translateX(0);}
-  to { transform: rotate(-4deg) translateX(2000px);}
+  from { left: 0;}
+  to { left: 300px;}
+}
+.launch {
+  animation: launch 0.3s linear;
+}
+@keyframes launch {
+  from {transform: rotate(-4deg) translateX(0);}
+  to {transform: rotate(-4deg) translateX(2000px);}
 }
 
 #shotTextContainer {

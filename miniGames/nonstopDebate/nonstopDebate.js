@@ -420,7 +420,7 @@ window.addEventListener("keydown", (e) => {
     ndCylinder.classList.remove("bulletLaunch");
     void ndCylinder.offsetWidth;
     ndCylinder.classList.add("bulletLaunch");
-    bullet.classList.add("bulletLaunch");
+    bullet.classList.add("launch");
     text.textContent = bulletNum[currentBulletIndex];
     const crosshair = document.getElementById("crosshairContainer");
     const cRect = crosshair.getBoundingClientRect();
