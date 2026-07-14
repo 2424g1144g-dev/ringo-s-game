@@ -410,7 +410,7 @@ crosshairCollision();
 let bulletEnter = false;
 window.addEventListener("keydown", (e) => {
   if (e.code === "Enter" && !e.repeat && bulletEnter) {
-    bulletEnter = true;
+    bulletEnter = false;
     crosshairOperate = false;
     rough = false;
     const bullet = document.querySelector(".NDbullet");
@@ -432,7 +432,19 @@ window.addEventListener("keydown", (e) => {
       text.classList.add("flyShot");
       setTimeout(() => {
         if (!isOverlapping) {
-          alert("そもそもあたってない");
+          console.log("あたってない");
+          setTimeout(() => {
+            bullet.style.opacity = 0;
+            bullet.classList.remove("launch");
+            void bullet.offsetWidth;
+            bullet.classList.add("bulletChange");
+            setTimeout(() => {
+              bullet.style.opacity = 1;
+              bulletEnter = true;
+              crosshairOperate = true;
+              rough = true;
+            },150)
+          }, 700)
         } else {
           if (isweak) {
             alert("それは違うよ！");
