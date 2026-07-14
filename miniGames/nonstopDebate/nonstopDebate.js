@@ -419,7 +419,9 @@ window.addEventListener("keydown", (e) => {
       text.classList.add("flyShot");
       setTimeout(() => {
         if (!isOverlapping) {
-          alert("あたってねぇぞ！”！かずぼけ！！")
+          alert("あたってねぇぞ！！かあうぼけ！！")
+        } else {
+          alert("あたったぞ！！かすぼけ！！")
         }
       }, 700)
     }, 400)
