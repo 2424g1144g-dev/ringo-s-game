@@ -3,7 +3,6 @@ const debate = document.getElementById("debate");
 const spans = Array.from(debate.children);
 const circle = document.getElementById("circleDebate");
 let cylinderShift = false;
-let crosshairOperate = false;
 
 // 配列を逆順（論、議、プ、ッ...）にする
 const reverseSpans = spans.reverse();
