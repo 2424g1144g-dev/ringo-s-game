@@ -448,7 +448,7 @@ window.addEventListener("keydown", (e) => {
               container.classList.remove("shotDisappear");
               text.classList.remove("flyShot");
             }, 800)
-          }, 500)
+          }, 300)
         } else {
           if (isweak) {
             alert("それは違うよ！");
