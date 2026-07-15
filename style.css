@@ -1236,12 +1236,10 @@ canvas.debate-mode {
 }
 @keyframes shotDisappear {
   from {
-    /* 縦横 2000px の巨大な四角形（文字が全部収まるサイズ）で最初はすべて表示 */
-    clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px);
+    /* 縦横は文字が十分収まる範囲にしつつ、横幅は広げすぎないサイズ（500px）にします */
+    clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px);
   }
   to {
-    /* 右側にすべての点を集めて、文字を左から右へ消し去る */
-    clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px);
-  }
-
+    /* すべての点を右端（500px）に集めることで、左から右へ同じスピード感で消えます */
+    clip-path: polygon(500px 2000px, 500px 2000px, 500px -2000px, 500px -2000px);
 }
