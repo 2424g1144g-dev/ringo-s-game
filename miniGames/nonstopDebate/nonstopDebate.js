@@ -413,6 +413,7 @@ window.addEventListener("keydown", (e) => {
     bulletEnter = false;
     crosshairOperate = false;
     rough = false;
+    cylinderShift = false;
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
     const text = document.querySelector(".shotText");
@@ -444,6 +445,7 @@ window.addEventListener("keydown", (e) => {
               bulletEnter = true;
               crosshairOperate = true;
               rough = true;
+              cylinderShift = true;
               window.updatePosition(); 
               bullet.classList.remove("bulletChange");
               container.classList.remove("shotDisappear");
@@ -454,7 +456,11 @@ window.addEventListener("keydown", (e) => {
           if (isweak) {
             alert("それは違うよ！");
           } else {
-            alert("セリフにあたった");
+            console.log("セリフにあたった");
+            bullet.style.opacity = 0;
+            bullet.classList.remove("launch");
+            void bullet.offsetWidth;
+            bullet.classList.add("bulletChange");
           }
         }
       }, 500)
