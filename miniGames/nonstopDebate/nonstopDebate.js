@@ -432,8 +432,8 @@ window.addEventListener("keydown", (e) => {
       text.classList.add("flyShot");
       setTimeout(() => {
         if (!isOverlapping) {
-          console.log("あたってない");
-          setTimeout(() => {
+          setTimeout (()=> {
+            console.log("あたってない");
             bullet.style.opacity = 0;
             bullet.classList.remove("launch");
             void bullet.offsetWidth;
@@ -444,8 +444,11 @@ window.addEventListener("keydown", (e) => {
               bulletEnter = true;
               crosshairOperate = true;
               rough = true;
+              bullet.classList.remove("bulletChange");
+              container.classList.remove("shotDisappear");
+              text.classList.remove("flyShot");
             },150)
-          }, 700)
+          }, 400)
         } else {
           if (isweak) {
             alert("それは違うよ！");

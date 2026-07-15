@@ -1235,6 +1235,6 @@ canvas.debate-mode {
   animation: shotDisappear 0.7s linear forwards;
 }
 @keyframes shotDisappear {
-  from {clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px);}
-  to {clip-path: polygon(2000px 2000px, 2000px 2000px, 2000px -2000px, 2000px -2000px);}
+  from { clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px); }
+  to { clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); }
 }
