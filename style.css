@@ -1236,11 +1236,15 @@ canvas.debate-mode {
 }
 @keyframes shotDisappear {
   from {
-    /* 縦横は文字が十分収まる範囲にしつつ、横幅は広げすぎないサイズ（500px）にします */
+    /* 
+      右端の壁を 2000px ではなく 500px にします。
+      これで文字のすぐ右隣から削りアニメーションがスタートします。
+    */
     clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px);
   }
   to {
-    /* すべての点を右端（500px）に集めることで、左から右へ同じスピード感で消えます */
-    clip-path: polygon(500px 2000px, 500px 2000px, 500px -2000px, 500px -2000px);
+    /* すべての点を左端（0px）に集めることで、右から左へ綺麗に消え去ります */
+    clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px);
   }
+}
 }
