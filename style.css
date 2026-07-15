@@ -1235,6 +1235,13 @@ canvas.debate-mode {
   animation: shotDisappear 0.7s linear forwards;
 }
 @keyframes shotDisappear {
-  from { clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px); }
-  to { clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); }
+  from {
+    /* 縦横 2000px の巨大な四角形（文字が全部収まるサイズ）で最初はすべて表示 */
+    clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px);
+  }
+  to {
+    /* 右側にすべての点を集めて、文字を左から右へ消し去る */
+    clip-path: polygon(2000px 2000px, 2000px 2000px, 2000px -2000px, 2000px -2000px);
+  }
+
 }
