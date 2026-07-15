@@ -444,6 +444,7 @@ window.addEventListener("keydown", (e) => {
               bulletEnter = true;
               crosshairOperate = true;
               rough = true;
+              window.updatePosition(); 
               bullet.classList.remove("bulletChange");
               container.classList.remove("shotDisappear");
               text.classList.remove("flyShot");
