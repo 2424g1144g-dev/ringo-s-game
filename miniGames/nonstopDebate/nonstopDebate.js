@@ -73,6 +73,7 @@ window.loadAllBullets = async function(bullet) {
   crosshairOperate = true;
   zPush = true;
   bulletEnter = true;
+  window.updatePosition(); 
   await sleep(1200);
   window.nonstopDebate1();
 }

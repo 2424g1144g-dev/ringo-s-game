@@ -48,7 +48,7 @@ window.addEventListener('keyup', (e) => {
 });
 
 let crosshairOperate = false;
-function updatePosition() {
+window.updatePosition = function() {
   if (!crosshairOperate) return;
   // 1. キーの入力に応じて「速度」を増減させる
   if (keys.ArrowUp)    vy -= ACCELERATION;
@@ -95,6 +95,4 @@ function updatePosition() {
 
   requestAnimationFrame(updatePosition);
 }
-
-updatePosition(); 
 
