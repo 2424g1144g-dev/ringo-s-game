@@ -47,6 +47,7 @@ window.addEventListener('keyup', (e) => {
   }
 });
 
+let crosshairOperate = false;
 function updatePosition() {
   if (!crosshairOperate) return;
   // 1. キーの入力に応じて「速度」を増減させる
