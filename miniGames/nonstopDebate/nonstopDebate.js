@@ -447,7 +447,7 @@ window.addEventListener("keydown", (e) => {
               bullet.classList.remove("bulletChange");
               container.classList.remove("shotDisappear");
               text.classList.remove("flyShot");
-            },300)
+            }, 0)
           }, 400)
         } else {
           if (isweak) {
