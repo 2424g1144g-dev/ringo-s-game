@@ -1232,7 +1232,7 @@ canvas.debate-mode {
   to { opacity: 1; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
 .shotDisappear {
-  animation: shotDisappear 0.7s linear forwards;
+  animation: shotDisappear 0.3s linear forwards;
 }
 @keyframes shotDisappear {
   from {
