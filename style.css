@@ -1242,4 +1242,5 @@ canvas.debate-mode {
   to {
     /* すべての点を右端（500px）に集めることで、左から右へ同じスピード感で消えます */
     clip-path: polygon(500px 2000px, 500px 2000px, 500px -2000px, 500px -2000px);
+  }
 }
