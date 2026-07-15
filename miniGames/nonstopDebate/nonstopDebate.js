@@ -228,7 +228,7 @@ window.serifBehaviors = {
       const fade = Math.max(0, 1.0 - shakeProgress); 
 
       if (fade > 0) {
-        const shakeSpeed = 60; 
+        const shakeSpeed = 200; 
         const shakeAmount = 8; 
         shakeX = Math.sin(currentT * shakeSpeed) * shakeAmount * fade;
         shakeY = Math.cos(currentT * shakeSpeed * 1.2) * shakeAmount * fade;
