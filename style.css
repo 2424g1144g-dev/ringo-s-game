@@ -1240,16 +1240,18 @@ canvas.debate-mode {
 }
 
 .refrect {
+  transform-origin: bottom center;
   animation: refrect 0.3s linear forwards;
 }
 @keyframes refrect {
   from {
-    transform: rotate(0) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1); 
+    /* 初期状態: 傾きなし、位置・サイズは等倍 */
+    transform: rotateX(0deg) translateZ(0) scale(1);
     opacity: 1;
   }
   to {  
-    /* rotateY を 60deg から 360deg に変更して回転させています */
-    transform: rotate(0) rotateX(0) rotateY(360deg) rotateZ(0) translateX(20px) translateY(-20px) translateZ(500px) scale(3.0); 
+    /* 手前に90度倒しながら、手前に引き出しつつ3倍に拡大して消す */
+    transform: rotateX(90deg) translateZ(300px) scale(3.0); 
     opacity: 0;
   }
 
