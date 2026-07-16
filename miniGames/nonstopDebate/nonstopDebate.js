@@ -462,6 +462,7 @@ window.addEventListener("keydown", (e) => {
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
+            hitShake();
             setTimeout(() => {
               bullet.style.opacity = 1;
               bulletEnter = true;
@@ -479,3 +480,10 @@ window.addEventListener("keydown", (e) => {
     }, 200)
   }
 })
+
+function hitShake() {
+  const shakeText = document.querySelector("shake-layer");
+  shakeText.classList.remove("hit-hit");
+  void shakeText.offsetWidth;
+  shakeText.classList.add("hit-hit");
+}
