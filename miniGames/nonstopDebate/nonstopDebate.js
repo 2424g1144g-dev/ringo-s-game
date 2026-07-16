@@ -462,6 +462,16 @@ window.addEventListener("keydown", (e) => {
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
+            setTimeout(() => {
+              bullet.style.opacity = 1;
+              bulletEnter = true;
+              crosshairOperate = true;
+              rough = true;
+              cylinderShift = true;
+              window.updatePosition();
+              bullet.classList.remove("bulletChange");
+              container.classList.remove("referect");
+            }, 800)
           }
         }
       }, 500)
