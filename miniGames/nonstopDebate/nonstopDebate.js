@@ -470,7 +470,7 @@ window.addEventListener("keydown", (e) => {
               cylinderShift = true;
               window.updatePosition();
               bullet.classList.remove("bulletChange");     
-              container.classList.remove("referect");
+              container.classList.remove("refrect");
               text.classList.remove("flyShot");
             }, 800)
           }
