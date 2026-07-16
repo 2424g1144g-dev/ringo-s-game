@@ -1235,16 +1235,11 @@ canvas.debate-mode {
   animation: shotDisappear 0.3s linear forwards;
 }
 @keyframes shotDisappear {
-  from {
-    /* 
-      右端の壁を 2000px ではなく 500px にします。
-      これで文字のすぐ右隣から削りアニメーションがスタートします。
-    */
-    clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px);
-  }
-  to {
-    /* すべての点を左端（0px）に集めることで、右から左へ綺麗に消え去ります */
-    clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px);
-  }
+  from { clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); }
+  to { clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); }
 }
+
+@keyframes refrect {
+  from {rotate: 45deg; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
+  to { rotate: 720deg; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateX(50px) translateY(-50px) translateZ(500px) scale(2.0); }
 }

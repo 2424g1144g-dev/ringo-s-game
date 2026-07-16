@@ -461,6 +461,7 @@ window.addEventListener("keydown", (e) => {
             bullet.classList.remove("launch");
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
+            container.classList.add("refrect");
           }
         }
       }, 500)
