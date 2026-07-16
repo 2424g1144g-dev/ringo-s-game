@@ -1239,7 +1239,10 @@ canvas.debate-mode {
   to { clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); }
 }
 
+.refrect {
+  animation: refrect 0.3s linear forwards;
+}
 @keyframes refrect {
-  from {rotate: 45deg; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
-  to { rotate: 720deg; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateX(50px) translateY(-50px) translateZ(500px) scale(2.0); }
+  from {rotate: 45deg; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1); opacity: 1}
+  to { rotate: 225deg; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateX(50px) translateY(-50px) translateZ(500px) scale(2.0); opacity: 0}
 }
