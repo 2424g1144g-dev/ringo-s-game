@@ -1243,6 +1243,14 @@ canvas.debate-mode {
   animation: refrect 0.3s linear forwards;
 }
 @keyframes refrect {
-  from {transform: rotate(0) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1); opacity: 1}
-  to {  transform: rotate(0) rotateX(0) rotateY(60deg) rotateZ(0) translateX(20px) translateY(-20px) translateZ(500px) scale(3.0); opacity: 0}
+  from {
+    transform: rotate(0) rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1); 
+    opacity: 1;
+  }
+  to {  
+    /* rotateY を 60deg から 360deg に変更して回転させています */
+    transform: rotate(0) rotateX(0) rotateY(360deg) rotateZ(0) translateX(20px) translateY(-20px) translateZ(500px) scale(3.0); 
+    opacity: 0;
+  }
+
 }
