@@ -469,8 +469,9 @@ window.addEventListener("keydown", (e) => {
               rough = true;
               cylinderShift = true;
               window.updatePosition();
-              bullet.classList.remove("bulletChange");
+              bullet.classList.remove("bulletChange");     
               container.classList.remove("referect");
+              text.classList.remove("flyShot");
             }, 800)
           }
         }
