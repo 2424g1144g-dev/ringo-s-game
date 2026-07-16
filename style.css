@@ -1246,12 +1246,12 @@ canvas.debate-mode {
 @keyframes refrect {
   from {
     /* 初期状態: 傾きなし、位置・サイズは等倍 */
-    transform: rotateX(0deg) translateZ(0) scale(1);
+    transform: rotateY(0deg) translateZ(0) scale(1);
     opacity: 1;
   }
   to {  
     /* 手前に90度倒しながら、手前に引き出しつつ3倍に拡大して消す */
-    transform: rotateX(90deg) translateZ(300px) scale(3.0); 
+    transform: rotateY(360deg) translateZ(300px) scale(2.0); 
     opacity: 0;
   }
 
