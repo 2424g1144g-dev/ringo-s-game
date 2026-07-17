@@ -1,4 +1,3 @@
-import { div } from "three/src/nodes/math/OperatorNode";
 
 // 「論」から「ノ」へ、つまり右側の文字から順番に表示させるためのJavaScript
 const debate = document.getElementById("debate");
