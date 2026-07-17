@@ -1,3 +1,5 @@
+import { div } from "three/src/nodes/math/OperatorNode";
+
 // 「論」から「ノ」へ、つまり右側の文字から順番に表示させるためのJavaScript
 const debate = document.getElementById("debate");
 const spans = Array.from(debate.children);
@@ -317,7 +319,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 
   const newSerif = document.createElement("div");
   newSerif.className = "serif-bubble";
-  newSerif.innerHTML = htmlContent;
+  newSerif.innerHTML = `<div class="shake-layer"${htmlContent}</div>`;
   newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
   
