@@ -432,7 +432,7 @@ window.addEventListener("keydown", (e) => {
     playSE("shot");
     setTimeout(() => {
       playSE("bulletFalling");
-    }, 200)
+    }, 800)
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
     const text = document.querySelector(".shotText");
