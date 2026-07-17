@@ -1255,18 +1255,3 @@ canvas.debate-mode {
     opacity: 0;
   }
 }
-
-.hit-hit {
-  animation: hit-shake 0.3s ease-out forwards;
-}
-
-@keyframes hit-shake {
-  0%   { transform: translate(0, 0); }
-  15%  { transform: translate(-12px, 4px) rotate(-2deg); }
-  30%  { transform: translate(10px, -4px) rotate(2deg); }
-  45%  { transform: translate(-7px, 2px) rotate(-1deg); }
-  60%  { transform: translate(6px, -2px) rotate(1deg); }
-  75%  { transform: translate(-3px, 1px); }
-  90%  { transform: translate(2px, -1px); }
-  100% { transform: translate(0, 0) rotate(0deg); }
-}

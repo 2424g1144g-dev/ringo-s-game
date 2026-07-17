@@ -499,10 +499,3 @@ window.addEventListener("keydown", (e) => {
     }, 200)
   }
 })
-
-function hitShake(el) {
-  el.classList.add("hit-hit");
-  setTimeout(() => {
-    el.classList.remove("hit-hit");
-  })
-}
