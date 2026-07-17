@@ -457,6 +457,8 @@ window.addEventListener("keydown", (e) => {
         } else {
           if (isweak) {
             alert("それは違うよ！");
+          } else if (isagree) {
+            alert("それに賛成だ！")
           } else {
             console.log("セリフにあたった");
             bullet.style.opacity = 0;
