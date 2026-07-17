@@ -351,6 +351,16 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
       // 引数に「要素」「スロー対応した時間差分」「総時間」「今の全体進捗(0~1)」を渡す
       behaviorFunc(newSerif, gameDelta, duration, t);
     }
+    let shakeTimer = parseFloat(newSerif.dataset.shakeTimer) || 0;
+    if (shakeTimer > 0) {
+      shakeTimer -= gameDelta;
+      newSerif.dataset.shakeTimer = Math.max(0, shakeTimer).toString();
+      const fade = shakeTimer / 300; 
+      const shakeX = Math.sin(now * 0.1) * 15 * fade;
+      const shakeY = Math.cos(now * 0.12) * 8 * fade;
+      const currentTransform = newSerif.style.transform || "";
+      newSerif.style.transform = currentTransform + ` translate(${shakeX}px, ${shakeY}px)`;
+    }
 
     // 終了したら削除
     if (t >= 1) {
@@ -470,9 +480,7 @@ window.addEventListener("keydown", (e) => {
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
             if (currentOverlappingBubble) {
-              currentOverlappingBubble.classList.remove("hit-hit");
-              void currentOverlappingBubble.offsetWidth; // アニメーション巻き戻し
-              currentOverlappingBubble.classList.add("hit-hit");
+              currentOverlappingBubble.dataset.shakeTimer = "300";
             }
             setTimeout(() => {
               bullet.style.opacity = 1;
