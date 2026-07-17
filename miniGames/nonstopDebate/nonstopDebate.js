@@ -312,15 +312,12 @@ window.serifBehaviors = {
     }
   },
 };
-let serifIdCounter = 0;
 window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
   const screen = document.getElementById("debate-screen");
   if (!screen) return;
 
   const newSerif = document.createElement("div");
-  newSerif.className = "serif-bubble real";
-  serifIdCounter++;
-  newSerif.id="serif-active-" + serifIdCounter;
+  newSerif.className = "serif-bubble";
   newSerif.innerHTML = htmlContent;
   newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
@@ -468,14 +465,6 @@ window.addEventListener("keydown", (e) => {
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
-            const elementsAtPoint = document.elementsFromPoint(cX, cY);
-            console.log("串刺しにした要素一覧:", elementsAtPoint); // ★これを確認！
-            const targetBubble = elementsAtPoint.find(el => el.classList.contains("real"));
-            console.log("見つかった本物のセリフ:", targetBubble);
-            if (targetBubble) {
-              // 見つかった本物のセリフ要素だけをピンポイントで揺らす！
-              hitShake(targetBubble);
-            }
             setTimeout(() => {
               bullet.style.opacity = 1;
               bulletEnter = true;
