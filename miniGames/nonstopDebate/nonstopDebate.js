@@ -485,7 +485,7 @@ window.addEventListener("keydown", (e) => {
 })
 
 function hitShake() {
-  const shakeText = document.querySelector("serif-bubble");
+  const shakeText = document.querySelectorAll("serif-bubble");
   shakeText.classList.remove("hit-hit");
   void shakeText.offsetWidth;
   shakeText.classList.add("hit-hit");
