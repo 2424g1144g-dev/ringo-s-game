@@ -102,7 +102,7 @@ window.addEventListener("keydown", (event) => {
     const ndBullet = document.querySelector(".NDbullet");
     if (ndBullet.classList.contains("bulletChange")) return;
     
-    //playSE("reload"); 
+    playSE("bulletChange");
     
     // 💡 1. どっちのShiftが押されたかで、インデックスの計算を分岐させる！
     if (event.code === "ShiftRight") {
@@ -429,6 +429,10 @@ window.addEventListener("keydown", (e) => {
     crosshairOperate = false;
     rough = false;
     cylinderShift = false;
+    playSE("shot");
+    setTimeout(() => {
+      playSE("bulletFalling");
+    }, 200)
     const bullet = document.querySelector(".NDbullet");
     const ndCylinder = document.getElementById("NDcylinderContainer");
     const text = document.querySelector(".shotText");
@@ -474,6 +478,7 @@ window.addEventListener("keydown", (e) => {
             alert("それに賛成だ！")
           } else {
             console.log("セリフにあたった");
+            playSE("refrect");
             bullet.style.opacity = 0;
             bullet.classList.remove("launch");
             void bullet.offsetWidth;

@@ -60,6 +60,8 @@ const SE = {
   dialoguePass: "assets/audio/SE/diaPass.wav",
   confirm: "assets/audio/SE/confirm.wav",
   shotConfirm: "assets/audio/SE/shotConfirm.wav",
+  shot: "assets/audio/SE/shot.wav",
+  bulletFalling: "assets/audio/SE/bulletFalling.wav",
   comeUpWith: "assets/audio/SE/comeUpWith.wav",
   blowShock: "assets/audio/SE/blowShock.wav",
   shock: "assets/audio/SE/shock.wav",
@@ -74,5 +76,7 @@ const SE = {
   hammer: "assets/audio/SE/hammer.wav",
   stamp: "assets/audio/SE/stamp.wav",
   nonstopDebateStart: "assets/audio/SE/nonstopDebateStart.wav",
-  addBullet: "assets/audio/SE/addBullet.wav"
+  addBullet: "assets/audio/SE/addBullet.wav",
+  bulletChange: "assets/audio/SE/bulletChange.wav",
+  refrect: "assets/audio/SE/refrect.wav"
 };
