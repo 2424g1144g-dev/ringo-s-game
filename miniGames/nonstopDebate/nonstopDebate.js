@@ -312,12 +312,15 @@ window.serifBehaviors = {
     }
   },
 };
+let serifIdCounter = 0;
 window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
   const screen = document.getElementById("debate-screen");
   if (!screen) return;
 
   const newSerif = document.createElement("div");
-  newSerif.className = "serif-bubble";
+  newSerif.className = "serif-bubble real";
+  serifIdCounter++;
+  newSerif.id="serif-active-" + serifIdCounter;
   newSerif.innerHTML = htmlContent;
   newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
