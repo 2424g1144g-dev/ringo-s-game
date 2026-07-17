@@ -469,7 +469,9 @@ window.addEventListener("keydown", (e) => {
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
             const elementsAtPoint = document.elementsFromPoint(cX, cY);
+            console.log("串刺しにした要素一覧:", elementsAtPoint); // ★これを確認！
             const targetBubble = elementsAtPoint.find(el => el.classList.contains("real"));
+            console.log("見つかった本物のセリフ:", targetBubble);
             if (targetBubble) {
               // 見つかった本物のセリフ要素だけをピンポイントで揺らす！
               hitShake(targetBubble);
