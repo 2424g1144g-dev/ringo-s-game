@@ -468,7 +468,12 @@ window.addEventListener("keydown", (e) => {
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
-            hitShake();
+            const elementsAtPoint = document.elementsFromPoint(cX, cY);
+            const targetBubble = elementsAtPoint.find(el => el.classList.contains("real"));
+            if (targetBubble) {
+              // 見つかった本物のセリフ要素だけをピンポイントで揺らす！
+              hitShake(targetBubble);
+            }
             setTimeout(() => {
               bullet.style.opacity = 1;
               bulletEnter = true;
@@ -487,9 +492,10 @@ window.addEventListener("keydown", (e) => {
   }
 })
 
-function hitShake() {
-  const shakeText = document.querySelectorAll("real");
-  shakeText.classList.remove("hit-hit");
-  void shakeText.offsetWidth;
-  shakeText.classList.add("hit-hit");
+function hitShake(el) {
+  if (!el) return;
+  el.classList.add("hit-hit");
+  setTimeout(() => {
+    el.classList.remove("hit-hit");
+  })
 }

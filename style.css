@@ -1270,3 +1270,22 @@ canvas.debate-mode {
   90%  { transform: translate(2px, -1px); }
   100% { transform: translate(0, 0) rotate(0deg); }
 }
+
+
+.serif-bubble.real {
+  position: absolute;
+  font-family: "NDSerif2";
+  font-size: 65px;
+  color: white;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 38000;
+  -webkit-text-stroke: 2px black;
+  line-height: 1.1;
+  transition: opacity 0.3s linear, top 0.05s ease-out, left 0.05s ease-out;
+}
+
+.serif-bubble.hit-hit {
+  margin-left: -10px !important;
+  margin-top: 5px !important;
+}
