@@ -369,6 +369,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 let isOverlapping = false;
 let isweak = false;
 let isagree = false;
+let currentOverlappingBubble = null;
 function checkCollision () {
   const crosshair = document.getElementById("crosshairContainer");
   const bubbles = document.querySelectorAll(".serif-bubble");
@@ -376,10 +377,13 @@ function checkCollision () {
   const cRect = crosshair.getBoundingClientRect();
   const cX = cRect.left + cRect.width / 2;
   const cY = cRect.top + cRect.height / 2;
+  isOverlapping = false;
+  currentOverlappingBubble = null;
   bubbles.forEach(bubble => {
     const bRect = bubble.getBoundingClientRect();
     if (cX >= bRect.left && cX <= bRect.right && cY >= bRect.top && cY <= bRect.bottom) {
       isOverlapping = true;
+      currentOverlappingBubble = bubble;
     } else {
       isOverlapping = false;
     }
@@ -465,6 +469,11 @@ window.addEventListener("keydown", (e) => {
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
             container.classList.add("refrect");
+            if (currentOverlappingBubble) {
+              currentOverlappingBubble.classList.remove("hit-hit");
+              void currentOverlappingBubble.offsetWidth; // アニメーション巻き戻し
+              currentOverlappingBubble.classList.add("hit-hit");
+            }
             setTimeout(() => {
               bullet.style.opacity = 1;
               bulletEnter = true;
