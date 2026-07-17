@@ -318,7 +318,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
 
   const newSerif = document.createElement("div");
   newSerif.className = "serif-bubble";
-  newSerif.innerHTML = `<div class="shake-layer"${htmlContent}</div>`;
+  newSerif.innerHTML = htmlContent;
   newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
   
