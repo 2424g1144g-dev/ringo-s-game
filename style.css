@@ -916,6 +916,7 @@ canvas.debate-mode {
   position: relative;         /* 内部の要素を絶対配置するための基準 */
   box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.8); /* 立体的な影 */
   margin-bottom: -3px;
+  z-index: 30000;
 }
 
 /* 2. アイコン（ボックス内部の右側に固定配置） */
