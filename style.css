@@ -901,20 +901,23 @@ canvas.debate-mode {
   transition: right 0.15s linear;
 }
 #gauge-container {
-  width: 400px;
-  transform: rotate(-4deg); /* 全体を右上がりに傾ける */
+  position: absolute;
+  left: 872px;
+  top: 66px;
+  width: 350px;
   z-index: 30000;
+  rotate: 10deg;
 }
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
 .gauge-row {
-  width: 25%;
+  width: 100%;
   height: 25px;
   background-color: #000;
   border: 2px solid #fff;     /* border白色 */
   box-sizing: border-box;
   position: relative;         /* 内部の要素を絶対配置するための基準 */
-  box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.8); /* 立体的な影 */
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8); /* 立体的な影 */
   margin-bottom: -3px;
   z-index: 30000;
 }
