@@ -969,6 +969,15 @@ canvas.debate-mode {
   background-color: #00bfff; /* ネオンブルー */
 }
 
+@keyframes blink-mental {
+  0% {background-color: #00bfff;}
+  50% {background-color: #b6efff;}
+  100% {background-color: #00bfff;}
+}
+.mental-color.is-decreasing {
+  animation: blink-mental 0.15s linear infinite;
+}
+
 #nonstopDebateUI.show #NDprocessContainer {
   right: -347px;
 }

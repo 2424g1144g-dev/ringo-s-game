@@ -48,10 +48,16 @@ window.nonstopDebate1 = async function () {
   currentDebateTime = 180000; 
   gameSpeed = 1.0;
 
+
+  const mentalBar = document.getElementById("mental-bar");
+  let mental = 100;
+  let isDecreasing = false;
   const handleKeyDown = (e) => {
     // Zキー（小文字・大文字両対応）が押されたらスロー（0.3倍速）にする
     if (e.key === "z" || e.key === "Z" && zPush) {
       gameSpeed = 0.3; // 💡 本家風の絶妙なスロー倍率
+      isDecreasing = true;
+      mentalBar.classList.add("is-decreasing");
     }
   };
 
@@ -59,6 +65,8 @@ window.nonstopDebate1 = async function () {
     // Zキーが離されたら元の速度（1.0倍速）に戻す
     if (e.key === "z" || e.key === "Z" && zPush) {
       gameSpeed = 1.0;
+      isDecreasing = false;
+      mentalBar.classList.remove("is-decreasing");
     }
   };
 
@@ -79,6 +87,17 @@ window.nonstopDebate1 = async function () {
 
     if (typeof window.updateTimerUI === "function") {
       window.updateTimerUI(currentDebateTime);
+    }
+
+    if(!isDecreasing && mentalBar) {
+      mental -= realDelta * 0.015;
+      if (mental <= 0) {
+        mental = 0;
+        gameSpeed = 1.0;
+        isDecreasing = false;
+        mentalBar.classList.remove("is-decreasing");
+      }
+      mentalBar.style.width = `${mental}%`;
     }
 
     if (currentDebateTime <= 0) {
