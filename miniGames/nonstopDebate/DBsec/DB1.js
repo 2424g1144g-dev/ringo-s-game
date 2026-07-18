@@ -59,10 +59,6 @@ window.nonstopDebate1 = async function () {
     if (e.key === "z" || e.key === "Z" && zPush) {
       // 💡 すでに減少中、またはメンタルが0なら、OSの連打信号はすべてスルーする
       if (isDecreasing || mental <= 0) return;
-      if (mentalBar) {
-        mentalBar.style.transition = "none";
-        mentalBar.style.animation = "none"; // 過去のアニメーションの残滓をクリア
-      }
 
       gameSpeed = 0.3;      
       isDecreasing = true;
