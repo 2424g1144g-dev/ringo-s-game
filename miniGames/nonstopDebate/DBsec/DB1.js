@@ -55,28 +55,32 @@ window.nonstopDebate1 = async function () {
   let timeSinceKeyRelease = 0;
   const handleKeyDown = (e) => {
     if (signal.aborted) return;
-    if (e.repeat) return;
-    // Zキー（小文字・大文字両対応）が押されたらスロー（0.3倍速）にする
-    if (e.key === "z" || e.key === "Z" && zPush) {
-      if (mental <= 0) return;
-      gameSpeed = 0.3; // 💡 本家風の絶妙なスロー倍率
-      isDecreasing = true;
-      if (mentalBar) mentalBar.classList.add("is-decreasing");
+
+    if (e.key === "z" || e.key === "Z") {
+      // 💡 すでに減少中、またはメンタルが0なら、OSの連打信号はすべてスルーする
+      if (isDecreasing || mental <= 0) return;
+
+      gameSpeed = 0.3;      
+      isDecreasing = true;  
+      if (mentalBar) mentalBar.classList.add("is-decreasing"); 
     }
   };
 
   const handleKeyUp = (e) => {
     if (signal.aborted) return;
-    // Zキーが離されたら元の速度（1.0倍速）に戻す
-    if (e.key === "z" || e.key === "Z" && zPush) {
-      if (!isDecreasing) {
-        timeSinceKeyRelease = 0;
-        return;
-      }
-      gameSpeed = 1.0;
-      isDecreasing = false;
-      if (mentalBar) mentalBar.classList.remove("is-decreasing");
-      timeSinceKeyRelease = 0;
+
+    if (e.key === "z" || e.key === "Z") {
+      // ★ここが最大の修正ポイント！
+      // もしすでに0になって自動解除されているなら、指を離してもタイマー（timeSinceKeyRelease）を0にリセットしない！
+      // これにより、減りきった後にZを離しても回復が途切れなくなります。
+      if (!isDecreasing) return;
+
+      gameSpeed = 1.0;      
+      isDecreasing = false; 
+      if (mentalBar) mentalBar.classList.remove("is-decreasing"); 
+      
+      // 減少中に意図的に指を離したときだけ、ここから1秒を数え始める
+      timeSinceKeyRelease = 0; 
     }
   };
 
