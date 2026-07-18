@@ -52,7 +52,10 @@ window.nonstopDebate1 = async function () {
   const mentalBar = document.getElementById("mental-bar");
   let mental = 100;
   let isDecreasing = false;
+  let timeSinceKeyRelease = 0;
   const handleKeyDown = (e) => {
+    if (signal.aborted) return;
+    if (e.repeat) return;
     // Zキー（小文字・大文字両対応）が押されたらスロー（0.3倍速）にする
     if (e.key === "z" || e.key === "Z" && zPush) {
       gameSpeed = 0.3; // 💡 本家風の絶妙なスロー倍率
@@ -62,11 +65,13 @@ window.nonstopDebate1 = async function () {
   };
 
   const handleKeyUp = (e) => {
+    if (signal.aborted) return;
     // Zキーが離されたら元の速度（1.0倍速）に戻す
     if (e.key === "z" || e.key === "Z" && zPush) {
       gameSpeed = 1.0;
       isDecreasing = false;
       mentalBar.classList.remove("is-decreasing");
+      timeSinceKeyRelease = 0;
     }
   };
 
@@ -89,13 +94,21 @@ window.nonstopDebate1 = async function () {
       window.updateTimerUI(currentDebateTime);
     }
 
-    if(!isDecreasing && mentalBar) {
-      mental -= realDelta * 0.015;
-      if (mental <= 0) {
-        mental = 0;
-        gameSpeed = 1.0;
-        isDecreasing = false;
-        mentalBar.classList.remove("is-decreasing");
+    if(mentalBar) {
+      if (isDecreasing) {
+        mental -= realDelta * 0.015;
+        if (mental <= 0) {
+          mental = 0;
+          gameSpeed = 1.0;
+          isDecreasing = false;
+          mentalBar.classList.remove("is-decreasing");
+        }
+      } else {
+        timeSinceKeyRelease += realDelta;
+        if (timeSinceKeyRelease >= 1000 && mental < 100) {
+          mental += realDelta * 0.01;
+          if (mental > 100) mental = 100;
+        }
       }
       mentalBar.style.width = `${mental}%`;
     }
