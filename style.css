@@ -956,8 +956,6 @@ canvas.debate-mode {
   /* 左に向かって伸びる（widthが100%のとき、ボックスの左端の枠線一歩手前まで届く） */
   /* 左側の枠線（3px）に被らないよう、最大幅をcalcで調整 */
   max-width: calc(100% - 42px); 
-  
-  transition: width 0.3s ease-out; /* ダメージ時のアニメーション */
 }
 
 /* 4. バーの色指定（確実に染める） */
