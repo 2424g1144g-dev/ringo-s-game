@@ -907,14 +907,14 @@ canvas.debate-mode {
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
 .gauge-row {
-  width: 100%;
-  height: 32px;
+  width: 25%;
+  height: 30px;
   background-color: #000;
   border: 3px solid #fff;     /* border白色 */
   box-sizing: border-box;
   position: relative;         /* 内部の要素を絶対配置するための基準 */
   box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.8); /* 立体的な影 */
-  margin-bottom: 12px;
+  margin-bottom: -3px;
 }
 
 /* 2. アイコン（ボックス内部の右側に固定配置） */
@@ -929,6 +929,9 @@ canvas.debate-mode {
   user-select: none;
   z-index: 2;                /* バーより手前に表示 */
 }
+.gauge-icon.health {
+  font-size: 24px;
+}
 
 /* 3. 伸び縮みするバーの共通設定 */
 .gauge-bar {
@@ -938,8 +941,8 @@ canvas.debate-mode {
   right: 35px; 
   
   /* 上下の位置を4pxに固定することで、枠線（3px）と絶対に被らない */
-  top: 4px;
-  bottom: 4px;
+  top: 8px;
+  bottom: 8px;
   
   /* 左に向かって伸びる（widthが100%のとき、ボックスの左端の枠線一歩手前まで届く） */
   /* 左側の枠線（3px）に被らないよう、最大幅をcalcで調整 */
@@ -956,7 +959,6 @@ canvas.debate-mode {
 .mental-color {
   background-color: #00bfff; /* ネオンブルー */
 }
-
 
 #nonstopDebateUI.show #NDprocessContainer {
   right: -347px;
