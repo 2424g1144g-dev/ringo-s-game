@@ -56,20 +56,28 @@ window.nonstopDebate1 = async function () {
   const handleKeyDown = (e) => {
     if (signal.aborted) return;
 
-    if (e.key === "z" || e.key === "Z") {
+    if (e.key === "z" || e.key === "Z" && zPush) {
       // 💡 すでに減少中、またはメンタルが0なら、OSの連打信号はすべてスルーする
       if (isDecreasing || mental <= 0) return;
+      if (mentalBar) {
+        mentalBar.style.transition = "none";
+        mentalBar.style.animation = "none"; // 過去のアニメーションの残滓をクリア
+      }
 
       gameSpeed = 0.3;      
-      isDecreasing = true;  
-      if (mentalBar) mentalBar.classList.add("is-decreasing"); 
+      isDecreasing = true;
+      mental -= -0.1;  
+      if (mentalBar) {
+        mentalBar.style.width = `${mental}%`;
+        mentalBar.classList.add("is-decreasing");
+      }
     }
   };
 
   const handleKeyUp = (e) => {
     if (signal.aborted) return;
 
-    if (e.key === "z" || e.key === "Z") {
+    if (e.key === "z" || e.key === "Z" && zPush) {
       // ★ここが最大の修正ポイント！
       // もしすでに0になって自動解除されているなら、指を離してもタイマー（timeSinceKeyRelease）を0にリセットしない！
       // これにより、減りきった後にZを離しても回復が途切れなくなります。
