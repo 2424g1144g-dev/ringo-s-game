@@ -903,6 +903,7 @@ canvas.debate-mode {
 #gauge-container {
   width: 400px;
   transform: rotate(-4deg); /* 全体を右上がりに傾ける */
+  z-index: 30000;
 }
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
