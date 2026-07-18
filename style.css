@@ -901,66 +901,62 @@ canvas.debate-mode {
   transition: right 0.15s linear;
 }
 #gauge-container {
-      background-color: transparent; /* 背景は透明に */
-      display: flex;
-      flex-direction: column;
-      gap: 12px; /* ゲージ同士の隙間 */
-      width: 400px;
-      
-      transform: rotate(-4deg); /* V3風の右上がり傾き */
-    }
+  width: 400px;
+  transform: rotate(-4deg); /* 全体を右上がりに傾ける */
+}
 
-    /* ゲージの土台（白いしっかりしたフチと黒背景） */
-    .gauge-row {
-      background-color: #000;
-      border: 3px solid #fff;
-      height: 24px;
-      padding: 2px; /* エッジの被りを防ぐ内側の隙間 */
-      position: relative;
-      overflow: hidden; /* 中身がはみ出さないように */
-      
-      /* 立体的な黒い影 */
-      box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.8);
-    }
+/* 1. ベースとなる長方形（白枠・黒背景） */
+.gauge-row {
+  width: 100%;
+  height: 32px;
+  background-color: #000;
+  border: 3px solid #fff;     /* border白色 */
+  box-sizing: border-box;
+  position: relative;         /* 内部の要素を絶対配置するための基準 */
+  box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.8); /* 立体的な影 */
+  margin-bottom: 12px;
+}
 
-    /* ゲージの中身（ここがポイント！） */
-    .gauge-fill {
-      height: 100%;
-      transition: width 0.3s ease-out;
-      
-      /* アイコンをこのゲージの右端に配置するために flex を使う */
-      display: flex;
-      align-items: center;
-      justify-content: flex-end; /* 常に右端（先端）に寄せる */
-    }
+/* 2. アイコン（ボックス内部の右側に固定配置） */
+.gauge-icon {
+  position: absolute;
+  right: 10px;               /* 右側からの距離 */
+  top: 50%;
+  transform: translateY(-50%) rotate(4deg); /* 上下中央揃え ＋ 全体の傾きを打ち消す */
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  user-select: none;
+  z-index: 2;                /* バーより手前に表示 */
+}
 
-    /* 個別の色指定 */
-    .health-fill {
-      background-color: #ff00ff; /* ビビッドピンク */
-    }
-    .mental-fill {
-      background-color: #00bfff; /* ネオンブルー */
-    }
+/* 3. 伸び縮みするバーの共通設定 */
+.gauge-bar {
+  position: absolute;
+  
+  /* ★ここがポイント！起点（0%）をアイコンのすぐ左（右から35pxの位置）にする */
+  right: 35px; 
+  
+  /* 上下の位置を4pxに固定することで、枠線（3px）と絶対に被らない */
+  top: 4px;
+  bottom: 4px;
+  
+  /* 左に向かって伸びる（widthが100%のとき、ボックスの左端の枠線一歩手前まで届く） */
+  /* 左側の枠線（3px）に被らないよう、最大幅をcalcで調整 */
+  max-width: calc(100% - 42px); 
+  
+  transition: width 0.3s ease-out; /* ダメージ時のアニメーション */
+}
 
-    /* アイコンの設定 */
-    .gauge-icon {
-      margin-right: 8px; /* ゲージの先端から少し内側に離す */
-      user-select: none;
-      font-weight: bold;
-      
-      /* 全体が傾いているので、文字が歪まないように逆に少し戻す */
-      transform: rotate(4deg); 
-    }
+/* 4. バーの色指定（確実に染める） */
+.health-color {
+  background-color: #ff00ff; /* ビビッドピンク */
+}
 
-    /* アイコンの文字色は、ゲージが満タンになった時に背景と同化しないよう「白」にする */
-    .icon-heart {
-      color: #fff; 
-      font-size: 16px;
-    }
-    .icon-star {
-      color: #fff;
-      font-size: 20px; /* 星のサイズ微調整 */
-    }
+.mental-color {
+  background-color: #00bfff; /* ネオンブルー */
+}
+
 
 #nonstopDebateUI.show #NDprocessContainer {
   right: -347px;
