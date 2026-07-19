@@ -53,6 +53,7 @@ window.nonstopDebate1 = async function () {
   let mental = 100;
   let isDecreasing = false;
   let timeSinceKeyRelease = 0;
+  const overlay = document.getElementById("concentration-overlay");
   const handleKeyDown = (e) => {
     if (signal.aborted) return;
 
@@ -63,6 +64,7 @@ window.nonstopDebate1 = async function () {
       gameSpeed = 0.3;      
       isDecreasing = true;  
       if (mentalBar) mentalBar.classList.add("is-decreasing"); 
+      if (overlay) overlay.classList.add("is-active");
     }
   };
 
@@ -78,9 +80,9 @@ window.nonstopDebate1 = async function () {
       gameSpeed = 1.0;      
       isDecreasing = false; 
       if (mentalBar) mentalBar.classList.remove("is-decreasing"); 
-      
       // 減少中に意図的に指を離したときだけ、ここから1秒を数え始める
-      timeSinceKeyRelease = 0; 
+      timeSinceKeyRelease = 0;
+      if (overlay) overlay.classList.remove("is-active");
     }
   };
 
