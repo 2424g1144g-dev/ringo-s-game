@@ -113,6 +113,7 @@ window.nonstopDebate1 = async function () {
           gameSpeed = 1.0;
           isDecreasing = false;
           if (mentalBar) mentalBar.classList.remove("is-decreasing");
+          if (overlay) overlay.classList.remove("is-active");
           timeSinceKeyRelease = 0;
         }
       } else {
