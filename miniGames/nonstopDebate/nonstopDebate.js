@@ -480,7 +480,7 @@ window.addEventListener("keydown", (e) => {
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
-
+              window.moveCameraPromise({to: {toX: 0, toY: 35, toZ: 0}, toFov: 35 , fovSpeed: 1, speed: 100, yaw: -45, pitch: -35, rotSpeed: 0.2, duration: 500}, signal);
               // 💥【rAF完全同期・文字爆破ロジック】
               const originalText = currentOverlappingBubble.innerText; 
               currentOverlappingBubble.innerHTML = ""; 
