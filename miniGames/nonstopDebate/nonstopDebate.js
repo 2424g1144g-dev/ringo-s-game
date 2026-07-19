@@ -526,7 +526,7 @@ window.addEventListener("keydown", (e) => {
 
                 if (progress >= 1) {
                   // 寿命が来たら要素ごと完全に消去
-                  currentOverlappingBubble.remove();
+                  if (currentOverlappingBubble) currentOverlappingBubble.remove();
                   return;
                 }
 
