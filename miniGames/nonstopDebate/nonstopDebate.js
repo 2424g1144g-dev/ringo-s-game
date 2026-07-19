@@ -478,7 +478,7 @@ window.addEventListener("keydown", (e) => {
           if (isweak) {
             const correct = currentOverlappingBubble.dataset.correctKotodama;
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
-            if (firedKotodma === correct) {
+            if (firedKotodama === correct) {
               alert("それは違うよ！！")
             } else {
               alert("あほあほあほあほ！！")
