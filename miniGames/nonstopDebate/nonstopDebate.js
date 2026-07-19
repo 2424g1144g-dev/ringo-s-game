@@ -480,40 +480,80 @@ window.addEventListener("keydown", (e) => {
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
-              const originalText = currentOverlappingBubble.innerText;
-              currentOverlappingBubble.innerHTML = "";
+              alert("それは違うよ！"); 
+
+              // 💥【rAF完全同期・文字爆破ロジック】
+              const originalText = currentOverlappingBubble.innerText; 
+              currentOverlappingBubble.innerHTML = ""; 
               currentOverlappingBubble.classList.add("is-broken");
+
+              // 1文字ずつの物理データを格納する配列
+              const shards = [];
+
               [...originalText].forEach((char) => {
                 if (char.trim() === "") {
                   currentOverlappingBubble.appendChild(document.createTextNode(char));
                   return;
                 }
+
                 const span = document.createElement("span");
                 span.className = "broken-char";
                 span.textContent = char;
-                const angle = Math.random() * Math.PI * 2;   // 360度ランダムな方向
-                const distance = 120 + Math.random() * 180;   // 吹き飛ぶ距離（120px〜300px）
-                
-                const moveX = Math.cos(angle) * distance;
-                const moveY = Math.sin(angle) * distance + 150; // 重力で少し下に落ちるように+150
-                const rotateDeg = (Math.random() - 0.5) * 540;  // 回転角度（-270度〜270度）
-
-                // CSSにランダムな数値を渡す
-                span.style.setProperty('--landX', `0px`); // 他の干渉を防ぐリセット
-                span.style.setProperty('--x', `${moveX}px`);
-                span.style.setProperty('--y', `${moveY}px`);
-                span.style.setProperty('--rot', `${rotateDeg}deg`);
-                
-                // ほんのわずかに発動をズラしてバラバラ感をリアルにする
-                span.style.animationDelay = `${Math.random() * 0.04}s`;
-
                 currentOverlappingBubble.appendChild(span);
+
+                // 360度ランダムな方向への初速を計算
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 4 + Math.random() * 6; // 飛び散る勢い
+
+                // この文字固有の物理ステータスを記憶
+                shards.push({
+                  element: span,
+                  x: 0,        // 現在のXズレ
+                  y: 0,        // 現在のYズレ
+                  vx: Math.cos(angle) * speed, // X速度
+                  vy: Math.sin(angle) * speed - 2, // Y速度（ちょっと上に跳ね上げる）
+                  rot: 0,      // 現在の角度
+                  vrot: (Math.random() - 0.5) * 15 // 回転速度
+                });
               });
 
-              // 演出が終わったらセリフ要素を完全に画面から消去
-              setTimeout(() => {
-                currentOverlappingBubble.remove();
-              }, 900);
+              // セリフ全体の寿命（800msで消滅）
+              const shatterDuration = 800;
+              const startTime = performance.now();
+
+              function updateShatterLoop(now) {
+                const elapsed = now - startTime;
+                const progress = elapsed / shatterDuration;
+
+                if (progress >= 1) {
+                  // 寿命が来たら要素ごと完全に消去
+                  currentOverlappingBubble.remove();
+                  return;
+                }
+
+                // 残り時間に合わせてじわじわ透明にする（不透明度 1.0 〜 0.0）
+                const opacity = 1 - progress;
+
+                shards.forEach((shard) => {
+                  // 1. 速度を位置に足し算する
+                  shard.x += shard.vx;
+                  shard.y += shard.vy;
+                  shard.rot += shard.vrot;
+
+                  // 2. 重力をちょっとだけ加える（自然に放物線を描いて落ちる）
+                  shard.vy += 0.2; 
+
+                  // 3. 画面に反映（translateのズレが絶対ブレない）
+                  shard.element.style.transform = `translate(${shard.x}px, ${shard.y}px) rotate(${shard.rot}deg)`;
+                  shard.element.style.opacity = opacity;
+                });
+
+                requestAnimationFrame(updateShatterLoop);
+              }
+
+              // 💥 元のセリフが持っていた updateTimerLoop 内での軌道計算（behaviorFunc）を
+              // 完全にストップさせるため、behaviorFuncの実行を実質上書きしてこのrAFループを最優先にします。
+              requestAnimationFrame(updateShatterLoop);
             } else {
               alert("あほあほあほあほ！！")
             }
