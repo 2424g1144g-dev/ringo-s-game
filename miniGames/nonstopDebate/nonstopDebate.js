@@ -482,7 +482,7 @@ window.addEventListener("keydown", (e) => {
               console.log("それは違うよ！");
               const originalText = currentOverlappingBubble.innerText;
               currentOverlappingBubble.innerHTML = "";
-              currentOverlappingBubble.classList.add(is-broken);
+              currentOverlappingBubble.classList.add("is-broken");
               [...originalText].forEach((char) => {
                 if (char.trim() === "") {
                   currentOverlappingBubble.appendChild(document.createTextNode(char));
