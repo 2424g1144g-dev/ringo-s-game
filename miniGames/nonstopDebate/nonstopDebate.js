@@ -479,7 +479,41 @@ window.addEventListener("keydown", (e) => {
             const correct = currentOverlappingBubble.dataset.correctKotodama;
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
-              alert("それは違うよ！！")
+              console.log("それは違うよ！");
+              const originalText = currentOverlappingBubble.innerText;
+              currentOverlappingBubble.innerHTML = "";
+              currentOverlappingBubble.classList.add(is-broken);
+              [...originalText].forEach((char) => {
+                if (char.trim() === "") {
+                  currentOverlappingBubble.appendChild(document.createTextNode(char));
+                  return;
+                }
+                const span = document.createElement("span");
+                span.className = "broken-char";
+                span.textContent = char;
+                const angle = Math.random() * Math.PI * 2;   // 360度ランダムな方向
+                const distance = 120 + Math.random() * 180;   // 吹き飛ぶ距離（120px〜300px）
+                
+                const moveX = Math.cos(angle) * distance;
+                const moveY = Math.sin(angle) * distance + 150; // 重力で少し下に落ちるように+150
+                const rotateDeg = (Math.random() - 0.5) * 540;  // 回転角度（-270度〜270度）
+
+                // CSSにランダムな数値を渡す
+                span.style.setProperty('--landX', `0px`); // 他の干渉を防ぐリセット
+                span.style.setProperty('--x', `${moveX}px`);
+                span.style.setProperty('--y', `${moveY}px`);
+                span.style.setProperty('--rot', `${rotateDeg}deg`);
+                
+                // ほんのわずかに発動をズラしてバラバラ感をリアルにする
+                span.style.animationDelay = `${Math.random() * 0.04}s`;
+
+                currentOverlappingBubble.appendChild(span);
+              });
+
+              // 演出が終わったらセリフ要素を完全に画面から消去
+              setTimeout(() => {
+                currentOverlappingBubble.remove();
+              }, 900);
             } else {
               alert("あほあほあほあほ！！")
             }
