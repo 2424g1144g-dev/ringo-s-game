@@ -312,7 +312,7 @@ window.serifBehaviors = {
     }
   },
 };
-window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, duration = 4000) {
+window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behaviorFunc, correctKotodama, failDialogId, duration = 4000) {
   const screen = document.getElementById("debate-screen");
   if (!screen) return;
 
@@ -321,6 +321,8 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
   newSerif.innerHTML = htmlContent;
   newSerif.style.left = leftPercent + "%";
   newSerif.style.top = topPercent + "%";
+  newSerif.dataset.correctKotodama = correctKotodama || "";
+  newSerif.dataset.failDialogId = failDialogId || "";
   
   newSerif.style.opacity = "0";
   screen.appendChild(newSerif);
@@ -429,6 +431,7 @@ window.addEventListener("keydown", (e) => {
     crosshairOperate = false;
     rough = false;
     cylinderShift = false;
+    const firedKotodama = bulletNum[currentBulletIndex];
     playSE("shot");
     setTimeout(() => {
       playSE("bulletFalling");
@@ -473,7 +476,13 @@ window.addEventListener("keydown", (e) => {
           }, 0)
         } else {
           if (isweak) {
-            alert("それは違うよ！");
+            const correct = currentOverlappingBubble.dataset.correctKotodama;
+            const failDialogId = currentOverlappingBubble.dataset.failDialogId;
+            if (firedKotodma === correct) {
+              alert("それは違うよ！！")
+            } else {
+              alert("あほあほあほあほ！！")
+            }
           } else if (isagree) {
             alert("それに賛成だ！")
           } else {
