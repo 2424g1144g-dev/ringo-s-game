@@ -481,10 +481,10 @@ window.addEventListener("keydown", (e) => {
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
-              cameraMove({to: {toX: 0, toY: 25, toZ: 0}, speed: 0.01, toFov: 5, fovSpeed: 1 , yaw: 135, roll: 30, rotSpeed: 0.03});
+              cameraMove({to: {toX: 0, toY: 25, toZ: 0}, speed: 2, toFov: 5, fovSpeed: 1 , yaw: 135, roll: 30, rotSpeed: 0.03});
               setTimeout(() => {
                 cameraMove({to: {toX: 0, toY: 23, toZ: 0}, speed: 2, toFov: 60, fovSpeed: 0.08, yaw: 135, roll: -15, rotSpeed: 0.005});
-              }, 300)
+              }, 500)
               // 💥【rAF完全同期・文字爆破ロジック】
               const originalText = currentOverlappingBubble.innerText; 
               currentOverlappingBubble.innerHTML = ""; 
