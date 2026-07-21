@@ -482,7 +482,7 @@ window.addEventListener("keydown", (e) => {
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
               cameraMove({
-                to: { toX: 0, toY: 25, toZ: 0 }, 
+                to: { toX: 0, toY: 20, toZ: 0 }, 
                 speed: 0.8,         // 💡 0.01だと遅すぎるので、一気に近づく強さに（0.5〜1.0あたりがベスト）
                 toFov: 25,          // 💡 FOV 5 は引き締まりすぎるので、25〜35くらいが本家っぽいです
                 fovSpeed: 1.5,      // 💡 位置の速さに負けないようにズームもキビキビ動かす
