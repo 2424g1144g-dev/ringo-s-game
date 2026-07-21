@@ -480,7 +480,7 @@ window.addEventListener("keydown", (e) => {
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
-              cameraMove({to: {toX: 0, toY: 26, toZ: 0}, speed: 2, toFov: 20, fovSpeed: 0.08 , yaw: 135, roll: 30, rotSpeed: 0.03});
+              cameraMove({to: {toX: 0, toY: 25, toZ: 0}, speed: 2, toFov: 20, fovSpeed: 0.08 , yaw: 135, roll: 30, rotSpeed: 0.03});
               setTimeout(() => {
                 cameraMove({to: {toX: 0, toY: 23, toZ: 0}, speed: 2, toFov: 60, fovSpeed: 0.05, yaw: 135, roll: -15, rotSpeed: 0.03});
               }, 300)
