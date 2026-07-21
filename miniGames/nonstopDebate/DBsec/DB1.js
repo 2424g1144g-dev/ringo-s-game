@@ -156,6 +156,9 @@ window.nonstopDebate1 = async function () {
       window.spawnFlexibleSerif("現場は<span class='weak-target'>体育館</span>でしたよね？",10, 50, window.serifBehaviors.linearRight, "none", "仮", 3000);
       window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Normal.png");
       await window.moveCameraPromise({to: {toX: -10, toY: 25, toZ: 7},toFov: 30, fovSpeed: 999, speed: 1, yaw: 75, rotSpeed: 0.1,duration: 3000}, signal);
+      if (signal.aborted) {
+        break;
+      }
 
       await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 60, fovSpeed: 1, speed: 100, yaw: 132, rotSpeed: 5, duration: 500}, signal);
 
@@ -166,6 +169,9 @@ window.nonstopDebate1 = async function () {
 
       window.spawnFlexibleSerif("<span class='weak-target'>オカモト先生が書いた</span>退職届が<br>落ちていましたね！", 50, 60, window.serifBehaviors.bangAndShake, "シノハラの証言", null, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 26, toZ: 0}, toFov: 15, fovSpeed: 1, speed: 100, yaw: 135, roll: 20, rotSpeed: 5, duration: 500}, signal);
+      if (signal.aborted) {
+        break;
+      }
 
       window.changeStandInExpression("KENTO", "assets/three/characters/KENTO/Kento_Explain.png");
       await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 25, fovSpeed: 0.1, speed: 100, yaw: 135, roll: 0, rotSpeed: 0.2, duration: 2700}, signal);

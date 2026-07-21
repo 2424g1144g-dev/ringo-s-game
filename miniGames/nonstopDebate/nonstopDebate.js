@@ -476,6 +476,7 @@ window.addEventListener("keydown", (e) => {
           }, 0)
         } else {
           if (isweak) {
+            debateController.abort();
             const correct = currentOverlappingBubble.dataset.correctKotodama;
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
@@ -557,6 +558,7 @@ window.addEventListener("keydown", (e) => {
               // 完全にストップさせるため、behaviorFuncの実行を実質上書きしてこのrAFループを最優先にします。
               requestAnimationFrame(updateShatterLoop);
             } else {
+              debateController.abort();
               alert("あほあほあほあほ！！")
             }
           } else if (isagree) {
