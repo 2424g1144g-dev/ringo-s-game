@@ -481,10 +481,28 @@ window.addEventListener("keydown", (e) => {
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
-              cameraMove({to: {toX: 0, toY: 25, toZ: 0}, speed: 2, toFov: 5, fovSpeed: 1 , yaw: 135, roll: 30, rotSpeed: 0.03});
+              cameraMove({
+                to: { toX: 0, toY: 25, toZ: 0 }, 
+                speed: 0.8,         // 💡 0.01だと遅すぎるので、一気に近づく強さに（0.5〜1.0あたりがベスト）
+                toFov: 25,          // 💡 FOV 5 は引き締まりすぎるので、25〜35くらいが本家っぽいです
+                fovSpeed: 1.5,      // 💡 位置の速さに負けないようにズームもキビキビ動かす
+                yaw: 135, 
+                roll: 30,           // 💡 画面を右に30度傾ける
+                rotSpeed: 1.5       // 💡 角度も一瞬で 30度傾けたいので、速度を大幅にアップ！
+              });
+
+              // 2つ目のカメラ：そこから反動をつけて、今度は逆方向に傾きながらじわーっと元の画角に戻っていく
               setTimeout(() => {
-                cameraMove({to: {toX: 0, toY: 23, toZ: 0}, speed: 2, toFov: 60, fovSpeed: 0.8, yaw: 135, roll: -15, rotSpeed: 0.005});
-              }, 500)
+                cameraMove({
+                  to: { toX: 0, toY: 23, toZ: 0 }, 
+                  speed: 0.1,        // 💡 戻るときは「じわ〜っ」と余韻を残して戻る（等速なので小さめでOK）
+                  toFov: 60,         // 元の画角（60）に戻す
+                  fovSpeed: 0.8,     // じわっと戻す
+                  yaw: 135, 
+                  roll: -15,         // 💡 今度は逆に左に15度傾けて、カメラの「揺り戻し」を表現
+                  rotSpeed: 0.05     // 回転もじわっと戻す
+                });
+              }, 250);
               // 💥【rAF完全同期・文字爆破ロジック】
               const originalText = currentOverlappingBubble.innerText; 
               currentOverlappingBubble.innerHTML = ""; 
