@@ -482,13 +482,12 @@ window.addEventListener("keydown", (e) => {
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
               cameraMove({
-                to: { toX: 0, toY: 23, toZ: 0 }, 
                 speed: 0.8,         // 💡 0.01だと遅すぎるので、一気に近づく強さに（0.5〜1.0あたりがベスト）
                 toFov: 10,          // 💡 FOV 5 は引き締まりすぎるので、25〜35くらいが本家っぽいです
                 fovSpeed: 1.5,      // 💡 位置の速さに負けないようにズームもキビキビ動かす
                 yaw: 135, 
                 roll: 30,           // 💡 画面を右に30度傾ける
-                rotSpeed: 1.5       // 💡 角度も一瞬で 30度傾けたいので、速度を大幅にアップ！
+                rotSpeed: 0.5// 💡 角度も一瞬で 30度傾けたいので、速度を大幅にアップ！
               });
               // 💥【rAF完全同期・文字爆破ロジック】
               const originalText = currentOverlappingBubble.innerText; 
