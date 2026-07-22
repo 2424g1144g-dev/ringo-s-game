@@ -483,7 +483,7 @@ window.addEventListener("keydown", (e) => {
               console.log("それは違うよ！");
               setTimeout(() => {
                 cameraMove({
-                  to: {toX: 0, toY: 26, toZ: 0},
+                  to: {toX: 0, toY: 23, toZ: 0},
                   speed: 0.8,         // 💡 0.01だと遅すぎるので、一気に近づく強さに（0.5〜1.0あたりがベスト）
                   toFov: 20,          // 💡 FOV 5 は引き締まりすぎるので、25〜35くらいが本家っぽいです
                   fovSpeed: 0.7,      // 💡 位置の速さに負けないようにズームもキビキビ動かす
