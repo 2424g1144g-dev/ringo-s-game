@@ -483,15 +483,26 @@ window.addEventListener("keydown", (e) => {
               console.log("それは違うよ！");
               setTimeout(() => {
                 cameraMove({
-                  to: {toX: 0, toY: 23, toZ: 0},
+                  to: {toX: 0, toY: 26, toZ: 0},
                   speed: 0.8,         // 💡 0.01だと遅すぎるので、一気に近づく強さに（0.5〜1.0あたりがベスト）
-                  toFov: 5,          // 💡 FOV 5 は引き締まりすぎるので、25〜35くらいが本家っぽいです
+                  toFov: 20,          // 💡 FOV 5 は引き締まりすぎるので、25〜35くらいが本家っぽいです
                   fovSpeed: 0.7,      // 💡 位置の速さに負けないようにズームもキビキビ動かす
                   yaw: 135, 
-                  roll: 30,           // 💡 画面を右に30度傾ける
-                  rotSpeed: 0.1// 💡 角度も一瞬で 30度傾けたいので、速度を大幅にアップ！
+                  roll: 20,           // 💡 画面を右に30度傾ける
+                  rotSpeed: 0.02// 💡 角度も一瞬で 30度傾けたいので、速度を大幅にアップ！
                 });
               }, 100)
+              setTimeout(() => {
+                cameraMove({
+                  to: {toX: 0, toY: 26, toZ: 0},
+                  speed: 0.8,
+                  toFov: 50,
+                  fovSpeed: 0.2,
+                  yaw: 135,
+                  roll: -15,
+                  rotSpeed: 0.02,
+                })
+              },400)
               // 💥【rAF完全同期・文字爆破ロジック】
               const originalText = currentOverlappingBubble.innerText; 
               currentOverlappingBubble.innerHTML = ""; 
