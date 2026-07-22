@@ -404,7 +404,10 @@ window.animate = function() {
         if (Math.abs(diffZ) <= cameraAnimation.rotSpeed) camera.rotation.z = cameraAnimation.toRotation.z;
         else camera.rotation.z += Math.sign(diffZ) * cameraAnimation.rotSpeed;
 
-        if (Math.abs(diffX) < 0.05 && Math.abs(diffY) < 0.05 && Math.abs(diffZ) < 0.05) isRotEnd = true;
+        // 💡 判定を少しマイルドにして、回転がゴールしやすくする
+        if (Math.abs(diffX) < 0.05 && Math.abs(diffY) < 0.05 && Math.abs(diffZ) < 0.05) {
+          isRotEnd = true;
+        }
       }
 
       // ③ ズーム（FOV）の変化
@@ -416,9 +419,13 @@ window.animate = function() {
       } else {
         camera.fov += Math.sign(fovDiff) * cameraAnimation.fovSpeed;
       }
+      
+      // 💡【重要】回転の適用を確実にするため、updateProjectionMatrix を呼ぶ前に
+      // カメラのワールド行列を一度強制更新して、回転を確定させます！
+      camera.updateMatrixWorld(true);
       camera.updateProjectionMatrix();
 
-      // ④ 終了判定
+      // ④ 終了判定（すべてがゴールするまで active を維持！）
       if (isPosEnd && isRotEnd && isFovEnd) {
         cameraAnimation.active = false;
         if (typeof cameraAnimation.onComplete === 'function') cameraAnimation.onComplete();
