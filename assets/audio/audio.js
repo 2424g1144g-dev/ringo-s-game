@@ -58,7 +58,6 @@ const SE = {
   select: "assets/audio/SE/select.wav",
   resume: "assets/audio/SE/resume.wav",
   dialoguePass: "assets/audio/SE/diaPass.wav",
-  confirm: "assets/audio/SE/confirm.wav",
   shotConfirm: "assets/audio/SE/shotConfirm.wav",
   shot: "assets/audio/SE/shot.wav",
   bulletFalling: "assets/audio/SE/bulletFalling.wav",
