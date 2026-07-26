@@ -62,6 +62,10 @@ canvas.debate-mode {
   font-family: "digital";
   src: url("assets/fonts/strongGamer.ttf");
 }
+@font-face {
+  font-family: "despair";
+  src: url("assets/fonts/goodbyeDespair.ttf");
+}
 
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
@@ -900,6 +904,24 @@ canvas.debate-mode {
   z-index: 19000;
   transition: right 0.15s linear;
 }
+#NDprocessMeterContainer {
+  position: absolute;
+  z-index: 19010;
+  left: 100px;
+  top: 100px;
+}
+#processMeterLine {
+  position: absolute;
+  width: 30px;
+  height: 200px;
+  background: transparent;
+  border: 2px solid white;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+
 #gauge-container {
   position: absolute;
   left: 872px;
