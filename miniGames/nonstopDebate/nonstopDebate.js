@@ -499,7 +499,7 @@ window.addEventListener("keydown", (e) => {
                   fovSpeed: 0.08,
                   yaw: 135,
                   roll: -15,
-                  rotSpeed: 0.02,
+                  rotSpeed: 0.001,
                 })
               },400)
               // 💥【rAF完全同期・文字爆破ロジック】
