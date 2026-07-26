@@ -574,6 +574,7 @@ window.addEventListener("keydown", (e) => {
               // 💥 元のセリフが持っていた updateTimerLoop 内での軌道計算（behaviorFunc）を
               // 完全にストップさせるため、behaviorFuncの実行を実質上書きしてこのrAFループを最優先にします。
               requestAnimationFrame(updateShatterLoop);
+              alert("それは違うよ！");
             } else {
               debateController.abort();
               alert("あほあほあほあほ！！")
