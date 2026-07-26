@@ -78,5 +78,6 @@ const SE = {
   nonstopDebateStart: "assets/audio/SE/nonstopDebateStart.wav",
   addBullet: "assets/audio/SE/addBullet.wav",
   bulletChange: "assets/audio/SE/bulletChange.wav",
-  refrect: "assets/audio/SE/refrect.wav"
+  refrect: "assets/audio/SE/refrect.wav",
+  throughShot: "assets/audio/SE/throughShot.wav"
 };
