@@ -1175,6 +1175,7 @@ canvas.debate-mode {
   align-items: center;
   opacity: 0;
   transition: opacity 0.7s linear;
+  filter: drop-shadow(0 0 2px #000000);
 }
 
 #crosshairCircle {
@@ -1204,7 +1205,6 @@ canvas.debate-mode {
   rotate: 90deg;
   transition: rotate 0.2s linear;
   animation: lockedAnim 0.3s linear;
-  left: 
 }
 @keyframes lockedAnim {
   0% {scale: 1;}
