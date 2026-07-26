@@ -922,12 +922,11 @@ canvas.debate-mode {
 }
 #processMeterArrow {
   position: absolute;
-  top: 300px;
-  left: 100px;
+  top: 188px;
+  left: -16px;
   font-size: 15px;
   color: white;
   z-index: 19015;
-  
 }
 
 
