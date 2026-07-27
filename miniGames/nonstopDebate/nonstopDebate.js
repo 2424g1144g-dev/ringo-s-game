@@ -478,7 +478,7 @@ window.addEventListener("keydown", (e) => {
               container.classList.remove("shotDisappear");
               text.classList.remove("flyShot");
             }, 800)
-          }, 0)
+          }, 200)
         } else {
           if (isweak) {
             debateController.abort();
