@@ -930,13 +930,14 @@ canvas.debate-mode {
 }
 #processWord {
   position: absolute;
-  top: 100px;
-  left: 0;
+  top: 90px;
+  left: -80px;
+  width: max-content;
   font-family: "despair";
   font-size: 20px;
   color: white;
   z-index: 19015;
-  rotate: 90deg;
+  rotate: -90deg;
 }
 
 
