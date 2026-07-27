@@ -1367,33 +1367,23 @@ canvas.debate-mode {
   from {opacity: 1; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(1200px) scale(4.5);}
   to { opacity: 1; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
+
 .shotDisappear {
-  /* 0.3秒で確実に発火させ、他の干渉を防ぐ */
+  /* 💡 forwards をキープしつつ、確実に0.3秒走らせる */
   animation: shotDisappear 0.3s linear forwards !important;
 }
 
-.shotDisappear {
-  animation: shotDisappearGradient 0.3s linear forwards !important;
-}
-
-@keyframes shotDisappearGradient {
-  from {
-    /* 最初は文字が全部見える状態 */
-    mask-image: linear-gradient(to right, black 100%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 100%, transparent 100%);
-    mask-size: 200% 100%;
-    -webkit-mask-size: 200% 100%;
-    mask-position: 0% 0%;
-    -webkit-mask-position: 0% 0%;
+@keyframes shotDisappear {
+  /* 💡 0% (開始) から 1% にかけて、形を維持したままアニメーションが始まっていることをブラウザに叩き込みます */
+  0% { 
+    clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); 
   }
-  to {
-    /* 0.3秒かけて、右から左へ透明な波が押し寄せて削りきる */
-    mask-image: linear-gradient(to right, black 50%, transparent 50%);
-    -webkit-mask-image: linear-gradient(to right, black 50%, transparent 50%);
-    mask-size: 200% 100%;
-    -webkit-mask-size: 200% 100%;
-    mask-position: -100% 0%;
-    -webkit-mask-position: -100% 0%;
+  1% { 
+    clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); 
+  }
+  /* 1% から 100% にかけて、右から左へシュッと削る */
+  100% { 
+    clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); 
   }
 }
 
