@@ -1349,7 +1349,6 @@ canvas.debate-mode {
   z-index: 50000;
   rotate: 45deg;
   transform-style: preserve-3d;
-  clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px);
 }
 .shotText {
   opacity: 0;

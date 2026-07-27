@@ -464,6 +464,8 @@ window.addEventListener("keydown", (e) => {
             bullet.classList.remove("launch");
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
+            container.classList.remove("shotDisappear");
+            void container.offsetWidth;
             container.classList.add("shotDisappear");
             setTimeout(() => {
               bullet.style.opacity = 1;
