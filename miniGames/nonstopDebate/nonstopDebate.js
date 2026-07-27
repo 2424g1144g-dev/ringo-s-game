@@ -632,11 +632,11 @@ window.process = function (totalSteps) {
   }
 
   // 2. メーター全体の長さ（200px）を、指定された分割数（totalSteps）で割って、1歩の大きさを出す
-  const stepSize = 200 / totalSteps;
+  const stepSize = 188 / totalSteps;
 
   // 3. 一番下（開始地点）の top 座標を指定
   // ※ メーターの一番下が top: 200px だと仮定しています。CSSに合わせて数値を調整してください。
-  const baseTop = 200; 
+  const baseTop = 188; 
 
   // 4. 「1歩の大きさ × 現在のステップ数」分だけ、基準点から上にずらす
   const finalTop = baseTop - (stepSize * currentProcessStep);
