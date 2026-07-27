@@ -1369,8 +1369,8 @@ canvas.debate-mode {
   animation: shotDisappear 0.3s linear forwards;
 }
 @keyframes shotDisappear {
-  from { clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); }
-  to { clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); }
+  from { clip-path: inset(0 0 0 0); }     /* 全体表示 */
+  to { clip-path: inset(0 100% 0 0); }   /* 右側から左へ100%縮める */
 }
 
 .refrect {
