@@ -1348,8 +1348,6 @@ canvas.debate-mode {
   height: 0;
   z-index: 50000;
   rotate: 45deg;
-  transform-style: preserve-3d;
-  transform: translateZ(9999px) !important;
 }
 .shotText {
   opacity: 0;
@@ -1358,7 +1356,6 @@ canvas.debate-mode {
   -webkit-text-stroke: 2px red;
   white-space: nowrap; 
   transform-origin: 0 0;
-  transform-style: preserve-3d;
 }
 
 .flyShot {
@@ -1371,8 +1368,6 @@ canvas.debate-mode {
 
 .shotDisappear {
   will-change: clip-path;
-  transform: translateZ(0);
-  backface-visibility: hidden;
   /* 💡 forwards をキープしつつ、確実に0.3秒走らせる */
   animation: shotDisappear 0.3s linear forwards !important;
 }
