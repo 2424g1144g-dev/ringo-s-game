@@ -617,18 +617,32 @@ window.addEventListener("keydown", (e) => {
   }
 })
 
-window.process = function (value) {
+let currentProcessStep = 0;
+
+window.process = function (totalSteps) {
   const arrow = document.getElementById("processMeterArrow");
   if (!arrow) return;
 
-  // 1. メーターの一番下（開始地点）の top 座標を指定する
-  // (例として 200px を基準にします。あなたの画面に合わせて調整してください)
+  // 1. 関数が呼ばれるたびに、ステップ数を1ずつ進める
+  currentProcessStep++;
+
+  // 💥 安全策：もしゴール（100%）に達したら、それ以上は進まないように制限
+  if (currentProcessStep > totalSteps) {
+    currentProcessStep = totalSteps;
+  }
+
+  // 2. メーター全体の長さ（200px）を、指定された分割数（totalSteps）で割って、1歩の大きさを出す
+  const stepSize = 200 / totalSteps;
+
+  // 3. 一番下（開始地点）の top 座標を指定
+  // ※ メーターの一番下が top: 200px だと仮定しています。CSSに合わせて数値を調整してください。
   const baseTop = 200; 
 
-  // 2. 引く量（上に進めるピクセル数）を計算
-  // ※ valueが0のときにエラー（ゼロ除算）にならないよう安全策を入れておきます
-  const up = value > 0 ? (200 / value) : 0;
+  // 4. 「1歩の大きさ × 現在のステップ数」分だけ、基準点から上にずらす
+  const finalTop = baseTop - (stepSize * currentProcessStep);
 
-  // 3. 過去の値は無視して、基準点から「今必要な分だけ」上にずらす
-  arrow.style.top = (baseTop - up) + "px";
+  arrow.style.top = finalTop + "px";
+
+  // 💡 デバッグ用：今全体の何分の一進んだかをコンソールに出す
+  console.log(`進行度: ${currentProcessStep} / ${totalSteps}`);
 };
