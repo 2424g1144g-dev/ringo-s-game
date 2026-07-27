@@ -1368,11 +1368,18 @@ canvas.debate-mode {
   to { opacity: 1; transform: rotateX(0) rotateY(60deg) rotateZ(0) translateZ(0) scale(1);}
 }
 .shotDisappear {
-  animation: shotDisappear 0.3s linear forwards;
+  /* 0.3秒で確実に発火させ、他の干渉を防ぐ */
+  animation: shotDisappear 0.3s linear forwards !important;
 }
+
 @keyframes shotDisappear {
-  from { clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); }
-  to { clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); }
+  /* 💡 px ではなく vw/vh (画面サイズ基準) にすることで、要素の位置がズレても確実に文字全体を巻き込みます */
+  from { 
+    clip-path: polygon(0% 500vh, 200vw 500vh, 200vw -500vh, 0% -500vh); 
+  }
+  to { 
+    clip-path: polygon(0% 500vh, 0% 500vh, 0% -500vh, 0% -500vh); 
+  }
 }
 
 .refrect {
