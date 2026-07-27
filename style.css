@@ -1374,15 +1374,11 @@ canvas.debate-mode {
 }
 
 @keyframes shotDisappear {
-  /* 💡 0% (開始) から 1% にかけて、形を維持したままアニメーションが始まっていることをブラウザに叩き込みます */
-  0% { 
-    clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); 
+  /* 💡 文字の大きさに合わせて、バサッと右から左へ削る */
+  from { 
+    clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px); 
   }
-  1% { 
-    clip-path: polygon(0px 2000px, 500px 2000px, 500px -2000px, 0px -2000px); 
-  }
-  /* 1% から 100% にかけて、右から左へシュッと削る */
-  100% { 
+  to { 
     clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); 
   }
 }
