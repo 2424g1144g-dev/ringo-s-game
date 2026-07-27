@@ -633,7 +633,7 @@ window.process = function (totalSteps) {
   const baseTop = 188; 
 
   // 💡 2. ゴール地点（一番上）の top を決める（0px で足りなければ -5px などにする）
-  const goalTop = 0; 
+  const goalTop = -6;
 
   // 💡 3. メーター全体の「実際の移動距離」を計算（188 - 0 = 188px）
   const totalTravelDistance = baseTop - goalTop;
