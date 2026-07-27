@@ -621,6 +621,6 @@ window.process = function (value) {
   const up = 200 / value;
   const arrow = document.getElementById("processMeterArrow");
   // 現在のtopの値（文字列）を取得して数値に変換（無い場合は0）
-  const currentTop = parseFloat(arrow.style.top) || 0;
+  const currentTop = parseFloat(arrow.style.top) + 200 || 0;
   arrow.style.top = (currentTop - up) + "px";
 };
