@@ -1348,6 +1348,7 @@ canvas.debate-mode {
   height: 0;
   z-index: 50000;
   rotate: 45deg;
+  transform-style: preserve-3d;
 }
 .shotText {
   opacity: 0;
