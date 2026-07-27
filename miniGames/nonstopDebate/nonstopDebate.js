@@ -616,3 +616,8 @@ window.addEventListener("keydown", (e) => {
     }, 200)
   }
 })
+
+window.process = function (value) {
+  const up = 200/value;
+  
+}
