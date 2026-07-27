@@ -927,7 +927,7 @@ canvas.debate-mode {
   font-size: 15px;
   color: white;
   z-index: 19015;
-  transform: translateY(0);
+  transition: top 0.3s ease-out;
 }
 #processWord {
   position: absolute;

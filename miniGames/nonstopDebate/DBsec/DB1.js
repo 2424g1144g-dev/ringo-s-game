@@ -141,7 +141,7 @@ window.nonstopDebate1 = async function () {
     while (!signal.aborted) {
       console.log(`--- 🔄 議論ループ 第 ${loopCount} 周目 ---`);
       await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: -1},toFov: 45, fovSpeed: 999, speed: 100, yaw: 78, rotSpeed: 5,duration: 500}, signal);
-
+      window.process(8);
       window.ndIconChange("シノハラ　リュウジ");
       window.spawnFlexibleSerif("退職させられたのは<br>オカモトユウダイ先生...", 55, 20, window.serifBehaviors.linearLeft, null, null, 3000);
       window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Think.png")
@@ -153,6 +153,7 @@ window.nonstopDebate1 = async function () {
 
       await window.moveCameraPromise({to: {toX: -10, toY: 20, toZ: 7},toFov: 30, fovSpeed: 1, speed: 1, yaw: 75, rotSpeed: 0.1,duration: 500}, signal);
 
+      window.process(8);
       window.spawnFlexibleSerif("現場は<span class='weak-target'>体育館</span>でしたよね？",10, 50, window.serifBehaviors.linearRight, "none", "仮", 3000);
       window.changeStandInExpression("RYUJI", "assets/three/characters/RYUJI/Ryuji_Normal.png");
       await window.moveCameraPromise({to: {toX: -10, toY: 25, toZ: 7},toFov: 30, fovSpeed: 999, speed: 1, yaw: 75, rotSpeed: 0.1,duration: 3000}, signal);
@@ -163,10 +164,12 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 60, fovSpeed: 1, speed: 100, yaw: 132, rotSpeed: 5, duration: 500}, signal);
 
       window.ndIconChange("ササノ　ケント");
+      window.process(8);
       window.spawnFlexibleSerif("しかも現場の近くには...", 55, 20, window.serifBehaviors.linearLeft, 3000);
       window.changeStandInExpression("KENTO", "assets/three/characters/KENTO/Kento_Think.png");
       await window.moveCameraPromise({to: {toX: 0, toY: 23, toZ: 0}, toFov: 60, fovSpeed: 1, speed: 100, yaw: 137, rotSpeed: 5, duration: 2500}, signal);
 
+      window.process(8);
       window.spawnFlexibleSerif("<span class='weak-target'>オカモト先生が書いた</span>退職届が<br>落ちていましたね！", 50, 60, window.serifBehaviors.bangAndShake, "シノハラの証言", null, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 26, toZ: 0}, toFov: 15, fovSpeed: 1, speed: 100, yaw: 135, roll: 20, rotSpeed: 5, duration: 500}, signal);
 
@@ -179,12 +182,14 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: 0, toY: 35, toZ: 0}, toFov: 35 , fovSpeed: 1, speed: 100, yaw: -45, pitch: -35, rotSpeed: 0.2, duration: 500}, signal);
 
       ndIconChange("ツカゴエ　ミツヒロ")
+      window.process(8);
       window.changeStandInExpression("MITSUHIRO", "assets/three/characters/MITSUHIRO/Mitsuhiro_Normal.png");
       window.spawnFlexibleSerif("職事<br>員件<br>室発<br>に生<br>は時<br>　の", 20, 10, window.serifBehaviors.linearRight, null, null, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 40, toZ: 0}, toFov: 50 , fovSpeed: 0.2, speed: 100, yaw: -45, pitch: -35, rotSpeed: 0.2, duration: 3000}, signal);
 
       await window.moveCameraPromise({to: {toX: 0, toY: 20, toZ: 0}, toFov: 40, fovSpeed: 0.2, speed: 100, yaw: -45, pitch: 0, rotSpeed: 0.2, duration: 500}, signal);
 
+      window.process(8);
       window.spawnFlexibleSerif("たしか...全員がおったよな？", 25, 60, window.serifBehaviors.letterByLetterPop, null, null, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 30, fovSpeed: 0.1, speed: 100, yaw: -45, pitch: 0, rotSpeed: 0.2, duration: 3000}, signal);
       loopCount++; 
@@ -192,12 +197,14 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: -7, toY: 25, toZ: -8}, toFov: 45, fovSpeed: 1, speed: 100, yaw: 35, roll: 15, rotSpeed: 0.2, duration: 500}, signal);
 
       ndIconChange("フルイチ　ヒデハル");
+      window.process(8);
       window.spawnFlexibleSerif("やっぱりツカゴエ先生が犯人じゃないですか？", 20, 70, window.serifBehaviors.linearRight, null, null, 3000);
       await window.moveCameraPromise({to: {toX: -7, toY: 25, toZ: -8}, toFov: 45, fovSpeed: 1, speed: 100, yaw: 38, roll: 15, rotSpeed: 0.01, duration: 3000}, signal);
 
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 45, fovSpeed: 1, speed: 100, yaw: -42, pitch: 0, roll: -15, rotSpeed: 0.2, duration: 500}, signal);
 
       ndIconChange("ツカゴエ　ミツヒロ");
+      window.process(8);
       window.changeStandInExpression("MITSUHIRO", "assets/three/characters/MITSUHIRO/Mitsuhiro_Smile.png");
       window.spawnFlexibleSerif("ええ加減にせんと<br>アンモニアで殺すで？", 20, 20, window.serifBehaviors.linearLeft, null, null, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 45, fovSpeed: 1, speed: 100, yaw: -45, pitch: 0, roll: -15, rotSpeed: 0.2, duration: 3000}, signal);

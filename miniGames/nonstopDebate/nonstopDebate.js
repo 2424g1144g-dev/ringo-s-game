@@ -619,5 +619,6 @@ window.addEventListener("keydown", (e) => {
 
 window.process = function (value) {
   const up = 200/value;
-  
+  const arrow = document.getElementById("processMeterArrow");
+  arrow.style.top -= up + "px";
 }
