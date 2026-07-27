@@ -460,6 +460,8 @@ window.addEventListener("keydown", (e) => {
         if (!isOverlapping) {
           // 💡 0msのタイマーを廃止して、着弾した「その瞬間」に即座に処理を実行する！
           console.log("あたってない");
+          console.log("今操作している文字要素はこれです:", text);
+          console.log("その文字の中身:", text.textContent);
           bullet.style.opacity = 0;
           bullet.classList.remove("launch");
           void bullet.offsetWidth;
