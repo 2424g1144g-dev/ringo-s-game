@@ -618,9 +618,17 @@ window.addEventListener("keydown", (e) => {
 })
 
 window.process = function (value) {
-  const up = 200 / value;
   const arrow = document.getElementById("processMeterArrow");
-  // 現在のtopの値（文字列）を取得して数値に変換（無い場合は0）
-  const currentTop = parseFloat(arrow.style.top) + 200 || 0;
-  arrow.style.top = (currentTop - up) + "px";
+  if (!arrow) return;
+
+  // 1. メーターの一番下（開始地点）の top 座標を指定する
+  // (例として 200px を基準にします。あなたの画面に合わせて調整してください)
+  const baseTop = 200; 
+
+  // 2. 引く量（上に進めるピクセル数）を計算
+  // ※ valueが0のときにエラー（ゼロ除算）にならないよう安全策を入れておきます
+  const up = value > 0 ? (200 / value) : 0;
+
+  // 3. 過去の値は無視して、基準点から「今必要な分だけ」上にずらす
+  arrow.style.top = (baseTop - up) + "px";
 };
