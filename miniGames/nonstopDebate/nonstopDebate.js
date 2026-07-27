@@ -475,7 +475,7 @@ window.addEventListener("keydown", (e) => {
               cylinderShift = true;
               window.updatePosition(); 
               bullet.classList.remove("bulletChange");
-              container.classList.remove("shotDisappear");
+              
               text.classList.remove("flyShot");
             }, 800)
           }, 200)
