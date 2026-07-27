@@ -458,27 +458,34 @@ window.addEventListener("keydown", (e) => {
       text.classList.add("flyShot");
       setTimeout(() => {
         if (!isOverlapping) {
-          setTimeout (()=> {
-            console.log("あたってない");
-            bullet.style.opacity = 0;
-            bullet.classList.remove("launch");
-            void bullet.offsetWidth;
-            bullet.classList.add("bulletChange");
+          // 💡 0msのタイマーを廃止して、着弾した「その瞬間」に即座に処理を実行する！
+          console.log("あたってない");
+          bullet.style.opacity = 0;
+          bullet.classList.remove("launch");
+          void bullet.offsetWidth;
+          bullet.classList.add("bulletChange");
+          
+          // 💥 一度綺麗にクラスを剥がして画面に覚え込ませる
+          container.classList.remove("shotDisappear");
+          void container.offsetWidth; 
+          
+          // 💥 今すぐ「削りながら消えるアニメーション」を発火！
+          container.classList.add("shotDisappear");
+          
+          // 💡 お掃除処理（リセット）は、確実に0.3秒のアニメーションが終わった「後」に実行する！
+          // 前は800msでしたが、大渋滞を防ぐために1000ms（1秒）に少し伸ばして安全圏にします。
+          setTimeout(() => {
+            bullet.style.opacity = 1;
+            bulletEnter = true;
+            crosshairOperate = true;
+            rough = true;
+            cylinderShift = true;
+            window.updatePosition(); 
+            
+            bullet.classList.remove("bulletChange");
             container.classList.remove("shotDisappear");
-            void container.offsetWidth;
-            container.classList.add("shotDisappear");
-            setTimeout(() => {
-              bullet.style.opacity = 1;
-              bulletEnter = true;
-              crosshairOperate = true;
-              rough = true;
-              cylinderShift = true;
-              window.updatePosition(); 
-              bullet.classList.remove("bulletChange");
-              
-              text.classList.remove("flyShot");
-            }, 800)
-          }, 200)
+            text.classList.remove("flyShot"); // 👈 ここで初めてflyShotを外すので、位置は絶対に戻りません！
+          }, 1000); // 👈 確実に演出が終わるのを待つために1000msに調整
         } else {
           if (isweak) {
             debateController.abort();
