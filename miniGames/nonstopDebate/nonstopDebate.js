@@ -623,26 +623,26 @@ window.process = function (totalSteps) {
   const arrow = document.getElementById("processMeterArrow");
   if (!arrow) return;
 
-  // 1. 関数が呼ばれるたびに、ステップ数を1ずつ進める
   currentProcessStep++;
 
-  // 💥 安全策：もしゴール（100%）に達したら、それ以上は進まないように制限
   if (currentProcessStep > totalSteps) {
     currentProcessStep = totalSteps;
   }
 
-  // 2. メーター全体の長さ（200px）を、指定された分割数（totalSteps）で割って、1歩の大きさを出す
-  const stepSize = 188 / totalSteps;
-
-  // 3. 一番下（開始地点）の top 座標を指定
-  // ※ メーターの一番下が top: 200px だと仮定しています。CSSに合わせて数値を調整してください。
+  // 💡 1. 開始地点（一番下）の top は CSS に合わせて「188px」にする
   const baseTop = 188; 
 
-  // 4. 「1歩の大きさ × 現在のステップ数」分だけ、基準点から上にずらす
+  // 💡 2. ゴール地点（一番上）の top を決める（0px で足りなければ -5px などにする）
+  const goalTop = 0; 
+
+  // 💡 3. メーター全体の「実際の移動距離」を計算（188 - 0 = 188px）
+  const totalTravelDistance = baseTop - goalTop;
+
+  // 4. 1歩の大きさを計算
+  const stepSize = totalTravelDistance / totalSteps;
+
+  // 5. 基準点から移動距離を引く
   const finalTop = baseTop - (stepSize * currentProcessStep);
 
   arrow.style.top = finalTop + "px";
-
-  // 💡 デバッグ用：今全体の何分の一進んだかをコンソールに出す
-  console.log(`進行度: ${currentProcessStep} / ${totalSteps}`);
 };
