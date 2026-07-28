@@ -1369,19 +1369,12 @@ canvas.debate-mode {
 .shotDisappear {
   will-change: clip-path;
   /* 💡 forwards をキープしつつ、確実に0.3秒走らせる */
-  animation: shotDisappear 0.3s linear forwards !important;
+  animation: shotDisappear 0.8s linear forwards !important;
 }
 
 @keyframes shotDisappear {
-  0% { 
-    clip-path: polygon(0% 1000vh, 200vw 1000vh, 200vw -1000vh, 0% -1000vh); 
-  }
-  1% { 
-    clip-path: polygon(0% 1000vh, 200vw 1000vh, 200vw -1000vh, 0% -1000vh); 
-  }
-  100% { 
-    clip-path: polygon(0% 1000vh, 0% 1000vh, 0% -1000vh, 0% -1000vh); 
-  }
+  from {scale: 1.0;}
+  to {scale: 0;}
 }
 
 .refrect {
