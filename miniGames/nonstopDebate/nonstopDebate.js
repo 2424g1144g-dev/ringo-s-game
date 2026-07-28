@@ -462,49 +462,27 @@ window.addEventListener("keydown", (e) => {
     text.classList.add("flyShot");
     setTimeout(() => {
       if (!isOverlapping) {
-          console.log("あたってない (rAFポリゴン消滅発火)");
-          bullet.style.opacity = 0;
-          bullet.classList.remove("launch");
-          void bullet.offsetWidth;
-          bullet.classList.add("bulletChange");
-
-          // 💥【rAF完全同期・右から左へのポリゴン削りロジック】
-          const duration = 300; // 0.3秒で消し去る
-          const startTime = performance.now();
-
-          function clipLeftLoop(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1); // 0.0 〜 1.0
-
-            // 💡 右端のX座標を 100% から 0% に向かって滑らかにスライドさせる
-            const currentRightX = 100 - (progress * 100);
-
-            // 💡 コンテナの clipPath をパーセント基準で直接上書き
-            // 上下は絶対に文字からはみ出るように巨大なパーセント（±5000%）にしておきます
-            container.style.clipPath = `polygon(0% 5000%, ${currentRightX}% 5000%, ${currentRightX}% -5000%, 0% -5000%)`;
-
-            if (progress < 1) {
-              requestAnimationFrame(clipLeftLoop);
-            } else {
-              // 💡 完全に削りきったらリセット処理
-              bullet.style.opacity = 1;
-              bulletEnter = true;
-              crosshairOperate = true;
-              rough = true;
-              cylinderShift = true;
-              window.updatePosition();
-
-              bullet.classList.remove("bulletChange");
-              text.classList.remove("flyShot");
-
-              // 次の射撃のためにクリップパスを綺麗に消しておく
-              container.style.clipPath = "";
-            }
-          }
-
-          // 削りループを開始！
-          requestAnimationFrame(clipLeftLoop);
-        } else {
+       setTimeout (()=> {
+         console.log("あたってない");
+         bullet.style.opacity = 0;
+         bullet.classList.remove("launch");
+         void bullet.offsetWidth;
+         bullet.classList.add("bulletChange");
+         createSparks(cX - 30, cY + 10);
+         container.classList.add("shotDisappear");
+         setTimeout(() => {
+           bullet.style.opacity = 1;
+           bulletEnter = true;
+           crosshairOperate = true;
+           rough = true;
+           cylinderShift = true;
+           window.updatePosition();
+           bullet.classList.remove("bulletChange");
+           container.classList.remove("shotDisappear");
+           text.classList.remove("flyShot");
+         }, 800)
+       }, 0)
+      } else {
           if (isweak) {
             debateController.abort();
             const correct = currentOverlappingBubble.dataset.correctKotodama;
