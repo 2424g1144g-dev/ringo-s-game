@@ -462,35 +462,31 @@ window.addEventListener("keydown", (e) => {
     text.classList.add("flyShot");
     setTimeout(() => {
       if (!isOverlapping) {
-          console.log("あたってない (rAF消滅発火)");
+          console.log("あたってない (rAFポリゴン消滅発火)");
           bullet.style.opacity = 0;
           bullet.classList.remove("launch");
           void bullet.offsetWidth;
           bullet.classList.add("bulletChange");
 
-          // 💥【rAF完全同期・コンテナ消滅ロジック】
-          const duration = 300; // 消滅アニメーションの時間 (0.3秒)
+          // 💥【rAF完全同期・右から左へのポリゴン削りロジック】
+          const duration = 300; // 0.3秒で消し去る
           const startTime = performance.now();
 
-          function fadeOutLoop(now) {
+          function clipLeftLoop(now) {
             const elapsed = now - startTime;
             const progress = Math.min(elapsed / duration, 1); // 0.0 〜 1.0
 
-            // イージングをかけて滑らかに（本家っぽいスッと消える動き）
-            const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+            // 💡 右端のX座標を 100% から 0% に向かって滑らかにスライドさせる
+            const currentRightX = 100 - (progress * 100);
 
-            // 💡 コンテナの scale と opacity を直接書き換える！
-            const currentScale = 1 - ease;
-            const currentOpacity = 1 - ease;
-
-            container.style.transform = `scale(${currentScale})`;
-            container.style.opacity = currentOpacity;
+            // 💡 コンテナの clipPath をパーセント基準で直接上書き
+            // 上下は絶対に文字からはみ出るように巨大なパーセント（±5000%）にしておきます
+            container.style.clipPath = `polygon(0% 5000%, ${currentRightX}% 5000%, ${currentRightX}% -5000%, 0% -5000%)`;
 
             if (progress < 1) {
-              // アニメーション中の場合は次のフレームへ
-              requestAnimationFrame(fadeOutLoop);
+              requestAnimationFrame(clipLeftLoop);
             } else {
-              // 💡 完全に消え去った（0.3秒経った）ら、次の弾のためのリセット処理を実行
+              // 💡 完全に削りきったらリセット処理
               bullet.style.opacity = 1;
               bulletEnter = true;
               crosshairOperate = true;
@@ -501,13 +497,13 @@ window.addEventListener("keydown", (e) => {
               bullet.classList.remove("bulletChange");
               text.classList.remove("flyShot");
 
-              // 綺麗にお掃除して元の状態に戻す
-              container.style.transform = "";
-              container.style.opacity = "";
+              // 次の射撃のためにクリップパスを綺麗に消しておく
+              container.style.clipPath = "";
             }
           }
-          // アニメーションループを開始！
-          requestAnimationFrame(fadeOutLoop);
+
+          // 削りループを開始！
+          requestAnimationFrame(clipLeftLoop);
         } else {
           if (isweak) {
             debateController.abort();
