@@ -468,7 +468,6 @@ window.addEventListener("keydown", (e) => {
          bullet.classList.remove("launch");
          void bullet.offsetWidth;
          bullet.classList.add("bulletChange");
-         createSparks(cX - 30, cY + 10);
          container.classList.add("shotDisappear");
          setTimeout(() => {
            bullet.style.opacity = 1;
@@ -601,7 +600,7 @@ window.addEventListener("keydown", (e) => {
             void bullet.offsetWidth;
             bullet.classList.add("bulletChange");
             createSparks(cX - 30, cY + 10);
-            container.classList.add("shotDisappear");
+            container.classList.add("refrect2");
             if (currentOverlappingBubble) {
               currentOverlappingBubble.dataset.shakeTimer = "300";
             }
@@ -613,7 +612,7 @@ window.addEventListener("keydown", (e) => {
               cylinderShift = true;
               window.updatePosition();
               bullet.classList.remove("bulletChange");     
-              container.classList.remove("shotDisappear");
+              container.classList.remove("refrect2");
               text.classList.remove("flyShot");
             }, 800)
           }
