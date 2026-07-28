@@ -1394,6 +1394,22 @@ canvas.debate-mode {
   }
 }
 
+.spark {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            mix-blend-mode: screen; 
+            transform-origin: center;
+            /* 期間を0.25s〜0.5sに短縮して、一瞬でパチッと消えるように */
+            animation: spark-fly var(--duration) cubic-bezier(0.05, 0.7, 0.1, 1) forwards;
+}
+@keyframes spark-fly {
+  0% {transform: translate(-50%, -50%) rotate(var(--angle)) translate(0, 0) scale(1, 1); opacity: 1;}
+  10% {transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(var(--distance) * 0.25), 0) scale(2, 0.5);}
+  70% {opacity: 1;}
+  100% {transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance), 0) scale(0, 0); opacity: 0;}
+}
+
 .serif-bubble.is-broken {
   border: none !important;
   background: none !important;
