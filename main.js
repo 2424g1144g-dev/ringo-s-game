@@ -42,7 +42,8 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('keyup', (e) => {
-  if (e.key in keys && crosshairOperate) {
+  // 💡 操作不能（false）のときでも、キーを離した事実だけは絶対に記録する！
+  if (e.key in keys) {
     keys[e.key] = false;
   }
 });

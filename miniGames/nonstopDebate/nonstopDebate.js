@@ -434,6 +434,10 @@ window.addEventListener("keydown", (e) => {
   crosshairOperate = false;
   rough = false;
   cylinderShift = false;
+  keys.ArrowUp = false;
+  keys.ArrowDown = false;
+  keys.ArrowLeft = false;
+  keys.ArrowRight = false;
   const firedKotodama = bulletNum[currentBulletIndex];
   playSE("shot");
   setTimeout(() => {
