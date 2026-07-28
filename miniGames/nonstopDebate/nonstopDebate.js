@@ -459,7 +459,7 @@ window.addEventListener("keydown", (e) => {
     setTimeout(() => {
       if (!isOverlapping) {
        setTimeout (()=> {
-         createSparks(cX, cY);
+         createSparks(cX - 20, cY + 15);
          console.log("あたってない");
          bullet.style.opacity = 0;
          bullet.classList.remove("launch");
