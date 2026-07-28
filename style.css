@@ -1373,8 +1373,8 @@ canvas.debate-mode {
 }
 
 @keyframes shotDisappear {
-  from {scale: 1.0;}
-  to {scale: 0;}
+  from {scale: 1.0; transform: translateX(0) translateY(0);}
+  to {scale: 0; transform: translateX(-200px) translateY(-100px);}
 }
 
 .refrect {
