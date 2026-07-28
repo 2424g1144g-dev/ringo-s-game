@@ -1373,12 +1373,14 @@ canvas.debate-mode {
 }
 
 @keyframes shotDisappear {
-  /* 💡 文字の大きさに合わせて、バサッと右から左へ削る */
-  from { 
-    clip-path: polygon(0px 2000px, 2000px 2000px, 2000px -2000px, 0px -2000px); 
+  0% { 
+    clip-path: polygon(0% 1000vh, 200vw 1000vh, 200vw -1000vh, 0% -1000vh); 
   }
-  to { 
-    clip-path: polygon(0px 2000px, 0px 2000px, 0px -2000px, 0px -2000px); 
+  1% { 
+    clip-path: polygon(0% 1000vh, 200vw 1000vh, 200vw -1000vh, 0% -1000vh); 
+  }
+  100% { 
+    clip-path: polygon(0% 1000vh, 0% 1000vh, 0% -1000vh, 0% -1000vh); 
   }
 }
 
