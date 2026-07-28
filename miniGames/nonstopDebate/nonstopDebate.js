@@ -649,7 +649,8 @@ window.process = function (totalSteps) {
 };
 
 function createSparks(originX, originY) {
-    const sparkCount = 25; // 範囲が狭くなるため、密集しすぎないよう数を少し調整
+    const sparkCount = 35; // 粒子の数を増やして豪華に
+    // 火花の芯（白・黄）から、周囲の熱（オレンジ・赤）
     const colors = [
         { core: '#ffffff', glow: '#ffcc00' },
         { core: '#ffffcc', glow: '#ff6600' },
@@ -660,20 +661,20 @@ function createSparks(originX, originY) {
         const spark = document.createElement('div');
         spark.classList.add('spark');
 
-        // 1. サイズをさらに小さく (1px〜3.5px)
-        const size = Math.random() * 2.5 + 1;
+        // 1. 基本サイズ（火花なので2〜5pxと小さくシャープに）
+        const size = Math.random() * 3 + 2;
         spark.style.width = `${size}px`;
         spark.style.height = `${size}px`;
 
-        // 2. 光の滲み（box-shadow）の範囲もギュッと狭く
+        // 2. 色と「光の滲み（box-shadow）」を設定
         const colorSet = colors[Math.floor(Math.random() * colors.length)];
         spark.style.backgroundColor = colorSet.core;
-        spark.style.boxShadow = `0 0 ${size * 1.5}px ${size / 2}px ${colorSet.glow}, 0 0 ${size * 3}px ${colorSet.glow}`;
+        spark.style.boxShadow = `0 0 ${size * 2}px ${size / 2}px ${colorSet.glow}, 0 0 ${size * 4}px ${colorSet.glow}`;
 
-        // 3. 角度と距離（飛び散る距離を 25px〜75px に大幅縮小）
+        // 3. 角度と距離（CSS側でまとめて計算するため、角度をそのまま渡す）
         const angleDeg = Math.random() * 360;
-        const distance = Math.random() * 50 + 25; 
-        const duration = Math.random() * 0.25 + 0.25; // 0.25〜0.5秒でパッと消える閃光
+        const distance = Math.random() * 180 + 60; // 飛び散る距離
+        const duration = Math.random() * 0.4 + 0.3; // 0.3〜0.7秒の閃光
 
         // CSS変数へバインド
         spark.style.setProperty('--angle', `${angleDeg}deg`);
