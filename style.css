@@ -1367,12 +1367,34 @@ canvas.debate-mode {
 }
 
 .shotDisappear {
-  will-change: clip-path;
-  /* 💡 forwards をキープしつつ、確実に0.3秒走らせる */
-  animation: shotDisappear 0.8s linear forwards !important;
+  /* 💡 0.3秒でシャッと潰して、最後の消えた状態(scaleX(0))を維持 */
+  animation: shotDisappearScale 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  
+  /* 💡 左側に向かって縮むように起点を固定する */
+  transform-origin: left center;
+  
+  /* ブラウザのサボり防止 */
+  will-change: transform, opacity;
 }
 
-@keyframes shotDisappear {
+@keyframes shotDisappearScale {
+  0% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+.refrect2 {
+  will-change: clip-path;
+  /* 💡 forwards をキープしつつ、確実に0.3秒走らせる */
+  animation: refrect2 0.8s linear forwards !important;
+}
+
+@keyframes refrect2 {
   from {scale: 1.0; transform: translateX(0);}
   to {scale: 3.0; transform: translateX(-1000px);}
 }
