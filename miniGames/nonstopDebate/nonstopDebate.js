@@ -462,27 +462,53 @@ window.addEventListener("keydown", (e) => {
     text.classList.add("flyShot");
     setTimeout(() => {
       if (!isOverlapping) {
-       setTimeout (()=> {
-         createSparks(cX - 30, cY + 10);
-         console.log("あたってない");
-         bullet.style.opacity = 0;
-         bullet.classList.remove("launch");
-         void bullet.offsetWidth;
-         bullet.classList.add("bulletChange");
-         container.classList.add("shotDisappear");
-         setTimeout(() => {
-           bullet.style.opacity = 1;
-           bulletEnter = true;
-           crosshairOperate = true;
-           rough = true;
-           cylinderShift = true;
-           window.updatePosition();
-           bullet.classList.remove("bulletChange");
-           container.classList.remove("shotDisappear");
-           text.classList.remove("flyShot");
-         }, 800)
-       }, 0)
-      } else {
+          console.log("あたってない (rAF消滅発火)");
+          bullet.style.opacity = 0;
+          bullet.classList.remove("launch");
+          void bullet.offsetWidth;
+          bullet.classList.add("bulletChange");
+
+          // 💥【rAF完全同期・コンテナ消滅ロジック】
+          const duration = 300; // 消滅アニメーションの時間 (0.3秒)
+          const startTime = performance.now();
+
+          function fadeOutLoop(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1); // 0.0 〜 1.0
+
+            // イージングをかけて滑らかに（本家っぽいスッと消える動き）
+            const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+
+            // 💡 コンテナの scale と opacity を直接書き換える！
+            const currentScale = 1 - ease;
+            const currentOpacity = 1 - ease;
+
+            container.style.transform = `scale(${currentScale})`;
+            container.style.opacity = currentOpacity;
+
+            if (progress < 1) {
+              // アニメーション中の場合は次のフレームへ
+              requestAnimationFrame(fadeOutLoop);
+            } else {
+              // 💡 完全に消え去った（0.3秒経った）ら、次の弾のためのリセット処理を実行
+              bullet.style.opacity = 1;
+              bulletEnter = true;
+              crosshairOperate = true;
+              rough = true;
+              cylinderShift = true;
+              window.updatePosition();
+
+              bullet.classList.remove("bulletChange");
+              text.classList.remove("flyShot");
+
+              // 綺麗にお掃除して元の状態に戻す
+              container.style.transform = "";
+              container.style.opacity = "";
+            }
+          }
+          // アニメーションループを開始！
+          requestAnimationFrame(fadeOutLoop);
+        } else {
           if (isweak) {
             debateController.abort();
             const correct = currentOverlappingBubble.dataset.correctKotodama;
