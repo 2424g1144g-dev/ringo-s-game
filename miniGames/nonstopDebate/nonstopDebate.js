@@ -458,25 +458,32 @@ window.addEventListener("keydown", (e) => {
     text.classList.add("flyShot");
     setTimeout(() => {
       if (!isOverlapping) {
-        setTimeout (()=> {
+          // 💡 0msのタイマーの中にあった処理をすべて外に出し、着弾と同時に直列に実行！
           console.log("あたってない");
           bullet.style.opacity = 0;
           bullet.classList.remove("launch");
           void bullet.offsetWidth;
           bullet.classList.add("bulletChange");
+          
+          // 💥 コンテナの消滅アニメーションを強制リセットして再発火
+          container.classList.remove("shotDisappear");
+          void container.offsetWidth; 
           container.classList.add("shotDisappear");
+          
+          // 💡 0.3秒の削りアニメーションが【完全に終わった後】に、次の弾のためのリセットを行う
           setTimeout(() => {
             bullet.style.opacity = 1;
             bulletEnter = true;
             crosshairOperate = true;
             rough = true;
             cylinderShift = true;
-            window.updatePosition();
+            window.updatePosition(); 
+            
+            // すべてのクラスを綺麗にお掃除
             bullet.classList.remove("bulletChange");
             container.classList.remove("shotDisappear");
             text.classList.remove("flyShot");
-          }, 800)
-        }, 0)
+          }, 400); // アニメーションの0.3秒より少しだけ長めに設定して暴発を防ぐ
         } else {
           if (isweak) {
             debateController.abort();
