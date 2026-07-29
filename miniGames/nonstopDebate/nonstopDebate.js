@@ -334,7 +334,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
     // 議論自体が止まったらセリフも即座に消去
     if (debateController && debateController.signal.aborted) {
       // 💡 すでに割れる（壊れる）演出中のバブルは、そっちのアニメーションに任せるので触らない
-      if (bubble.dataset.isShuttered === "true") {
+      if (newSerif.dataset.isShuttered === "true") {
         return; 
       }
       
