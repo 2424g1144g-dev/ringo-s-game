@@ -577,6 +577,8 @@ window.addEventListener("keydown", (e) => {
 
                 requestAnimationFrame(updateShatterLoop);
               }
+              container.classList.add("shotDisappear");
+              
 
               // 💥 元のセリフが持っていた updateTimerLoop 内での軌道計算（behaviorFunc）を
               // 完全にストップさせるため、behaviorFuncの実行を実質上書きしてこのrAFループを最優先にします。
