@@ -1453,5 +1453,16 @@ canvas.debate-mode {
 
 #counterBG {
   position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 106vh;
   z-index: 80000;
+  overflow: hidden;
+}
+#counterTaturo {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  z-index: 81000;
 }
