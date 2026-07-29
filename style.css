@@ -1450,3 +1450,8 @@ canvas.debate-mode {
   position: relative;
   transform-origin: center;
 }
+
+#counterBG {
+  position: absolute;
+  z-index: 80000;
+}
