@@ -1451,48 +1451,36 @@ canvas.debate-mode {
   transform-origin: center;
 }
 
-/* 💡 外側のメイン背景 */
-#mainContainer {
-  position: relative;
-  width: 100%; /* ゲーム画面全体のサイズ */
-  height: 100vh;
-  background: orange; /* あなたの提示したオレンジ背景（画像でも可） */
-  overflow: hidden; /* コンテナ全体からはみ出さないようにする安全弁 */
-}
-
-/* 💡 カウンター枠全体の箱 */
 #countercontainer {
-  position: absolute;
-  top: 50%; /* 画面の中央に配置するなど */
-  left: 50%;
-  transform: translate(-50%, -50%); /* 中央揃え */
-  
-  /* 💡 ここが重要！カウンター枠の形に合わせて切り抜く */
-  /* polygon(...)の中の座標は、枠画像の実際の形状に合わせて調整してください */
-  /* 例：左下を少し欠けさせた六角形 */
-  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 20px);
-  
-  /* もし枠自体にサイズがあるなら指定（なくても画像に合わせる設定にすればOK） */
-  /* width: 400px; */
-  /* height: 200px; */
+  position: relative;
+  /* 枠画像のサイズに合わせて固定するか、inline-blockにする */
+  display: inline-block; 
 }
 
-/* 💡 カウンター枠の画像（基準） */
 #counterBG {
   display: block;
-  width: auto; /* 画像の元のサイズを維持、または100%に調整 */
-  height: auto;
   position: relative;
-  z-index: 1;
+  z-index: 2; /* 💡 フチが手前に来るようにして、キャラの端を綺麗に隠す */
+  pointer-events: none;
 }
 
-/* 💡 その上に重ねる画像 */
 #counterTaturo {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* 枠いっぱいに広げる */
+  width: 100%;
   height: 100%;
-  object-fit: cover; /* 綺麗に収める */
-  z-index: 2; /* 手前に */
+  object-fit: cover;
+  z-index: 1; /* 💡 枠の「後ろ」に滑り込ませる */
+
+  /* 🚀【ここが超重要】マスク画像を使って、オレンジのエリア以外を完全に切り落とす */
+  -webkit-mask-image: url("miniGames/nonstopDebate/counter_mask.png");
+  mask-image: url("miniGames/nonstopDebate/counter_mask.png");
+  
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
