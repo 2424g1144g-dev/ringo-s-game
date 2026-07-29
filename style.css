@@ -1451,29 +1451,48 @@ canvas.debate-mode {
   transform-origin: center;
 }
 
+/* 💡 外側のメイン背景 */
+#mainContainer {
+  position: relative;
+  width: 100%; /* ゲーム画面全体のサイズ */
+  height: 100vh;
+  background: orange; /* あなたの提示したオレンジ背景（画像でも可） */
+  overflow: hidden; /* コンテナ全体からはみ出さないようにする安全弁 */
+}
+
+/* 💡 カウンター枠全体の箱 */
 #countercontainer {
-  position: relative; /* 子要素の絶対配置の基準にする */
-  display: inline-block; /* または width/height を直接指定 */
-  overflow: hidden; /* これで完全にはみ出しをシャットアウト */
+  position: absolute;
+  top: 50%; /* 画面の中央に配置するなど */
+  left: 50%;
+  transform: translate(-50%, -50%); /* 中央揃え */
   
-  /* 💡 もし背景画像のサイズが固定なら、ここにそのサイズを指定します */
+  /* 💡 ここが重要！カウンター枠の形に合わせて切り抜く */
+  /* polygon(...)の中の座標は、枠画像の実際の形状に合わせて調整してください */
+  /* 例：左下を少し欠けさせた六角形 */
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 20px);
+  
+  /* もし枠自体にサイズがあるなら指定（なくても画像に合わせる設定にすればOK） */
   /* width: 400px; */
   /* height: 200px; */
 }
 
+/* 💡 カウンター枠の画像（基準） */
 #counterBG {
   display: block;
-  width: 100%; /* コンテナの横幅いっぱいに広げる */
+  width: auto; /* 画像の元のサイズを維持、または100%に調整 */
   height: auto;
-  z-index: 80000;
+  position: relative;
+  z-index: 1;
 }
 
+/* 💡 その上に重ねる画像 */
 #counterTaturo {
-  position: absolute; /* 親コンテナを基準に自由に動かせるようにする */
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* 必要に応じてサイズを調整してください */
+  width: 100%; /* 枠いっぱいに広げる */
   height: 100%;
-  object-fit: cover; /* 枠に合わせて綺麗に収める設定 */
-  z-index: 81000; /* 背景より手前に持ってくる */
+  object-fit: cover; /* 綺麗に収める */
+  z-index: 2; /* 手前に */
 }
