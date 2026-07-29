@@ -453,6 +453,7 @@ window.addEventListener("keydown", (e) => {
   bullet.classList.add("launch");
   text.textContent = bulletNum[currentBulletIndex];
   const crosshair = document.getElementById("crosshairContainer");
+  crosshair.style.opacity = 0;
   const cRect = crosshair.getBoundingClientRect();
   const cX = cRect.left + cRect.width / 2 + 35;
   const cY = cRect.top + cRect.height / 2 - 35;
@@ -612,6 +613,7 @@ window.addEventListener("keydown", (e) => {
               crosshairOperate = true;
               rough = true;
               cylinderShift = true;
+              crosshair.style.opacity = 1;
               window.updatePosition();
               bullet.classList.remove("bulletChange");     
               container.classList.remove("refrect2");
