@@ -1451,39 +1451,3 @@ canvas.debate-mode {
   transform-origin: center;
 }
 
-#countercontainer {
-  position: relative;
-  display: inline-block;
-}
-
-#counterBG {
-  display: block;
-  position: relative;
-  z-index: 2; /* 💡 フチを一番手前にして、下の切り抜き境界線を隠す */
-  pointer-events: none;
-}
-
-#counterTaturo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* 💡 フチの後ろ */
-
-  /* 🚀 別AIのナイスアイデア：背景画像としてTaturoさんを設定 */
-  background-image: url('miniGames/nonstopDebate/counterTaturo.png');
-  background-repeat: no-repeat;
-  
-  /* 🚀【ここで位置調整！】 */
-  /* center を基準にして、例えば「ちょっと右下にずらす」なら 60% 70% のように数値で自由に動かせます！ */
-  background-position: center; 
-  
-  /* 🚀【ここでサイズ調整！】 */
-  /* cover で枠いっぱいにしてもいいし、120% のように数値指定で拡大縮小も自由自在！ */
-  background-size: cover; 
-
-  /* 💡 大雑把な直線（ポリゴン）でいいので、黒いフチの裏側に隠れるようにカット */
-  /* フチの厚みがある分、この切り抜きが多少ズレていても表からは絶対に見えません */
-  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%); 
-}
