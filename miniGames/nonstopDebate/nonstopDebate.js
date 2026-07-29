@@ -333,9 +333,6 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
   function animateSerif(now) {
     // 議論自体が止まったらセリフも即座に消去
     if (debateController && debateController.signal.aborted) {
-      if (bubble.dataset.isShuttered === "true") {
-        return; 
-      }
       newSerif.remove();
       return;
     }
