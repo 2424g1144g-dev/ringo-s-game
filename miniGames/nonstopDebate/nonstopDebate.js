@@ -474,6 +474,7 @@ window.addEventListener("keydown", (e) => {
            bullet.style.opacity = 1;
            bulletEnter = true;
            crosshairOperate = true;
+           crosshair.style.opacity = 1;
            rough = true;
            cylinderShift = true;
            window.updatePosition();
