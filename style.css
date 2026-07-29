@@ -907,8 +907,10 @@ canvas.debate-mode {
 #NDprocessMeterContainer {
   position: absolute;
   z-index: 19010;
-  left: 100px;
-  top: 100px;
+  left: 270px;
+  top: 30px;
+  transform: scale(1.3);
+  rotate: 90deg
 }
 #processMeterLine {
   position: absolute;
