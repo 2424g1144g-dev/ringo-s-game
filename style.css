@@ -1453,44 +1453,37 @@ canvas.debate-mode {
 
 #countercontainer {
   position: relative;
-  display: inline-block; 
+  display: inline-block;
 }
 
 #counterBG {
   display: block;
   position: relative;
-  z-index: 2; /* フチは手前 */
+  z-index: 2; /* 💡 フチを一番手前にして、下の切り抜き境界線を隠す */
   pointer-events: none;
 }
 
-/* 🚀【新】マスク専用の固定された箱 */
-#counterTaturoMaskContainer {
+#counterTaturo {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1; /* フチの後ろ */
-  overflow: hidden; /*念のための予備 */
+  z-index: 1; /* 💡 フチの後ろ */
 
-  /* 💡【固定】マスク画像（※前回作ったもの）はこの箱にかけます。絶対位置だから動きません。 */
-  mask-image: url("miniGames/nonstopDebate/counterBG.png");
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-}
+  /* 🚀 別AIのナイスアイデア：背景画像としてTaturoさんを設定 */
+  background-image: url('miniGames/nonstopDebate/counterTaturo.png');
+  background-repeat: no-repeat;
+  
+  /* 🚀【ここで位置調整！】 */
+  /* center を基準にして、例えば「ちょっと右下にずらす」なら 60% 70% のように数値で自由に動かせます！ */
+  background-position: center; 
+  
+  /* 🚀【ここでサイズ調整！】 */
+  /* cover で枠いっぱいにしてもいいし、120% のように数値指定で拡大縮小も自由自在！ */
+  background-size: cover; 
 
-/* 💡 中身の画像（Taturoさん） */
-#counterTaturo {
-  /* 💡 サイズ設定はこれまで通り */
-  width: auto; /* 元画像サイズでいいなら */
-  /* height: 100%; など必要に応じて */
-  display: block;
-
-  /* 🚀🚀🚀【ここ！！】位置調整は、この画像に対して行います！ */
-  /* ここで動かせば、マスクされた窓の中だけでキャラが動き回ります */
-  position: absolute;
-  top: 10px;    /* 窓の中での相対的な位置 */
-  left: -20px;  /* 窓の中での相対的な位置 */
-  /* transform: translate(...) で動かしてもOK！ */
+  /* 💡 大雑把な直線（ポリゴン）でいいので、黒いフチの裏側に隠れるようにカット */
+  /* フチの厚みがある分、この切り抜きが多少ズレていても表からは絶対に見えません */
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%); 
 }
