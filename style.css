@@ -1456,10 +1456,15 @@ canvas.debate-mode {
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 106vh;
   z-index: 80000;
 }
 #counterTaturo {
   position: absolute;
+  left: 600px;
+  top: 150px;
+  width: 60vw;
+  height: auto;
+  rotate: -30deg;
   z-index: 81000;
 }
