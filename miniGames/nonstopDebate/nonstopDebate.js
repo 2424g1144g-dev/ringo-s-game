@@ -333,17 +333,24 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
   function animateSerif(now) {
     // 議論自体が止まったらセリフも即座に消去
     if (debateController && debateController.signal.aborted) {
-      // 💡 すでに割れる（壊れる）演出中のバブルは、そっちのアニメーションに任せるので触らない
-      if (newSerif.dataset.isShuttered === "true") {
+      // 💡 1. 自身の要素、またはその子孫のどこかに isShuttered があるかチェックする関数
+      const checkShuttered = (el) => {
+        if (!el) return false;
+        if (el.dataset && el.dataset.isShuttered === "true") return true;
+        // 子要素の中に一つでも isShuttered="true" のものがあるか探す
+        return el.querySelector('[data-is-shuttered="true"]') !== null;
+      };
+
+      // 💡 2. 処理中のバブル自身が演出中なら何もしない
+      if (checkShuttered(newSerif)) {
         return; 
       }
       
-      // 🚀【大掃除】画面上に残っている「すべてのセリフ（あるいはバブル）」を一斉に取得して全部消す！
-      // ※もしセリフのクラス名が `.serifBubble` など別の名前なら、そのクラス名に変えてください。
+      // 🚀【大掃除】画面上のすべてのバブルを取得
       const allBubbles = document.querySelectorAll(".serif-bubble"); 
       allBubbles.forEach(element => {
-        // ここでも、今まさに壊れる演出中のやつは巻き込まないように安全弁をつけておく
-        if (element.dataset.isShuttered !== "true") {
+        // 💡 3. 自身または子孫に演出フラグを持っていなければ、安全に削除する
+        if (!checkShuttered(element)) {
           element.remove();
         }
       });
