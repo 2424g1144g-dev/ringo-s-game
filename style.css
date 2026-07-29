@@ -1472,11 +1472,8 @@ canvas.debate-mode {
   height: 100%;
   object-fit: cover;
   z-index: 1; /* 💡 枠の「後ろ」に滑り込ませる */
-
   /* 🚀【ここが超重要】マスク画像を使って、オレンジのエリア以外を完全に切り落とす */
-  -webkit-mask-image: url("miniGames/nonstopDebate/counter_mask.png");
-  mask-image: url("miniGames/nonstopDebate/counter_mask.png");
-  
+  mask-image: url("miniGames/nonstopDebate/counterBG.png");
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-repeat: no-repeat;
