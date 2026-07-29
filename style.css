@@ -949,6 +949,11 @@ canvas.debate-mode {
   width: 350px;
   z-index: 30000;
   rotate: 10deg;
+  opacity: 0;
+  transition: opacity 0.2 linear;
+}
+#nonstopDebateUI.show #gauge-container {
+  opacity: 1;
 }
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
