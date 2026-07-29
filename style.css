@@ -1451,3 +1451,15 @@ canvas.debate-mode {
   transform-origin: center;
 }
 
+#counterBG {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 80000;
+}
+#counterTaturo {
+  position: absolute;
+  z-index: 81000;
+}
