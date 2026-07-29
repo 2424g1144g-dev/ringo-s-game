@@ -333,28 +333,10 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
   function animateSerif(now) {
     // 議論自体が止まったらセリフも即座に消去
     if (debateController && debateController.signal.aborted) {
-      // 💡 1. 自身の要素、またはその子孫のどこかに isShuttered があるかチェックする関数
-      const checkShuttered = (el) => {
-        if (!el) return false;
-        if (el.dataset && el.dataset.isShuttered === "true") return true;
-        // 子要素の中に一つでも isShuttered="true" のものがあるか探す
-        return el.querySelector('[data-is-shuttered="true"]') !== null;
-      };
-
-      // 💡 2. 処理中のバブル自身が演出中なら何もしない
-      if (checkShuttered(newSerif)) {
-        return; 
+      if (newSerif.dataset.isShuttered === "true") {
+        return; // 破壊演出中ならアボートされても消さずに生き残る！
       }
-      
-      // 🚀【大掃除】画面上のすべてのバブルを取得
-      const allBubbles = document.querySelectorAll(".serif-bubble"); 
-      allBubbles.forEach(element => {
-        // 💡 3. 自身または子孫に演出フラグを持っていなければ、安全に削除する
-        if (!checkShuttered(element)) {
-          element.remove();
-        }
-      });
-
+      newSerif.remove();
       return;
     }
 
@@ -505,6 +487,7 @@ window.addEventListener("keydown", (e) => {
           if (isweak) {
             debateController.abort();
             const correct = currentOverlappingBubble.dataset.correctKotodama;
+            currentOverlappingBubble.dataset.isShuttered = "true";
             const failDialogId = currentOverlappingBubble.dataset.failDialogId;
             if (firedKotodama === correct) {
               console.log("それは違うよ！");
