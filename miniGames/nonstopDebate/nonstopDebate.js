@@ -340,7 +340,7 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
       
       // 🚀【大掃除】画面上に残っている「すべてのセリフ（あるいはバブル）」を一斉に取得して全部消す！
       // ※もしセリフのクラス名が `.serifBubble` など別の名前なら、そのクラス名に変えてください。
-      const allBubbles = document.querySelectorAll(".shotText, .serif-bubble"); 
+      const allBubbles = document.querySelectorAll(".serif-bubble"); 
       allBubbles.forEach(element => {
         // ここでも、今まさに壊れる演出中のやつは巻き込まないように安全弁をつけておく
         if (element.dataset.isShuttered !== "true") {
