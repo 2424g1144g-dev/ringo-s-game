@@ -1516,10 +1516,23 @@ canvas.debate-mode {
 #counterText span:nth-child(2) {position: absolute; left: 300px; top: 180px; }
 .shakeGrow {
   display: inline-block; /* アニメーションを正しく適用させるため */
-  animation: shakeGrow 2s ease-in-out; 
+  animation: justShake 2s ease-in-out; 
   /* infinite alternate で「大きくなって震えながら戻る」を繰り返します。1回きりにしたい場合は「forward」に変えてください */
 }
 @keyframes shakeGrow {
   from {scale: 1.0; left: 50px; top: 50px; }
   to { scale: 1.1; left: -20px; top: -20px;}
+}
+@keyframes justShake {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(6px,  3px); }
+  20%  { transform: translate( 3px, -6px); }
+  30%  { transform: translate(-3px,  6px); }
+  40%  { transform: translate( 6px, -3px); }
+  50%  { transform: translate(-6px, -3px); }
+  60%  { transform: translate( 6px,  6px); }
+  70%  { transform: translate(-3px, -3px); }
+  80%  { transform: translate( 6px,  3px); }
+  90%  { transform: translate(-3px,  6px); }
+  100% { transform: translate(0, 0); }
 }
