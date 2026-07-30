@@ -591,6 +591,10 @@ window.addEventListener("keydown", (e) => {
               void canvas.offsetWidth;
               canvas.classList.add("action-flash");
               playSE("throughShot");
+              setTimeout(() => {
+                const counter = document.getElementById("counterContainer");
+                counter.classList.add("clipReveal");
+              },1200)
             } else {
               debateController.abort();
               alert("あほあほあほあほ！！")

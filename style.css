@@ -1457,7 +1457,6 @@ canvas.debate-mode {
   width: 100vw;
   height: 100vh;
   opacity: 0;
-  animation: clipReveal 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 #counterBG {
   position: absolute;
@@ -1476,6 +1475,9 @@ canvas.debate-mode {
   rotate: -30deg;
   z-index: 81000;
 }
+.clipReveal {
+  animation: clipReveal 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+} 
 
 @keyframes clipReveal {
   0% {
