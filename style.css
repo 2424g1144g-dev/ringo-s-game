@@ -1457,6 +1457,7 @@ canvas.debate-mode {
   width: 100vw;
   height: 100vh;
   opacity: 0;
+  z-index: 80000;
 }
 #counterBG {
   position: absolute;
