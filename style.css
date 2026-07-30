@@ -1477,7 +1477,7 @@ canvas.debate-mode {
   z-index: 81000;
 }
 .clipReveal {
-  animation: clipReveal 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: clipReveal 0.20s linear forwards;
 } 
 
 @keyframes clipReveal {
