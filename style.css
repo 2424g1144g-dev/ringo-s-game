@@ -1514,3 +1514,30 @@ canvas.debate-mode {
 }
 #counterText span:nth-child(1) {position: absolute; top: -80px; }
 #counterText span:nth-child(2) {position: absolute; left: 300px; top: 180px; }
+.shakeGrow {
+  display: inline-block; /* アニメーションを正しく適用させるため */
+  animation: shakeGrow 2s ease-in-out; 
+  /* infinite alternate で「大きくなって震えながら戻る」を繰り返します。1回きりにしたい場合は「forward」に変えてください */
+}
+@keyframes shakeGrow {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  
+  /* 前半：少しずつ大きくなりながら、小刻みに激しく震える */
+  10% { transform: translate(-3px, -2px) scale(1.1); }
+  20% { transform: translate(3px, 2px) scale(1.2); }
+  30% { transform: translate(-4px, 3px) scale(1.3); }
+  40% { transform: translate(4px, -2px) scale(1.4); }
+  
+  /* 中盤：さらに巨大化しつつ、徐々に「左上（マイナス方向）」への引っ張りを強くする */
+  50% { transform: translate(-6px, -5px) scale(1.6); }
+  60% { transform: translate(2px, -3px) scale(1.8); }
+  70% { transform: translate(-8px, -7px) scale(2.0); }
+  80% { transform: translate(1px, -5px) scale(2.2); }
+  
+  /* 終盤：MAXサイズになり、完全に左上にシフトした状態で激しく痙攣 */
+  90% { transform: translate(-12px, -11px) scale(2.4); }
+  95% { transform: translate(-7px, -13px) scale(2.4); }
+  100% { transform: translate(-10px, -12px) scale(2.5); }
+}
