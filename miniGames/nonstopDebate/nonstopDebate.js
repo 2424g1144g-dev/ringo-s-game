@@ -593,7 +593,9 @@ window.addEventListener("keydown", (e) => {
               playSE("throughShot");
               setTimeout(() => {
                 const counter = document.getElementById("counterContainer");
+                const taturo = document.getElementById("counterTaturo");
                 counter.classList.add("clipReveal");
+                taturo.classList.add("counterTaturoMove");
               },1200)
             } else {
               debateController.abort();

@@ -1493,3 +1493,10 @@ canvas.debate-mode {
     opacity: 1;
   }
 }
+.counterTaturoMove {
+  animation: counterTaturoMove 1s linear forwards;
+}
+@keyframes counterTaturoMove {
+  from {left: 600px; top: 150px;}
+  to {left: 570px; top: 120px;}
+}
