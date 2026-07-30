@@ -1500,3 +1500,16 @@ canvas.debate-mode {
   from {left: 600px; top: 150px;}
   to {left: 570px; top: 120px;}
 }
+#counterText {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  width: max-content;
+  height: max-content;
+  font-family: "mouhitsu";
+  font-size: 100px;
+  color: black;
+  z-index: 80500;
+}
+#counterText span:nth-child(1) {top: -50px; }
+#counterText span:nth-child(2) {top: 50px; }
