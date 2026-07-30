@@ -1494,7 +1494,7 @@ canvas.debate-mode {
   }
 }
 .counterTaturoMove {
-  animation: counterTaturoMove 1s linear forwards;
+  animation: counterTaturoMove 2s linear forwards;
 }
 @keyframes counterTaturoMove {
   from {left: 600px; top: 150px;}
