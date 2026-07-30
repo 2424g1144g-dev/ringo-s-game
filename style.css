@@ -1520,6 +1520,6 @@ canvas.debate-mode {
   /* infinite alternate で「大きくなって震えながら戻る」を繰り返します。1回きりにしたい場合は「forward」に変えてください */
 }
 @keyframes shakeGrow {
-  from {scale: 1.0; left: 20px; top: 20px; }
+  from {scale: 1.0; left: 50px; top: 50px; }
   to { scale: 1.3; left: 20px; top: 20px;}
 }
