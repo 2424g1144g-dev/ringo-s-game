@@ -1453,8 +1453,9 @@ canvas.debate-mode {
 
 #counterContainer {
   position: absolute;
+  top: 0;
   width: 100vw;
-  height: 106vh;
+  height: 100vh;
 }
 #counterBG {
   position: absolute;
