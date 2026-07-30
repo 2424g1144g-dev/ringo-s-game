@@ -1456,7 +1456,8 @@ canvas.debate-mode {
   top: 0;
   width: 100vw;
   height: 100vh;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  opacity: 0;
+  animation: clipReveal 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 #counterBG {
   position: absolute;
@@ -1474,4 +1475,18 @@ canvas.debate-mode {
   height: auto;
   rotate: -30deg;
   z-index: 81000;
+}
+
+@keyframes clipReveal {
+  0% {
+    /* 💡 すべての点を右下の角（100% 100%）に集めて、完全に隠す */
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+    opacity: 0; /* 最初はフチの影に隠れるよう透明度も0に */
+  }
+  100% {
+    /* 💡 本来の切り抜きサイズまで一気に広げる */
+    /* ※座標の数値はあなたの実際の枠の形に合わせてください */
+    clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
 }
