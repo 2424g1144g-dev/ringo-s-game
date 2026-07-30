@@ -1516,7 +1516,7 @@ canvas.debate-mode {
 #counterText span:nth-child(2) {position: absolute; left: 300px; top: 180px; }
 .shakeGrow {
   display: inline-block; /* アニメーションを正しく適用させるため */
-  animation: justShake 2s ease-in-out; 
+  animation: justShake 0.2s linear infinite; 
   /* infinite alternate で「大きくなって震えながら戻る」を繰り返します。1回きりにしたい場合は「forward」に変えてください */
 }
 @keyframes shakeGrow {
