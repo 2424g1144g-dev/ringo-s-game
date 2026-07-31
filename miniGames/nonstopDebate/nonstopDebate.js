@@ -599,7 +599,7 @@ window.addEventListener("keydown", (e) => {
                 counter.classList.add("clipReveal");
                 taturo.classList.add("counterTaturoMove");
                 cText.classList.add("shakeGrow");
-                await sleep(250);
+                await sleep(2000);
                 playSE("shutter");
               },1200)
             } else {
