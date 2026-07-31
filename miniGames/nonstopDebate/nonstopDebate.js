@@ -595,9 +595,11 @@ window.addEventListener("keydown", (e) => {
                 const counter = document.getElementById("counterContainer");
                 const taturo = document.getElementById("counterTaturo");
                 const cText = document.getElementById("counterText");
+                const 
                 counter.classList.add("clipReveal");
                 taturo.classList.add("counterTaturoMove");
                 cText.classList.add("shakeGrow");
+
               },1200)
             } else {
               debateController.abort();

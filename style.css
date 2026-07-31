@@ -1476,22 +1476,19 @@ canvas.debate-mode {
   rotate: -30deg;
   z-index: 81000;
 }
+
 .clipReveal {
-  animation: clipReveal 0.20s linear forwards;
-} 
+  animation: clipReveal 0.20s linear forwards,
+             2s clipHide 0.20s linear forwards;
+}
 
 @keyframes clipReveal {
-  0% {
-    /* 💡 すべての点を右下の角（100% 100%）に集めて、完全に隠す */
-    clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
-    opacity: 0; /* 最初はフチの影に隠れるよう透明度も0に */
-  }
-  100% {
-    /* 💡 本来の切り抜きサイズまで一気に広げる */
-    /* ※座標の数値はあなたの実際の枠の形に合わせてください */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    opacity: 1;
-  }
+  0% { clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%); opacity: 0; /* 最初はフチの影に隠れるよう透明度も0に */ }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+}
+@keyframes clipHide {
+  0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+  100% { clip-path: polygon(0 0, 0 0, 0 0, 0 0);}
 }
 .counterTaturoMove {
   animation: counterTaturoMove 2s linear forwards;
@@ -1518,10 +1515,6 @@ canvas.debate-mode {
   display: inline-block; /* アニメーションを正しく適用させるため */
   animation: justShake 0.2s linear infinite; 
   /* infinite alternate で「大きくなって震えながら戻る」を繰り返します。1回きりにしたい場合は「forward」に変えてください */
-}
-@keyframes shakeGrow {
-  from {scale: 1.0; left: 50px; top: 50px; }
-  to { scale: 1.1; left: -20px; top: -20px;}
 }
 @keyframes justShake {
   0%   { transform: translate(0, 0); }
