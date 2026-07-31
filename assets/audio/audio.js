@@ -75,6 +75,8 @@ const SE = {
   hammer: "assets/audio/SE/hammer.wav",
   stamp: "assets/audio/SE/stamp.wav",
   nonstopDebateStart: "assets/audio/SE/nonstopDebateStart.wav",
+  noThatsWrong: "assets/audio/SE/NoThatsWrong.wav",
+  shutter: "assets/audio/SE/shutter.wav",
   addBullet: "assets/audio/SE/addBullet.wav",
   bulletChange: "assets/audio/SE/bulletChange.wav",
   refrect: "assets/audio/SE/refrect.wav",

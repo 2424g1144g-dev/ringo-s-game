@@ -592,14 +592,17 @@ window.addEventListener("keydown", (e) => {
               canvas.classList.add("action-flash");
               playSE("throughShot");
               setTimeout(() => {
+                playSE("noThatsWrong");
                 const counter = document.getElementById("counterContainer");
                 const taturo = document.getElementById("counterTaturo");
                 const cText = document.getElementById("counterText");
                 counter.classList.add("clipReveal");
                 taturo.classList.add("counterTaturoMove");
                 cText.classList.add("shakeGrow");
-
               },1200)
+              setTimeout(() => {
+                playSE("shutter");
+              },1450)
             } else {
               debateController.abort();
               alert("あほあほあほあほ！！")
