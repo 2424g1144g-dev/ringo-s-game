@@ -591,7 +591,7 @@ window.addEventListener("keydown", (e) => {
               void canvas.offsetWidth;
               canvas.classList.add("action-flash");
               playSE("throughShot");
-              setTimeout(() => {
+              setTimeout(async () => {
                 playSE("noThatsWrong");
                 const counter = document.getElementById("counterContainer");
                 const taturo = document.getElementById("counterTaturo");
@@ -599,9 +599,8 @@ window.addEventListener("keydown", (e) => {
                 counter.classList.add("clipReveal");
                 taturo.classList.add("counterTaturoMove");
                 cText.classList.add("shakeGrow");
-                setTimeout(() => {
-                  playSE("shutter");
-                }, 250)
+                await sleep(250);
+                playSE(shutter);
               },1200)
             } else {
               debateController.abort();
