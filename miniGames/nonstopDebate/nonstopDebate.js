@@ -599,10 +599,10 @@ window.addEventListener("keydown", (e) => {
                 counter.classList.add("clipReveal");
                 taturo.classList.add("counterTaturoMove");
                 cText.classList.add("shakeGrow");
+                setTimeout(() => {
+                  playSE("shutter");
+                }, 250)
               },1200)
-              setTimeout(() => {
-                playSE("shutter");
-              },1450)
             } else {
               debateController.abort();
               alert("あほあほあほあほ！！")
