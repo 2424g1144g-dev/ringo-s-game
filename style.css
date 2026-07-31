@@ -1479,7 +1479,7 @@ canvas.debate-mode {
 
 .clipReveal {
   animation: clipReveal 0.20s linear forwards,
-             2s clipHide 0.20s linear forwards;
+             clipHide 0.20s linear 2s forwards;
 }
 
 @keyframes clipReveal {
