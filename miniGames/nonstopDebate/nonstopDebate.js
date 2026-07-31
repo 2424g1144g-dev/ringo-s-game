@@ -600,7 +600,7 @@ window.addEventListener("keydown", (e) => {
                 taturo.classList.add("counterTaturoMove");
                 cText.classList.add("shakeGrow");
                 await sleep(250);
-                playSE(shutter);
+                playSE("shutter");
               },1200)
             } else {
               debateController.abort();
