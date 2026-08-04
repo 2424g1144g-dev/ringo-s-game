@@ -675,33 +675,49 @@ function triggerUniversalShatter(threeCanvasElement) {
 
   canvas.style.pointerEvents = 'auto';
 
-  try {
-    // 1. 統合用マスターCanvasの作成
+  // 1. html2canvasでHTML/CSS部分をキャプチャ（エラー原因のグラデーション対策オプションを追加）
+  html2canvas(document.body, {
+    useCORS: true,
+    scale: 1,
+    logging: false,
+    // ★Three.jsのCanvasと、シャッター演出用要素をhtml2canvas側の処理から除外
+    ignoreElements: (element) => {
+      return element === threeCanvasElement || 
+             element.id === 'shatter-canvas' || 
+             element.id === 'shatter-blackout';
+    },
+    // ★グラデーションや変形計算でNaNが出るのを防ぐ設定
+    allowTaint: true,
+    foreignObjectRendering: false
+  }).then(htmlCanvas => {
+    
+    // 2. 統合用マスターCanvasの作成
     const masterCanvas = document.createElement('canvas');
     masterCanvas.width = canvas.width;
     masterCanvas.height = canvas.height;
     const mCtx = masterCanvas.getContext('2d');
 
-    // 2. ベース背景色の塗りつぶし（黒または指定背景色）
+    // 3. ベース色の塗りつぶし
     const bgColor = window.getComputedStyle(document.body).backgroundColor;
     mCtx.fillStyle = (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') ? bgColor : '#000000';
     mCtx.fillRect(0, 0, masterCanvas.width, masterCanvas.height);
 
-    // 3. Three.jsの描画（存在する場合）
+    // 4. 【下層】Three.jsの画面を描画
     if (threeCanvasElement) {
       const rect = threeCanvasElement.getBoundingClientRect();
       mCtx.drawImage(threeCanvasElement, rect.left, rect.top, rect.width, rect.height);
     }
 
-    // 4. HTMLのSVG/UI要素やオーバーレイ領域をキャプチャ（安全なフォールバック描画）
-    // ※ html2canvasの内部クラッシュを防ぐため、マスターCanvasを直接利用
+    // 5. 【上層】HTML/CSSのテキストやUIを描画（これでCSS部分も破片に残ります！）
+    mCtx.drawImage(htmlCanvas, 0, 0, masterCanvas.width, masterCanvas.height);
+
+    // 6. 合成画像から破片を生成
     createShards(masterCanvas);
 
-    // 5. 元画面を非表示にして演出用キャンバスを表示
+    // 7. 元画面を隠してアニメーション開始
     blackout.style.display = 'block';
     if (threeCanvasElement) threeCanvasElement.style.visibility = 'hidden';
 
-    // 6. アニメーションループ開始
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       let allInvisible = true;
@@ -720,121 +736,34 @@ function triggerUniversalShatter(threeCanvasElement) {
     }
     animate();
 
-  } catch (err) {
-    console.error("破片生成処理中にエラーが発生しました:", err);
-  }
-}
-
-// 破片クラス（厳密な数値判定・安全ガード適用）
-class Shard {
-  constructor(pts, originalCanvas) {
-    this.pts = pts;
+  }).catch(err => {
+    console.error("キャプチャ失敗時のフォールバック処理:", err);
     
-    const xs = pts.map(p => p[0]);
-    const ys = pts.map(p => p[1]);
-    
-    // 端数処理と範囲制限（NaN / 0幅をシャットアウト）
-    this.minX = Math.max(0, Math.floor(Math.min(...xs)));
-    this.maxX = Math.min(originalCanvas.width, Math.ceil(Math.max(...xs)));
-    this.minY = Math.max(0, Math.floor(Math.min(...ys)));
-    this.maxY = Math.min(originalCanvas.height, Math.ceil(Math.max(...ys)));
-    
-    this.w = Math.max(1, this.maxX - this.minX);
-    this.h = Math.max(1, this.maxY - this.minY);
+    // 万が一 html2canvas が失敗しても、Three.js単体で割るフォールバック
+    const masterCanvas = document.createElement('canvas');
+    masterCanvas.width = canvas.width;
+    masterCanvas.height = canvas.height;
+    const mCtx = masterCanvas.getContext('2d');
 
-    this.cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3;
-    this.cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
-
-    this.shardCanvas = document.createElement('canvas');
-    this.shardCanvas.width = this.w;
-    this.shardCanvas.height = this.h;
-    const sCtx = this.shardCanvas.getContext('2d');
-
-    // 下地を黒で塗る
-    sCtx.fillStyle = '#000000';
-    sCtx.fillRect(0, 0, this.w, this.h);
-
-    sCtx.beginPath();
-    sCtx.moveTo(pts[0][0] - this.minX, pts[0][1] - this.minY);
-    sCtx.lineTo(pts[1][0] - this.minX, pts[1][1] - this.minY);
-    sCtx.lineTo(pts[2][0] - this.minX, pts[2][1] - this.minY);
-    sCtx.closePath();
-    sCtx.clip();
-    
-    sCtx.drawImage(
-      originalCanvas, 
-      this.minX, this.minY, this.w, this.h, 
-      0, 0, this.w, this.h
-    );
-
-    const angle = Math.atan2(this.cy - canvas.height / 2, this.cx - canvas.width / 2);
-    const force = 8 + Math.random() * 10;
-    this.vx = Math.cos(angle) * force + (Math.random() - 0.5) * 2;
-    this.vy = Math.sin(angle) * force - 4;
-    
-    this.gravity = 0.4;
-    this.rotation = (Math.random() - 0.5) * 0.12;
-    this.angle = 0;
-    this.alpha = 1.0;
-    this.fadeSpeed = 0.008 + Math.random() * 0.01;
-  }
-
-  update() {
-    this.cx += this.vx;
-    this.cy += this.vy;
-    this.vy += this.gravity;
-    this.angle += this.rotation;
-    this.alpha -= this.fadeSpeed;
-  }
-
-  draw(context) {
-    if (this.alpha <= 0) return;
-    context.save();
-    context.globalAlpha = Math.max(0, this.alpha);
-    context.translate(this.cx, this.cy);
-    context.rotate(this.angle);
-    
-    context.drawImage(this.shardCanvas, -this.w / 2, -this.h / 2);
-
-    // 反射エッジ線
-    context.beginPath();
-    context.moveTo(this.pts[0][0] - this.cx, this.pts[0][1] - this.cy);
-    context.lineTo(this.pts[1][0] - this.cx, this.pts[1][1] - this.cy);
-    context.lineTo(this.pts[2][0] - this.cx, this.pts[2][1] - this.cy);
-    context.closePath();
-    context.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-    context.lineWidth = 1;
-    context.stroke();
-
-    context.restore();
-  }
-}
-
-function createShards(originalCanvas) {
-  shards = [];
-  const cols = 12;
-  const rows = 9;
-  const w = canvas.width / cols;
-  const h = canvas.height / rows;
-  const vertices = [];
-
-  for (let r = 0; r <= rows; r++) {
-    vertices[r] = [];
-    for (let c = 0; c <= cols; c++) {
-      let x = c * w;
-      let y = r * h;
-      if (c > 0 && c < cols) x += (Math.random() - 0.5) * w * 0.75;
-      if (r > 0 && r < rows) y += (Math.random() - 0.5) * h * 0.75;
-      vertices[r][c] = [x, y];
+    if (threeCanvasElement) {
+      mCtx.drawImage(threeCanvasElement, 0, 0, canvas.width, canvas.height);
     }
-  }
-
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      shards.push(new Shard([vertices[r][c], vertices[r][c+1], vertices[r+1][c]], originalCanvas));
-      shards.push(new Shard([vertices[r][c+1], vertices[r+1][c+1], vertices[r+1][c]], originalCanvas));
+    createShards(masterCanvas);
+    blackout.style.display = 'block';
+    if (threeCanvasElement) threeCanvasElement.style.visibility = 'hidden';
+    
+    function animateFallback() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let allInvisible = true;
+      shards.forEach(shard => {
+        shard.update();
+        shard.draw(ctx);
+        if (shard.alpha > 0) allInvisible = false;
+      });
+      if (!allInvisible) requestAnimationFrame(animateFallback);
     }
-  }
+    animateFallback();
+  });
 }
 
 // テスト用クリックイベント
