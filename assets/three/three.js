@@ -650,3 +650,199 @@ window.moveCameraPromise = function(config, signal) {
     requestAnimationFrame(animate);
   });
 }
+
+
+const canvas = document.getElementById('shatter-canvas');
+const blackout = document.getElementById('shatter-blackout');
+const ctx = canvas.getContext('2d');
+let shards = [];
+let isShattered = false;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+/**
+ * Three.jsとCSSが混在した画面全体を統合して割る関数
+ * @param {HTMLCanvasElement} threeCanvasElement - Three.jsのrenderer.domElementを渡します
+ */
+function triggerUniversalShatter(threeCanvasElement) {
+  if (isShattered) return;
+  isShattered = true;
+
+  canvas.style.pointerEvents = 'auto';
+
+  // 1. まず通常のHTML/CSS部分をキャプチャ（WebGLのCanvasは無視するオプションを入れる）
+  html2canvas(document.body, {
+    useCORS: true,
+    scale: 1,
+    logging: false,
+    ignoreElements: (element) => element === threeCanvasElement // Three.jsのCanvasはhtml2canvas側では除外
+  }).then(htmlCanvas => {
+    
+    // 2. 統合用のマスターCanvasを作成し、画面サイズに合わせる
+    const masterCanvas = document.createElement('canvas');
+    masterCanvas.width = canvas.width;
+    masterCanvas.height = canvas.height;
+    const mCtx = masterCanvas.getContext('2d');
+
+    // 3. 【最背面】元のページの背景色でクリア
+    mCtx.fillStyle = window.getComputedStyle(document.body).backgroundColor || '#ffffff';
+    mCtx.fillRect(0, 0, masterCanvas.width, masterCanvas.height);
+
+    // 4. 【下層レイヤー】Three.jsの画面を描画 (存在する場合)
+    if (threeCanvasElement) {
+      // 画面上でのThree.jsの表示位置・サイズを取得して正確にマッピング
+      const rect = threeCanvasElement.getBoundingClientRect();
+      mCtx.drawImage(threeCanvasElement, rect.left, rect.top, rect.width, rect.height);
+    }
+
+    // 5. 【上層レイヤー】html2canvasで撮ったHTML/CSSの文字やボタンを重ねる
+    mCtx.drawImage(htmlCanvas, 0, 0, masterCanvas.width, masterCanvas.height);
+
+    // 6. 合成完了したマスター画像から、破片を「個別のミニCanvas」として切り出す
+    createShards(masterCanvas);
+
+    // 7. 元の画面をすべて隠して真っ黒にし、アニメーションへ
+    blackout.style.display = 'block';
+    if (threeCanvasElement) threeCanvasElement.style.visibility = 'hidden';
+    
+    // 必要に応じて他の目立つHTML要素を非表示にしたい場合はここに追記してください
+    // document.getElementById('main-ui').style.visibility = 'hidden';
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let allInvisible = true;
+
+      shards.forEach(shard => {
+        shard.update();
+        shard.draw(ctx);
+        if (shard.alpha > 0) allInvisible = false;
+      });
+
+      if (!allInvisible) {
+        requestAnimationFrame(animate);
+      } else {
+        canvas.style.display = 'none';
+      }
+    }
+    animate();
+  });
+}
+
+// 破片クラス（独立ミニCanvas化＋エッジ処理）
+class Shard {
+  constructor(pts, originalCanvas) {
+    this.pts = pts;
+    
+    const xs = pts.map(p => p[0]);
+    const ys = pts.map(p => p[1]);
+    this.minX = Math.max(0, Math.min(...xs));
+    this.maxX = Math.min(originalCanvas.width, Math.max(...xs));
+    this.minY = Math.max(0, Math.min(...ys));
+    this.maxY = Math.min(originalCanvas.height, Math.max(...ys));
+    this.w = this.maxX - this.minX;
+    this.h = this.maxY - this.minY;
+
+    this.cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3;
+    this.cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
+
+    this.shardCanvas = document.createElement('canvas');
+    this.shardCanvas.width = Math.max(1, this.w);
+    this.shardCanvas.height = Math.max(1, this.h);
+    const sCtx = this.shardCanvas.getContext('2d');
+
+    // 画面外ノイズ対策：ベースを背景色で塗る
+    sCtx.fillStyle = window.getComputedStyle(document.body).backgroundColor || '#ffffff';
+    sCtx.fillRect(0, 0, this.w, this.h);
+
+    sCtx.beginPath();
+    sCtx.moveTo(pts[0][0] - this.minX, pts[0][1] - this.minY);
+    sCtx.lineTo(pts[1][0] - this.minX, pts[1][1] - this.minY);
+    sCtx.lineTo(pts[2][0] - this.minX, pts[2][1] - this.minY);
+    sCtx.closePath();
+    sCtx.clip();
+    
+    if (this.w > 0 && this.h > 0) {
+      sCtx.drawImage(originalCanvas, this.minX, this.minY, this.w, this.h, 0, 0, this.w, this.h);
+    }
+
+    const angle = Math.atan2(this.cy - canvas.height/2, this.cx - canvas.width/2);
+    const force = 8 + Math.random() * 10;
+    this.vx = Math.cos(angle) * force + (Math.random() - 0.5) * 2;
+    this.vy = Math.sin(angle) * force - 4;
+    
+    this.gravity = 0.4;
+    this.rotation = (Math.random() - 0.5) * 0.12;
+    this.angle = 0;
+    this.alpha = 1.0;
+    this.fadeSpeed = 0.008 + Math.random() * 0.01;
+  }
+
+  update() {
+    this.cx += this.vx;
+    this.cy += this.vy;
+    this.vy += this.gravity;
+    this.angle += this.rotation;
+    this.alpha -= this.fadeSpeed;
+  }
+
+  draw(context) {
+    if (this.alpha <= 0 || this.w <= 0 || this.h <= 0) return;
+    context.save();
+    context.globalAlpha = this.alpha;
+    context.translate(this.cx, this.cy);
+    context.rotate(this.angle);
+    
+    context.drawImage(this.shardCanvas, -this.w / 2, -this.h / 2);
+
+    // ガラスの反射エッジ線
+    context.beginPath();
+    context.moveTo(this.pts[0][0] - this.cx, this.pts[0][1] - this.cy);
+    context.lineTo(this.pts[1][0] - this.cx, this.pts[1][1] - this.cy);
+    context.lineTo(this.pts[2][0] - this.cx, this.pts[2][1] - this.cy);
+    context.closePath();
+    context.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    context.lineWidth = 1;
+    context.stroke();
+
+    context.restore();
+  }
+}
+
+function createShards(originalCanvas) {
+  const cols = 12; // 密度を少しアップ
+  const rows = 9;
+  const w = canvas.width / cols;
+  const h = canvas.height / rows;
+  const vertices = [];
+
+  for (let r = 0; r <= rows; r++) {
+    vertices[r] = [];
+    for (let c = 0; c <= cols; c++) {
+      let x = c * w;
+      let y = r * h;
+      if (c > 0 && c < cols) x += (Math.random() - 0.5) * w * 0.75;
+      if (r > 0 && r < rows) y += (Math.random() - 0.5) * h * 0.75;
+      vertices[r][c] = [x, y];
+    }
+  }
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      shards.push(new Shard([vertices[r][c], vertices[r][c+1], vertices[r+1][c]], originalCanvas));
+      shards.push(new Shard([vertices[r][c+1], vertices[r+1][c+1], vertices[r+1][c]], originalCanvas));
+    }
+  }
+}
+
+window.addEventListener('click', () => {
+  // あなたのコード内の、Three.jsのcanvas要素（または renderer.domElement）を取得
+  const threeCanvas = renderer.domElement; 
+  
+  // 関数を呼び出す
+  triggerUniversalShatter(threeCanvas);
+});

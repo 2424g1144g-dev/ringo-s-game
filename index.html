@@ -129,6 +129,9 @@
       <img id="counterTaturo" src="miniGames/nonstopDebate/counterTaturo.png">
       <div id="counterText"><span>論</span><span>破</span></div>
     </div>
+
+    <div id="shatter-blackout" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:#000; z-index:99998; display:none;"></div>
+<canvas id="shatter-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:99999; pointer-events:none;"></canvas>
     
 
 
@@ -223,6 +226,7 @@
             }
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="main.js"></script>
     <script type="module" src="assets/three/three.js"></script>
     <script src="keyBinding.js"></script>
