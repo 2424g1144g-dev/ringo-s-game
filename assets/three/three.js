@@ -666,52 +666,49 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 /**
- * Three.jsとCSSが混在した画面全体を統合して割る関数
- * @param {HTMLCanvasElement} threeCanvasElement - Three.jsのrenderer.domElementを渡します
- */
+* Three.jsとCSSが混在した画面全体を統合して割る関数
+* @param {HTMLCanvasElement} threeCanvasElement - Three.jsの renderer.domElement
+*/
 function triggerUniversalShatter(threeCanvasElement) {
   if (isShattered) return;
   isShattered = true;
 
   canvas.style.pointerEvents = 'auto';
 
-  // 1. まず通常のHTML/CSS部分をキャプチャ（WebGLのCanvasは無視するオプションを入れる）
+  // 1. html2canvasでHTML部分をキャプチャ
   html2canvas(document.body, {
     useCORS: true,
     scale: 1,
     logging: false,
-    ignoreElements: (element) => element === threeCanvasElement // Three.jsのCanvasはhtml2canvas側では除外
+    ignoreElements: (element) => element === threeCanvasElement
   }).then(htmlCanvas => {
     
-    // 2. 統合用のマスターCanvasを作成し、画面サイズに合わせる
+    // 2. 統合用マスターCanvasの作成
     const masterCanvas = document.createElement('canvas');
     masterCanvas.width = canvas.width;
     masterCanvas.height = canvas.height;
     const mCtx = masterCanvas.getContext('2d');
 
-    // 3. 【最背面】元のページの背景色でクリア
-    mCtx.fillStyle = window.getComputedStyle(document.body).backgroundColor || '#ffffff';
+    // 3. ベース色塗る（CSSの背景グラデーション等の影響を受けない安全な色取得）
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    mCtx.fillStyle = (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') ? bgColor : '#000000';
     mCtx.fillRect(0, 0, masterCanvas.width, masterCanvas.height);
 
-    // 4. 【下層レイヤー】Three.jsの画面を描画 (存在する場合)
+    // 4. Three.js描画
     if (threeCanvasElement) {
-      // 画面上でのThree.jsの表示位置・サイズを取得して正確にマッピング
       const rect = threeCanvasElement.getBoundingClientRect();
       mCtx.drawImage(threeCanvasElement, rect.left, rect.top, rect.width, rect.height);
     }
 
-    // 5. 【上層レイヤー】html2canvasで撮ったHTML/CSSの文字やボタンを重ねる
+    // 5. HTML/CSS描画
     mCtx.drawImage(htmlCanvas, 0, 0, masterCanvas.width, masterCanvas.height);
 
-    // 6. 合成完了したマスター画像から、破片を「個別のミニCanvas」として切り出す
+    // 6. 破片化
     createShards(masterCanvas);
 
-    // 7. 元の画面をすべて隠して真っ黒にし、アニメーションへ
+    // 7. 元画面の非表示とアニメーション開始
     blackout.style.display = 'block';
     if (threeCanvasElement) threeCanvasElement.style.visibility = 'hidden';
-    
-    // 必要に応じて他の目立つHTML要素を非表示にしたい場合はここに追記してください
-    // document.getElementById('main-ui').style.visibility = 'hidden';
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -730,33 +727,39 @@ function triggerUniversalShatter(threeCanvasElement) {
       }
     }
     animate();
+  }).catch(err => {
+    console.error("キャプチャ中にエラーが発生しました:", err);
   });
 }
 
-// 破片クラス（独立ミニCanvas化＋エッジ処理）
+// 破片クラス（エラー対策：サイズが0以下の計算ガードを適用）
 class Shard {
   constructor(pts, originalCanvas) {
     this.pts = pts;
     
     const xs = pts.map(p => p[0]);
     const ys = pts.map(p => p[1]);
-    this.minX = Math.max(0, Math.min(...xs));
-    this.maxX = Math.min(originalCanvas.width, Math.max(...xs));
-    this.minY = Math.max(0, Math.min(...ys));
-    this.maxY = Math.min(originalCanvas.height, Math.max(...ys));
-    this.w = this.maxX - this.minX;
-    this.h = this.maxY - this.minY;
+    
+    // 端数処理と範囲制限で NaN や 0幅 を徹底防止
+    this.minX = Math.max(0, Math.floor(Math.min(...xs)));
+    this.maxX = Math.min(originalCanvas.width, Math.ceil(Math.max(...xs)));
+    this.minY = Math.max(0, Math.floor(Math.min(...ys)));
+    this.maxY = Math.min(originalCanvas.height, Math.ceil(Math.max(...ys)));
+    
+    // 幅・高さを最低1px確保して「non-finite」エラーを防ぐ
+    this.w = Math.max(1, this.maxX - this.minX);
+    this.h = Math.max(1, this.maxY - this.minY);
 
     this.cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3;
     this.cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
 
     this.shardCanvas = document.createElement('canvas');
-    this.shardCanvas.width = Math.max(1, this.w);
-    this.shardCanvas.height = Math.max(1, this.h);
+    this.shardCanvas.width = this.w;
+    this.shardCanvas.height = this.h;
     const sCtx = this.shardCanvas.getContext('2d');
 
-    // 画面外ノイズ対策：ベースを背景色で塗る
-    sCtx.fillStyle = window.getComputedStyle(document.body).backgroundColor || '#ffffff';
+    // 背景色でベースを埋める
+    sCtx.fillStyle = '#000000';
     sCtx.fillRect(0, 0, this.w, this.h);
 
     sCtx.beginPath();
@@ -766,11 +769,14 @@ class Shard {
     sCtx.closePath();
     sCtx.clip();
     
-    if (this.w > 0 && this.h > 0) {
-      sCtx.drawImage(originalCanvas, this.minX, this.minY, this.w, this.h, 0, 0, this.w, this.h);
-    }
+    // 切り出し元の幅・高さが有効な場合のみ描画
+    sCtx.drawImage(
+      originalCanvas, 
+      this.minX, this.minY, this.w, this.h, 
+      0, 0, this.w, this.h
+    );
 
-    const angle = Math.atan2(this.cy - canvas.height/2, this.cx - canvas.width/2);
+    const angle = Math.atan2(this.cy - canvas.height / 2, this.cx - canvas.width / 2);
     const force = 8 + Math.random() * 10;
     this.vx = Math.cos(angle) * force + (Math.random() - 0.5) * 2;
     this.vy = Math.sin(angle) * force - 4;
@@ -791,15 +797,15 @@ class Shard {
   }
 
   draw(context) {
-    if (this.alpha <= 0 || this.w <= 0 || this.h <= 0) return;
+    if (this.alpha <= 0) return;
     context.save();
-    context.globalAlpha = this.alpha;
+    context.globalAlpha = Math.max(0, this.alpha);
     context.translate(this.cx, this.cy);
     context.rotate(this.angle);
     
     context.drawImage(this.shardCanvas, -this.w / 2, -this.h / 2);
 
-    // ガラスの反射エッジ線
+    // ガラスの反射線
     context.beginPath();
     context.moveTo(this.pts[0][0] - this.cx, this.pts[0][1] - this.cy);
     context.lineTo(this.pts[1][0] - this.cx, this.pts[1][1] - this.cy);
@@ -813,8 +819,10 @@ class Shard {
   }
 }
 
+// 頂点生成関数（OCR時の構文エラー修正）
 function createShards(originalCanvas) {
-  const cols = 12; // 密度を少しアップ
+  shards = []; // 配列クリア
+  const cols = 12;
   const rows = 9;
   const w = canvas.width / cols;
   const h = canvas.height / rows;
@@ -839,10 +847,11 @@ function createShards(originalCanvas) {
   }
 }
 
+// テスト用クリックイベント
 window.addEventListener('click', () => {
-  // あなたのコード内の、Three.jsのcanvas要素（または renderer.domElement）を取得
-  const threeCanvas = renderer.domElement; 
-  
-  // 関数を呼び出す
-  triggerUniversalShatter(threeCanvas);
+  if (typeof renderer !== 'undefined' && renderer.domElement) {
+    triggerUniversalShatter(renderer.domElement);
+  } else {
+    triggerUniversalShatter(null);
+  }
 });
