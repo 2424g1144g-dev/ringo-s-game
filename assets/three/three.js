@@ -666,104 +666,212 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 /**
-* Three.jsとCSS/HTML画面全体を統合して安全に割る関数
+* SVG foreignObject を使って HTML/CSS と Three.js を安全に合成し破片化する関数
 * @param {HTMLCanvasElement} threeCanvasElement - Three.jsの renderer.domElement
 */
 function triggerUniversalShatter(threeCanvasElement) {
-  if (isShattered) return;
-  isShattered = true;
+  if (typeof isShattered !== 'undefined' && isShattered) return;
+  window.isShattered = true;
 
-  canvas.style.pointerEvents = 'auto';
+  if (typeof canvas !== 'undefined' && canvas) {
+    canvas.style.pointerEvents = 'auto';
+  }
 
-  // 1. html2canvasでHTML/CSS部分をキャプチャ（エラー原因のグラデーション対策オプションを追加）
-  html2canvas(document.body, {
-    useCORS: true,
-    scale: 1,
-    logging: false,
-    // ★Three.jsのCanvasと、シャッター演出用要素をhtml2canvas側の処理から除外
-    ignoreElements: (element) => {
-      return element === threeCanvasElement || 
-             element.id === 'shatter-canvas' || 
-             element.id === 'shatter-blackout';
-    },
-    // ★グラデーションや変形計算でNaNが出るのを防ぐ設定
-    allowTaint: true,
-    foreignObjectRendering: false
-  }).then(htmlCanvas => {
-    
-    // 2. 統合用マスターCanvasの作成
-    const masterCanvas = document.createElement('canvas');
-    masterCanvas.width = canvas.width;
-    masterCanvas.height = canvas.height;
-    const mCtx = masterCanvas.getContext('2d');
+  // 1. 統合用マスターCanvasの準備
+  const targetWidth = window.innerWidth;
+  const targetHeight = window.innerHeight;
+  const masterCanvas = document.createElement('canvas');
+  masterCanvas.width = targetWidth;
+  masterCanvas.height = targetHeight;
+  const mCtx = masterCanvas.getContext('2d');
 
-    // 3. ベース色の塗りつぶし
-    const bgColor = window.getComputedStyle(document.body).backgroundColor;
-    mCtx.fillStyle = (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') ? bgColor : '#000000';
-    mCtx.fillRect(0, 0, masterCanvas.width, masterCanvas.height);
+  // 背景色で塗る
+  const bgColor = window.getComputedStyle(document.body).backgroundColor;
+  mCtx.fillStyle = (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') ? bgColor : '#000000';
+  mCtx.fillRect(0, 0, targetWidth, targetHeight);
 
-    // 4. 【下層】Three.jsの画面を描画
-    if (threeCanvasElement) {
+  // 2. Three.js 画面の描画
+  if (threeCanvasElement) {
+    try {
       const rect = threeCanvasElement.getBoundingClientRect();
       mCtx.drawImage(threeCanvasElement, rect.left, rect.top, rect.width, rect.height);
+    } catch (e) {
+      console.warn("Three.js Canvasの描画をスキップしました:", e);
     }
+  }
 
-    // 5. 【上層】HTML/CSSのテキストやUIを描画（これでCSS部分も破片に残ります！）
-    mCtx.drawImage(htmlCanvas, 0, 0, masterCanvas.width, masterCanvas.height);
+  // 3. SVG foreignObject による HTML/CSS の安全レンダリング
+  const htmlContent = document.body.innerHTML;
+  const svgData = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${targetWidth}" height="${targetHeight}">
+      <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%;">
+          ${htmlContent}
+        </div>
+      </foreignObject>
+    </svg>
+  `;
 
-    // 6. 合成画像から破片を生成
+  const img = new Image();
+  const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.revokeObjectURL ? URL.createObjectURL(svgBlob) : '';
+
+  const proceedShatter = () => {
+    if (url) URL.revokeObjectURL(url);
+
+    // 破片生成
     createShards(masterCanvas);
 
-    // 7. 元画面を隠してアニメーション開始
-    blackout.style.display = 'block';
+    // 画面切り替え
+    if (typeof blackout !== 'undefined' && blackout) blackout.style.display = 'block';
     if (threeCanvasElement) threeCanvasElement.style.visibility = 'hidden';
 
+    // アニメーションループ
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       let allInvisible = true;
 
-      shards.forEach(shard => {
-        shard.update();
-        shard.draw(ctx);
-        if (shard.alpha > 0) allInvisible = false;
-      });
+      if (Array.isArray(shards)) {
+        shards.forEach(shard => {
+          shard.update();
+          shard.draw(ctx);
+          if (shard.alpha > 0) allInvisible = false;
+        });
+      }
 
       if (!allInvisible) {
         requestAnimationFrame(animate);
       } else {
-        canvas.style.display = 'none';
+        if (canvas) canvas.style.display = 'none';
       }
     }
     animate();
+  };
 
-  }).catch(err => {
-    console.error("キャプチャ失敗時のフォールバック処理:", err);
-    
-    // 万が一 html2canvas が失敗しても、Three.js単体で割るフォールバック
-    const masterCanvas = document.createElement('canvas');
-    masterCanvas.width = canvas.width;
-    masterCanvas.height = canvas.height;
-    const mCtx = masterCanvas.getContext('2d');
+  img.onload = () => {
+    try {
+      mCtx.drawImage(img, 0, 0);
+    } catch (e) {
+      console.warn("HTML要素のラスタライズ描画をスキップ:", e);
+    }
+    proceedShatter();
+  };
 
-    if (threeCanvasElement) {
-      mCtx.drawImage(threeCanvasElement, 0, 0, canvas.width, canvas.height);
+  img.onerror = () => {
+    // レンダリングエラー時もクラッシュさせず破片処理へ進む
+    proceedShatter();
+  };
+
+  img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData);
+}
+
+// 破片生成関数（Scopeエラーを防ぐためトリガー関数より上で確実に定義）
+function createShards(originalCanvas) {
+  window.shards = [];
+  const cols = 12;
+  const rows = 9;
+  const w = originalCanvas.width / cols;
+  const h = originalCanvas.height / rows;
+  const vertices = [];
+
+  for (let r = 0; r <= rows; r++) {
+    vertices[r] = [];
+    for (let c = 0; c <= cols; c++) {
+      let x = c * w;
+      let y = r * h;
+      if (c > 0 && c < cols) x += (Math.random() - 0.5) * w * 0.75;
+      if (r > 0 && r < rows) y += (Math.random() - 0.5) * h * 0.75;
+      vertices[r][c] = [x, y];
     }
-    createShards(masterCanvas);
-    blackout.style.display = 'block';
-    if (threeCanvasElement) threeCanvasElement.style.visibility = 'hidden';
-    
-    function animateFallback() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      let allInvisible = true;
-      shards.forEach(shard => {
-        shard.update();
-        shard.draw(ctx);
-        if (shard.alpha > 0) allInvisible = false;
-      });
-      if (!allInvisible) requestAnimationFrame(animateFallback);
+  }
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      window.shards.push(new Shard([vertices[r][c], vertices[r][c+1], vertices[r+1][c]], originalCanvas));
+      window.shards.push(new Shard([vertices[r][c+1], vertices[r+1][c+1], vertices[r+1][c]], originalCanvas));
     }
-    animateFallback();
-  });
+  }
+}
+
+// 破片クラス
+class Shard {
+  constructor(pts, originalCanvas) {
+    this.pts = pts;
+    const xs = pts.map(p => p[0]);
+    const ys = pts.map(p => p[1]);
+
+    this.minX = Math.max(0, Math.floor(Math.min(...xs)));
+    this.maxX = Math.min(originalCanvas.width, Math.ceil(Math.max(...xs)));
+    this.minY = Math.max(0, Math.floor(Math.min(...ys)));
+    this.maxY = Math.min(originalCanvas.height, Math.ceil(Math.max(...ys)));
+
+    this.w = Math.max(1, this.maxX - this.minX);
+    this.h = Math.max(1, this.maxY - this.minY);
+
+    this.cx = (pts[0][0] + pts[1][0] + pts[2][0]) / 3;
+    this.cy = (pts[0][1] + pts[1][1] + pts[2][1]) / 3;
+
+    this.shardCanvas = document.createElement('canvas');
+    this.shardCanvas.width = this.w;
+    this.shardCanvas.height = this.h;
+    const sCtx = this.shardCanvas.getContext('2d');
+
+    sCtx.fillStyle = '#000000';
+    sCtx.fillRect(0, 0, this.w, this.h);
+
+    sCtx.beginPath();
+    sCtx.moveTo(pts[0][0] - this.minX, pts[0][1] - this.minY);
+    sCtx.lineTo(pts[1][0] - this.minX, pts[1][1] - this.minY);
+    sCtx.lineTo(pts[2][0] - this.minX, pts[2][1] - this.minY);
+    sCtx.closePath();
+    sCtx.clip();
+
+    sCtx.drawImage(
+      originalCanvas,
+      this.minX, this.minY, this.w, this.h,
+      0, 0, this.w, this.h
+    );
+
+    const angle = Math.atan2(this.cy - (canvas.height || window.innerHeight) / 2, this.cx - (canvas.width || window.innerWidth) / 2);
+    const force = 8 + Math.random() * 10;
+    this.vx = Math.cos(angle) * force + (Math.random() - 0.5) * 2;
+    this.vy = Math.sin(angle) * force - 4;
+
+    this.gravity = 0.4;
+    this.rotation = (Math.random() - 0.5) * 0.12;
+    this.angle = 0;
+    this.alpha = 1.0;
+    this.fadeSpeed = 0.008 + Math.random() * 0.01;
+  }
+
+  update() {
+    this.cx += this.vx;
+    this.cy += this.vy;
+    this.vy += this.gravity;
+    this.angle += this.rotation;
+    this.alpha -= this.fadeSpeed;
+  }
+
+  draw(context) {
+    if (this.alpha <= 0) return;
+    context.save();
+    context.globalAlpha = Math.max(0, this.alpha);
+    context.translate(this.cx, this.cy);
+    context.rotate(this.angle);
+
+    context.drawImage(this.shardCanvas, -this.w / 2, -this.h / 2);
+
+    context.beginPath();
+    context.moveTo(this.pts[0][0] - this.cx, this.pts[0][1] - this.cy);
+    context.lineTo(this.pts[1][0] - this.cx, this.pts[1][1] - this.cy);
+    context.lineTo(this.pts[2][0] - this.cx, this.pts[2][1] - this.cy);
+    context.closePath();
+    context.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    context.lineWidth = 1;
+    context.stroke();
+
+    context.restore();
+  }
 }
 
 // テスト用クリックイベント
