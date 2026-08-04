@@ -14,7 +14,7 @@ window.initThree = function() {
   scene.fog = new THREE.Fog(0x000000, 100, 1000);
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
   camera.position.set(0, 40, 120);
-  renderer = new THREE.WebGLRenderer({ antialias: true }); // バッテリー優先ならfalse
+  renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); // バッテリー優先ならfalse
   renderer.setSize(window.innerWidth, window.innerHeight);
   // 重要：色空間の設定（白っぽさを防ぐ）
 
