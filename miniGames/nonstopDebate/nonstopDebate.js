@@ -601,6 +601,9 @@ window.addEventListener("keydown", (e) => {
                 cText.classList.add("shakeGrow");
                 await sleep(2300);
                 playSE("shutter");
+                await sleep(300);
+                window.breakScreen();
+              
               },1200)
             } else {
               debateController.abort();

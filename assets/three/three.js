@@ -875,10 +875,10 @@ function triggerUniversalShatter(threeCanvasElement) {
 }
 
 // テスト用クリックイベント
-window.addEventListener('click', () => {
+window.breakScreen = function() {
   if (typeof renderer !== 'undefined' && renderer.domElement) {
     triggerUniversalShatter(renderer.domElement);
   } else {
     triggerUniversalShatter(null);
   }
-});
+};
