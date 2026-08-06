@@ -874,7 +874,7 @@ function triggerUniversalShatter(threeCanvasElement) {
   animate();
 }
 
-// テスト用クリックイベント
+// 更新確認
 window.breakScreen = function() {  
   if (typeof renderer !== 'undefined' && renderer.domElement) {
     triggerUniversalShatter(renderer.domElement);
