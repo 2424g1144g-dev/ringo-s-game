@@ -586,10 +586,12 @@ window.addEventListener("keydown", (e) => {
               // 💥 元のセリフが持っていた updateTimerLoop 内での軌道計算（behaviorFunc）を
               // 完全にストップさせるため、behaviorFuncの実行を実質上書きしてこのrAFループを最優先にします。
               requestAnimationFrame(updateShatterLoop);
-              const canvas = document.querySelector("canvas");
-              canvas.classList.remove("action-flash");
-              void canvas.offsetWidth;
-              canvas.classList.add("action-flash");
+              const canvases = document.querySelectorAll("canvas");
+              canvases.forEach(canvas => {
+                canvas.classList.remove("action-flash");
+                void canvas.offsetWidth;
+                canvas.classList.add("action-flash");
+              })
               playSE("throughShot");
               setTimeout(async () => {
                 playSE("noThatsWrong");
