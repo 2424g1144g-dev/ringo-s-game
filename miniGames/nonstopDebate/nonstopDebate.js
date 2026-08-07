@@ -677,6 +677,16 @@ window.process = function (totalSteps) {
 
   arrow.style.top = finalTop + "px";
 };
+window.resetProcess = function () {
+  // 1. カウンターを 0 にリセット
+  currentProcessStep = 0;
+
+  // 2. 矢印を初期位置（188px）に戻す
+  const arrow = document.getElementById("processMeterArrow");
+  if (arrow) {
+    arrow.style.top = "188px";
+  }
+};
 
 function createSparks(originX, originY) {
     const sparkCount = 35; // 粒子の数を増やして豪華に

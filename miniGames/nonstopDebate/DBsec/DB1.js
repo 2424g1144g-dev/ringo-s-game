@@ -140,6 +140,7 @@ window.nonstopDebate1 = async function () {
     let loopCount = 1;
     while (!signal.aborted) {
       console.log(`--- 🔄 議論ループ 第 ${loopCount} 周目 ---`);
+      resetProcess();
       await window.moveCameraPromise({to: {toX: -10, toY: 16, toZ: -1},toFov: 45, fovSpeed: 999, speed: 100, yaw: 78, rotSpeed: 5,duration: 500}, signal);
       window.process(8);
       window.ndIconChange("シノハラ　リュウジ");
