@@ -605,7 +605,11 @@ window.addEventListener("keydown", (e) => {
                 playSE("shutter");
                 await sleep(300);
                 window.breakScreen();
-              
+                await sleep(500);
+                const breakContainer = document.getElementById('breakContainer');
+                breakContainer.classList.remove('active');
+                void breakContainer.offsetWidth; // リフロー発生させてアニメーションリセット
+                breakContainer.classList.add('active');
               },1200)
             } else {
               debateController.abort();
