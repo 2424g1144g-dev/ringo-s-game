@@ -393,9 +393,10 @@ window.DIALOGUE_EVENTS = {
   },
 
   dhenFlash: () => {
-    const canvas = document.querySelector("canvas");
-    canvas.classList.remove("action-flash");
-    void canvas.offsetWidth;
-    canvas.classList.add("action-flash");
-  }
+    const canvases = document.querySelectorAll("canvas");
+    canvases.forEach(canvas => {
+      canvas.classList.remove("action-flash");
+      void canvas.offsetWidth;
+      canvas.classList.add("action-flash");
+    });
 };
