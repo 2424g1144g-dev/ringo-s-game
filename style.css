@@ -848,6 +848,16 @@ canvas.debate-mode {
   z-index: 26000;
   border: 2px solid #a91313;
 }
+#plot {
+  position: absolute;
+  top: 96.7vh;
+  left: -10px;
+  width: 120vw;
+  height: 7px;
+  background: rgba(253, 58, 54, 1.0);
+  z-index: 25000;
+  rotate: -4deg;
+}
 #NDNameUnderBlack {
   position: absolute;
   right: -50px;
@@ -882,6 +892,7 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
   overflow: hidden;
+  clip-path: polygon(50% 100%, 100% 100%, 100% 0, 20% 0);
   transition: right 0.15s linear, top 0.15s linear;
 }
 #nonstopDebateUI.show #NDiconContainer {
@@ -977,9 +988,6 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show #gauge-container {
   opacity: 1;
-}
-#nonstopDebateUI.up #gauge-container {
-  opacity: 0;
 }
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
@@ -1086,9 +1094,6 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show #NDtimeContainer {
   top: -100px;
-}
-#nonstopDebateUI.up #NDtimeContainer {
-  top: -300px;
 }
 #timeUI {
     position: relative;
