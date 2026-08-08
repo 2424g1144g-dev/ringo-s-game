@@ -869,7 +869,7 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
   overflow: hidden;
-  transition: right top 0.15s linear;
+  transition: right 0.15s linear, top 0.15s linear;
 }
 #nonstopDebateUI.show #NDiconContainer {
   right: -130px;
@@ -910,7 +910,7 @@ canvas.debate-mode {
   border: 2px solid white;
   rotate: -80deg;
   z-index: 19000;
-  transition: right top 0.15s linear;
+  transition: right 0.15s linear, top 0.15s linear;
 }
 #NDprocessMeterContainer {
   position: absolute;
