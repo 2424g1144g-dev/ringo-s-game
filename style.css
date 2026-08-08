@@ -910,7 +910,7 @@ canvas.debate-mode {
   border: 2px solid white;
   rotate: -80deg;
   z-index: 19000;
-  transition: right 0.15s linear;
+  transition: right top 0.15s linear;
 }
 #NDprocessMeterContainer {
   position: absolute;
