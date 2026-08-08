@@ -834,6 +834,9 @@ canvas.debate-mode {
 #nonstopDebateUI.show #NDbottom {
   top: 0;
 }
+#nonstopDebateUI.up #NDbottom {
+  top: -20vh;
+}
 #NDNameUnderline {
   position: absolute;
   right: -50px;
@@ -866,11 +869,16 @@ canvas.debate-mode {
   z-index: 20000;
   rotate: -80deg;
   overflow: hidden;
-  transition: right 0.15s linear;
+  transition: right top 0.15s linear;
 }
 #nonstopDebateUI.show #NDiconContainer {
   right: -130px;
 }
+#nonstopDebateUI.up #NDiconContainer {
+  right: -130px;
+  top: 40vh;
+}
+
 #NDzapping {
   position: relative;
   left: 60px;
@@ -956,6 +964,9 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show #gauge-container {
   opacity: 1;
+}
+#nonstopDebateUI.up #gauge-container {
+  opacity: 0;
 }
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
@@ -1044,6 +1055,10 @@ canvas.debate-mode {
 #nonstopDebateUI.show #NDprocessContainer {
   right: -347px;
 }
+#nonstopDebateUI.up #NDprocessContainer {
+  right: -347px;
+  top: -28.8vh;
+}
 #NDtimeContainer {
   position: absolute;
   right: -50px;
@@ -1058,6 +1073,9 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show #NDtimeContainer {
   top: -100px;
+}
+#nonstopDebateUI.up #NDtimeContainer {
+  top: -300px;
 }
 #timeUI {
     position: relative;
@@ -1076,6 +1094,10 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show #NDcylinderContainer {
   left: 0;
+}
+#nonstopDebateUI.up #NDcylinderContainer {
+  left: 0;
+  bottom: 20vh;
 }
 #NDcylinder {
   position: absolute;
@@ -1146,6 +1168,9 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.show .NDbullet {
   opacity: 1;
+}
+#nonstopDebateUI.up .NDbullet {
+  opacity: 0;
 }
 .NDbullet-Head, .NDbullet-Body{
   background: rgb(219,32,5);
