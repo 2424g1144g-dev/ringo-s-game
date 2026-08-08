@@ -835,7 +835,7 @@ canvas.debate-mode {
   top: 0;
 }
 #nonstopDebateUI.up #NDbottom {
-  top: -20vh;
+  top: -27vh;
 }
 #NDNameUnderline {
   position: absolute;
@@ -863,7 +863,7 @@ canvas.debate-mode {
   right: -50px;
   top: 97.85vh;
   width: 110vw;
-  height: 200px;
+  height: 350px;
   rotate: -4deg;
   z-index: 24000;
   /* ベースとなる一番暗い半透明の背景色（全体に敷く） */
@@ -900,7 +900,7 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.up #NDiconContainer {
   right: -130px;
-  top: 40vh;
+  top: 33vh;
 }
 
 #NDzapping {
@@ -1081,7 +1081,7 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.up #NDprocessContainer {
   right: -347px;
-  top: -28.8vh;
+  top: -35.8vh;
 }
 #NDtimeContainer {
   position: absolute;
