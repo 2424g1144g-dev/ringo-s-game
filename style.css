@@ -863,7 +863,7 @@ canvas.debate-mode {
   right: -50px;
   top: 97.85vh;
   width: 110vw;
-  height: 350px;
+  height: 300px;
   rotate: -4deg;
   z-index: 24000;
   /* ベースとなる一番暗い半透明の背景色（全体に敷く） */
@@ -876,7 +876,7 @@ canvas.debate-mode {
   background-repeat: no-repeat;
 
   /* 四角形格子の全体のサイズ（横幅300px分、縦はウィンドウの高さ100%分だけ表示） */
-  background-size: 300px 100%;
+  background-size: 400px 100%;
 
   /* 表示する位置：ウィンドウの「左端（left）」に配置 */
   background-position: left center;
