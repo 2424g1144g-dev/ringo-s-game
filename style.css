@@ -1097,7 +1097,7 @@ canvas.debate-mode {
 }
 #nonstopDebateUI.up #NDcylinderContainer {
   left: 0;
-  bottom: 20vh;
+  opacity: 0;
 }
 #NDcylinder {
   position: absolute;
