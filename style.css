@@ -989,6 +989,9 @@ canvas.debate-mode {
 #nonstopDebateUI.show #gauge-container {
   opacity: 1;
 }
+#nonstopDebateUI.up #gauge-container {
+  opacity: 1;
+}
 
 /* 1. ベースとなる長方形（白枠・黒背景） */
 .gauge-row {
@@ -1093,6 +1096,9 @@ canvas.debate-mode {
   transition: top 0.15s linear;
 }
 #nonstopDebateUI.show #NDtimeContainer {
+  top: -100px;
+}
+#nonstopDebateUI.up #NDtimeContainer {
   top: -100px;
 }
 #timeUI {
