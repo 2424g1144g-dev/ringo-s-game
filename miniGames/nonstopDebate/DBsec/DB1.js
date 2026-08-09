@@ -1,4 +1,16 @@
 let debateController = null;
+let isTimerPaused = false;
+// 💡 1. タイマー一時停止用関数
+window.pauseDebateTimer = function() {
+  isTimerPaused = true;
+  console.log("⏱️ タイマーを一時停止しました");
+};
+
+// 💡 2. タイマー再開用関数
+window.resumeDebateTimer = function() {
+  isTimerPaused = false;
+  console.log("⏱️ タイマーを再開しました");
+};
 window.updateTimerUI = function(remainingMs) {
   const timerElement = document.getElementById("timeUI");
   if (!timerElement) return;
@@ -47,6 +59,7 @@ window.nonstopDebate1 = async function () {
   // ⏳ 制限時間を本番用の50秒に（whileの外なので周回でリセットされません）
   currentDebateTime = 180000; 
   gameSpeed = 1.0;
+  isTimerPaused = false;
 
 
   const mentalBar = document.getElementById("mental-bar");
@@ -98,39 +111,40 @@ window.nonstopDebate1 = async function () {
     let realDelta = now - lastTimerTime;
     lastTimerTime = now;
 
-    let gameDelta = realDelta * gameSpeed; // スロー対応
-    currentDebateTime -= gameDelta;        // 時間を減らす
+    if (!isTimerPaused) {
+      let gameDelta = realDelta * gameSpeed; // スロー対応
+      currentDebateTime -= gameDelta;        // 時間を減らす
 
-    if (typeof window.updateTimerUI === "function") {
-      window.updateTimerUI(currentDebateTime);
-    }
-
-    if  (mentalBar) {
-      if (isDecreasing) {
-        mental -= realDelta * 0.015;
-        if (mental <= 0) {
-          mental = 0;
-          gameSpeed = 1.0;
-          isDecreasing = false;
-          if (mentalBar) mentalBar.classList.remove("is-decreasing");
-          if (overlay) overlay.classList.remove("is-active");
-          timeSinceKeyRelease = 0;
-        }
-      } else {
-        timeSinceKeyRelease += realDelta;
-        if (timeSinceKeyRelease >= 1000 && mental < 100) {
-          mental += realDelta * 0.01;
-          if (mental > 100) mental = 100;
-        }
+      if (typeof window.updateTimerUI === "function") {
+        window.updateTimerUI(currentDebateTime);
       }
-      mentalBar.style.width = `${mental}%`;
-    }
 
-    if (currentDebateTime <= 0) {
-      currentDebateTime = 0;
-      console.log("⏰ タイムアップ！");
-      debateController.abort(); // ループを強制ストップ
-      return;
+      if  (mentalBar) {
+        if (isDecreasing) {
+          mental -= realDelta * 0.015;
+          if (mental <= 0) {
+            mental = 0;
+            gameSpeed = 1.0;
+            isDecreasing = false;
+            if (mentalBar) mentalBar.classList.remove("is-decreasing");
+            if (overlay) overlay.classList.remove("is-active");
+            timeSinceKeyRelease = 0;
+          }
+        } else {
+          timeSinceKeyRelease += realDelta;
+          if (timeSinceKeyRelease >= 1000 && mental < 100) {
+            mental += realDelta * 0.01;
+            if (mental > 100) mental = 100;
+          }
+        }
+        mentalBar.style.width = `${mental}%`;
+      }
+      if (currentDebateTime <= 0) {
+        currentDebateTime = 0;
+        console.log("⏰ タイムアップ！");
+        debateController.abort(); // ループを強制ストップ
+        return;
+      }
     }
     requestAnimationFrame(updateTimerLoop);
   }
@@ -211,6 +225,7 @@ window.nonstopDebate1 = async function () {
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 45, fovSpeed: 1, speed: 100, yaw: -45, pitch: 0, roll: -15, rotSpeed: 0.2, duration: 3000}, signal);
 
       await sleep(500);
+      window.pauseDebateTimer();
       const crosshair = document.getElementById("crosshairContainer");
       crosshair.style.opacity = 0;
       bulletEnter = false;
