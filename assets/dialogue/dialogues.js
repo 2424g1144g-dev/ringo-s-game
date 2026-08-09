@@ -38,6 +38,7 @@ window.DIALOGUE = {
   },
 
   start(dialogues) {
+    this.dialogueIndex = 0;
     this.data = dialogues;
     this.play();
   },
