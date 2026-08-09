@@ -209,6 +209,26 @@ window.nonstopDebate1 = async function () {
       window.changeStandInExpression("MITSUHIRO", "assets/three/characters/MITSUHIRO/Mitsuhiro_Smile.png");
       window.spawnFlexibleSerif("ええ加減にせんと<br>アンモニアで殺すで？", 20, 20, window.serifBehaviors.linearLeft, null, null, 3000);
       await window.moveCameraPromise({to: {toX: 0, toY: 25, toZ: 0}, toFov: 45, fovSpeed: 1, speed: 100, yaw: -45, pitch: 0, roll: -15, rotSpeed: 0.2, duration: 3000}, signal);
+
+
+      await sleep(500);
+      const crosshair = document.getElementById("crosshairContainer");
+      crosshair.style.opacity = 0;
+      bulletEnter = false;
+      crosshairOperate = false;
+      rough = false;
+      cylinderShift = false;
+      keys.ArrowUp = false;
+      keys.ArrowDown = false;
+      keys.ArrowLeft = false;
+      keys.ArrowRight = false;
+
+      await sleep()
+      document.getElementById("nonstopDebateUI").classList.add("up");
+
+      ndIconChange("ニシモト　タツロウ");
+      DIALOGUE_EVENTS.useDialog({ id: "NDbottom" });
+      DIALOGUE.start(DIALOGUE_LINES["nd1"]);
     }
     
     console.log("【デバッグ】whileループを正常に抜けました（signal.aborted が true になった等）");

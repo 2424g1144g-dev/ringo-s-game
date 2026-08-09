@@ -38,3 +38,7 @@ DIALOGUE_LINES.dialogueStart = [
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "僕だけではありません...皆さんの教師人生が懸かっているんですから！", class: "blue"}]}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "nonstopDebateCamera", id: "DebateBreak", bullets: ["シノハラの証言","密室の体育館"]}]}]}
 ]
+DIALOGUE_LINES.nd1 = [
+  { name: "ニシモトタツロウ", lines: [{segments: [{text: "あれ？よく考えたら...", class: "blue"}]},
+                                      {segments: [{text: "あの先生の、あの発言っておかしいですよね...？", class: "blue"}]}]}
+]
