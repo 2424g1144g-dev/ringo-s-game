@@ -407,7 +407,7 @@ canvas.debate-mode {
 #trialUIBottom.show {
   top: 0;
 }
-.name {
+#trialName {
   position: absolute;
   left: 0;
   top: 66vh;
@@ -445,7 +445,7 @@ canvas.debate-mode {
   background: rgb(253,58,54);
   z-index: 12050;
 }
-.text {
+#trialText {
   position: absolute;
   width: 100vw;
   height: 20vh;
