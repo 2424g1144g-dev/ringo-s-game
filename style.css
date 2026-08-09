@@ -881,7 +881,7 @@ canvas.debate-mode {
   /* 表示する位置：ウィンドウの「左端（left）」に配置 */
   background-position: left center;
 }
-#MDtext {
+#NDtext {
   position: absolute;
   width: max-content;
   height: max-content;
