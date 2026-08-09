@@ -883,6 +883,7 @@ canvas.debate-mode {
 }
 #NDtext {
   position: absolute;
+  top: 103vh;
   width: max-content;
   height: max-content;
   padding: 20px;
@@ -890,6 +891,7 @@ canvas.debate-mode {
   font-family: "游ゴシック体", "Yu Gothic", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 40px;
   line-height: 80px;
+  z-index: 25000;
 }
 #NDiconContainer {
   position: absolute;
