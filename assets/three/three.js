@@ -567,6 +567,11 @@ window.moveCameraPromise = function(config, signal) {
         cameraAnimation.active = false;
         return reject(new Error("Aborted"));
       }
+      if (window.isDebatePaused) {
+        lastTime = now; // ポーズ解除直後の経過時間（Delta）の急増・ワープを防ぐ
+        requestAnimationFrame(animate);
+        return;
+      }
 
       let realDelta = now - lastTime;
       lastTime = now;
