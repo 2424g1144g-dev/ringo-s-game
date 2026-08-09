@@ -1,5 +1,65 @@
 let debateController = null;
 let isTimerPaused = false;
+let pauseWatchdogId = null;
+
+// 1. ポーズ発火用関数（ボタン押下やイベントから呼び出す）
+window.pauseDebate = function() {
+  if (window.isDebatePaused) return;
+  window.isDebatePaused = true;
+
+  if (typeof window.pauseDebateTimer === "function") {
+    window.pauseDebateTimer();
+  }
+  console.log("⏸️ 議論を即時ポーズしました");
+};
+
+// 2. 再開用関数
+window.resumeDebate = function() {
+  if (!window.isDebatePaused) return;
+  window.isDebatePaused = false;
+
+  // ブロックしていた Promise を解決して async 処理を進行させる
+  if (debatePauseResolver) {
+    debatePauseResolver();
+    debatePauseResolver = null;
+  }
+
+  if (typeof window.resumeDebateTimer === "function") {
+    window.resumeDebateTimer();
+  }
+  console.log("▶️ 議論を再開しました");
+};
+
+// 3. 🌀 rAF で常時監視するループ（async の処理とは別に裏で動かす）
+window.startPauseWatchdog = function(signal) {
+  function loop() {
+    if (signal && signal.aborted) {
+      return; // abort されたら監視終了
+    }
+
+    // 💡 もしポーズフラグが立っていて、まだブロック用 Promise が作られていなければ生成する
+    if (window.isDebatePaused && !debatePauseResolver) {
+      // 次の await スルーを防ぐためのブロック状態を作る
+    }
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+};
+
+// 4. 💡 async 側で「ポーズ中なら進ませない」待機ヘルパー
+window.syncWaitPause = async function(signal) {
+  if (signal && signal.aborted) return;
+
+  // rAF で監視中の isDebatePaused が true の間、Promise で進行を完全に止める
+  if (window.isDebatePaused) {
+    await new Promise((resolve) => {
+      debatePauseResolver = resolve;
+    });
+  }
+};
+
+
 // 💡 1. タイマー一時停止用関数
 window.pauseDebateTimer = function() {
   isTimerPaused = true;
@@ -243,6 +303,7 @@ window.nonstopDebate1 = async function () {
       ndIconChange("ニシモト　タツロウ");
       DIALOGUE_EVENTS.useDialog({ id: "NDbottom" });
       DIALOGUE.start(DIALOGUE_LINES["nd1"]);
+      window.pauseDebate()
     }
     
     console.log("【デバッグ】whileループを正常に抜けました（signal.aborted が true になった等）");
