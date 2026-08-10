@@ -1051,7 +1051,7 @@ canvas.debate-mode {
   opacity: 0;
   transition: all 0.5s ease-out;
 }
-#NDhelpItem.show {
+#NDhelpItem .show {
   opacity: 1;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
