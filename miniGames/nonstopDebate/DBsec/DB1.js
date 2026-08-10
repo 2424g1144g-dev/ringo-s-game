@@ -7,7 +7,14 @@ let debatePauseResolver = null;
 window.pauseDebate = function() {
   if (window.isDebatePaused) return;
   window.isDebatePaused = true;
-
+  bulletEnter = false;
+  crosshairOperate = false;
+  rough = false;
+  cylinderShift = false;
+  keys.ArrowUp = false;
+  keys.ArrowDown = false;
+  keys.ArrowLeft = false;
+  keys.ArrowRight = false;
   if (typeof window.pauseDebateTimer === "function") {
     window.pauseDebateTimer();
   }
