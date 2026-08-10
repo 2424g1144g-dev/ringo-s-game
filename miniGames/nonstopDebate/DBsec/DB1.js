@@ -1,6 +1,7 @@
 let debateController = null;
 let isTimerPaused = false;
 let pauseWatchdogId = null;
+let debatePauseResolver = null;
 
 // 1. ポーズ発火用関数（ボタン押下やイベントから呼び出す）
 window.pauseDebate = function() {
