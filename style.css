@@ -1015,6 +1015,9 @@ canvas.debate-mode {
   z-index:  28500;
   line-height: 0.5;
 }
+#cnt {
+  font-size: 3px;
+}
 
 #gauge-container {
   position: absolute;
