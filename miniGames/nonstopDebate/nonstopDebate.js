@@ -744,10 +744,15 @@ document.addEventListener("keydown", (e) => {
   // ESCキーが押された場合
   if (e.key === "Escape") {
     if (!helpEsc) return;
+    const pauseMenu = document.getElementById("NDhelpItem");
     if (window.isDebatePaused) {
       window.resumeDebate(); // すでにポーズ中なら再開
+      pauseMenu.classList.add("show");
     } else {
-      window.pauseDebate();  // 進行中ならポーズ（一時停止）
+      pauseMenu.classList.remove("remove")
+      setTimeout(() => {
+        window.pauseDebate();  // 進行中ならポーズ（一時停止）
+      }, 500);
     }
   }
 });

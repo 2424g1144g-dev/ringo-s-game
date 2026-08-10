@@ -1047,6 +1047,13 @@ canvas.debate-mode {
   padding: 20px;
   z-index: 100000;
   pointer-events: none;
+  clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 0 50%);
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+#NDhelpItem.show {
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 #gauge-container {
@@ -1634,6 +1641,7 @@ canvas.debate-mode {
   color: black;
   z-index: 80500;
   letter-spacing: -50px;
+  pointer-events: none;
 }
 #counterText span:nth-child(1) {position: absolute; top: -80px; }
 #counterText span:nth-child(2) {position: absolute; left: 300px; top: 180px; }
