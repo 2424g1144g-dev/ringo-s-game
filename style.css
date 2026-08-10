@@ -987,6 +987,30 @@ canvas.debate-mode {
   rotate: -90deg;
 }
 
+#NDhelpContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+}
+#NDhelpBG {
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  background:rgba(255, 139, 15, 0.5);
+  z-index: 20000;
+}
+#NDhelpText {
+  position: absolute;
+  left: 10px;
+  width: 80px;
+  height: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: rgba(0,0,0,1);
+  color: white;
+}
 
 #gauge-container {
   position: absolute;

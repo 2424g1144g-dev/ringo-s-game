@@ -297,7 +297,7 @@ window.nonstopDebate1 = async function () {
       keys.ArrowLeft = false;
       keys.ArrowRight = false;
 
-      await sleep()
+      await sleep(500)
       document.getElementById("nonstopDebateUI").classList.add("up");
 
       ndIconChange("ニシモト　タツロウ");
