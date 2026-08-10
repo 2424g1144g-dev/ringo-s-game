@@ -1016,7 +1016,18 @@ canvas.debate-mode {
   line-height: 0.5;
 }
 #cnt {
-  font-size: 3px;
+  padding-left: 12px;
+  font-size: 13px;
+}
+#NDlistContainer {
+  position: absolute;
+  left: 130px;
+  top: 0;
+  padding: 10px;
+}
+#cntList {
+  padding-left: 8px;
+  font-size: 13px;
 }
 
 #gauge-container {
