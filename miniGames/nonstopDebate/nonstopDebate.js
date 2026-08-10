@@ -746,13 +746,13 @@ document.addEventListener("keydown", (e) => {
     if (!helpEsc) return;
     const pauseMenu = document.getElementById("NDhelpItem");
     if (window.isDebatePaused) {
-      window.resumeDebate(); // すでにポーズ中なら再開
-      pauseMenu.classList.add("show");
-    } else {
-      pauseMenu.classList.remove("remove")
+      pauseMenu.classList.remove("show");
       setTimeout(() => {
-        window.pauseDebate();  // 進行中ならポーズ（一時停止）
-      }, 500);
+        window.resumeDebate(); // すでにポーズ中なら再開
+      }, 500)
+    } else {
+      pauseMenu.classList.add("show");
+      window.pauseDebate();  // 進行中ならポーズ（一時停止）
     }
   }
 });
