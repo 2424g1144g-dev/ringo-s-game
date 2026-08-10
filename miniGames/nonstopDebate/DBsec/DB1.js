@@ -23,10 +23,7 @@ window.resumeDebate = function() {
     debatePauseResolver();
     debatePauseResolver = null;
   }
-
-  if (typeof window.resumeDebateTimer === "function") {
-    window.resumeDebateTimer();
-  }
+  window.resumeDebateTimer();
   console.log("▶️ 議論を再開しました");
 };
 
