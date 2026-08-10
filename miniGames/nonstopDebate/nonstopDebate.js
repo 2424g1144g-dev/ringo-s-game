@@ -74,6 +74,7 @@ window.loadAllBullets = async function(bullet) {
   crosshairOperate = true;
   zPush = true;
   bulletEnter = true;
+  helpEsc = true;
   window.updatePosition(); 
   await sleep(1200);
   window.nonstopDebate1();
@@ -738,9 +739,11 @@ function createSparks(originX, originY) {
     }
 }
 
+let helpEsc = false;
 document.addEventListener("keydown", (e) => {
   // ESCキーが押された場合
   if (e.key === "Escape") {
+    if (!helpEsc) return;
     if (window.isDebatePaused) {
       window.resumeDebate(); // すでにポーズ中なら再開
     } else {
