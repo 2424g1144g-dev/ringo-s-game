@@ -339,6 +339,11 @@ window.spawnFlexibleSerif = function(htmlContent, leftPercent, topPercent, behav
       newSerif.remove();
       return;
     }
+    if (window.isDebatePaused) {
+      lastTime = now; // ポーズ解除直後の時間ジャンプ（ワープ）を防ぐ
+      requestAnimationFrame(animateSerif);
+      return;
+    }
 
     let realDelta = now - lastTime;
     lastTime = now;
