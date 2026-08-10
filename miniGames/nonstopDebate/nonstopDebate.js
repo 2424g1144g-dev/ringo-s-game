@@ -737,3 +737,14 @@ function createSparks(originX, originY) {
         });
     }
 }
+
+document.addEventListener("keydown", (e) => {
+  // ESCキーが押された場合
+  if (e.key === "Escape") {
+    if (window.isDebatePaused) {
+      window.resumeDebate(); // すでにポーズ中なら再開
+    } else {
+      window.pauseDebate();  // 進行中ならポーズ（一時停止）
+    }
+  }
+});
