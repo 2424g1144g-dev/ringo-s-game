@@ -1029,6 +1029,23 @@ canvas.debate-mode {
   padding-left: 8px;
   font-size: 13px;
 }
+#mainText {
+  font-size: 100px;
+  padding: 15px;
+}
+#NDhelpItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(160, 6, 6, 0.7);
+  color: white;
+  font-family: "游ゴシック体", "Yu Gothic", "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", sans-serif;
+  font-size: 40px;
+  line-height: 80px;
+  padding: 20px;
+  z-index: 100000;
+  pointer-events: none;
+}
 
 #gauge-container {
   position: absolute;
