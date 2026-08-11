@@ -761,6 +761,5 @@ let listCtrl = false;
 document.addEventListener("keydown", (e) => {
   if (e.key === "Control") {
     if (!listCtrl || e.repeat) return;
-    const list = document.getElementById(
 }
 })
