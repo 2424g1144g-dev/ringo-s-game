@@ -743,7 +743,7 @@ let helpEsc = false;
 document.addEventListener("keydown", (e) => {
   // ESCキーが押された場合
   if (e.key === "Escape") {
-    if (!helpEsc) return;
+    if (!helpEsc || e.repeat) return;
     const pauseMenu = document.getElementById("NDhelpItem");
     if (window.isDebatePaused) {
       pauseMenu.classList.remove("show");
@@ -756,3 +756,11 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
+
+let listCtrl = false;
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Control") {
+    if (!listCtrl || e.repeat) return;
+    const list = document.getElementById(
+}
+})

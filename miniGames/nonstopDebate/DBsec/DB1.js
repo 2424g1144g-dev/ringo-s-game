@@ -15,6 +15,7 @@ window.pauseDebate = function() {
   keys.ArrowDown = false;
   keys.ArrowLeft = false;
   keys.ArrowRight = false;
+  zPush = false;
   if (typeof window.pauseDebateTimer === "function") {
     window.pauseDebateTimer();
   }
