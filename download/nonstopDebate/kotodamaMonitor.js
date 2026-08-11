@@ -37,7 +37,7 @@ window.addEventListener("keydown", (e) => {
         } else if (e.key === "ArrowDown") {
             selectedKotodamaIndex = (selectedKotodamaIndex + 1) % kotodamaItems.length;
             updateKotodamaMenu();
-        } else if (e.key === "Escape") {
+        } else if (e.key === "Control") {
             playSE("back")
             document.getElementById("kotodamaMonitorContainer").style.opacity = 0;
             stopping = false;
