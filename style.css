@@ -1085,19 +1085,20 @@ canvas.debate-mode {
 }
 #NDlistItemHeaderWhite {
   position: absolute;
+  display: flex;
   left: 0;
   top: 10vh;
   width: 100vw;
-  height: 5px;
+  height: 5vh;
   background: white;
   color: black;
-  font-family: "makinasFont";
-  font-family: 30px;
+  font-weight: bold;
+  font-size: 30px;
   z-index: 120000;
-  text-align: right;
   padding-right: 20px;
   align-items: center;     /* 上下の中央揃え */
   justify-content: right;
+  box-sizing: border-box;
 }
 
 
