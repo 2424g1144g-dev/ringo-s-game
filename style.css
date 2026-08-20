@@ -1098,7 +1098,7 @@ canvas.debate-mode {
   padding-right: 20px;
   align-items: center;     /* 上下の中央揃え */
   justify-content: right;
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 
