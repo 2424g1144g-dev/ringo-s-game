@@ -1068,16 +1068,19 @@ canvas.debate-mode {
   z-index: 100000;
   background: rgba(160, 6, 6, 0.7);
 }
-#NDlistHeader {
+#NDlistItemHeader {
   position: absolute;
   left: 0;
   top: 0;
   width: 100vw;
-  top: 10vh;
-  justify-items: center;
+  height: 10vh;
+  line-height: 70px;
+  padding-left: 20px;
+  /* padding-top: 40px; */
+  background: black;
   color: white;
   font-family: "name";
-  font-size: 30px;
+  font-size: 50px;
   z-index: 110000;
 }
 
