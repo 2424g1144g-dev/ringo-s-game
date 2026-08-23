@@ -1060,6 +1060,7 @@ canvas.debate-mode {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
+  opacity: 0;
 }
 #NDlistItemBG {
   position: absolute;
@@ -1099,6 +1100,49 @@ canvas.debate-mode {
   align-items: center;     /* 上下の中央揃え */
   justify-content: right;
   box-sizing: border-box; 
+}
+
+#listItemContainer {
+  position: absolute;
+  left: 20px;
+  top: 13vh;
+  text-align: left;
+  z-index: 115000;
+  transform: scale(1);
+}
+.list-item {
+  font-weight: bold;
+  font-size: 40px;
+  color: white;
+  padding: 5px 20px;
+  margin: 10px 0;
+  transition: all 0.2s;
+}
+.list-item.active {
+  background: #FF4500;
+  color: white;
+  animation: opa 0.8s linear infinite;
+}
+#listImgContainer {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  right: 300px;
+  top: 13vh;
+  background: rgba(89, 86, 83, 0.8);
+  pointer-events: none;
+  opacity: 1;
+  border: 4px solid white;
+  z-index: 115000;
+  box-shadow: 1px 1px 5px #000, -1px -1px 5px #000;
+  overflow: hidden;
+  transform: scale(1.3);
+}
+#listImg {
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 0;
 }
 
 
