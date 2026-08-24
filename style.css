@@ -66,6 +66,10 @@ canvas.debate-mode {
   font-family: "despair";
   src: url("assets/fonts/goodbyeDespair.ttf");
 }
+@font-face {
+  font-family: "talkText";
+  src: url("assets/fonts/NekoSpoon.ttf") format("truetype");
+}
 
 /*最初の画面-------------------------------------------------*/
 #firstScreen {
