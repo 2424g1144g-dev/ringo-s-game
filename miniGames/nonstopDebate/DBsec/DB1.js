@@ -26,6 +26,15 @@ window.pauseDebate = function() {
 window.resumeDebate = function() {
   if (!window.isDebatePaused) return;
   window.isDebatePaused = false;
+  bulletEnter = true;
+  crosshairOperate = true;
+  rough = true;
+  cylinderShift = true;
+  keys.ArrowUp = true;
+  keys.ArrowDown = true;
+  keys.ArrowLeft = true;
+  keys.ArrowRight = true;
+  zPush = true;
 
   // ブロックしていた Promise を解決して async 処理を進行させる
   if (debatePauseResolver) {
