@@ -30,10 +30,10 @@ window.resumeDebate = function() {
   crosshairOperate = true;
   rough = true;
   cylinderShift = true;
-  keys.ArrowUp = true;
-  keys.ArrowDown = true;
-  keys.ArrowLeft = true;
-  keys.ArrowRight = true;
+  keys.ArrowUp = false;
+  keys.ArrowDown = false;
+  keys.ArrowLeft = false;
+  keys.ArrowRight = false;
   zPush = true;
   window.updatePosition();
   
