@@ -24,7 +24,6 @@ window.pauseDebate = function() {
 
 // 2. 再開用関数
 window.resumeDebate = function() {
-  if (!window.isDebatePaused) return;
   window.isDebatePaused = false;
   bulletEnter = true;
   crosshairOperate = true;
@@ -35,6 +34,8 @@ window.resumeDebate = function() {
   keys.ArrowLeft = true;
   keys.ArrowRight = true;
   zPush = true;
+  if (!window.isDebatePaused) return;
+  
 
   // ブロックしていた Promise を解決して async 処理を進行させる
   if (debatePauseResolver) {
