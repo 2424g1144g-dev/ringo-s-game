@@ -35,7 +35,7 @@ window.resumeDebate = function() {
   keys.ArrowLeft = true;
   keys.ArrowRight = true;
   zPush = true;
-  window.updateSearchingCrosshair();
+  window.updatePosition();
   
 
   // ブロックしていた Promise を解決して async 処理を進行させる
