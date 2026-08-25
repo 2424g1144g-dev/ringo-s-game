@@ -157,6 +157,137 @@ canvas.debate-mode {
   font-size: 60px;
 }
 
+#dialogueSpeaking {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  z-index: 5000;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+#box {
+  position: absolute;
+  width: 95vw;
+  height: 31vh;
+  bottom: 2%;
+  left: 0;
+  background: rgba(89, 86, 83, 0.8);
+  border-radius: 0 130px 130px 0 / 0 130px 130px 0;
+  overflow: hidden; /* 子要素のグラデーションが角丸からはみ出さないようにする */
+}
+/* 疑似要素で上部のバーを作成 */
+#box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6vh; /* 指定したい太さ */
+  background: linear-gradient(
+    to left,
+    rgba(255, 159, 0, 1.0) 0%,
+    rgba(255, 159, 0, 1.0) 30%,
+    rgba(255, 255, 233, 1.0) 50%
+  );
+}
+#diaName {
+  position: absolute;
+  left: 3%;
+  bottom: 29%;
+  width: max-content;
+  height: 4vh;
+  color: black;
+  font-family: "name";
+  font-size: 30px;
+}
+#diaState {
+  position: absolute;
+  right: 12%;
+  bottom: 29%;
+  width: max-content;
+  height: 4vh;
+  color: rgba(255,250,160,1.0);
+  font-size: 30px;
+  font-weight: lighter;
+}
+#diaText {
+  position: absolute;
+  left: 80px;
+  top: 77%;
+  width: max-content;
+  font-family: "dialogue";
+  text-align: left;
+  font-size: 40px;
+  color: white;
+  line-height: 1.7;
+  z-index: 5500;
+}
+#dialogueSpeaking #enterKey {
+  position: absolute;
+  right: 80px;
+  width: 150px;
+  height: 150px;
+  bottom: -10px;
+  opacity: 1;
+  z-index: 5000;
+}
+#mainEnter {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: rgba(255,159,0,1.0);
+}
+#subEnter {
+  position:absolute;
+  left: -30%;
+  bottom: 31%;
+  width: 65%;
+  height: 65%;
+  border-radius: 50%;
+  background: transparent;
+  border: 25px solid rgba(255,159,0,1.0)
+}
+
+#spriteContain {
+  position: absolute;
+  width: auto;
+  height: 290%;
+  left: 0;
+  top: -10%;
+  transform: translateX(-20%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3000;
+}
+
+#itemBox {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  right: -350px;
+  bottom: 300px;
+  background: rgba(89, 86, 83, 0.8);
+  pointer-events: none;
+  opacity: 1;
+  border: 4px solid white;
+  z-index: 6000;
+  box-shadow:  1px 1px 5px #000, -1px -1px 5px #000;
+  transition: right 0.3s ease-out;
+  overflow: hidden;
+}
+#itemBox.show {
+  right: 50px;
+}
+#kotodamaItemContain {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+
+
 /*職員会議開始画面--------------------------*/
 #blackLayer {
   position: absolute;
