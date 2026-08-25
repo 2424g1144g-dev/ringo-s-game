@@ -212,7 +212,7 @@ canvas.debate-mode {
 }
 #diaText {
   position: absolute;
-  left: 80px;
+  left: 40px;
   top: 77%;
   width: max-content;
   font-family: "dialogue";
