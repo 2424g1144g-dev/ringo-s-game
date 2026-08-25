@@ -206,6 +206,7 @@ canvas.debate-mode {
   bottom: 29%;
   width: max-content;
   height: 4vh;
+  line-height: 50px;
   color: rgba(255,250,160,1.0);
   font-size: 30px;
   font-weight: lighter;
