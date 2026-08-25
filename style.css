@@ -164,6 +164,10 @@ canvas.debate-mode {
   z-index: 5000;
   pointer-events: none;
   transition: opacity 0.5s ease-out;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+#dialogueSpeaking.show {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 #box {
   position: absolute;
@@ -223,6 +227,7 @@ canvas.debate-mode {
   line-height: 1.7;
   z-index: 5500;
 }
+#speaking
 #dialogueSpeaking #enterKey {
   position: absolute;
   right: 80px;
