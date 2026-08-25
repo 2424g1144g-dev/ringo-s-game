@@ -227,7 +227,6 @@ canvas.debate-mode {
   line-height: 1.7;
   z-index: 5500;
 }
-#speaking
 #dialogueSpeaking #enterKey {
   position: absolute;
   right: 80px;
