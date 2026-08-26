@@ -402,7 +402,7 @@ window.DIALOGUE_EVENTS = {
   },
 
   diaShowToggle: () => {
-    const dialogue = document.getElementById("speakingDialogueContainer")
+    const dialogue = document.getElementById("dialogueSpeaking")
     if (dialogue.classList.contains("show")) dialogue.classList.remove("show");
     else dialogue.classList.add("show");
   }
