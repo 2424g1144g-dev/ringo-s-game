@@ -98,7 +98,7 @@ function executeFirstMenu() {
   } else if (firstSelectedIndex === 2) {
     document.getElementById("firstScreen").style.opacity = 0;
     setTimeout(() => {
-      DIALOGUE_EVENTS.useDialog({ id: "speakingDialogueContainer" });
+      DIALOGUE_EVENTS.useDialog({ id: "dialogueSpeaking" });
       DIALOGUE.start(DIALOGUE_LINES["description"]);
     }, 3000)
   }
