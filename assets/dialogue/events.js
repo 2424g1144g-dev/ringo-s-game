@@ -399,5 +399,11 @@ window.DIALOGUE_EVENTS = {
       void canvas.offsetWidth;
       canvas.classList.add("action-flash");
     })
+  },
+
+  diaShowToggle: () => {
+    const dialogue = document.getELementById("speakingDialogueContainer")
+    if (dialogue.classList.contains("show")) dialogue.classList.remove("show");
+    else dialogue.classList.add("show");
   }
 };
