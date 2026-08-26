@@ -2,8 +2,7 @@
 window.DIALOGUE_LINES = window.DIALOGUE_LINES || {};
 
 DIALOGUE_LINES.description = [
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
-  { name: "？？？", lines: [{segments: [{text: "あの...聞こえますか？"}], event: [{type: "textEnterChange", id: true}]}]},
+  { name: "？？？", lines: [{segments: [{text: "あの...聞こえますか？"}], event: [{type: "diaShowToggle"}{type: "textEnterChange", id: true}]}]},
   { name: "？？？", lines: [{segments: [{text: "ちょっと、大丈夫ですか？"}]}]},
   { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: false}]}]}
 ]
