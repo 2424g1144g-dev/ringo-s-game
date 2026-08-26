@@ -1,6 +1,12 @@
 
 window.DIALOGUE_LINES = window.DIALOGUE_LINES || {};
 
+DIALOGUE_LINES,description = [
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
+  { name: "？？？", lines: [{segments: [{text: "あの...聞こえますか？"}], event: [{type: "textEnterChange", id: true}]}]},
+  { name: "？？？", lines: [{segments: [{text: "ちょっと、大丈夫ですか？"}]}]}
+]
+
 DIALOGUE_LINES.dialogueStart = [
   { name: "コウチョウ", lines: [{segments: [{text: "まずは、職員会議の簡単な説明を始めますね。"}], event: [{type: "bgmPlay", id: 0.4}]},
                           {segments: [{text: "職員会議の結果は貴方達の投票によって決定されます。"}]}]},

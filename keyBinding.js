@@ -95,5 +95,11 @@ function executeFirstMenu() {
     document.getElementById("descScreen").style.opacity = 1;
     firstStopping = true;
     firstEsc = true;
+  } else if (firstSelectedIndex === 2) {
+    document.getElementById("firstScreen").style.opacity = 0;
+    setTimeout(() => {
+      DIALOGUE_EVENTS.useDialog({ id: "speakingDialogueContainer" });
+      DIALOGUE.start(DIALOGUE_LINES["description"]);
+    }, 3000)
   }
 }
