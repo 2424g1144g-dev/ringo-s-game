@@ -96,10 +96,11 @@ function executeFirstMenu() {
     firstStopping = true;
     firstEsc = true;
   } else if (firstSelectedIndex === 2) {
+    dia = document.getElementById("dialogueSpeaking");
     document.getElementById("firstScreen").style.opacity = 0;
     setTimeout(() => {
-      DIALOGUE.init(document.getElementById("dialogueSpeaking"), DIALOGUE.data);
-      DIALOGUE.start(DIALOGUE_LINES["description"]);
+      DIALOGUE.init(dia, DIALOGUE.data);
+      DIALOGUE.start(DIALOGUE_LINES.descriotion);
     }, 2000)
   }
 }
