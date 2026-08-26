@@ -98,6 +98,7 @@ function executeFirstMenu() {
   } else if (firstSelectedIndex === 2) {
     dia = document.getElementById("dialogueSpeaking");
     document.getElementById("firstScreen").style.opacity = 0;
+    firstStopping = true;
     setTimeout(() => {
       useDialog("dialogueSpeaking");
       DIALOGUE.init(dia, DIALOGUE.data);
