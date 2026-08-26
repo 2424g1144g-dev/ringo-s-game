@@ -101,7 +101,7 @@ function executeFirstMenu() {
     setTimeout(() => {
       useDialog("dialogueSpeaking");
       DIALOGUE.init(dia, DIALOGUE.data);
-      DIALOGUE.start(DIALOGUE_LINES.descriotion);
+      DIALOGUE.start(DIALOGUE_LINES.description);
     }, 2000)
   }
 }
