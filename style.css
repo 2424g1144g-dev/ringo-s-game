@@ -333,7 +333,6 @@ canvas.debate-mode {
   color: rgb(189, 52, 52);
   letter-spacing: -150px;
   pointer-events: none; /* クリックをすり抜けさせる */
-  opacity: 0;
 }
 #classTrial span {
   display: inline-block;
@@ -624,7 +623,7 @@ canvas.debate-mode {
   font-size: 100px;
   background: transparent;
   z-index: 9000;
-  
+  opacity: 0;
   overflow: hidden;         /* 画面外にはみ出た文字を非表示にする */
   display: flex;            /* 中の<span>を強制的に真横に並べる */
   white-space: nowrap;      /* 絶対に文字を途中で改行させない */
