@@ -187,12 +187,7 @@ canvas.debate-mode {
   left: 0;
   width: 100%;
   height: 6vh; /* 指定したい太さ */
-  background: linear-gradient(
-    to left,
-    rgba(255, 159, 0, 1.0) 0%,
-    rgba(255, 159, 0, 1.0) 30%,
-    rgba(255, 255, 233, 1.0) 50%
-  );
+  background: linear-gradient(20deg, rgba(255, 255, 233, 1) 0%, rgba(255, 255, 233, 1) 60%, #ffffff 60%, #ffffff 61.8%, #F5C328 62%, #F5C328 64.5%, #ffffff 64.7%, #ffffff 66%, #ff9f00 66.2%, #ff9f00 100%);
 }
 #diaName {
   position: absolute;
