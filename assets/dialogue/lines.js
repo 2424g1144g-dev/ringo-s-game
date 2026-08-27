@@ -14,7 +14,7 @@ DIALOGUE_LINES.description = [
                                         {segments: [{text: "憎い"},{text: "校長", class: "yellow"},{text: "のことも説明しないとなんですが..."}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "時間もないみたいですし、"}]},
                                         {segments: [{text: "とりあえず今の状況をざっくり説明しますね。"}]}]},
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "spriteChange", id: "none"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1500}]},
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "spriteChange", id: "none"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 2500}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "background", id: "murderedYudai", fade: 800}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職させられたのはオカモトユウダイ先生でした..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]}
 ]
