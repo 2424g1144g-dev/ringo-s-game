@@ -6,7 +6,10 @@ DIALOGUE_LINES.description = [
   { name: "？？？", lines: [{segments: [{text: "あの...聞こえますか？"}], event: [{type: "textEnterChange", id: true}]}]},
   { name: "？？？", lines: [{segments: [{text: "ちょっと、大丈夫ですか？"}]}]},
   { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
-  { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "taturo/Taturo_Normal"}]}]}
+  { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "taturo/Taturo_Normal"}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
+  { name: "？？？", lines: [{segments: [{text: "あ、やっと目覚めたようですね..."}]}]},
+  { name: "？？？", lines: [{segments: [{text: "まずはオーソドックスに自己紹介から始めますね..."}], event: [{type: "spriteChange", id: "taturo/Taturo_Explain"}]},
+                            {segments: [{text: "僕の名前は"},{text: "西本達郎（ニシモトタツロウ）",class: "yellow"},{text: "です。"}]}]}
 ]
 
 DIALOGUE_LINES.dialogueStart = [
