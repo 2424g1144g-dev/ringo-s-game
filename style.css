@@ -333,6 +333,7 @@ canvas.debate-mode {
   color: rgb(189, 52, 52);
   letter-spacing: -150px;
   pointer-events: none; /* クリックをすり抜けさせる */
+  opacity: 0;
 }
 #classTrial span {
   display: inline-block;
@@ -1132,6 +1133,10 @@ canvas.debate-mode {
   left: 0;
   top: 0;
   padding: 10px;
+  opacity: 0;
+}
+#nonstopDebateUI.show #NDhelpContainer {
+  opacity: 0;
 }
 #NDhelpBG {
   position: absolute;
@@ -1164,6 +1169,10 @@ canvas.debate-mode {
   left: 130px;
   top: 0;
   padding: 10px;
+  opacity: 0;
+}
+#nonstopDebateUI.show #NDlistContainer {
+  opacity: 1;
 }
 #cntList {
   padding-left: 8px;
