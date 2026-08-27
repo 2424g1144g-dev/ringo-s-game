@@ -1135,7 +1135,7 @@ canvas.debate-mode {
   opacity: 0;
 }
 #nonstopDebateUI.show #NDhelpContainer {
-  opacity: 0;
+  opacity: 1;
 }
 #NDhelpBG {
   position: absolute;
