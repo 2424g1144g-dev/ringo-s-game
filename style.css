@@ -157,6 +157,17 @@ canvas.debate-mode {
   font-size: 60px;
 }
 
+#background_layer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transition: opacity 1s linear;
+}
+
 #dialogueSpeaking {
   position: absolute;
   inset: 0;

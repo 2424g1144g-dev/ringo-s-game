@@ -324,6 +324,40 @@ function spriteChange(src, d=100) {
   },d);
 }
 
+//背景
+const backgrounds = {
+  none: "none",
+  murderedYudai: "assets/BG/murderedYudai.png"
+};
+
+const bgEl = document.getElementById("background_layer");
+function changeBackground(id, fade = 800) {
+  const src = backgrounds[id];
+  if (!src) {
+    console.warn("背景が未定義:", id);
+    return;
+  }
+  if (src === "none") {
+    bgEl.style.transition = `opacity ${fade}ms ease`;
+    bgEl.style.opacity = 0;
+    return
+  }
+  // ★ 即時切り替え
+  if (fade === 0) {
+    bgEl.style.transition = "none";
+    bgEl.style.opacity = 1;
+    bgEl.style.backgroundImage = `url(${src})`;
+    return;
+  }
+  // フェード切り替え
+  bgEl.style.transition = `opacity ${fade}ms ease`;
+  bgEl.style.opacity = 0;
+  setTimeout(() => {
+    bgEl.style.backgroundImage = `url(${src})`;
+    bgEl.style.opacity = 1;
+  }, fade);
+}
+
 document.addEventListener("keydown", e => {
   if (!textEnter) return;
   if (e.key !== "Enter" || e.repeat) return;
