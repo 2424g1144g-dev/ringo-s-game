@@ -8,8 +8,12 @@ DIALOGUE_LINES.description = [
   { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
   { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "taturo/Taturo_Normal"}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
   { name: "？？？", lines: [{segments: [{text: "あ、やっと目覚めたようですね..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
-  { name: "？？？", lines: [{segments: [{text: "まずはオーソドックスに自己紹介から始めますね..."}], event: [{type: "spriteChange", id: "taturo/Taturo_Explain"}]},
-                            {segments: [{text: "僕の名前は"},{text: "西本達郎（ニシモトタツロウ）",class: "yellow"},{text: "です。"}]}]}
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "まずはオーソドックスに自己紹介から始めますね..."}], event: [{type: "spriteChange", id: "taturo/Taturo_Explain"}]},
+                            {segments: [{text: "僕の名前は"},{text: "西本達郎（ニシモトタツロウ）",class: "yellow"},{text: "です。"}]}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "本当なら、この学校や他の先生方のこと..."}]},
+                                        {segments: [{text: "憎い"},{text: "校長", class: "yellow"},{text: "のことも説明しないとなんですが..."}]}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "時間もないみたいだし、"}]},
+                                        {segments: [{text: "とりあえず今の状況をざっくり説明します。"}]}]}
 ]
 
 DIALOGUE_LINES.dialogueStart = [
