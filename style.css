@@ -228,6 +228,7 @@ canvas.debate-mode {
   width: 270px;
   height: 270px;
   border: 2px solid white;
+  overflow: hidden;
 }
 #BGimg {
   position: relative;
