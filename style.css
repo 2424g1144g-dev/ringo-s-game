@@ -171,12 +171,24 @@ canvas.debate-mode {
 #fileContainer {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 25%;
   width: 75vh;
-  height: 100vh;
+  height: 93vh;
+  background: black;
   border: 50px solid #676767;
   z-index: 1000;
   overflow: hidden;
+}
+#fileCharImg {
+  position: absolute;
+  left: 250px;
+  top: 0;
+  width: 400px;
+  height: auto;
+}
+#retired {
+  position: absolute;
+  color: #FE2399;
 }
 
 #dialogueSpeaking {
