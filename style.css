@@ -188,7 +188,23 @@ canvas.debate-mode {
 }
 #retired {
   position: absolute;
+  left: 330px;
+  font-size: 250px;
+  font-weight: bold;
   color: #FE2399;
+  z-index: 1200;
+  opacity: 0.5
+}
+#retiredText {
+  position: absolute;
+  left: 375px;
+  top: 300px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #FE2399;
+  z-index: 1300;
+  opacity: 1;
+  font-family: "makinasFont";
 }
 
 #dialogueSpeaking {
