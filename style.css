@@ -140,7 +140,7 @@ canvas.debate-mode {
   height: 100vh;
   background-size: cover;
   background-position: center;
-  z-index: 0;
+  z-index: 3;
   opacity: 0.5;
   transition: opacity 1s linear;
   margin: 0;
@@ -166,6 +166,17 @@ canvas.debate-mode {
   background-position: center;
   z-index: 0;
   transition: opacity 1s linear;
+}
+
+#fileContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 75vh;
+  height: 100vh;
+  border: 50px solid #676767;
+  z-index: 1000;
+  overflow: hidden;
 }
 
 #dialogueSpeaking {

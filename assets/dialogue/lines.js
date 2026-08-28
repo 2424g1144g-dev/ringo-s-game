@@ -16,7 +16,8 @@ DIALOGUE_LINES.description = [
                                         {segments: [{text: "とりあえず今の状況をざっくり説明しますね。"}]}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "spriteChange", id: "none"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 2500}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "background", id: "murderedYudai", fade: 800}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
-  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職させられたのはオカモトユウダイ先生でした..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]}
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職させられたのは"},{text: "オカモトユウダイ先生", class: "yellow"},{text: "でした..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
+  { name: "ニシモト　タツロウ", lines: [{segments: [{text: "現場は体育館..."}]}]}
 ]
 
 DIALOGUE_LINES.dialogueStart = [
