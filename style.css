@@ -221,6 +221,22 @@ canvas.debate-mode {
   font-size: 24px;
   line-height: 30px;
 }
+#BGbox {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 270px;
+  height: 270px;
+  border: 2px solid white;
+}
+#BGimg {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: auto;
+}
+
 
 #dialogueSpeaking {
   position: absolute;
