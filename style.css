@@ -206,6 +206,23 @@ canvas.debate-mode {
   opacity: 1;
   font-family: "makinasFont";
 }
+#BGbox {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 250px;
+  height: 180px;
+  border: white solid 2px;
+  z-index: 1000;
+  overflow:hidden;
+}
+#boxImg {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 270px;
+  height: auto;
+}
 
 #dialogueSpeaking {
   position: absolute;
