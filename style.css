@@ -170,7 +170,7 @@ canvas.debate-mode {
 
 #fileContainer {
   position: absolute;
-  top: 0;
+  top: 93vh;
   left: 25%;
   width: 75vh;
   height: 93vh;
@@ -178,6 +178,10 @@ canvas.debate-mode {
   border: 50px solid #676767;
   z-index: 1000;
   overflow: hidden;
+  transition: top 0.7s ease-out;
+}
+#fileContainer.show {
+  top: 0;
 }
 #fileCharImg {
   position: absolute;
