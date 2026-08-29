@@ -243,6 +243,93 @@ canvas.debate-mode {
 }
 
 
+#getBullet {
+  position: absolute;
+  left: -300px;
+  top: 44vh;
+  display: flex; /* 子要素を横に並べる */
+  align-items: stretch; /* 高さを揃える */
+  z-index: 4000;
+  background: none; 
+}
+#getBulletHead, #getBulletBody, #getBulletFoot {
+  background: rgb(224, 250, 255);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  height: 80px;
+}
+
+#getBulletFoot {
+  width: 40px;
+  mask-image: url("assets/dialogue/getBulletFoot.png");
+}
+
+#getBulletBody {
+  flex-grow: 1;
+  width: max-content;
+  padding: 0 10px;
+  mask-image: url("assets/dialogue/getBulletBody.png");
+  font-family: "solid";
+  font-size: 60px;
+  line-height: 80px;
+  color: #003366;
+  white-space: nowrap;
+}
+#getBulletHead {
+  width: 100px;
+  mask-image: url("assets/dialogue/getBulletHead.png");
+}
+@keyframes wave {
+  from { 
+    transform: scale(1.0);
+    opacity: 1;
+  }
+  to { 
+    transform: scale(2.0);
+    opacity: 0;
+  }
+}
+#getBullet-wave-dummy {
+  position: fixed;
+  display: none;
+  pointer-events: none;
+  z-index: 9999;
+  background: rgb(224, 250, 255);
+  mask-image: url("assets/dialogue/getBullet.png"); 
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+#neon-line {
+  position: absolute;
+  top: 48vh;
+  left: -25vw;
+  width:150vw;
+  height: 20px;
+  background: radial-gradient(
+    ellipse at center, 
+    rgba(224, 250, 255, 1) 0%, 
+    rgba(50, 150, 255, 0.6) 20%,  
+    rgba(0, 50, 255, 0.1) 60%,  
+    transparent 100%             
+  );
+  /* 最初は左側に隠しておく（上 右 下 左 の順。右を100%にすると中身が消える） */
+  clip-path: inset(0 100% 0 0);
+}
+@keyframes neonShow {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+@keyframes neonOff {
+  0%   { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 100%); }
+}
+.neonAnim {
+  animation: 0.3s neonShow 0s linear forwards,
+             0.3s neonOff 0.7s linear forwards;
+}
+
+
 #dialogueSpeaking {
   position: absolute;
   inset: 0;

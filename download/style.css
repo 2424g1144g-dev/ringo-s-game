@@ -308,14 +308,14 @@ body {
 
 #bulletFoot {
   width: 40px;
-  mask-image: url("mask/bullet/bulletFoot.png");
+  mask-image: url("assets/dialogue/getBulletFoot.png");
 }
 
 #bulletBody {
   flex-grow: 1;
   width: max-content;
   padding: 0 10px;
-  mask-image: url("mask/bullet/bulletBody.png");
+  mask-image: url("assets/dialogue/getBulletBody.png");
   font-family: "solid";
   font-size: 60px;
   line-height: 80px;
@@ -324,7 +324,7 @@ body {
 }
 #bulletHead {
   width: 100px;
-  mask-image: url("mask/bullet/bulletHead.png");
+  mask-image: url("assets/dialogue/getBulletHead.png");
 }
 @keyframes wave {
   from { 
@@ -336,7 +336,7 @@ body {
     opacity: 0;
   }
 }
-#bullet-wave-dummy {
+#getBullet-wave-dummy {
   position: fixed;
   display: none;
   pointer-events: none;

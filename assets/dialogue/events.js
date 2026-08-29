@@ -411,5 +411,22 @@ window.DIALOGUE_EVENTS = {
     const file = document.getElementById("fileContainer");
     if (file.classList.contains("show")) file.classList.remove("show");
     else file.classList.add("show");
-  }
+  },
+
+  bulletGet: () => {
+    playBullet();
+    setTimeout(() => {
+      playSE("discover");
+    },300)
+  },
+
+  itemBoxShow: () => {
+    playSE("itemFadeIn");
+    document.getElementById("itemBox").classList.add("show");
+  },
+
+  itemBoxOut: () => {
+    playSE("itemFadeOut");
+    document.getElementById("itemBox").classList.remove("show");
+  },
 };
