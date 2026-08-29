@@ -17,7 +17,7 @@ DIALOGUE_LINES.description = [
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "spriteChange", id: "none"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 2500}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "background", id: "murderedYudai", fade: 800}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職させられたのは"},{text: "オカモトユウダイ先生", class: "yellow"},{text: "でした..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
-  { name: "ニシモト　タツロウ", lines: [{segments: [{text: " "}],event: [{type: "diaShowToggle"},{type: "fileShowToggle"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
+  { name: " ", lines: [{segments: [{text: " "}],event: [{type: "diaShowToggle"},{type: "fileShowToggle"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "現場は体育館..."},{text: "サイコウファイル", class: "yellow"},{text: "によると..."},{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職時刻は"},{text: "22:00", class: "yellow"},{text: "...ちょうどみんなが職員室にいたときですね。"}]},
                                         {segments: [{text: "凶器は"},{text: "鈍器", class: "yellow"},{text: "...これで気絶させられた後に退職ですか..."}]}],}
