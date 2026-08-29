@@ -402,8 +402,14 @@ window.DIALOGUE_EVENTS = {
   },
 
   diaShowToggle: () => {
-    const dialogue = document.getElementById("dialogueSpeaking")
+    const dialogue = document.getElementById("dialogueSpeaking");
     if (dialogue.classList.contains("show")) dialogue.classList.remove("show");
     else dialogue.classList.add("show");
+  },
+
+  fileShowToggle: () => {
+    const file = document.getElementById("fileContainer");
+    if (file.classList.contains("show")) file.classList.remove("show");
+    else file.classList.add("show");
   }
 };
