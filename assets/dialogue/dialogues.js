@@ -368,8 +368,8 @@ document.addEventListener("keydown", e => {
 });
 
 function playBullet() {
-  const el = document.getElementById('bullet');
-  const dummy = document.getElementById('bullet-wave-dummy');
+  const el = document.getElementById('geBullet');
+  const dummy = document.getElementById('getBullet-wave-dummy');
   neon = document.getElementById("neon-line");
   document.getElementById("neon-line").classList.remove("neonAnim");
   void neon.offsetWidth;
