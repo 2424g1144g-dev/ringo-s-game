@@ -331,6 +331,8 @@ canvas.debate-mode {
 
 #getBox {
   position: absolute;
+  width: 300px;
+  height: 200px;
   background: rgba(89, 86, 83, 0.8);
   pointer-events: none;
   opacity: 1;
