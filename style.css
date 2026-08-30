@@ -329,6 +329,23 @@ canvas.debate-mode {
              0.3s neonOff 0.7s linear forwards;
 }
 
+#getBox {
+  position: absolute;
+  background: rgba(89, 86, 83, 0.8);
+  pointer-events: none;
+  opacity: 1;
+  border: 4px solid white;
+  z-index: 9000;
+  box-shadow:  1px 1px 5px #000, -1px -1px 5px #000;
+  transition: right 0.3s ease-out;
+  overflow: hidden;
+}
+#getImg {
+  position: relative;
+  width: 300px;
+  height: auto;
+}
+
 
 #dialogueSpeaking {
   position: absolute;

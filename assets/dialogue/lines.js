@@ -22,7 +22,7 @@ DIALOGUE_LINES.description = [
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職時刻は"},{text: "22:00", class: "yellow"},{text: "...　ちょうどみんなが職員室にいたときですね。"}]},
                                         {segments: [{text: "凶器は"},{text: "鈍器", class: "yellow"},{text: "...　これで気絶させられた後に退職ですか..."}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "犯行時、体育館は密室だったみたいですね。"}]}]},
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "bulletGet"},{type: "textEnterChange", id: false}]}]}
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "bulletGet"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
 ]
 
 DIALOGUE_LINES.dialogueStart = [
