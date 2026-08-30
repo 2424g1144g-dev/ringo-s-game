@@ -249,7 +249,7 @@ canvas.debate-mode {
   top: 44vh;
   display: flex; /* 子要素を横に並べる */
   align-items: stretch; /* 高さを揃える */
-  z-index: 4000;
+  z-index: 11000;
   background: none; 
 }
 #getBulletHead, #getBulletBody, #getBulletFoot {
@@ -293,7 +293,7 @@ canvas.debate-mode {
   position: fixed;
   display: none;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 20000;
   background: rgb(224, 250, 255);
   mask-image: url("assets/dialogue/getBullet.png"); 
   mask-size: 100% 100%;
@@ -306,6 +306,7 @@ canvas.debate-mode {
   left: -25vw;
   width:150vw;
   height: 20px;
+  z-index: 10000;
   background: radial-gradient(
     ellipse at center, 
     rgba(224, 250, 255, 1) 0%, 
