@@ -398,7 +398,7 @@ function playBullet() {
           width: rect.width + 'px',
           height: rect.height + 'px',
           opacity: '0.8',
-          z-index: 20000;
+          z-index: '20000',
           transform: 'scale(1)'
         });
         waved = true;
