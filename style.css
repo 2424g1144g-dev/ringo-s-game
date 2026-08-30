@@ -291,7 +291,6 @@ canvas.debate-mode {
 }
 #getBullet-wave-dummy {
   position: fixed;
-  display: none;
   pointer-events: none;
   z-index: 20000;
   background: rgb(224, 250, 255);
