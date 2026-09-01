@@ -383,7 +383,7 @@ function playBullet() {
 
     // 1. 登場 (0.3s)
     if (elapsed <= 300) {
-      el.style.transform = `translateX(${(elapsed / 300) * 25}vw)`;
+      el.style.transform = `translateX(${(elapsed / 300) * 50}vw)`;
       el.style.opacity = "1";
     }
     // 2. 衝撃波 (0.3s～0.8s)
@@ -415,7 +415,7 @@ function playBullet() {
     else if (elapsed <= 1100) {
       dummy.style.display = 'none'; // 衝撃波を確実に消す
       const p = (elapsed - 800) / 300;
-      el.style.transform = `translateX(${55 + (p * 70)}vw)`;
+      el.style.transform = `translateX(${40 + (p * 70)}vw)`;
     }
 
     if (elapsed < 1100) {
