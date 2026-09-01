@@ -343,6 +343,11 @@ canvas.debate-mode {
   box-shadow:  1px 1px 5px #000, -1px -1px 5px #000;
   transition: right 0.3s ease-out;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+#getBox.show {
+  opacity: 1;
 }
 #getImg {
   position: relative;
