@@ -383,7 +383,7 @@ function playBullet() {
 
     // 1. 登場 (0.3s)
     if (elapsed <= 300) {
-      el.style.transform = `translateX(${(elapsed / 300) * 55}vw)`;
+      el.style.transform = `translateX(${(elapsed / 300) * 25}vw)`;
       el.style.opacity = "1";
     }
     // 2. 衝撃波 (0.3s～0.8s)
