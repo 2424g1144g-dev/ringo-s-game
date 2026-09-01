@@ -415,7 +415,7 @@ function playBullet() {
     else if (elapsed <= 1100) {
       dummy.style.display = 'none'; // 衝撃波を確実に消す
       const p = (elapsed - 800) / 300;
-      el.style.transform = `translateX(${40 + (p * 70)}vw)`;
+      el.style.transform = `translateX(${50 + (p * 70)}vw)`;
     }
 
     if (elapsed < 1100) {
