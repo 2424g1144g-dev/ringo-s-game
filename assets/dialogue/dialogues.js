@@ -368,6 +368,8 @@ document.addEventListener("keydown", e => {
 });
 
 function playBullet() {
+  const box = document.getElementById("getBox");
+  box.classList.add("show");
   const el = document.getElementById('getBullet');
   const dummy = document.getElementById('getBullet-wave-dummy');
   neon = document.getElementById("neon-line");
