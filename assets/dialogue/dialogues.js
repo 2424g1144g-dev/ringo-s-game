@@ -411,7 +411,7 @@ function playBullet() {
       dummy.style.transform = `scale(${1 + p})`;
       dummy.style.opacity = 0.8 * (1 - p);
       
-      el.style.transform = `translateX(65vw)`;
+      el.style.transform = `translateX(50vw)`;
     }
     // 3. 退場 (0.8s～1.1s)
     else if (elapsed <= 1100) {
