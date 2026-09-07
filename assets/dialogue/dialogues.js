@@ -327,7 +327,8 @@ function spriteChange(src, d=100) {
 //背景
 const backgrounds = {
   none: "none",
-  murderedYudai: "assets/BG/murderedYudai.png"
+  murderedYudai: "assets/BG/murderedYudai.png",
+  gym: "assets/BG/closedGym.png"
 };
 
 const bgEl = document.getElementById("background_layer");
