@@ -23,9 +23,11 @@ DIALOGUE_LINES.description = [
                                         {segments: [{text: "凶器は"},{text: "鈍器", class: "yellow"},{text: "...　これで気絶させられた後に退職ですか..."}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "犯行時、体育館は密室だったみたいですね。"}]}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "bulletGet", src: "murderedYudai.png"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
-  { name: "ナレーション", lines: [{segments: [{text: "サイコウファイル１", class: "yellow"},{text: "をクロームブックに記録した。", class: "green"}], event: [{type: "textEnterChange", id: true}]},
+  { name: "ナレーション", lines: [{segments: [{text: "サイコウファイル１", class: "yellow"},{text: "をクロームブックに記録しました。", class: "green"}], event: [{type: "textEnterChange", id: true}]},
                                   {segments: [{text: "会議中にコントロールキーで確認できます。"}]}]},
-  { name: "", lines: [{segments: [{text: " "}], event: [{type: "boxHide"},{type: "textEnterChange", id: false}]}]},
+  { name: "", lines: [{segments: [{text: " "}], event: [{type: "boxHide"},{type: "bulletGet", src: "closedGym.png"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
+  { name: "ナレーション", lines: [{segments: [{text: "密室の体育館", class: "yellow"},{text: "をクロームブックに記録しました。", class: "green"}], event: [{type: "textEnterChange", id: true}]},
+                                  {segments: [{text: "会議中にコントロールキーで確認できます。"}]}]},
 ]
 
 DIALOGUE_LINES.dialogueStart = [
