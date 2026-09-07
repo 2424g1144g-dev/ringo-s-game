@@ -367,8 +367,9 @@ document.addEventListener("keydown", e => {
   DIALOGUE.next();
 });
 
-function playBullet() {
+function playBullet(src) {
   const box = document.getElementById("getBox");
+  const img = document.getElementById("getImg");
   box.classList.add("show");
   const el = document.getElementById('getBullet');
   const dummy = document.getElementById('getBullet-wave-dummy');
@@ -383,6 +384,9 @@ function playBullet() {
     if (!start) start = timestamp;
     const elapsed = timestamp - start;
 
+
+    box.classList.add("show");
+    img.src = `assets/BG/${src}`;
     // 1. 登場 (0.3s)
     if (elapsed <= 300) {
       el.style.transform = `translateX(${(elapsed / 300) * 60}vw)`;

@@ -22,7 +22,10 @@ DIALOGUE_LINES.description = [
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "退職時刻は"},{text: "22:00", class: "yellow"},{text: "...　ちょうどみんなが職員室にいたときですね。"}]},
                                         {segments: [{text: "凶器は"},{text: "鈍器", class: "yellow"},{text: "...　これで気絶させられた後に退職ですか..."}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "犯行時、体育館は密室だったみたいですね。"}]}]},
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "bulletGet"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "bulletGet", src: "murderedYudai.png"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
+  { name: "ナレーション", lines: [{segments: [{text: "サイコウファイル１", class: "yellow"},{text: "をクロームブックに記録した。", class: "green"}], event: [{type: "textEnterChange", id: true}]},
+                                  {segments: [{text: "会議中にコントロールキーで確認できます。"}]}]},
+  { name: "", lines: [{segments: [{text: " "}], event: [{type: "boxHide"},{type: "textEnterChange", id: false}]}]},
 ]
 
 DIALOGUE_LINES.dialogueStart = [

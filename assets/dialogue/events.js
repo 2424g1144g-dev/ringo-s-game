@@ -413,8 +413,8 @@ window.DIALOGUE_EVENTS = {
     else file.classList.add("show");
   },
 
-  bulletGet: () => {
-    playBullet();
+  bulletGet: (event) => {
+    playBullet(event.src);
     setTimeout(() => {
       playSE("discover");
     },300)
@@ -429,4 +429,8 @@ window.DIALOGUE_EVENTS = {
     playSE("itemFadeOut");
     document.getElementById("itemBox").classList.remove("show");
   },
+
+  boxHide: () => {
+    document.getElementById("getBox").classList.remove("show");
+  }
 };
