@@ -351,8 +351,8 @@ canvas.debate-mode {
 }
 #getImg {
   position: relative;
-  width: 300px;
-  top: 15px;
+  width: 350px;
+  top: 0;
   height: auto;
 }
 
