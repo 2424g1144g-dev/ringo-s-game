@@ -30,9 +30,9 @@ DIALOGUE_LINES.description = [
                                   {segments: [{text: "会議中にコントロールキーで確認できます。"}]}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "fileShowToggle"}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "他にわかっていることといえば..."}]}]},
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "background", id: "gym", fade: 800}]}]},
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "background", id: "gym", fade: 800}]}]},
   { name: " ", lines: [{segments: [{text: " "}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "spliteChange", id: "ryuji/Ryuji_Think"}], autoNext: true, dialogueAutoNext; true, wait: 500}]}
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "spliteChange", id: "ryuji/Ryuji_Think"}], autoNext: true, dialogueAutoNext; true, wait: 500}]},
 ]
 
 DIALOGUE_LINES.dialogueStart = [
