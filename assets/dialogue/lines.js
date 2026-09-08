@@ -33,6 +33,7 @@ DIALOGUE_LINES.description = [
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "textEnterChange", id: false},{type: "diaShowToggle"},{type: "background", id: "gym", fade: 800}]}]},
   { name: " ", lines: [{segments: [{text: " "}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "ryuji/Ryuji_Think"}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
+  { name: "シノハラ　リュウジ", lines: [{segments: [{text: "なんかおかしいな..."}], event: [{type: "textEnterChange", id: true}]}]}
 ]
 
 DIALOGUE_LINES.dialogueStart = [
