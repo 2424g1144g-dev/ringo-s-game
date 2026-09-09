@@ -319,6 +319,7 @@ function spriteChange(src, d=100) {
   el.style.opacity = 0;
   if (src === "none") return;
   setTimeout(() => {
+    console.log("スプライトを変更", src);
     el.src = `assets/characters/${src}.png`;
     el.style.opacity = 1;
   },d);
