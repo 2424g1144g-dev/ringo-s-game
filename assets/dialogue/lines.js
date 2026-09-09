@@ -30,7 +30,8 @@ DIALOGUE_LINES.description = [
                                   {segments: [{text: "会議中にコントロールキーで確認できます。"}]}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "textEnterChange", id: false},{type: "fileShowToggle"}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "他にわかっていることといえば..."}], event: [{type: "textEnterChange", id: true},{type: "boxHide"}]}]},
-  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "textEnterChange", id: false},{type: "diaShowToggle"},{type: "background", id: "gym", fade: 800}]}]},
+  { name: " ", lines: [{segments: [{text: " "}], event: [{type: "textEnterChange", id: false},{type: "diaShowToggle"},{type: "background", id: "gym", fade: 800}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
+  { name: " ", lines: [{segments: [{text: " "}], autoNext: true, dialogueAutoNext: true, wait: 800}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "ryuji/Ryuji_Think"}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
   { name: "シノハラ　リュウジ", lines: [{segments: [{text: "なんかおかしいな..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]}
 ]
