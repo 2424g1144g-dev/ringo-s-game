@@ -7,7 +7,7 @@ DIALOGUE_LINES.description = [
   { name: "？？？", lines: [{segments: [{text: "ちょっと、大丈夫ですか？"}]}]},
   { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: false}], autoNext: true, dialogueAutoNext: true, wait: 1000}]},
   { name: "？？？", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "taturo/Taturo_Normal"}], autoNext: true, dialogueAutoNext: true, wait: 2000}]},
-  { name: "？？？", lines: [{segments: [{text: "あ、やっと目覚めたようですね..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
+  { name: "？？？", lines: [{segments: [{text: "あ、やっと目覚めたようですね..."}], event: [{type: "whiteFlash"},{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "まずはオーソドックスに自己紹介から始めますね..."}], event: [{type: "spriteChange", id: "taturo/Taturo_Explain"}]},
                             {segments: [{text: "僕の名前は"},{text: "西本達郎（ニシモトタツロウ）",class: "yellow"},{text: "です。"}]}]},
   { name: "ニシモト　タツロウ", lines: [{segments: [{text: "本当なら、この学校や他の先生方のこと..."}]},
@@ -33,7 +33,8 @@ DIALOGUE_LINES.description = [
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "textEnterChange", id: false},{type: "diaShowToggle"},{type: "background", id: "gym", fade: 800}], autoNext: true, dialogueAutoNext: true, wait: 500}]},
   { name: " ", lines: [{segments: [{text: " "}], autoNext: true, dialogueAutoNext: true, wait: 1300}]},
   { name: " ", lines: [{segments: [{text: " "}], event: [{type: "spriteChange", id: "ryuji/Ryuji_Think"}], autoNext: true, dialogueAutoNext: true, wait: 800}]},
-  { name: "シノハラ　リュウジ", lines: [{segments: [{text: "なんかおかしいな..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]}
+  { name: "シノハラ　リュウジ", lines: [{segments: [{text: "なんかおかしいな..."}], event: [{type: "diaShowToggle"},{type: "textEnterChange", id: true}]}]},
+  { name: "ニシモト　タツロウ"}
 ]
 
 DIALOGUE_LINES.dialogueStart = [
